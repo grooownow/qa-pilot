@@ -2,9 +2,10 @@
 
 A QA copilot plugin for [Claude Code](https://code.claude.com). Install it into
 any existing project and Claude becomes a disciplined QA engineer: it audits
-your test codebase, designs test scenarios, writes Playwright tests, and runs
-exploratory testing in a real browser — with strict quality gates and token
-economy tuned for subscription plans (works fine on Claude Pro).
+your test codebase, covers new code with tests in one command, designs test
+scenarios, writes Playwright tests, and runs exploratory testing in a real
+browser — with strict quality gates and token economy tuned for subscription
+plans (works fine on Claude Pro).
 
 Built for QA engineers who are new to AI agents: every skill asks when it's
 missing context, persists its work to files in your repo, and never claims
@@ -53,10 +54,27 @@ The natural rhythm: **onboard → audit → refactoring plan** once per project,
 then **cover** for every feature you build after that, with `test` for
 hands-on verification anytime.
 
-## À la carte
+## All skills at a glance
 
-Each step is also available on its own (add your context after the command —
-a feature description, ticket ID, or PR link):
+| Command | What it does | Writes to your repo |
+|---|---|---|
+| `/qa-pilot:onboard` | One-time setup: profiles your stack, test frameworks, conventions, environments | `docs/qa/project-profile.md` |
+| `/qa-pilot:audit` | Deep health check of the test codebase: flakiness, false-greens, duplication → findings + ordered refactoring plan, executable step by step | `docs/qa/audit-report.md`, `docs/qa/refactoring-plan.md` |
+| `/qa-pilot:cover` | The everyday orchestrator: what changed → coverage gaps → plan → write → review | `docs/qa/test-plans/<feature>.md` + test files |
+| `/qa-pilot:plan-tests` | Feature → prioritized test scenarios with an explicit depth/cost tradeoff (smoke / standard / thorough) | `docs/qa/test-plans/<feature>.md` |
+| `/qa-pilot:write-tests` | Implements tests from a plan per your conventions; proves each test can fail; adversarial review loop | test files + scenario→file map in the plan |
+| `/qa-pilot:test` | Exploratory testing session in a real browser (Playwright MCP); guarded low-risk fixes on request | `docs/qa/test-sessions/<date>-<slug>.md` |
+
+Every skill except `onboard` reads the project profile — run `onboard` once
+first. If a session hits your plan's usage limit mid-task, nothing is lost:
+every skill writes progress to its document as it works, and the next session
+resumes from the file.
+
+## Running steps individually
+
+`cover` chains the middle of the pipeline for you; each step is also a
+standalone command (add your context after it — a feature description,
+ticket ID, or PR link):
 
 Health-check the existing tests:
 
@@ -81,11 +99,6 @@ Test a feature hands-on in the browser:
 ```
 /qa-pilot:test <feature or flow>
 ```
-
-All outputs live in `docs/qa/` in your repo — reports, plans, session logs.
-If a session hits your plan's usage limit mid-task, nothing is lost: every
-skill writes progress to its document as it works, and the next session
-resumes from the file.
 
 ## What's inside
 
