@@ -32,19 +32,39 @@ To update later: `/plugin marketplace update qa-pilot`.
 In your project, start with:
 
 ```
-Use qa-pilot:onboard to set up this project
+/qa-pilot:onboard
 ```
 
 This analyzes your stack and conventions, asks you a few questions, and writes
 `docs/qa/project-profile.md` — the persistent memory all other skills reuse
-(so they don't burn tokens re-scanning your repo every session). Then:
+(so they don't burn tokens re-scanning your repo every session).
 
-| You want | Say | Skill |
-|---|---|---|
-| Health-check the existing tests | "Audit our test suite" | `qa-pilot:audit` |
-| Test scenarios for a feature | "Plan tests for <feature/ticket/PR>" | `qa-pilot:plan-tests` |
-| Automated tests written | "Write the tests from the plan" | `qa-pilot:write-tests` |
-| A feature tested in the browser | "Test <feature> in the browser" | `qa-pilot:test` |
+Then pick the command for what you need (add your context after the command —
+a feature description, ticket ID, or PR link):
+
+Health-check the existing tests:
+
+```
+/qa-pilot:audit
+```
+
+Design test scenarios for a feature:
+
+```
+/qa-pilot:plan-tests <feature, ticket, or PR>
+```
+
+Write the automated tests from a plan:
+
+```
+/qa-pilot:write-tests
+```
+
+Test a feature hands-on in the browser:
+
+```
+/qa-pilot:test <feature or flow>
+```
 
 The natural first project cycle: **onboard → audit → refactoring plan →
 plan-tests → write-tests**, with `test` for hands-on verification anytime.
