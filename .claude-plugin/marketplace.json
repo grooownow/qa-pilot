@@ -1,0 +1,14 @@
+{
+  "name": "qa-pilot",
+  "owner": { "name": "grooownow" },
+  "metadata": {
+    "description": "QA copilot for Claude Code: test-codebase audit, test planning, Playwright test writing, exploratory browser testing."
+  },
+  "plugins": [
+    {
+      "name": "qa-pilot",
+      "source": "./",
+      "description": "QA copilot: test-codebase audit, test-scenario design, Playwright test writing, exploratory browser testing."
+    }
+  ]
+}
