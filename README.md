@@ -117,6 +117,12 @@ Test a feature hands-on in the browser:
   [@playwright/mcp](https://www.npmjs.com/package/@playwright/mcp) server
   (pinned version), giving Claude real browser control for `qa-pilot:test`.
 
+## Learn more
+
+**[docs/guide.md](docs/guide.md)** — the practical guide: starting on a new
+project, the everyday workflow, how coverage analysis actually works, how to
+make your project qa-pilot-friendly, and current limitations.
+
 ## Frontend, backend, or both?
 
 qa-pilot is **strongest on frontend/e2e testing, and usable well beyond it**:
