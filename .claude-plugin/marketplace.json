@@ -8,7 +8,7 @@
     {
       "name": "qa-pilot",
       "source": "./",
-      "description": "QA copilot: test-codebase audit, test-scenario design, Playwright test writing, exploratory browser testing."
+      "description": "QA copilot: test-codebase audit, one-command test coverage for new code, test-scenario design, Playwright test writing, exploratory browser testing."
     }
   ]
 }

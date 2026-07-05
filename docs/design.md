@@ -1,7 +1,7 @@
 # qa-pilot — Design
 
 **Date:** 2026-07-05
-**Status:** approved (v1 scope)
+**Status:** living document — v1 approved 2026-07-05; `cover` skill added in 0.2.0
 
 ## What
 
@@ -37,6 +37,7 @@ qa-pilot/
 ├── skills/
 │   ├── onboard/SKILL.md     # project profiling → docs/qa/project-profile.md
 │   ├── audit/SKILL.md       # test-codebase audit → report + refactoring plan → execute
+│   ├── cover/SKILL.md       # everyday orchestrator: changed code → gap map → plan → write
 │   ├── plan-tests/SKILL.md  # feature → test scenarios (cost/value tradeoff)
 │   ├── write-tests/SKILL.md # scenarios → Playwright tests per project conventions
 │   └── test/SKILL.md        # exploratory browser testing via Playwright MCP
@@ -54,7 +55,7 @@ qa-pilot/
 └── README.md                # install + quickstart for an AI-agent beginner
 ```
 
-## The five skills
+## The skills
 
 Every skill follows the same contract: numbered phases, todo per phase, reads
 `docs/qa/project-profile.md` first (or tells the user to run `qa-pilot:onboard`),
@@ -81,7 +82,12 @@ claiming done.
    match the project's own conventions from the profile. Dispatches test-author
    agent(s) with precise briefs; runs the tests; mandatory review loop; proves tests
    can fail (no false-green).
-5. **test** — exploratory/manual testing in a real browser via Playwright MCP: walks
+5. **cover** (added in 0.2.0) — the everyday orchestrator after new code lands:
+   scope the change (from description/ticket/PR or branch diff) → map coverage
+   gaps against existing tests (including green-but-outdated tests of modified
+   behavior) → invoke plan-tests for the gaps → invoke write-tests → close the
+   loop with gates and a covered-before/after summary.
+6. **test** — exploratory/manual testing in a real browser via Playwright MCP: walks
    scenarios, records findings with repro steps, optionally fixes low-risk bugs
    (guarded), re-verifies after fixes. Output: `docs/qa/test-sessions/<date>-<slug>.md`.
 

@@ -39,7 +39,23 @@ This analyzes your stack and conventions, asks you a few questions, and writes
 `docs/qa/project-profile.md` — the persistent memory all other skills reuse
 (so they don't burn tokens re-scanning your repo every session).
 
-Then pick the command for what you need (add your context after the command —
+## The everyday command
+
+Shipped a new feature or changed an existing one? One command closes the
+testing loop — it detects what changed, checks what's already covered, plans
+the missing scenarios, writes the tests, and reviews them:
+
+```
+/qa-pilot:cover <feature, ticket, PR — or nothing, to scope from your branch diff>
+```
+
+The natural rhythm: **onboard → audit → refactoring plan** once per project,
+then **cover** for every feature you build after that, with `test` for
+hands-on verification anytime.
+
+## À la carte
+
+Each step is also available on its own (add your context after the command —
 a feature description, ticket ID, or PR link):
 
 Health-check the existing tests:
@@ -66,9 +82,6 @@ Test a feature hands-on in the browser:
 /qa-pilot:test <feature or flow>
 ```
 
-The natural first project cycle: **onboard → audit → refactoring plan →
-plan-tests → write-tests**, with `test` for hands-on verification anytime.
-
 All outputs live in `docs/qa/` in your repo — reports, plans, session logs.
 If a session hits your plan's usage limit mid-task, nothing is lost: every
 skill writes progress to its document as it works, and the next session
@@ -76,7 +89,7 @@ resumes from the file.
 
 ## What's inside
 
-- **5 skills** (`skills/`) — onboard, audit, plan-tests, write-tests, test.
+- **6 skills** (`skills/`) — onboard, audit, cover, plan-tests, write-tests, test.
   Each follows the same contract: numbered phases, batched questions when
   context is missing, mandatory self-review of any code it changes, evidence
   before claims.
@@ -90,6 +103,26 @@ resumes from the file.
 - **Playwright MCP** (`.mcp.json`) — the official
   [@playwright/mcp](https://www.npmjs.com/package/@playwright/mcp) server
   (pinned version), giving Claude real browser control for `qa-pilot:test`.
+
+## Frontend, backend, or both?
+
+qa-pilot is **strongest on frontend/e2e testing, and usable well beyond it**:
+
+- `onboard`, `audit`, `cover`, and `plan-tests` are test-framework-agnostic:
+  onboarding profiles *all* test frameworks in your repo (unit, integration,
+  API — not just Playwright); audit lenses (flakiness, false-green tests,
+  duplication) apply to any test code; test planning explicitly pushes checks
+  down the pyramid to unit and API level.
+- `write-tests` writes unit, integration, and API tests too — Playwright itself
+  can test APIs directly (request context, no browser), which covers the
+  backend of a typical web project.
+- `test` (browser sessions) is frontend/UI-only by nature.
+- The bundled reference library (e2e patterns, flakiness catalog, browser
+  hygiene) is Playwright/frontend-flavored. On a pure backend codebase
+  (JVM, Python, Go) the skills still work but lean on your project's own
+  conventions instead of a ready-made pattern library — expect less
+  out-of-the-box guidance there. Backend-specific references (API contract
+  testing, DB/migration testing) are on the roadmap.
 
 ## Design principles
 
