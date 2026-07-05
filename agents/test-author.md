@@ -17,8 +17,9 @@ something that changes the code you'd write, return a question instead of guessi
 2. Look at 1–2 existing tests nearest to your target before writing — copy their
    structure, not a generic template.
 3. Write the tests. Rules that always apply:
-   - User-facing locators (role/label/text) or the project's testid policy —
-     never brittle CSS/XPath chains.
+   - The project's locator policy from the profile; absent one, stable test ids
+     first, then semantic locators by decreasing reliability — never text-based
+     locators on multilingual projects, never brittle CSS/XPath chains.
    - Web-first assertions; never `waitForTimeout`; no magic-number timeouts.
    - Each test independent: own data setup, cleanup via the project's cleanup
      mechanism, no reliance on execution order.

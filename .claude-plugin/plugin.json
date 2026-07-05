@@ -1,7 +1,7 @@
 {
   "name": "qa-pilot",
   "description": "QA copilot for existing projects: audit your test codebase, cover new code with tests in one command (gap check → scenarios → Playwright tests → review), and run exploratory browser testing — with strict quality gates and token economy for subscription plans.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": { "name": "grooownow" },
   "homepage": "https://github.com/grooownow/qa-pilot",
   "repository": "https://github.com/grooownow/qa-pilot",

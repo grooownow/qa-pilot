@@ -9,7 +9,8 @@ win on conflict.
 ## Quick checklist
 
 - One `test.describe` per spec file; the file name and describe title both name the feature.
-- Locate by role/label/text or a dedicated `data-testid`; never CSS classes or `nth-child`.
+- Locate by stable `data-testid` first, then semantic locators by decreasing reliability
+  (see Locator strategy); never CSS classes or `nth-child`.
 - Page Object Model for any flow with more than a couple of interactions; injected via a
   fixture, not `new`'d inline in every test.
 - Web-first assertions and `waitForResponse`, never `page.waitForTimeout()`.
@@ -45,15 +46,17 @@ surface.
 ```typescript
 // page-objects/checkout-page.ts
 import type { Page, Locator } from "@playwright/test";
+import { CHECKOUT_TEST_IDS } from "@app/checkout/testIds"; // constants owned by the component
 
 export class CheckoutPage {
   constructor(private readonly page: Page) {}
 
   // Locators are private and lazy — built on access, not in the constructor.
+  // Test ids first (survive restyling and translation); bare roles where unambiguous.
   private el = {
-    cardNumber: (): Locator => this.page.getByLabel("Card number"),
-    expiry: (): Locator => this.page.getByLabel("Expiry"),
-    payButton: (): Locator => this.page.getByRole("button", { name: "Pay now" }),
+    cardNumber: (): Locator => this.page.getByTestId(CHECKOUT_TEST_IDS.cardNumber),
+    expiry: (): Locator => this.page.getByTestId(CHECKOUT_TEST_IDS.expiry),
+    payButton: (): Locator => this.page.getByTestId(CHECKOUT_TEST_IDS.payButton),
     errorBanner: (): Locator => this.page.getByRole("alert"),
   };
 
@@ -173,15 +176,28 @@ need a hand-rolled `test.afterAll` — the per-test cleanup fixture doesn't fit 
 
 ## Locator strategy
 
-- Prefer, in order: `getByRole`, `getByLabel`, `getByText`, then a dedicated `data-testid`
-  for elements with no accessible role/label/text (icon-only buttons, decorative containers
-  used as hooks). Never `.locator('.some-class')` or `nth-child` — both break the moment
-  styling or DOM order changes, independent of any user-visible change.
+- Prefer, in order of decreasing reliability:
+  1. **`getByTestId`** — a dedicated `data-testid` is the only locator that survives
+     restyling, copy changes, AND translation. On any project that is (or may become)
+     multilingual, this is the default.
+  2. **`getByRole` without a text name** (e.g. `getByRole("alert")`, `getByRole("dialog")`) —
+     semantic and language-independent, when the role alone is unambiguous in context.
+  3. **`getByRole`/`getByLabel` with a name** — readable and accessibility-aware, but the
+     name IS display text: it breaks on copy edits and on every non-default locale. Fine for
+     single-language projects; on multilingual ones only with a locale-independent source
+     (translation-key lookup or a pinned test locale).
+  4. **`getByText`** — last resort: couples the test to exact copy and to one language.
+     Acceptable only when the text itself is the behavior under test (e.g. asserting a
+     specific message), and even then prefer asserting text on an element found by test id.
+
+  Never `.locator('.some-class')` or `nth-child` — both break the moment styling or DOM
+  order changes, independent of any user-visible change.
 - Export `data-testid` values as named constants from the component that owns them, not as
   string literals sprinkled through tests. A rename becomes a one-file diff instead of a
   find-and-replace across specs.
-- If a locator strategy forces you into brittle selectors, that's a signal the component is
-  missing an accessible name — fix the component, don't work around it in the test.
+- Test ids are hooks for tests, not a replacement for accessibility: if an interactive
+  element has no role or accessible name at all, flag the component — screen-reader users
+  hit the same wall the locator did.
 
 ## Waiting strategy
 
