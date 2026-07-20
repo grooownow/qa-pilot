@@ -172,6 +172,13 @@ qa-pilot is **strongest on frontend/e2e testing, and usable well beyond it**:
   `chrome-devtools-mcp@claude-plugins-official` (deep network/console/
   performance inspection — official Chrome DevTools team).
 
+## Made by
+
+qa-pilot is built by **[Ludvik4](https://ludvik4.dev)** — a studio building
+digital products with a focus on AI-assisted development. The same philosophy
+you see here — project rules win, spec-first, evidence before claims — is how
+we build client work.
+
 ## License
 
 MIT
