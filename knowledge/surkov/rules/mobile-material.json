@@ -1,0 +1,2695 @@
+[
+  {
+    "id": "SRK-MD-001",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Без «Пожалуйста/Извините/Спасибо» в сообщениях об ошибках",
+    "statement": "В текстах интерфейса, и прежде всего в ошибках, обходиться без формул вежливости; «пожалуйста» оставлять только для просьб о действии, которое доставит пользователю неудобство.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Grep по строкам ошибок на /(пожалуйста|извините|спасибо|please|sorry|thank you)/i; совпадения вне просьб о неудобном действии — замечание."
+    },
+    "source": {
+      "chunk_id": "s6-c05-00",
+      "printed_pages": [
+        555
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "ux-writing",
+      "error-message",
+      "localization"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-002",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Не использовать многозначное слово в двух значениях в одной строке",
+    "statement": "Слова, которые могут быть и существительным, и глаголом (filter, change, traffic), не употреблять в обоих значениях в одной строке; для неоднозначных слов (например, Home) давать контекст переводчикам.",
+    "rationale": "Двусмысленность ломает точность перевода.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Просмотреть строки локализации на многозначные слова без комментария-контекста для переводчика."
+    },
+    "source": {
+      "chunk_id": "s6-c05-00",
+      "printed_pages": [
+        555,
+        556
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "ux-writing",
+      "localization",
+      "i18n"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-003",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Главное — в начале текста уведомления",
+    "statement": "Самую важную информацию помещать в начало предложения/уведомления: тексты сканируют по F-паттерну, а конец может обрезаться.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Прочитать шаблоны уведомлений: ключевой факт (статус, сумма, срок) в первых словах, не в хвосте."
+    },
+    "source": {
+      "chunk_id": "s6-c05-02",
+      "printed_pages": [
+        556
+      ]
+    },
+    "tags": [
+      "android",
+      "ios",
+      "notifications",
+      "push",
+      "ux-writing",
+      "f-pattern"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-004",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Динамический текст — в тело уведомления, не в заголовок",
+    "statement": "Избегать подставляемых значений (имена, названия кампаний) в заголовке уведомления; если нужно — не более одного дополнительного слова и резервный вариант, укладывающийся в лимит.",
+    "rationale": "При переводе динамический текст превышает лимит, а обрезанный заголовок не раскрывается даже в развёрнутом уведомлении.",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить шаблоны заголовков push: подстановка длинного значения (длинное имя, длинный перевод) не обрезает смысл; есть fallback-шаблон."
+    },
+    "source": {
+      "chunk_id": "s6-c05-02",
+      "printed_pages": [
+        557
+      ]
+    },
+    "tags": [
+      "android",
+      "notifications",
+      "push",
+      "dynamic-text",
+      "localization"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-005",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Уведомление явно говорит, что делать дальше",
+    "statement": "Если уведомление побуждает к действию, CTA должен быть кратким, конкретным и не прятать следующий шаг.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для уведомлений, требующих действия, проверить наличие явного следующего шага (кнопка или текст)."
+    },
+    "source": {
+      "chunk_id": "s6-c05-02",
+      "printed_pages": [
+        557,
+        558
+      ]
+    },
+    "tags": [
+      "android",
+      "notifications",
+      "push",
+      "cta"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-006",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Лимиты длины уведомлений: заголовок < 29, свернутый < 40, развернутый < 80 символов",
+    "statement": "Заголовок уведомления короче 29 символов, свернутый текст — короче 40, развернутый — короче 80 (начинается со свернутого); не более 1–2 кнопок по 1–2 слова.",
+    "rationale": "Ограничения предотвращают обрезание на небольших устройствах.",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Скриптом проверить шаблоны уведомлений (и их переводы): len(title) < 29, len(collapsed) < 40, len(expanded) < 80, actions ≤ 2, слов в кнопке ≤ 2."
+    },
+    "source": {
+      "chunk_id": "s6-c05-02",
+      "printed_pages": [
+        558
+      ]
+    },
+    "tags": [
+      "android",
+      "notifications",
+      "push",
+      "character-limit",
+      "localization"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-007",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Эмодзи в уведомлениях — умеренно и не вместо слов",
+    "statement": "Эмодзи только дополняют текст, не заменяют слова; лица и жесты понятнее абстрактных; не использовать грустные эмодзи для плохих новостей.",
+    "rationale": "Эмодзи плохо переводятся и трактуются по-разному в разных культурах и поколениях.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить тексты уведомлений и сообщений: нет слов, заменённых эмодзи, нет грустных/тревожных эмодзи в негативных сообщениях."
+    },
+    "source": {
+      "chunk_id": "s6-c05-02",
+      "printed_pages": [
+        558,
+        559
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "notifications",
+      "emoji",
+      "ux-writing"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-008",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Эмоциональная иконка/эмодзи соответствует смыслу результата",
+    "statement": "Обобщение кейса автора: заглушка «нет данных» с грустным эмодзи не должна показываться там, где отсутствие данных — хорошая новость (например, отсутствие судимостей, задолженностей).",
+    "rationale": "В разборе автора госсервис показывал грустный смайл при отсутствии судимостей.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Перебрать empty states и результаты проверок: эмоциональная окраска иллюстрации соответствует смыслу (хорошая/плохая новость), не одна общая заглушка для всех случаев."
+    },
+    "source": {
+      "chunk_id": "s6-c05-02",
+      "printed_pages": [
+        559
+      ]
+    },
+    "tags": [
+      "android",
+      "ios",
+      "web",
+      "empty-state",
+      "emoji",
+      "illustration"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-009",
+    "kind": "rule",
+    "severity": "should",
+    "title": "В уведомлениях — день недели, а не «сегодня/завтра»",
+    "statement": "Указывать конкретный день недели вместо относительных «сегодня», «завтра», «сегодня вечером», если уведомление не скрывается автоматически к нужному времени.",
+    "rationale": "Около 20% пользователей видят уведомление не в день отправки.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Grep по шаблонам уведомлений на /(сегодня|завтра|вечером|today|tomorrow|tonight)/i; при отсутствии автоскрытия по времени — замечание."
+    },
+    "source": {
+      "chunk_id": "s6-c05-02",
+      "printed_pages": [
+        559,
+        560
+      ]
+    },
+    "tags": [
+      "android",
+      "notifications",
+      "push",
+      "dates",
+      "ux-writing"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-010",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Не повторять название приложения в тексте уведомления",
+    "statement": "Название и иконка приложения уже показаны системой; не тратить на них место в заголовке и тексте.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Проверить шаблоны уведомлений на вхождение названия продукта в заголовок/текст."
+    },
+    "source": {
+      "chunk_id": "s6-c05-02",
+      "printed_pages": [
+        560,
+        561
+      ]
+    },
+    "tags": [
+      "android",
+      "notifications",
+      "push",
+      "ux-writing"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-011",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Material: регистр как в предложении (Sentence case) для всех UI-текстов",
+    "statement": "Заголовки, метки, пункты меню, навигация, app bar и кнопки пишутся с заглавной только первой буквы фразы (кроме названий продуктов и брендов).",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для Android/Material-интерфейса выписать заголовки, кнопки, пункты меню и метки; написание каждого слова с заглавной (Title Case), кроме названий продуктов и брендов, — замечание."
+    },
+    "source": {
+      "chunk_id": "s6-c05-03",
+      "printed_pages": [
+        561
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "ux-writing",
+      "capitalization",
+      "material",
+      "see-SRK-HIG-087"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-013",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Без точки в конце одиночных предложений в метках и подсказках",
+    "statement": "Не ставить точку в одиночных предложениях в метках, тултипах, списках, теле диалогов и тексте ссылок; точки — только в многопредложенных и сложных текстах.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Regex по строкам меток/тултипов/ссылок: одно предложение, оканчивающееся точкой, — замечание."
+    },
+    "source": {
+      "chunk_id": "s6-c05-03",
+      "printed_pages": [
+        563
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "ux-writing",
+      "punctuation",
+      "see-SRK-HIG-102"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-014",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Англоязычный UI: сокращения (don't) и оксфордская запятая",
+    "statement": "В английском тексте использовать сокращения для лёгкости (полное «do not» — для предостережений) и серийную запятую в списках из трёх и более элементов (кроме перед &), запятые — внутри кавычек.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить английские строки на перечисления без запятой перед and и на неуместно формальные полные формы."
+    },
+    "source": {
+      "chunk_id": "s6-c05-03",
+      "printed_pages": [
+        563,
+        564
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "ux-writing",
+      "english",
+      "punctuation"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-015",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Разряды чисел от 1 000; миллионы — сокращать до «М» для порядка",
+    "statement": "Разделять разряды в числах больше 1 000 (не в адресах, частотах, годах); для передачи масштаба округлять и сокращать миллион до «M».",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Regex по отображаемым числам: 4+ цифры подряд без разделителя разрядов (кроме годов, кодов) — замечание; учитывать формат локали."
+    },
+    "source": {
+      "chunk_id": "s6-c05-03",
+      "printed_pages": [
+        564,
+        565
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "number-format",
+      "localization",
+      "see-SRK-L10N-011"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-016",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Восклицательные знаки — только для поздравлений",
+    "statement": "Не использовать «!» в пустых состояниях и рядовых задачах; оставлять для приветствий и значимых достижений.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Grep UI-строк на '!' и отметить вхождения в empty states, ошибках и рутинных сообщениях."
+    },
+    "source": {
+      "chunk_id": "s6-c05-03",
+      "printed_pages": [
+        565
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "ux-writing",
+      "punctuation",
+      "empty-state"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-017",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Круглые скобки — для расшифровки терминов, не для побочных мыслей",
+    "statement": "Скобки применять для расшифровки аббревиатур и жаргона или ссылки на источник; дополнительные мысли в скобки не выносить — нужную информацию встраивать в само предложение.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Просмотреть UI-тексты на скобки: если внутри не определение термина и не источник, а попутное замечание — замечание."
+    },
+    "source": {
+      "chunk_id": "s6-c05-03",
+      "printed_pages": [
+        566,
+        567
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "ux-writing",
+      "typography"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-018",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Disabled-компонент не реагирует на hover, фокус, нажатие и перетаскивание",
+    "statement": "Заблокированный элемент нельзя сфокусировать, перетащить или нажать, и он не меняет вид при наведении или нажатии.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Playwright: для disabled-кнопки expect(locator).toBeDisabled(), hover не меняет стиль (сравнить computed styles), Tab не даёт фокус, клик не вызывает действия."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        567
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "button",
+      "disabled-state",
+      "states"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-019",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Боковые отступы 16dp в компактном макете",
+    "statement": "В компактных макетах отступы контента от переднего и заднего краёв окна — 16dp.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Layout Inspector или скриншот на компактной ширине: измерить отступы контента от левого и правого краёв окна (ориентир — 16dp); контент вплотную к краю или разные отступы слева и справа — замечание."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        567
+      ]
+    },
+    "tags": [
+      "android",
+      "layout",
+      "margins",
+      "spacing"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-020",
+    "kind": "rule",
+    "severity": "must",
+    "title": "RTL: текст выровнен и течёт справа налево",
+    "statement": "Если продукт поддерживает RTL-языки, контент в них должен иметь и правое выравнивание, и направление справа налево; LTR-направление к RTL-тексту не применять. Отдельно проверять ввод текста, позицию курсора, пунктуацию, телефоны и URL.",
+    "rationale": "Неправильный рендеринг перемешивает порядок слов и подрывает доверие.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Включить арабский/иврит (Android: Developer options → Force RTL layout direction), ввести текст с пунктуацией, номером телефона и URL: порядок символов, курсор и пунктуация корректны."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        568,
+        569
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "rtl",
+      "localization",
+      "text-rendering"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-021",
+    "kind": "rule",
+    "severity": "must",
+    "title": "RTL: e-mail сохраняет порядок «имя@домен»",
+    "statement": "В RTL домен e-mail всегда остаётся справа от имени пользователя; имя при этом может набираться справа налево.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В RTL-режиме ввести и отобразить e-mail: последовательность local-part@domain не перевёрнута."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        569
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "rtl",
+      "email",
+      "text-field"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-022",
+    "kind": "rule",
+    "severity": "should",
+    "title": "RTL: какие иконки зеркалить, а какие нет",
+    "statement": "В RTL зеркалить направленные иконки (назад/вперёд, отправить), но не зеркалить часы, круговые иконки обновления и стрелки по часовой стрелке; значение иконок проверять на культурные различия.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В RTL-режиме пройти экраны: стрелки назад/вперёд и «отправить» отражены; часы, refresh-иконки и круговые индикаторы — нет."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        569,
+        571
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "rtl",
+      "icons"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-023",
+    "kind": "rule",
+    "severity": "should",
+    "title": "RTL: линейный прогресс заполняется справа (кроме иврита), круговой — по часовой",
+    "statement": "Линейные индикаторы прогресса в большинстве RTL-языков заполняются справа налево, в иврите — слева направо; круговые индикаторы и часы всегда идут по часовой стрелке.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В арабской локали проверить направление заполнения linear progress, в иврите — LTR; circular progress — по часовой в обоих."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        570,
+        571
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "rtl",
+      "progress-indicator",
+      "hebrew",
+      "arabic",
+      "see-SRK-L10N-028"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-024",
+    "kind": "rule",
+    "severity": "should",
+    "title": "RTL: медиаплеер и графики сохраняют LTR",
+    "statement": "Элементы управления видео/аудио и полоса воспроизведения остаются слева направо в RTL; графики и диаграммы сохраняют LTR для персидского и урду; в иврите таймлайны и медиа-контролы тоже LTR.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В RTL-локали открыть плеер и графики: play/перемотка и seek bar не перевёрнуты."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        568,
+        571
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "rtl",
+      "media-player",
+      "charts"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-025",
+    "kind": "rule",
+    "severity": "should",
+    "title": "RTL: AM/PM слева от времени, часы идут по часовой",
+    "statement": "В RTL направление цифр времени остаётся LTR, часы по часовой стрелке, но AM/PM в 12-часовом формате располагается слева; учитывать, что во многих странах принят 24-часовой формат.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В RTL-локали открыть time picker и отображение времени: цифры не перевёрнуты, AM/PM слева, кнопки отражены."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        571
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "rtl",
+      "time-picker",
+      "time-format"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-026",
+    "kind": "rule",
+    "severity": "should",
+    "title": "RTL: канонические макеты зеркалятся",
+    "statement": "Макеты «список-детали», лента (feed) и вспомогательная панель (supporting pane) в RTL отражаются: порядок панелей, сетка и выравнивание — справа налево.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "На планшете/широком окне в RTL проверить, что список находится справа, детали — слева, сетка ленты начинается справа."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        572,
+        573
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "rtl",
+      "layout",
+      "list-detail",
+      "feed"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-027",
+    "kind": "rule",
+    "severity": "should",
+    "title": "RTL: бейджи, тулбары, app bar и navigation rail зеркалятся",
+    "statement": "Бейджи переезжают в верхний левый угол иконки; порядок инструментов тулбара отражается (FAB слева); app bar отражается вместе со стрелками; navigation rail и развернутая панель находятся на правом (переднем) крае.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В RTL проверить положение badge, порядок кнопок тулбара/FAB, стрелку «назад» в app bar и сторону navigation rail/drawer."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        573,
+        575
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "rtl",
+      "badge",
+      "toolbar",
+      "app-bar",
+      "navigation-rail",
+      "fab"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-028",
+    "kind": "rule",
+    "severity": "should",
+    "title": "RTL: иконки текстовых полей, чипсов и FAB меняют сторону",
+    "statement": "Leading/trailing иконки текстовых полей (очистка, ошибка, голосовой ввод, dropdown) меняются местами; trailing-иконка чипса — у левого края; в extended FAB иконка справа от метки.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В RTL проверить текстовые поля с иконками, чипсы с крестиком и extended FAB: расположение элементов зеркально LTR-варианту."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        575,
+        576
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "rtl",
+      "text-field",
+      "chips",
+      "fab"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-029",
+    "kind": "rule",
+    "severity": "should",
+    "title": "RTL: слайдеры растут справа налево",
+    "statement": "В RTL значения слайдеров и range-селекторов увеличиваются справа налево.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В RTL сдвинуть слайдер влево: значение увеличивается."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        576
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "rtl",
+      "slider",
+      "range-selector",
+      "see-SRK-HIG-021"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-030",
+    "kind": "rule",
+    "severity": "should",
+    "title": "RTL: свайп-жесты и жест «назад» зеркальны",
+    "statement": "Свайпы в RTL отражают LTR-аналоги: действие, открывающееся свайпом с одной стороны в LTR, открывается с противоположной в RTL; жест возврата тоже адаптируется.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В RTL выполнить swipe-to-delete и навигацию свайпом между вкладками и назад: направление зеркально LTR."
+    },
+    "source": {
+      "chunk_id": "s6-c05-04",
+      "printed_pages": [
+        576,
+        577
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "rtl",
+      "gestures",
+      "swipe"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-031",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Иконки простые и графичные, без избыточной детализации",
+    "statement": "Иконки упрощать для читаемости: не слишком буквальные, без сложных деталей и тонких размытых органических форм.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Просмотреть набор иконок на малом размере (24dp): сложные/размытые иконки, теряющие читаемость, — замечание."
+    },
+    "source": {
+      "chunk_id": "s6-c05-07",
+      "printed_pages": [
+        577,
+        578
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "icons"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-032",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Иконки-символы того же размера, что текст, с опущенной базовой линией",
+    "statement": "Шрифтовые иконки Material Symbols рядом с текстом — того же размера, базовая линия иконки смещена вниз примерно на 11.5% размера текста.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить строки «иконка + текст»: иконка не крупнее/мельче текста и визуально выровнена по центру строки."
+    },
+    "source": {
+      "chunk_id": "s6-c05-07",
+      "printed_pages": [
+        578,
+        579
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "icons",
+      "typography",
+      "alignment"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-033",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Анимация появления дольше, исчезновения — короче",
+    "statement": "Использовать рекомендованные Material easing и длительности: переходы появления (enter) длиннее (порядка 500 мс в примерах), исчезновения (exit) короче (порядка 200 мс).",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Замерить длительность открытия и закрытия диалогов/панелей (Android: Developer options → Animator duration scale, запись экрана): закрытие быстрее открытия."
+    },
+    "source": {
+      "chunk_id": "s6-c05-07",
+      "printed_pages": [
+        579,
+        580
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "animation",
+      "motion",
+      "easing"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-034",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Логотип в app bar качественный и не мешает функциям",
+    "statement": "Графический логотип в верхней панели допустим, если он высокого качества и не нарушает работу панели (может заменить текст в маленькой app bar).",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить логотип в top app bar: чёткий на разных плотностях экрана, не перекрывает навигацию и действия."
+    },
+    "source": {
+      "chunk_id": "s6-c05-09",
+      "printed_pages": [
+        580,
+        581
+      ]
+    },
+    "tags": [
+      "android",
+      "app-bar",
+      "logo",
+      "branding"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-035",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Кастомный цвет бейджа — контраст не менее 3:1",
+    "statement": "Для бейджей использовать стандартный цвет индикатора; если нужен свой цвет, его контраст с окружением должен быть не ниже 3:1.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Измерить контраст бейджа к фону и иконке (Colour Contrast Analyser или пипетка DevTools с расчётом contrast ratio): меньше 3:1 — дефект."
+    },
+    "source": {
+      "chunk_id": "s6-c05-10",
+      "printed_pages": [
+        581
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "badge",
+      "contrast",
+      "wcag-1.4.11",
+      "see-SRK-A11Y-045"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-036",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Большое число в бейдже сокращается с «+»",
+    "statement": "Метка бейджа не выходит за контейнер: при превышении максимального числа символов показывать сокращение с плюсом (например, 999+).",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Подставить большое значение счётчика (1000, 99999): бейдж показывает усечённое значение с «+» и не растягивается/не обрезается."
+    },
+    "source": {
+      "chunk_id": "s6-c05-10",
+      "printed_pages": [
+        581,
+        582
+      ]
+    },
+    "tags": [
+      "android",
+      "ios",
+      "web",
+      "badge",
+      "counter",
+      "bva"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-037",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Бейдж не обрезается и не перекрывает соседние элементы",
+    "statement": "Область бейджа не должна обрезаться или конфликтовать с другими элементами; если за иконкой следует текст, большой бейдж ставить на краю элемента или использовать маленький.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить бейджи на иконках с текстом рядом и в узких контейнерах: нет обрезки и наложения на текст."
+    },
+    "source": {
+      "chunk_id": "s6-c05-10",
+      "printed_pages": [
+        582
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "badge",
+      "layout"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-038",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Иерархия стилей кнопок: filled — важное, text — второстепенное, extended FAB — главное",
+    "statement": "Комбинировать стили кнопок на экране, чтобы подчеркнуть основное действие и показать альтернативы: заполненная — высокая значимость, текстовая — низкая, extended FAB — наивысшая.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить экран: значимость действий отражена стилем; второстепенные действия не оформлены так же заметно, как главное."
+    },
+    "source": {
+      "chunk_id": "s6-c05-11",
+      "printed_pages": [
+        582,
+        583
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "button",
+      "visual-hierarchy",
+      "material"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-039",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Переключаемая кнопка сохраняет длину текста в обоих состояниях",
+    "statement": "Если подпись кнопки меняется при выборе (например, «Подписаться»/«Вы подписаны»), длина текста в обоих состояниях примерно одинакова, чтобы кнопка не прыгала и не ломала макет (учитывать и переводы).",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Переключить toggle-кнопку туда и обратно (в т.ч. в длинных локалях): ширина кнопки и раскладка соседей не меняются заметно."
+    },
+    "source": {
+      "chunk_id": "s6-c05-11",
+      "printed_pages": [
+        583
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "button",
+      "toggle-button",
+      "layout",
+      "localization"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-040",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Кнопки не растягиваются на всю ширину большого окна",
+    "statement": "На больших экранах ограничивать ширину кнопок или размещать их рядом с другими элементами — без длинных плоских кнопок с коротким текстом.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Открыть экран на планшете/широком окне: кнопки не растянуты на всю ширину (max-width задан)."
+    },
+    "source": {
+      "chunk_id": "s6-c05-11",
+      "printed_pages": [
+        583,
+        584
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "button",
+      "responsive",
+      "tablet"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-041",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Не более одного FAB/extended FAB на экране",
+    "statement": "На экране используется только одна (extended) FAB; дополнительные важные действия размещать в других местах страницы.",
+    "rationale": "Несколько FAB конкурируют за внимание и ломают иерархию.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Посчитать FAB на экране (Layout Inspector / UiAutomator: класс FloatingActionButton/ExtendedFloatingActionButton): > 1 — дефект."
+    },
+    "source": {
+      "chunk_id": "s6-c05-12",
+      "printed_pages": [
+        584,
+        585
+      ]
+    },
+    "tags": [
+      "android",
+      "fab",
+      "extended-fab"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-042",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Подпись extended FAB — 1–2 слова без переноса и обрезки",
+    "statement": "Текст extended FAB чётко описывает действие, максимум 1–2 слова, можно с иконкой; учитывать удлинение при локализации — текст не переносится и не обрезается.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить подпись extended FAB во всех локалях: ≤ 2 слов, нет переноса и многоточия."
+    },
+    "source": {
+      "chunk_id": "s6-c05-12",
+      "printed_pages": [
+        585,
+        586
+      ]
+    },
+    "tags": [
+      "android",
+      "fab",
+      "extended-fab",
+      "ux-writing",
+      "localization"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-043",
+    "kind": "rule",
+    "severity": "should",
+    "title": "FAB поверх контента, но не поверх app bar и тулбаров",
+    "statement": "Extended FAB размещать над остальным интерфейсом отдельно от панелей приложения и панелей инструментов; не накладывать её на тулбары.",
+    "rationale": "Это нарушает уровни elevation и поверхности.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить положение FAB при скролле и на разных размерах экрана: не перекрывает bottom app bar/toolbar и навигацию."
+    },
+    "source": {
+      "chunk_id": "s6-c05-12",
+      "printed_pages": [
+        586
+      ]
+    },
+    "tags": [
+      "android",
+      "fab",
+      "layout",
+      "elevation"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-044",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "FAB — только для главного позитивного действия",
+    "statement": "FAB используется для важного созидательного действия (создать, поделиться, начать, в избранное), а не для второстепенных, деструктивных (архив, удаление), оповещений, локальных задач или контролов уровня тулбара.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Определить действие FAB на каждом экране: если оно деструктивное, второстепенное или является настройкой — замечание."
+    },
+    "source": {
+      "chunk_id": "s6-c05-12",
+      "printed_pages": [
+        586,
+        587
+      ]
+    },
+    "tags": [
+      "android",
+      "fab",
+      "destructive-action"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-045",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "FAB кратко скрывается и появляется при переключении вкладок",
+    "statement": "При переходе между вкладками FAB ненадолго исчезает и снова появляется после смены контента, а не уезжает вместе с контентом страницы.",
+    "rationale": "Так видно, что FAB общая для экрана, а не принадлежит одной вкладке.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Переключить вкладки на экране с FAB: FAB исчезает и появляется заново, не анимируется вместе со сдвигом страницы."
+    },
+    "source": {
+      "chunk_id": "s6-c05-12",
+      "printed_pages": [
+        588,
+        589
+      ]
+    },
+    "tags": [
+      "android",
+      "fab",
+      "tabs",
+      "animation"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-046",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Меню FAB — от 2 до 6 связанных пунктов",
+    "statement": "FAB menu содержит 2–6 пунктов, относящихся к одному общему действию; меню из одного пункта и несвязанные действия недопустимы.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Открыть FAB menu и посчитать пункты: < 2 или > 6 — дефект; проверить смысловую связность."
+    },
+    "source": {
+      "chunk_id": "s6-c05-13",
+      "printed_pages": [
+        589
+      ]
+    },
+    "tags": [
+      "android",
+      "fab",
+      "fab-menu"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-047",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Тултип кнопки-иконки описывает действие",
+    "statement": "При наведении на icon button показывается подсказка с описанием действия (а не названием иконки), краткая и чёткая.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Навести на каждую кнопку-иконку (веб/десктоп/ChromeOS) или долгий тап на Android: тултип есть и называет действие («Удалить письмо», а не «Корзина»)."
+    },
+    "source": {
+      "chunk_id": "s6-c05-13",
+      "printed_pages": [
+        589,
+        590
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "icon-button",
+      "tooltip",
+      "accessibility"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-048",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Toggle-иконка — только для действий с выбранным состоянием",
+    "statement": "Переключаемые кнопки-иконки применять, когда есть состояние выбора (в избранном/нет), и визуально выделять выбранную; не делать toggle из кнопок без состояния (например, overflow-меню).",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Нажать toggle-иконку: состояние визуально меняется и сохраняется; кнопки без состояния не «залипают» в выбранном виде."
+    },
+    "source": {
+      "chunk_id": "s6-c05-13",
+      "printed_pages": [
+        590,
+        591
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "icon-button",
+      "toggle-button",
+      "states"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-049",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Сегментированная кнопка — от 2 до 5 вариантов, короткие метки без переноса",
+    "statement": "Segmented button используется для 2–5 вариантов; при большем числе — другой компонент (чипсы); метки короткие, одинаковой длины и не переносятся на новую строку.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Посчитать сегменты (больше 5 — замечание, предложить чипсы) и проверить в самой длинной локали, что метки не переносятся на вторую строку."
+    },
+    "source": {
+      "chunk_id": "s6-c05-15",
+      "printed_pages": [
+        591,
+        592
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "segmented-button",
+      "localization"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-050",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Элементы карусели читаемы и не слишком малы",
+    "statement": "Элементы карусели (кроме uncontained-макета) полностью видны; размер большого элемента достаточен для распознавания изображения и текста.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Прокрутить карусель на маленьком экране: изображения и подписи элементов различимы."
+    },
+    "source": {
+      "chunk_id": "s6-c05-15",
+      "printed_pages": [
+        592
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "carousel"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-051",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Кнопки управления каруселью — выше или ниже, не поверх",
+    "statement": "Не размещать стрелки и кнопки внутри контейнера карусели или поверх неё; для доступности добавлять «Показать все» или альтернативные контролы выше/ниже карусели.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить карусель: стрелки и кнопки не лежат внутри контейнера и не перекрывают элементы; если добавлены альтернативные контролы или «Показать все» — они расположены выше или ниже карусели либо в соседней навигационной панели."
+    },
+    "source": {
+      "chunk_id": "s6-c05-15",
+      "printed_pages": [
+        592,
+        593
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "carousel",
+      "accessibility"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-052",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Чекбокс-переключатель применяет изменение сразу",
+    "statement": "Чекбокс мгновенно показывает выбранное состояние; если он включает/выключает функцию, действие выполняется сразу.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Отметить чекбокс настройки: состояние меняется сразу, эффект применяется без дополнительной кнопки (если это не часть формы с отправкой)."
+    },
+    "source": {
+      "chunk_id": "s6-c05-17",
+      "printed_pages": [
+        593,
+        594
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "checkbox",
+      "settings"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-053",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Заголовок диалога — конкретный вопрос или утверждение",
+    "statement": "Назначение диалога понятно из заголовка и кнопок; заголовок без извинений, паники («Внимание!») и двусмысленности («Вы уверены?»).",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Grep заголовков диалогов на /(вы уверены|внимание!|извините|are you sure|warning!|sorry)/i; совпадения — замечание: заголовок должен прямо называть вопрос или действие."
+    },
+    "source": {
+      "chunk_id": "s6-c05-17",
+      "printed_pages": [
+        594
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "dialog",
+      "ux-writing"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-054",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Кнопки диалога справа, подтверждение — у края, отмена — слева от него",
+    "statement": "Действия диалога выравниваются по правому краю, кнопка подтверждения — ближе всего к краю, отклонение — слева от неё; в RTL расположение зеркалится.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Открыть диалоги: подтверждающая кнопка крайняя справа (в RTL — слева), «Отмена» перед ней."
+    },
+    "source": {
+      "chunk_id": "s6-c05-17",
+      "printed_pages": [
+        594,
+        595
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "dialog",
+      "button",
+      "rtl"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-055",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Кнопка отклонения в диалоге всегда активна",
+    "statement": "По книге: кнопку подтверждения можно держать неактивной, пока пользователь не сделал выбор, а кнопка отмены/отклонения не отключается никогда; единственная кнопка в диалоге уместна только для подтверждения ознакомления.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В диалогах с выбором проверить, что «Отмена» активна в любом состоянии; диалог с одной кнопкой должен быть чисто информационным. Неактивную кнопку подтверждения дефектом не считать — источник тут противоречив."
+    },
+    "source": {
+      "chunk_id": "s6-c05-17",
+      "printed_pages": [
+        595
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "dialog",
+      "disabled-state"
+    ],
+    "rationale": "В том же фрагменте книги ниже сказано обратное — «не отключайте кнопку подтверждения»; про отключение подтверждения источник противоречит сам себе, бесспорна только часть про всегда активную отмену.",
+    "verification": "doubtful"
+  },
+  {
+    "id": "SRK-MD-056",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Варианты выбора в диалоге осмысленны",
+    "statement": "Не предлагать бессмысленных вариантов: «Отмена» не нужна, если в диалоге нет действия, которое можно отменить.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для каждого диалога проверить, что каждая кнопка ведёт к различимому результату."
+    },
+    "source": {
+      "chunk_id": "s6-c05-17",
+      "printed_pages": [
+        595
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "dialog"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-057",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Без третьего действия «Подробнее» в диалоге",
+    "statement": "Не добавлять в диалог действие, уводящее из него (например, «Подробнее»): дополнительную информацию раскрывать внутри или давать до открытия диалога.",
+    "rationale": "Уход из диалога оставляет задачу незавершённой.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти диалоги с третьей кнопкой-ссылкой: если она уводит со страницы — замечание."
+    },
+    "source": {
+      "chunk_id": "s6-c05-17",
+      "printed_pages": [
+        595,
+        596
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "dialog"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-058",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Кнопка подтверждения называет результат, не «ОК»/«Готово»",
+    "statement": "Подтверждающее действие говорит, что произойдёт («Отправить», «Создать»), а не «ОК», «Готово», «Закрыть»; после подтверждения не открывать ещё один диалог, кроме случая сбоя.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Grep подписей кнопок подтверждения диалогов на /^(ок|ok|готово|done|закрыть|close|да|yes)$/i — замечание; нажать подтверждение и проверить, что не всплывает лишний диалог при успехе."
+    },
+    "source": {
+      "chunk_id": "s6-c05-17",
+      "printed_pages": [
+        596,
+        597
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "dialog",
+      "button",
+      "ux-writing",
+      "see-SRK-UX-033",
+      "see-SRK-HIG-078"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-059",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Тип индикатора по времени ожидания: < 200 мс — нет, до 5 с — loader, > 5 с — прогресс",
+    "statement": "Мгновенные (< 200 мс) операции не показывают индикатор; короткие (200 мс–5 с) — индикатор загрузки; длинные (> 5 с) — индикатор прогресса и по возможности позволяют уйти со страницы.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Замерить длительность операций (Playwright: время между действием и появлением результата при throttling): для > 5 с — есть determinate-прогресс; для < 200 мс — нет мигающего спиннера."
+    },
+    "source": {
+      "chunk_id": "s6-c05-19",
+      "printed_pages": [
+        597
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "ios",
+      "loading",
+      "progress-indicator",
+      "performance",
+      "see-SRK-HIG-036"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-060",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Индикатор подгрузки — в месте нового контента, без перекрытия существующего",
+    "statement": "При подгрузке дополнительных элементов индикатор центрируется в пустом месте, где появится контент, и не накрывает уже загруженное.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проскроллить ленту до подгрузки: спиннер внизу на месте будущих элементов, не поверх существующих карточек."
+    },
+    "source": {
+      "chunk_id": "s6-c05-19",
+      "printed_pages": [
+        597,
+        598
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "loading",
+      "infinite-scroll",
+      "pagination"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-061",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Индикатор обновления виден до завершения, не уезжает при скролле",
+    "statement": "Индикатор загрузки остаётся в поле зрения, пока обновление не завершится или пользователь не уйдёт со страницы; он не прокручивается за пределы экрана вместе с контентом.",
+    "rationale": "Иначе статус скрыт, а индикатор выглядит привязанным к отдельному компоненту.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Запустить обновление экрана (pull-to-refresh при медленной сети) и прокрутить: индикатор остаётся видимым до появления контента."
+    },
+    "source": {
+      "chunk_id": "s6-c05-19",
+      "printed_pages": [
+        598
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "loading",
+      "pull-to-refresh"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-062",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Один общий прогресс для группы загружаемых элементов",
+    "statement": "При загрузке нескольких элементов показывать один индикатор для всей группы, а не отдельный прогресс у каждого процесса.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Загрузить несколько файлов/элементов разом: виден общий прогресс, нет россыпи отдельных индикаторов."
+    },
+    "source": {
+      "chunk_id": "s6-c05-20",
+      "printed_pages": [
+        598,
+        599
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "progress-indicator",
+      "upload"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-063",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "В маленьких кнопках — плоская форма индикатора",
+    "statement": "Для индикатора внутри очень маленьких кнопок использовать плоскую (flat) форму, а не волнистую (wavy), которая на малом размере плохо заметна.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить индикаторы в компактных кнопках: используется ли flat-вариант."
+    },
+    "source": {
+      "chunk_id": "s6-c05-20",
+      "printed_pages": [
+        599
+      ]
+    },
+    "tags": [
+      "android",
+      "progress-indicator",
+      "button",
+      "material"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-064",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Круговой индикатор в кнопке — для коротких операций, не в каждой кнопке списка",
+    "statement": "Круговой индикатор можно ставить внутрь кнопки на время выполнения её действия (короткие неопределённые процессы до 5 с), но не добавлять индикаторы к каждой кнопке в списке.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Нажать кнопку действия при медленной сети: на время выполнения в кнопке появляется круговой индикатор; в списках нет отдельных индикаторов у кнопки каждой строки."
+    },
+    "source": {
+      "chunk_id": "s6-c05-20",
+      "printed_pages": [
+        599,
+        600
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "progress-indicator",
+      "button"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-065",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Нижняя навигационная панель — от 3 до 5 пунктов",
+    "statement": "Navigation bar используется для 3–5 направлений: при более чем пяти — вкладки или модальная развернутая navigation rail за иконкой меню, при менее трёх — вкладки.",
+    "rationale": "При > 5 пунктах элементы накладываются и не хватает места для переводов.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Посчитать пункты нижней навигации (UiAutomator/Layout Inspector BottomNavigationView/NavigationBarView): < 3 или > 5 — дефект."
+    },
+    "source": {
+      "chunk_id": "s6-c05-21",
+      "printed_pages": [
+        600,
+        601
+      ]
+    },
+    "tags": [
+      "android",
+      "navigation-bar",
+      "bottom-navigation"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-066",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Каждый пункт навигационной панели имеет текстовую метку из 1–2 слов",
+    "statement": "У всех элементов navigation bar обязательна подпись в 1–2 слова; без переноса, обрезки и уменьшения шрифта для длинных названий.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для каждого пункта нижней навигации проверить непустой label (≤ 2 слов), отсутствие многоточия/переноса во всех локалях и одинаковый размер шрифта меток."
+    },
+    "source": {
+      "chunk_id": "s6-c05-21",
+      "printed_pages": [
+        601,
+        602
+      ]
+    },
+    "tags": [
+      "android",
+      "navigation-bar",
+      "labels",
+      "localization"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-067",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Навигационная панель — только на мобильных, не на десктопе",
+    "statement": "Нижняя navigation bar предназначена для небольших экранов; на десктопных/широких макетах использовать navigation rail или вкладки.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Открыть приложение/сайт на широком окне (≥ 840dp / десктоп): нижняя навигационная панель заменяется на rail/вкладки."
+    },
+    "source": {
+      "chunk_id": "s6-c05-21",
+      "printed_pages": [
+        602
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "navigation-bar",
+      "navigation-rail",
+      "responsive"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-068",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Иконки в боковой навигации — у всех разделов или ни у одного, перед текстом",
+    "statement": "Если иконки используются в боковой панели навигации, они стоят перед текстом у каждого раздела; узнаваемые иконки — по общепринятым стандартам.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить пункты боковой навигации: либо у всех есть иконка, либо ни у одного; иконка слева от текста (в RTL — справа)."
+    },
+    "source": {
+      "chunk_id": "s6-c05-22",
+      "printed_pages": [
+        602
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "sidebar",
+      "navigation-drawer",
+      "icons",
+      "consistency"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-069",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Выбранный раздел навигации — залитая иконка, цвет и активный индикатор",
+    "statement": "Активный пункт боковой навигации выделяется залитой иконкой, более заметным цветом и индикатором позади иконки.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Переключать разделы: текущий пункт визуально выделен (и в вебе имеет aria-current), остальные — нет."
+    },
+    "source": {
+      "chunk_id": "s6-c05-22",
+      "printed_pages": [
+        603
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "sidebar",
+      "navigation",
+      "selected-state"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-070",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Метки навигации без обрезки и уменьшения шрифта",
+    "statement": "Названия разделов боковой панели достаточно короткие, не обрезаются многоточием и не уменьшаются шрифтом ради вмещения.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить метки боковой навигации во всех локалях на многоточие и отличающийся размер шрифта."
+    },
+    "source": {
+      "chunk_id": "s6-c05-22",
+      "printed_pages": [
+        603
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "sidebar",
+      "labels",
+      "localization"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-071",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Радиокнопки — только одиночный выбор, без вложенности",
+    "statement": "Радиокнопки не допускают выбор нескольких вариантов и не вкладываются друг в друга.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Выбрать по очереди все варианты группы: в каждый момент выбран ровно один (Playwright: count checked == 1); вложенных радиогрупп нет."
+    },
+    "source": {
+      "chunk_id": "s6-c05-23",
+      "printed_pages": [
+        603,
+        604
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "radio-button",
+      "forms"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-072",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Радиокнопки для ≤ 5 вариантов, иначе — выпадающий список",
+    "statement": "Радиокнопки уместны при пяти и менее вариантах; при нехватке места рассмотреть dropdown, учитывая, что он требует больше действий.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Посчитать варианты в радиогруппах: > 5 — замечание."
+    },
+    "source": {
+      "chunk_id": "s6-c05-23",
+      "printed_pages": [
+        604
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "radio-button",
+      "dropdown",
+      "forms"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-073",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Радиокнопки вертикально, один вариант выбран по умолчанию",
+    "statement": "Список радиокнопок располагается вертикально, и один из вариантов всегда предвыбран.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "При открытии формы в каждой радиогруппе ровно один checked; варианты расположены столбцом."
+    },
+    "source": {
+      "chunk_id": "s6-c05-23",
+      "printed_pages": [
+        604,
+        605
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "radio-button",
+      "defaults",
+      "forms"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-074",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Радиокнопка выбирается тапом и по кругу, и по тексту",
+    "statement": "Нажатие как на иконку, так и на подпись выбирает вариант; выбор применяется сразу, кроме диалогов и страниц с ручным сохранением.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Кликнуть по тексту метки радиокнопки: вариант выбран (веб: связанный <label>, getByLabel().check()); проверить немедленное применение вне форм с сохранением."
+    },
+    "source": {
+      "chunk_id": "s6-c05-23",
+      "printed_pages": [
+        605
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "radio-button",
+      "touch-target",
+      "label"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-075",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Ползунок диапазона — горизонтальный",
+    "statement": "Range slider (выбор min и max на одной шкале) располагать горизонтально; вертикальные ползунки повышают когнитивную нагрузку.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить ориентацию range slider в фильтрах: вертикальный — замечание."
+    },
+    "source": {
+      "chunk_id": "s6-c05-24",
+      "printed_pages": [
+        605,
+        606
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "range-slider",
+      "filters"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-076",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Снекбар не прерывает работу и не требует взаимодействия",
+    "statement": "Снекбар временно появляется у нижнего края и не блокирует просмотр контента и действия пользователя.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "При показе снекбара продолжить работать с экраном: контент доступен, снекбар не модальный."
+    },
+    "source": {
+      "chunk_id": "s6-c05-24",
+      "printed_pages": [
+        606
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "snackbar",
+      "toast"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-077",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Только один снекбар одновременно, без стека",
+    "statement": "На экране одновременно показывается не больше одного снекбара; новые не складываются в стопку.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Быстро вызвать несколько действий, порождающих снекбары: в DOM/иерархии виден максимум один снекбар."
+    },
+    "source": {
+      "chunk_id": "s6-c05-24",
+      "printed_pages": [
+        606,
+        610
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "snackbar"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-078",
+    "kind": "rule",
+    "severity": "should",
+    "title": "В снекбаре не более одного действия, текстовой кнопкой",
+    "statement": "Снекбар содержит максимум одно действие (например, «Отменить»), оформленное текстовой кнопкой отличного от текста цвета; «Закрыть» необязательна; без filled/elevated кнопок.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Посчитать кнопки действий в снекбаре (≤ 1, не считая необязательной закрывающей); стиль — text button, цвет отличается от текста сообщения."
+    },
+    "source": {
+      "chunk_id": "s6-c05-24",
+      "printed_pages": [
+        606,
+        608
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "snackbar",
+      "button"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-079",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Информация из автоисчезающего снекбара/тоста дублируется доступно",
+    "statement": "Сообщения из исчезающих снекбаров и тостов недоступны людям со слабым зрением и тем, кому нужно больше времени: дублировать их инлайн (например, «Сохранить» → «Сохранено») или делать снекбар с действием, который не исчезает без взаимодействия.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для каждого toast/snackbar проверить: есть ли дублирование статуса рядом с элементом-инициатором или снекбар не исчезает до действия; в вебе — объявляется ли через aria-live/role=status."
+    },
+    "source": {
+      "chunk_id": "s6-c05-24",
+      "printed_pages": [
+        606,
+        607
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "snackbar",
+      "toast",
+      "accessibility",
+      "wcag-2.2.1",
+      "wcag-4.1.3",
+      "see-SRK-A11Y-060"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-080",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Текст снекбара — 1 строка (на мобильных до 2), без иконок и ссылок",
+    "statement": "Метка снекбара по возможности в одну строку (на мобильных до двух; с длинным действием — до трёх); без иконок, инлайн-ссылок и стилизованного текста — для этого есть другие компоненты.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить снекбары на разных ширинах и локалях: число строк, отсутствие иконок/ссылок внутри."
+    },
+    "source": {
+      "chunk_id": "s6-c05-24",
+      "printed_pages": [
+        607,
+        609
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "snackbar",
+      "ux-writing"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-081",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Снекбар сохраняет узнаваемую форму и читаемость",
+    "statement": "Не менять сильно форму контейнера снекбара (чрезмерное скругление); лёгкая прозрачность фона допустима, только если текст остаётся чётким.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить контраст текста снекбара на полупрозрачном фоне поверх разного контента."
+    },
+    "source": {
+      "chunk_id": "s6-c05-24",
+      "printed_pages": [
+        608
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "snackbar",
+      "contrast"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-082",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "В снекбаре после действия предлагать «Отменить»",
+    "statement": "Чтобы пользователь мог исправить выбор (удаление, архивация), снекбар предлагает действие «Отменить».",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Удалить/архивировать элемент: появляется снекбар с «Отменить», и отмена восстанавливает элемент."
+    },
+    "source": {
+      "chunk_id": "s6-c05-24",
+      "printed_pages": [
+        609
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "snackbar",
+      "undo",
+      "see-SRK-FORM-055"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-083",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Снекбар внизу поверх контента, не перекрывает FAB, навигацию и частые тач-зоны",
+    "statement": "Снекбар располагается у нижнего края над контентом, при необходимости приподнимается над FAB или закреплёнными панелями; не закрывает навигацию, FAB и часто нажимаемые элементы и не прячется за FAB.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Вызвать снекбар на экранах с FAB и нижней навигацией: FAB и навигация видимы и нажимаемы, снекбар не под FAB."
+    },
+    "source": {
+      "chunk_id": "s6-c05-24",
+      "printed_pages": [
+        609,
+        610
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "snackbar",
+      "fab",
+      "navigation-bar",
+      "layout"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-084",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Switch срабатывает сразу, без кнопки «Сохранить»",
+    "statement": "Изменение тумблера вступает в силу немедленно; для выбора нескольких опций с ручным сохранением использовать чекбоксы.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Переключить switch, уйти с экрана без сохранения и вернуться: изменение применено. Если экран требует «Сохранить» после switch — дефект."
+    },
+    "source": {
+      "chunk_id": "s6-c05-26",
+      "printed_pages": [
+        611,
+        612
+      ]
+    },
+    "tags": [
+      "android",
+      "ios",
+      "web",
+      "switch",
+      "toggle",
+      "settings"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-085",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Switch — только для бинарной опции, не для взаимоисключающих вариантов",
+    "statement": "Тумблер управляет одним параметром вкл/выкл; для переключения между вариантами (список/карта) — группа связанных кнопок, для одного из списка — радиокнопки.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти тумблеры, подписи которых описывают два разных режима (например, «Список / Карта») или выбор одного варианта из нескольких: такой выбор компонента — замечание, предложить группу связанных кнопок или радиокнопки."
+    },
+    "source": {
+      "chunk_id": "s6-c05-26",
+      "printed_pages": [
+        612,
+        613
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "switch",
+      "segmented-button",
+      "radio-button"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-086",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Иконка в switch однозначно показывает вкл/выкл",
+    "statement": "Если в тумблере есть иконка, она должна однозначно означать состояние (галочка/крестик), а не неоднозначные образы (луна, карандаш).",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить иконки в thumb-элементе switch: только символы состояния."
+    },
+    "source": {
+      "chunk_id": "s6-c05-26",
+      "printed_pages": [
+        613,
+        614
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "switch",
+      "icons"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-087",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Вкладки не уходят под app bar; привязанные вкладки движутся с компонентом",
+    "statement": "Вкладки могут скрываться при прокрутке вниз и появляться при прокрутке вверх, но не должны заезжать под верхнюю панель; вкладки, привязанные к компоненту, перемещаются вместе с ним.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Прокрутить экран с вкладками вниз/вверх: вкладки не перекрываются app bar и появляются при скролле вверх."
+    },
+    "source": {
+      "chunk_id": "s6-c05-27",
+      "printed_pages": [
+        614,
+        615
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "tabs",
+      "app-bar",
+      "scroll"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-088",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Android: у каждого текстового поля есть постоянно видимый label",
+    "statement": "Каждое текстовое поле имеет метку, выровненную по линии ввода и всегда видимую: до ввода — внутри поля, при фокусе — у верхней границы (floating label). В Material это обязательно, в Apple — опционально.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для каждого поля проверить наличие видимой текстовой метки (Android: label/hint в TextInputLayout; веб: видимый <label>, а не только aria-label или placeholder), затем ввести текст: метка остаётся видимой у верхней границы. Поле без видимой метки — дефект."
+    },
+    "source": {
+      "chunk_id": "s6-c05-27",
+      "printed_pages": [
+        615
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "text-field",
+      "label",
+      "forms",
+      "wcag-3.3.2",
+      "see-SRK-A11Y-111"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-089",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Label текстового поля не обрезается и не переносится",
+    "statement": "Метка поля короткая, полностью видимая, без многоточия и без переноса на несколько строк.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить метки полей во всех локалях и на узком экране: нет многоточия и второй строки."
+    },
+    "source": {
+      "chunk_id": "s6-c05-27",
+      "printed_pages": [
+        615,
+        616
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "text-field",
+      "label",
+      "localization"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-090",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Текст ошибки заменяет вспомогательный, а не добавляется к нему",
+    "statement": "Сообщение об ошибке должно приходить на место подсказки (supporting text) под полем, а не появляться вдобавок к ней: две строки сразу сдвигают раскладку формы.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Вызвать ошибку на поле с подсказкой под ним: подсказка заменяется ошибкой, остальные поля формы не прыгают."
+    },
+    "source": {
+      "chunk_id": "s6-c05-27",
+      "printed_pages": [
+        616
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "text-field",
+      "error-message",
+      "layout-shift",
+      "validation"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-MD-091",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Кнопки-иконки без текста имеют простой тултип",
+    "statement": "Кнопки только с иконкой получают plain tooltip, раскрывающий назначение при наведении или долгом нажатии; для элементов с видимым текстом тултип не нужен.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Найти кнопки без видимого текста: у каждой есть tooltip (Android: tooltipText / contentDescription; веб: title/aria-label + tooltip); у кнопок с текстом дублирующий тултип не нужен."
+    },
+    "source": {
+      "chunk_id": "s6-c05-29",
+      "printed_pages": [
+        616
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "tooltip",
+      "icon-button",
+      "accessibility"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-092",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Одновременно только один тултип",
+    "statement": "Появление новой подсказки автоматически скрывает предыдущую.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Навести последовательно на две кнопки с тултипами: в DOM/иерархии виден только один tooltip."
+    },
+    "source": {
+      "chunk_id": "s6-c05-29",
+      "printed_pages": [
+        616
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "tooltip"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-MD-093",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Курсив — точечно, для выделения лучше жирный",
+    "statement": "Курсивом выделять только отдельное слово или название, а не целые предложения: курсив читается хуже, для акцента предпочтительнее полужирное начертание.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Просмотреть тексты интерфейса на курсив: целые предложения или абзацы курсивом — замечание."
+    },
+    "source": {
+      "chunk_id": "s6-c05-03",
+      "printed_pages": [
+        567
+      ]
+    },
+    "tags": [
+      "android",
+      "web",
+      "ux-writing",
+      "typography"
+    ],
+    "verification": "ok"
+  }
+]

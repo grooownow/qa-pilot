@@ -1,0 +1,3929 @@
+[
+  {
+    "id": "SRK-A11Y-001",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Проверять продукт с включёнными системными настройками доступности",
+    "statement": "Мобильные пользователи массово включают системные настройки Accessibility (крупный шрифт, жирный текст, повышенный контраст, тёмная тема). Тест-план должен включать прогон ключевых экранов с этими настройками.",
+    "rationale": "По данным автора, на iOS каждый третий, на Android каждый четвёртый пользователь постоянно использует хотя бы одну такую настройку.",
+    "applies_to": [
+      "test-plan",
+      "live-product",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане/кейсах найти сценарии с увеличенным системным шрифтом, жирным текстом, высоким контрастом и тёмной темой. Нет ни одного такого сценария для мобильного продукта — gap. На живом продукте: включить настройки и убедиться, что текст не обрезается и элементы не перекрываются."
+    },
+    "source": {
+      "chunk_id": "s5-c01-00",
+      "printed_pages": [
+        388,
+        389
+      ]
+    },
+    "tags": [
+      "ios",
+      "android",
+      "dynamic-type",
+      "dark-mode",
+      "system-settings",
+      "see-SRK-MOB-052"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-002",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Целевой уровень соответствия — WCAG AA",
+    "statement": "Требования и аудит доступности должны ориентироваться на уровень WCAG AA: именно его требуют законы США и ЕС; уровень A — лишь минимум, AAA — опционален.",
+    "applies_to": [
+      "requirements",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В требованиях/тест-плане найти явный целевой уровень WCAG. Отсутствие указания уровня или цель только «A» для публичного продукта — gap."
+    },
+    "source": {
+      "chunk_id": "s5-c01-02",
+      "printed_pages": [
+        389
+      ]
+    },
+    "tags": [
+      "wcag",
+      "conformance-level",
+      "legal"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-003",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.4.4 (AA): текст читаем и работоспособен при масштабе 200%",
+    "statement": "WCAG SC 1.4.4 Resize Text, уровень AA: при увеличении до 200% текст не должен перекрываться, обрезаться или требовать горизонтальной прокрутки. Фиксированные высоты контейнеров в px — типичная причина нарушения; нужна резиновая вёрстка на rem/em.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Увеличить масштаб браузера до 200% (Ctrl/Cmd +) на ключевых страницах: обрезанный или наложенный текст, уехавшие кнопки — fail. Эвристика по коду: height в px у текстовых контейнеров — кандидат на дефект. На мобильном — максимальный системный размер шрифта."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        404
+      ]
+    },
+    "tags": [
+      "wcag-1.4.4",
+      "resize-text",
+      "zoom",
+      "low-vision"
+    ],
+    "rationale": "Масштабирование без развала вёрстки нужно людям с близорукостью и дальнозоркостью.",
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-004",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Звуковые уведомления дублируются визуально, видео — субтитрами",
+    "statement": "Для глухих и слабослышащих звуковые сигналы должны дублироваться текстом или вспышкой, а видео сопровождаться субтитрами.",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти все звуковые уведомления и видео в продукте/требованиях. Каждый звук без визуального эквивалента и каждое видео с речью без субтитров — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c01-02",
+      "printed_pages": [
+        390
+      ]
+    },
+    "tags": [
+      "captions",
+      "hearing",
+      "notifications",
+      "video"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-005",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Критичные действия защищены от случайного нажатия",
+    "statement": "Для людей с тремором (болезнь Паркинсона) частые случайные нажатия — норма, поэтому необратимые действия (удаление, оплата) не должны выполняться одним случайным тапом: нужны подтверждение или возможность отмены.",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти разрушительные и платёжные действия; если они выполняются одним нажатием без подтверждения или undo — gap."
+    },
+    "source": {
+      "chunk_id": "s5-c01-02",
+      "printed_pages": [
+        391
+      ]
+    },
+    "tags": [
+      "tremor",
+      "motor",
+      "accidental-tap",
+      "destructive-actions"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-006",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Текст, удобный для людей с дислексией",
+    "statement": "Для основного текста лучше использовать шрифты без засечек, увеличенный межстрочный интервал и выравнивание по левому краю.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Осмотреть длинные текстовые блоки: шрифт с засечками, плотный интервал или выравнивание по ширине/центру для абзацев — замечание."
+    },
+    "source": {
+      "chunk_id": "s5-c01-02",
+      "printed_pages": [
+        391
+      ]
+    },
+    "tags": [
+      "dyslexia",
+      "typography",
+      "cognitive",
+      "see-SRK-GUI-008"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-007",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Простой язык без метафор и идиом",
+    "statement": "Инструкции и подписи стоит формулировать максимально просто и однозначно, избегая метафор, идиом и абстракций — это важно для людей с РАС.",
+    "applies_to": [
+      "requirements",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Прочитать тексты интерфейса и инструкции: двусмысленные формулировки, идиомы, жаргон в критичных шагах — замечание."
+    },
+    "source": {
+      "chunk_id": "s5-c01-02",
+      "printed_pages": [
+        391
+      ]
+    },
+    "tags": [
+      "plain-language",
+      "cognitive",
+      "copy"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-008",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.3.7 (A): не просить повторно вводить уже введённые данные",
+    "statement": "WCAG SC 3.3.7 Redundant Entry, уровень A: информация, уже введённая в рамках одного процесса, не запрашивается заново — она подставляется автоматически или доступна для выбора (чекбокс «Адрес плательщика совпадает с адресом доставки», предложение «Использовать адрес …?», подтягивание из профиля).",
+    "rationale": "Повторный ввод тяжёл для людей с нарушениями памяти (деменция) и для тех, кто медленно вводит текст.",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Пройти многошаговые процессы (чекаут, регистрация, анкета) и выписать все поля по шагам. Повтор одного и того же поля (ФИО, адрес) пустым без автоподстановки или выбора — fail. В требованиях к многошаговым формам проверить, что переиспользование данных описано."
+    },
+    "modern_note": "Критерий 3.3.7 добавлен в WCAG 2.2 (октябрь 2023).",
+    "source": {
+      "chunk_id": "s5-c04-03-p2",
+      "printed_pages": [
+        468
+      ]
+    },
+    "tags": [
+      "wcag-3.3.7",
+      "redundant-entry",
+      "multi-step",
+      "checkout",
+      "cognitive",
+      "wcag-2.2"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-009",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Без мигающей анимации и с быстрой загрузкой",
+    "statement": "Для людей с СДВГ следует избегать мигающих гифок и визуального шума, держать интерфейс минималистичным и быстро загружаемым.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Осмотреть страницы на автоматически мигающие/анимированные элементы без возможности остановки. Их наличие — замечание."
+    },
+    "source": {
+      "chunk_id": "s5-c01-02",
+      "printed_pages": [
+        391
+      ]
+    },
+    "tags": [
+      "adhd",
+      "animation",
+      "cognitive"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-010",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Ключевые кнопки — в зоне большого пальца",
+    "statement": "Учитывать ситуационное ограничение «одна рука занята»: главные целевые кнопки мобильного интерфейса размещать крупными в нижней зоне досягаемости большого пальца.",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "На мобильных экранах оценить положение основной CTA: мелкая главная кнопка в верхней части экрана — замечание. Проверять на реальном телефоне, держа его одной рукой. Fail: ключевое действие доступно только в верхнем углу экрана."
+    },
+    "source": {
+      "chunk_id": "s5-c01-02",
+      "printed_pages": [
+        392
+      ]
+    },
+    "tags": [
+      "thumb-zone",
+      "mobile",
+      "situational",
+      "one-handed",
+      "accessibility",
+      "a11y",
+      "inclusive",
+      "also-test-strategy",
+      "see-SRK-UXL-009"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-012",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.5.4 (A): функции по движению устройства имеют кнопку и отключаются",
+    "statement": "WCAG SC 2.5.4 Motion Actuation, уровень A: если действие вызывается встряхиванием, наклоном или жестом перед камерой, то же действие должно быть доступно обычным элементом интерфейса, а активацию движением можно отключить. Исключение — когда движение само является данными (шагомер).",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти в требованиях и коде использование DeviceMotion/DeviceOrientation/акселерометра (shake to undo, наклон для листания). Нет экранной альтернативы или тумблера отключения — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c03-05-p1",
+      "printed_pages": [
+        444,
+        445
+      ]
+    },
+    "tags": [
+      "wcag-2.5.4",
+      "motion-actuation",
+      "shake",
+      "accelerometer",
+      "mobile"
+    ],
+    "rationale": "При треморе или в транспорте устройство постоянно движется, и функция срабатывает случайно (например, пауза в игре в поезде).",
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-013",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Режим высокой контрастности для яркого солнца",
+    "statement": "Для использования при ярком свете полезен высококонтрастный режим, светлый фон «газетная бумага» и более жирный шрифт; для водителей — упрощённый режим с крупными кнопками.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Проверить продукт на улице при ярком свете или с минимальной яркостью экрана; оценить читаемость. Наличие контрастного/упрощённого режима — плюс."
+    },
+    "source": {
+      "chunk_id": "s5-c01-02",
+      "printed_pages": [
+        392,
+        393
+      ]
+    },
+    "tags": [
+      "situational",
+      "high-contrast",
+      "sunlight",
+      "driver-mode"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-014",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.1.1 (A): у информативных изображений есть осмысленный alt",
+    "statement": "WCAG SC 1.1.1 Non-text Content, уровень A: каждое смысловое изображение (фото товара, график, диаграмма) должно иметь текстовую альтернативу, кратко передающую ту же информацию. Имя файла вместо описания — нарушение.",
+    "rationale": "Без alt скринридер зачитывает имя файла, и незрячий пользователь теряет информацию.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "axe DevTools / Lighthouse: правило image-alt (наличие alt). Качество текста — эвристика: alt, совпадающий с именем файла (regex \\.(png|jpe?g|svg|gif|webp)$) или бессмысленный («image», «img_4») — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-00",
+      "printed_pages": [
+        394,
+        395
+      ]
+    },
+    "tags": [
+      "wcag-1.1.1",
+      "alt-text",
+      "images",
+      "axe-image-alt"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-015",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.1.1 (A): кнопка-иконка описывает действие, а не картинку",
+    "statement": "Для кнопок, состоящих только из иконки (корзина, закрыть, меню), доступное имя должно называть действие («Перейти в корзину»), а не изображение («Тележка»). Пустой aria-label — нарушение.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Наличие имени — детерминированно: axe правила button-name, link-name, svg-img-alt (пустой aria-label/alt = fail). Смысл имени — эвристика: в дереве доступности (DevTools Accessibility pane) имя иконки-кнопки должно быть глаголом действия; имя-существительное, описывающее рисунок, — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-00",
+      "printed_pages": [
+        395
+      ]
+    },
+    "tags": [
+      "wcag-1.1.1",
+      "icon-button",
+      "accessible-name",
+      "aria-label",
+      "axe-button-name"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-016",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.1.1 (A): у CAPTCHA есть доступная альтернатива",
+    "statement": "Капча — разрешённое исключение из требования текстовой альтернативы, но для людей с нарушениями зрения или слуха обязательна альтернативная форма (например, аудио-капча).",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Найти капчи в продукте; проверить наличие второй модальности (аудио вместо картинки и наоборот) и её работу со скринридером. Только визуальная капча — fail."
+    },
+    "modern_note": "WCAG 2.2 добавил SC 3.3.8 Accessible Authentication (Minimum, AA): тесты на когнитивные функции (в т.ч. распознавание текста в капче) при входе допустимы только с альтернативой или механизмом помощи.",
+    "source": {
+      "chunk_id": "s5-c02-00",
+      "printed_pages": [
+        395
+      ]
+    },
+    "tags": [
+      "wcag-1.1.1",
+      "captcha"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-017",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.2.1 (A): транскрипт для аудио и альтернатива для немого видео",
+    "statement": "Для записанного контента «только звук» нужна текстовая расшифровка (включая значимые фоновые звуки в квадратных скобках), для «только видео» — пошаговое текстовое описание или аудиодорожка с описанием.",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Для каждого подкаста/аудиозаписи найти ссылку на транскрипт рядом с плеером; для каждого видео без звука — текстовое или звуковое описание. Нет — fail. Проверить, что транскрипт содержит не только речь, но и важные звуки."
+    },
+    "source": {
+      "chunk_id": "s5-c02-02",
+      "printed_pages": [
+        395,
+        396
+      ]
+    },
+    "tags": [
+      "wcag-1.2.1",
+      "transcript",
+      "audio",
+      "video"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-018",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.2.2 (A): субтитры у записанных видео со звуком",
+    "statement": "Все записанные видео с речью или важными звуками должны иметь субтитры, передающие слова, кто говорит и ключевые звуковые эффекты.",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Наличие дорожки детерминированно проверяется по <track kind=\"captions\"> у <video> (или опции CC в плеере). Качество — вручную: есть ли имена говорящих и пометки звуков ([аплодисменты]). Видео с речью без субтитров — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-02",
+      "printed_pages": [
+        396
+      ]
+    },
+    "tags": [
+      "wcag-1.2.2",
+      "captions",
+      "video"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-019",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.2.3 (A): аудиодескрипция или текстовая альтернатива визуальных событий",
+    "statement": "Если в записанном видео важные визуальные события не проговариваются (жест, всплывающий текст, смена места), нужна аудиодескрипция или текст, описывающий все визуальные события.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Просмотреть видео с закрытыми глазами: если смысл теряется, а ни аудиодескрипции, ни полного текстового описания нет — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-02",
+      "printed_pages": [
+        396
+      ]
+    },
+    "tags": [
+      "wcag-1.2.3",
+      "audio-description",
+      "video"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-020",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.2.4 (AA): субтитры в прямых трансляциях",
+    "statement": "Прямые трансляции с речью (стримы, вебинары, новости) должны сопровождаться субтитрами в реальном времени — от живого стенографиста или автоматических AI-субтитров.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Открыть live-трансляцию и проверить наличие синхронных субтитров. Нет — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-02",
+      "printed_pages": [
+        397
+      ]
+    },
+    "tags": [
+      "wcag-1.2.4",
+      "captions",
+      "live-stream"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-021",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.2.5 (AA): озвученная аудиодескрипция у записанных видео",
+    "statement": "На уровне AA для записанных видео нужна именно звуковая дорожка аудиодескрипции; текстовой альтернативы, допустимой на уровне A, уже недостаточно.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Проверить в плеере наличие альтернативной аудиодорожки с описанием визуальных действий. Только текст под видео при цели AA — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-02",
+      "printed_pages": [
+        397
+      ]
+    },
+    "tags": [
+      "wcag-1.2.5",
+      "audio-description",
+      "video"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-022",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 1.2.6 (AAA): перевод на жестовый язык",
+    "statement": "Уровень AAA: записанный аудиоконтент видео сопровождается переводом на жестовый язык — для глухих с рождения субтитры читаются как неродной язык.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Проверить наличие сурдоперевода в видео (окно переводчика). Отсутствие — замечание только при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c02-02",
+      "printed_pages": [
+        397
+      ]
+    },
+    "tags": [
+      "wcag-1.2.6",
+      "sign-language",
+      "video"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-023",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 1.2.7 (AAA): расширенная аудиодескрипция с паузами",
+    "statement": "Уровень AAA: если пауз в диалогах не хватает для описания, видео автоматически приостанавливается, пока диктор не закончит описание.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Включить расширенную аудиодескрипцию и убедиться, что видео встаёт на паузу на время описаний. Отсутствие — замечание только при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c02-02",
+      "printed_pages": [
+        397,
+        398
+      ]
+    },
+    "tags": [
+      "wcag-1.2.7",
+      "audio-description",
+      "video"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-024",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 1.2.8 (AAA): полная текстовая медиа-альтернатива",
+    "statement": "Уровень AAA: для записанных аудио и видео есть единый текстовый документ со всей речью, действиями и обстановкой, позволяющий «прочитать» ролик.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Найти ссылку на полный текстовый сценарий ролика. Отсутствие — замечание только при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c02-02",
+      "printed_pages": [
+        398
+      ]
+    },
+    "tags": [
+      "wcag-1.2.8",
+      "media-alternative",
+      "transcript"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-025",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 1.2.9 (AAA): живая расшифровка аудиотрансляций",
+    "statement": "Уровень AAA: прямые трансляции только со звуком (радио, репортаж) сопровождаются текстовой расшифровкой в реальном времени.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Открыть живой аудиоэфир и проверить наличие синхронного текста. Отсутствие — замечание только при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c02-02",
+      "printed_pages": [
+        398
+      ]
+    },
+    "tags": [
+      "wcag-1.2.9",
+      "live-audio",
+      "transcript"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-026",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.3.1 (A): визуальные заголовки размечены тегами h1–h6",
+    "statement": "WCAG SC 1.3.1 Info and Relationships, уровень A: то, что выглядит как заголовок, должно быть заголовком в коде (h1–h6), а не абзацем с крупным жирным шрифтом.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Сравнить визуальные заголовки со списком заголовков (расширение HeadingsMap, панель заголовков ANDI, ротор VoiceOver / H в NVDA). Визуальный заголовок, отсутствующий в списке, — fail. axe ловит лишь часть случаев (heading-order, empty-heading, page-has-heading-one)."
+    },
+    "source": {
+      "chunk_id": "s5-c02-03",
+      "printed_pages": [
+        398,
+        399
+      ]
+    },
+    "tags": [
+      "wcag-1.3.1",
+      "headings",
+      "semantic-html"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-027",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.3.1 (A): визуальные списки размечены ul/ol/li",
+    "statement": "Перечни, выглядящие как список, должны быть свёрстаны тегами ul/ol и li, а не текстом с дефисами и переносами — иначе скринридер не сообщит число элементов.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти в DOM абзацы с паттерном «<br>- » или строками, начинающимися с дефиса/маркера (regex (^|<br>)\\s*[-•·]) — кандидаты на fail. Корректность существующих списков проверяют axe правила list и listitem."
+    },
+    "source": {
+      "chunk_id": "s5-c02-03",
+      "printed_pages": [
+        399
+      ]
+    },
+    "tags": [
+      "wcag-1.3.1",
+      "lists",
+      "semantic-html",
+      "axe-list"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-028",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.3.2 (A): порядок в DOM соответствует смысловому порядку чтения",
+    "statement": "Последовательность контента в коде должна совпадать с логикой чтения: визуальная перестановка блоков через CSS не должна давать бессвязный порядок для скринридера. Открываемая по кнопке форма идёт в DOM сразу после кнопки, либо фокус переносится в её начало.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Прочитать страницу скринридером подряд (NVDA/VoiceOver) или отключить CSS и сравнить порядок с визуальным. Нарушение логики чтения — fail. После открытия формы/модалки проверить, куда попадает фокус."
+    },
+    "source": {
+      "chunk_id": "s5-c02-03",
+      "printed_pages": [
+        399
+      ]
+    },
+    "tags": [
+      "wcag-1.3.2",
+      "reading-order",
+      "dom-order",
+      "screen-reader"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-029",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.3.3 (A): инструкции не опираются только на цвет, форму, положение или звук",
+    "statement": "Подсказки вида «нажмите большую зелёную кнопку справа» или «поля, отмеченные красным, обязательны» недопустимы без текстового идентификатора: нужно называть элемент по подписи, а обязательные поля дополнительно помечать, например, звёздочкой.",
+    "rationale": "Незрячий не видит цвет и положение, дальтоник не различает цвета, а на мобильном «справа» может оказаться внизу.",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Grep по текстам UI и требованиям: regex (справа|слева|сверху|снизу|зелён|красн|кругл|квадрат|после (звукового )?сигнала) в инструкциях. Если элемент не назван по видимой подписи — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-03",
+      "printed_pages": [
+        399,
+        400
+      ]
+    },
+    "tags": [
+      "wcag-1.3.3",
+      "sensory-characteristics",
+      "instructions",
+      "copy"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-030",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.3.4 (AA): интерфейс не заблокирован в одной ориентации",
+    "statement": "Приложение должно работать и в портретной, и в альбомной ориентации; фиксация допустима лишь там, где она функционально необходима (сканер чеков, клавиатура пианино, гоночный симулятор).",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "axe правило css-orientation-lock (экспериментальное, по умолчанию выключено — включить явно) ловит блокировку ориентации через CSS. Дополнительно повернуть устройство/эмулятор на каждом ключевом экране: экран-заглушка «поверните устройство» без функционального обоснования — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-03",
+      "printed_pages": [
+        400
+      ]
+    },
+    "tags": [
+      "wcag-1.3.4",
+      "orientation",
+      "mobile",
+      "tablet",
+      "axe-css-orientation-lock"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-031",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.3.5 (AA): поля персональных данных имеют autocomplete",
+    "statement": "Поля ввода личных данных пользователя (имя, фамилия, email, телефон, адрес, индекс, номер карты) должны иметь корректный атрибут autocomplete (given-name, email, tel, street-address, cc-number и т.д.).",
+    "rationale": "Автозаполнение помогает людям с дислексией и нарушениями памяти.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Найти input с type=email/tel или name/id вида name|email|phone|tel|address|zip|postal|card и проверить наличие autocomplete с валидным токеном. axe правило autocomplete-valid проверяет валидность значения; отсутствие атрибута ищется грепом/скриптом."
+    },
+    "source": {
+      "chunk_id": "s5-c02-03",
+      "printed_pages": [
+        400,
+        401
+      ]
+    },
+    "tags": [
+      "wcag-1.3.5",
+      "autocomplete",
+      "forms",
+      "axe-autocomplete-valid"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-032",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 1.3.6 (AAA): назначение областей через landmarks и ARIA-роли",
+    "statement": "Уровень AAA: назначение блоков и элементов программно определено через семантические ориентиры (nav, main, footer/contentinfo) и ARIA-роли.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "axe правила region, landmark-one-main, landmark-unique; проверить landmarks в ANDI/расширении Landmarks. Отсутствие main/nav — замечание."
+    },
+    "source": {
+      "chunk_id": "s5-c02-03",
+      "printed_pages": [
+        401,
+        402
+      ]
+    },
+    "tags": [
+      "wcag-1.3.6",
+      "landmarks",
+      "aria-roles",
+      "axe-region"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-033",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.4.1 (A): ошибка поля обозначается не только красным цветом",
+    "statement": "WCAG SC 1.4.1 Use of Color, уровень A: цвет не может быть единственным носителем информации. Ошибка в форме кроме красной рамки должна сопровождаться иконкой и текстом, объясняющим проблему.",
+    "rationale": "Около 8% мужчин и 0,5% женщин имеют нарушения цветовосприятия.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Спровоцировать ошибки валидации и посмотреть страницу в оттенках серого (DevTools → Rendering → Emulate vision deficiencies: achromatopsia). Если ошибка различима только по цвету и нет текста — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        402,
+        403
+      ]
+    },
+    "tags": [
+      "wcag-1.4.1",
+      "use-of-color",
+      "forms",
+      "validation",
+      "color-blindness"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-034",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 1.4.1 (A): ссылки в тексте отличаются не только цветом",
+    "statement": "Ссылка внутри абзаца должна иметь второй визуальный признак помимо цвета — обычно подчёркивание.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "axe правило link-in-text-block: ссылки в тексте без подчёркивания и с недостаточным контрастом к окружающему тексту (< 3:1) — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        402,
+        403
+      ]
+    },
+    "tags": [
+      "wcag-1.4.1",
+      "links",
+      "use-of-color",
+      "axe-link-in-text-block"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-035",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 1.4.1 (A): выбор цвета товара подписан текстом",
+    "statement": "Свотчи выбора цвета не должны быть просто цветными кружками: при наведении или выборе рядом нужна текстовая подпись (например, «Цвет: чёрный»), а у элемента — доступное имя.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "На карточке товара проверить свотчи: нет видимой подписи выбранного цвета и нет aria-label/текста у кнопок свотчей — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        403
+      ]
+    },
+    "tags": [
+      "wcag-1.4.1",
+      "color-swatch",
+      "e-commerce",
+      "use-of-color"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-036",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 1.4.1 (A): сегменты графиков различимы без цвета",
+    "statement": "Сектора диаграмм и линии графиков должны различаться не только цветом: штриховкой/узором и текстовыми подписями.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Посмотреть графики в режиме эмуляции дальтонизма/оттенков серого (DevTools Rendering). Если серии неразличимы и нет подписей — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        403
+      ]
+    },
+    "tags": [
+      "wcag-1.4.1",
+      "charts",
+      "data-viz",
+      "use-of-color",
+      "see-SRK-MOB-050"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-037",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.4.2 (A): автозвук дольше 3 с можно остановить",
+    "statement": "Если звук на странице запускается автоматически и длится больше 3 секунд, нужен заметный механизм паузы/остановки или регулировки громкости, независимый от системной. Лучше — видео стартует без звука, звук включается по клику.",
+    "rationale": "Автозвук заглушает скринридер, и незрячий пользователь теряет навигацию.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Загрузить страницу и послушать. В DOM: <video autoplay> без muted или <audio autoplay> — кандидат на fail (axe правило no-autoplay-audio). Нет видимой кнопки паузы/выключения звука — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        403,
+        404
+      ]
+    },
+    "tags": [
+      "wcag-1.4.2",
+      "autoplay",
+      "audio",
+      "axe-no-autoplay-audio"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-038",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.4.3 (AA): контраст текста не ниже 4.5:1 (крупного — 3:1)",
+    "statement": "WCAG SC 1.4.3 Contrast (Minimum), уровень AA: текст и изображения текста должны иметь контраст к фону не менее 4.5:1, крупный текст — не менее 3:1. Типичные нарушения — светло-серый текст на белом, белый текст на ярко-оранжевой кнопке.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "axe DevTools / Lighthouse правило color-contrast; точечно — контраст-чекер (WebAIM Contrast Checker, пипетка в DevTools). Коэффициент ниже порога — fail. Текст на изображениях/градиентах axe помечает как needs review — проверять вручную."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        404
+      ]
+    },
+    "tags": [
+      "wcag-1.4.3",
+      "contrast",
+      "axe-color-contrast",
+      "lighthouse",
+      "usability",
+      "older-users",
+      "also-usability"
+    ],
+    "verification": "fixed",
+    "rationale": "Низкий контраст особенно мешает слабовидящим и пожилым пользователям со сниженной контрастной чувствительностью."
+  },
+  {
+    "id": "SRK-A11Y-039",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.4.5 (AA): никакого текста, зашитого в картинки",
+    "statement": "Если информацию можно передать живым текстом с CSS-стилизацией, нельзя использовать изображения с вшитым текстом (например, кнопку «Зарегистрироваться», нарисованную в графическом редакторе).",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти img/background-image внутри кнопок, баннеров и заголовков и проверить, содержит ли картинка текст (визуально или OCR). Текстовая кнопка как <img> — fail; логотипы — исключение."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        404,
+        405
+      ]
+    },
+    "tags": [
+      "wcag-1.4.5",
+      "images-of-text"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-040",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 1.4.6 (AAA): усиленный контраст 7:1 (крупный текст — 4.5:1)",
+    "statement": "Уровень AAA: обычный текст должен иметь контраст не менее 7:1, крупный — не менее 4.5:1.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "axe правило color-contrast-enhanced (включается тегом wcag2aaa) или контраст-чекер. Ниже 7:1 — замечание только при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        405
+      ]
+    },
+    "tags": [
+      "wcag-1.4.6",
+      "contrast",
+      "axe-color-contrast-enhanced"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-041",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 1.4.7 (AAA): фоновая музыка тише речи на 20 дБ",
+    "statement": "Уровень AAA: в записях с речью фоновая музыка либо отсутствует, либо минимум на 20 дБ тише голоса.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Прослушать записи с речью; при сомнении измерить уровни в аудиоредакторе. Фон, мешающий разобрать речь, — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        405
+      ]
+    },
+    "tags": [
+      "wcag-1.4.7",
+      "audio",
+      "background-noise"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-042",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 1.4.8 (AAA): настраиваемое визуальное представление текста",
+    "statement": "Уровень AAA: пользователь может выбрать цвета фона и текста; строка не длиннее 80 символов; нет выравнивания по ширине; межстрочный интервал не менее 1.5, между абзацами — больше; масштабирование без горизонтальной прокрутки.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить CSS абзацев: text-align: justify, line-height < 1.5, max-width строки > ~80ch — замечания. Проверить наличие настроек цвета фона/текста. Применимо при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        405,
+        406
+      ]
+    },
+    "tags": [
+      "wcag-1.4.8",
+      "typography",
+      "line-length",
+      "justify"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-043",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 1.4.9 (AAA): текст на изображениях запрещён без исключений",
+    "statement": "Уровень AAA: текст в картинках не допускается вообще, даже ради фирменного шрифта — только живой текст.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти любые изображения с текстом (кроме логотипов). Наличие — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        406
+      ]
+    },
+    "tags": [
+      "wcag-1.4.9",
+      "images-of-text"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-044",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.4.10 (AA): нет горизонтальной прокрутки при 320px и зуме 400%",
+    "statement": "WCAG SC 1.4.10 Reflow, уровень AA: контент должен перестраиваться так, чтобы не требовалась горизонтальная прокрутка на экране шириной 320px и при масштабе браузера 400%.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Playwright: setViewportSize({width:320,height:640}) и проверить document.documentElement.scrollWidth <= clientWidth на ключевых страницах; вручную — зум 400% при окне 1280px. Горизонтальный скролл для основного текста — fail (таблицы, карты — исключения)."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        407
+      ]
+    },
+    "tags": [
+      "wcag-1.4.10",
+      "reflow",
+      "responsive",
+      "zoom"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-045",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.4.11 (AA): контраст элементов интерфейса и значимой графики не ниже 3:1",
+    "statement": "Границы полей ввода, контуры кнопок, индикаторы (точки пагинации), значимые иконки должны иметь контраст не менее 3:1 к соседним цветам. Исключения: логотипы, декор, естественные изображения (фото, скриншоты) и неактивные (disabled) элементы.",
+    "rationale": "Слабовидящие не замечают светло-серую рамку поля на белом фоне (например, #E0E0E0 даёт лишь ~1.2:1).",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "axe это почти не проверяет. Пипеткой взять цвет рамки/иконки и соседнего фона, проверить в контраст-чекере: < 3:1 — fail. Особое внимание: ghost-кнопки, рамки инпутов, активная точка слайдера, иконки без подписи."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        407,
+        408
+      ]
+    },
+    "tags": [
+      "wcag-1.4.11",
+      "non-text-contrast",
+      "contrast",
+      "inputs",
+      "icons",
+      "see-SRK-MD-035"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-046",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.4.12 (AA): вёрстка выдерживает увеличенные интервалы текста",
+    "statement": "При пользовательских интервалах (line-height 1.5, абзацы 2× шрифта, letter-spacing 0.12, word-spacing 0.16) текст не должен обрезаться, перекрываться, а кнопки — вылезать за границы. Решения: min-height вместо height, относительные единицы, запас пространства.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Применить Text Spacing bookmarklet или инъекцию CSS с указанными значениями (можно в Playwright через addStyleTag + скриншот). Обрезанный/перекрытый текст или съехавшие кнопки — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        409,
+        410
+      ]
+    },
+    "tags": [
+      "wcag-1.4.12",
+      "text-spacing",
+      "layout"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-047",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.4.13 (AA): всплывающий контент закрывается по Esc",
+    "statement": "Контент, появляющийся по наведению или фокусу (тултипы, выпадашки), должен закрываться без перемещения мыши и фокуса — обычно клавишей Esc.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Навести/сфокусировать элемент с тултипом и нажать Esc: подсказка не исчезла — fail. Можно автоматизировать в Playwright: hover → keyboard.press('Escape') → expect(tooltip).toBeHidden()."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        410,
+        411
+      ]
+    },
+    "tags": [
+      "wcag-1.4.13",
+      "tooltip",
+      "hover",
+      "dismissible",
+      "escape"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-048",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.4.13 (AA): на всплывший контент можно навести курсор",
+    "statement": "Если подсказка появилась при наведении, пользователь должен иметь возможность перевести курсор на саму подсказку, и она при этом не пропадёт (чтобы нажать ссылку или поднести лупу).",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Навести на триггер, затем медленно переместить курсор на появившийся контент. Исчезает по пути — fail («подсказка-фантом»)."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        411
+      ]
+    },
+    "tags": [
+      "wcag-1.4.13",
+      "tooltip",
+      "hoverable"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-049",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 1.4.13 (AA): всплывший контент не исчезает по таймеру",
+    "statement": "Появившийся по наведению/фокусу контент должен оставаться видимым, пока пользователь не уберёт курсор/фокус, не закроет его или он не станет неактуален; автоскрытие через пару секунд недопустимо.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Навести на элемент и подождать 10+ секунд не двигая курсор. Контент закрылся сам — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c02-04",
+      "printed_pages": [
+        411,
+        412
+      ]
+    },
+    "tags": [
+      "wcag-1.4.13",
+      "tooltip",
+      "persistent"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-050",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Стандартные клавиши навигации работают как ожидается",
+    "statement": "Проход с клавиатуры: Tab/Shift+Tab двигают фокус по интерактивным элементам, Enter/Space активируют кнопки, ссылки и чекбоксы, стрелки работают внутри списков, слайдеров и табов, Esc закрывает модалки и меню.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Keyboard-only walk: отложить мышь и пройти ключевые сценарии. Любое ожидаемое поведение клавиши из списка, которое не срабатывает, — fail. Ключевые шаги автоматизируются через Playwright keyboard.press."
+    },
+    "source": {
+      "chunk_id": "s5-c03-00",
+      "printed_pages": [
+        413,
+        414
+      ]
+    },
+    "tags": [
+      "keyboard",
+      "wcag-2.1.1",
+      "keyboard-walk"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-051",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.1.1 (A): все кликабельные элементы достижимы и активируемы с клавиатуры",
+    "statement": "WCAG SC 2.1.1 Keyboard, уровень A: весь функционал доступен без мыши. Кликабельные элементы — нативные button/a; «кнопка» из div с обработчиком клика недопустима, если у неё нет tabindex=\"0\", роли button и обработки Enter/Space.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Grep по DOM/коду: элементы div/span с onclick/@click/cursor:pointer без tabindex и role — кандидаты на fail. Проверить Tab'ом: элемент пропускается или не активируется Enter/Space — fail. Частично ловят axe/IBM Equal Access (например, scrollable-region-focusable, nested-interactive), но полностью — только ручной проход."
+    },
+    "source": {
+      "chunk_id": "s5-c03-00",
+      "printed_pages": [
+        414,
+        415
+      ]
+    },
+    "tags": [
+      "wcag-2.1.1",
+      "keyboard",
+      "div-button",
+      "semantic-html",
+      "see-SRK-FORM-042"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-052",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 2.1.1 (A): меню не открываются только по :hover",
+    "statement": "Выпадающие меню, раскрываемые лишь наведением мыши, недоступны с клавиатуры; они должны раскрываться также по фокусу/Enter.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Табом дойти до пункта меню с подменю и попробовать раскрыть Enter/Space/стрелкой вниз. Подменю недостижимо — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c03-00",
+      "printed_pages": [
+        415
+      ]
+    },
+    "tags": [
+      "wcag-2.1.1",
+      "keyboard",
+      "dropdown-menu",
+      "hover"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-053",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 2.1.1 (A): слайдеры, drag-and-drop и календари управляются с клавиатуры",
+    "statement": "Ползунки (например, цены) и перетаскивание должны иметь клавиатурную альтернативу (стрелки или ввод числа), выбор даты в календаре — стрелками, а загрузка файла drag-and-drop — дублироваться нативной кнопкой «Загрузить файл».",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Для каждого слайдера, DnD-зоны, сортируемого списка и date picker выполнить действие только клавиатурой. Невозможно — fail. Для DnD-загрузки проверить наличие <input type=\"file\"> или кнопки выбора файла."
+    },
+    "source": {
+      "chunk_id": "s5-c03-00",
+      "printed_pages": [
+        415
+      ]
+    },
+    "tags": [
+      "wcag-2.1.1",
+      "keyboard",
+      "slider",
+      "drag-and-drop",
+      "date-picker",
+      "file-upload"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-054",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.1.2 (A): нет клавиатурных ловушек",
+    "statement": "WCAG SC 2.1.2 No Keyboard Trap, уровень A: фокус, попавший в компонент, должен свободно уходить дальше по странице. Если выход требует нестандартной клавиши, пользователя нужно явно об этом предупредить (например, подсказка о сочетании для выхода из редактора).",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Пройти Tab'ом всю страницу от начала до подвала. Если фокус зацикливается внутри блока (виджет чата, карта, iframe, плеер, автокомплит) без возможности выйти — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c03-00",
+      "printed_pages": [
+        415,
+        416
+      ]
+    },
+    "tags": [
+      "wcag-2.1.2",
+      "keyboard-trap",
+      "iframe",
+      "widgets"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-055",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 2.1.2 (A): модальное окно закрывается по Esc и возвращает фокус",
+    "statement": "В модальном окне Tab после последнего поля переходит на кнопку «Закрыть», Esc мгновенно закрывает окно, и фокус возвращается на элемент, который его открыл.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Открыть модалку с клавиатуры, пройти её Tab'ом, нажать Esc. Окно не закрылось или фокус не вернулся на кнопку-триггер (document.activeElement) — fail. Легко автоматизируется в Playwright."
+    },
+    "source": {
+      "chunk_id": "s5-c03-00",
+      "printed_pages": [
+        416
+      ]
+    },
+    "tags": [
+      "wcag-2.1.2",
+      "modal",
+      "focus-management",
+      "escape"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-056",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 2.1.2 (A): автокомплит не ломает навигацию с клавиатуры",
+    "statement": "При появлении списка подсказок пользователь должен уметь выбрать вариант стрелками/Enter или вернуться в поле ввода; фокус не должен «застревать» в списке.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Ввести текст в поле с подсказками, пройтись по ним стрелками, выбрать Enter, закрыть Esc, уйти Tab. Невозможно выбрать или вернуться — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c03-00",
+      "printed_pages": [
+        416
+      ]
+    },
+    "tags": [
+      "wcag-2.1.2",
+      "autocomplete",
+      "combobox",
+      "keyboard"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-057",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.1.3 (AAA): клавиатурная альтернатива даже для «мышиных» функций",
+    "statement": "Уровень AAA: рисование, перемещение объектов, CAD, канбан-доски тоже управляются с клавиатуры — стрелками, вводом координат, контекстным меню «Переместить в колонку…» или сочетаниями вроде Ctrl+стрелки.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Для каждой функции рисования/перемещения попытаться выполнить её только клавиатурой. Невозможно — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c03-00",
+      "printed_pages": [
+        416,
+        417
+      ]
+    },
+    "tags": [
+      "wcag-2.1.3",
+      "keyboard",
+      "drag-and-drop",
+      "canvas"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-058",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.1.4 (A): однобуквенные хоткеи можно отключить или переназначить",
+    "statement": "Горячие клавиши из одного символа допустимы, только если их можно выключить, назначить им модификатор, либо они активны лишь при фокусе на конкретном компоненте.",
+    "rationale": "Они конфликтуют с однобуквенными командами скринридеров и могут сработать случайно при голосовом вводе.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти в коде обработчики keydown/keypress, реагирующие на одиночные буквы без проверки ctrlKey/altKey/metaKey. Если нет настройки отключения и хоткей глобальный — fail. Вручную: нажать буквы при фокусе вне полей ввода и посмотреть, не выполняются ли действия."
+    },
+    "source": {
+      "chunk_id": "s5-c03-00",
+      "printed_pages": [
+        417
+      ]
+    },
+    "tags": [
+      "wcag-2.1.4",
+      "hotkeys",
+      "shortcuts",
+      "screen-reader",
+      "voice-control"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-059",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.2.1 (A): тайм-лимит можно отключить, увеличить или продлить",
+    "statement": "WCAG SC 2.2.1 Timing Adjustable, уровень A: при ограничении по времени (истечение сессии, таймер формы) пользователь может отключить лимит заранее, увеличить его минимум в 10 раз или получить предупреждение не позже чем за 20 секунд до конца с простой возможностью продлить.",
+    "rationale": "Людям с моторными и когнитивными нарушениями и пользователям скринридеров нужно в разы больше времени.",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В требованиях найти все таймауты (сессия, бронь, OTP, платёжная форма) и проверить описание предупреждения/продления. На продукте: дождаться окончания таймера (или сократить его в тестовом окружении). Форма закрывается без предупреждения и кнопки «Продлить» — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c03-02",
+      "printed_pages": [
+        417,
+        418
+      ]
+    },
+    "tags": [
+      "wcag-2.2.1",
+      "session-timeout",
+      "timing"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-060",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Сообщения об ошибках — постоянные баннеры, а не исчезающие тосты",
+    "statement": "Toast-уведомление об ошибке, исчезающее через пару секунд, нарушает требования к достаточному времени. Лучше использовать постоянные алерт-баннеры, которые висят до закрытия пользователем.",
+    "rationale": "Автор отмечает, что крупные платформы и банки отказываются от тостов именно по этой причине.",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Спровоцировать ошибку и замерить время показа уведомления. Важное сообщение (ошибка, предупреждение) исчезает само за несколько секунд без возможности вернуть — fail; в коде искать autoHideDuration/timeout у toast с ошибками."
+    },
+    "source": {
+      "chunk_id": "s5-c03-02",
+      "printed_pages": [
+        418
+      ]
+    },
+    "tags": [
+      "wcag-2.2.1",
+      "toast",
+      "notifications",
+      "error-messages",
+      "see-SRK-FORM-053",
+      "see-SRK-MD-079"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-061",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.2.2 (A): автоматическое движение и мигание можно остановить",
+    "statement": "WCAG SC 2.2.2 Pause, Stop, Hide, уровень A: всё, что само двигается, мигает или прокручивается дольше 5 секунд (карусели, фоновое видео, длинные гифки), должно иметь видимый механизм паузы/остановки/скрытия. Карусель также должна замирать при наведении и фокусе.",
+    "rationale": "Движение мешает читать людям с СДВГ, а мигание и параллакс могут вызвать тошноту и головокружение.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти карусели, фоновые видео (<video autoplay loop>), анимированные GIF, бегущие строки. Нет кнопки Play/Pause или остановки при hover/focus — fail. axe правила blink и marquee ловят только устаревшие теги."
+    },
+    "source": {
+      "chunk_id": "s5-c03-02",
+      "printed_pages": [
+        419,
+        420
+      ]
+    },
+    "tags": [
+      "wcag-2.2.2",
+      "carousel",
+      "animation",
+      "autoplay",
+      "gif"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-062",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 2.2.2 (A): автообновляемый контент можно поставить на паузу",
+    "statement": "Ленты, котировки, спортивные счета и другие самообновляющиеся блоки должны позволять приостановить обновление и не сбивать позицию чтения и фокус скринридера.",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Оставить открытой страницу с авто-обновлением и наблюдать: при обновлении сбивается прокрутка/фокус и нет паузы — fail. Хороший паттерн: плашка «Появились новые записи [Показать]»."
+    },
+    "source": {
+      "chunk_id": "s5-c03-02",
+      "printed_pages": [
+        418,
+        420
+      ]
+    },
+    "tags": [
+      "wcag-2.2.2",
+      "auto-update",
+      "live-feed",
+      "focus"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-063",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Учитывать prefers-reduced-motion или давать выключатель анимаций",
+    "statement": "Параллакс и выраженная анимация должны отключаться глобальным переключателем на сайте или автоматически при системной настройке «уменьшить движение» (prefers-reduced-motion).",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Grep по CSS/JS на @media (prefers-reduced-motion) или наличие переключателя «отключить анимацию» на сайте. Затем в Playwright emulateMedia({reducedMotion:'reduce'}) (или системная настройка) и визуально оценить, что параллакс и крупные анимации отключились. Нет ни реакции на настройку, ни переключателя — замечание. Детерминированная часть: после emulateMedia({reducedMotion:'reduce'}) document.getAnimations() пуст или длительности анимаций близки к нулю."
+    },
+    "source": {
+      "chunk_id": "s5-c03-02",
+      "printed_pages": [
+        420
+      ]
+    },
+    "tags": [
+      "wcag-2.2.2",
+      "prefers-reduced-motion",
+      "parallax",
+      "animation",
+      "gui",
+      "animations",
+      "accessibility",
+      "wcag-2.3.3",
+      "also-gui",
+      "see-SRK-HIG-013"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-064",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.2.3 (AAA): никаких ограничений по времени",
+    "statement": "Уровень AAA: взаимодействие не зависит от скорости пользователя — нет таймеров в тестах, сброса корзины по времени, автологаута; можно отвлечься на час и продолжить без потери данных.",
+    "applies_to": [
+      "requirements",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти любые таймеры и автосбросы. Их наличие — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c03-02",
+      "printed_pages": [
+        420,
+        421
+      ]
+    },
+    "tags": [
+      "wcag-2.2.3",
+      "timing"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-065",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.2.4 (AAA): прерывания можно отложить или отключить",
+    "statement": "Уровень AAA: всплывающие окна, уведомления, звуковые сигналы и автоподгрузка не должны перебивать пользователя без возможности отключения; исключение — критичные ситуации (безопасность, потеря данных, системная ошибка). Предпочтительно ненавязчиво подсветить колокольчик или показать строку «есть новое».",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Пробыть на странице 1–2 минуты: поп-апы с подпиской, «Иван купил товар», звонкие сообщения чата, перехватывающие фокус, без настройки «не беспокоить» — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c03-02",
+      "printed_pages": [
+        421,
+        423
+      ]
+    },
+    "tags": [
+      "wcag-2.2.4",
+      "interruptions",
+      "popups",
+      "notifications"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-066",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.2.5 (AAA): после повторного входа введённые данные сохраняются",
+    "statement": "Уровень AAA: если сессия истекла во время заполнения, после повторной аутентификации пользователь возвращается на то же место с заполненными полями. Очистка допустима лишь при реальной угрозе безопасности.",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Заполнить длинную форму, принудительно истечь сессию (удалить cookie/токен), отправить, залогиниться. Пустая форма — замечание (для магазинов и госуслуг — серьёзное)."
+    },
+    "source": {
+      "chunk_id": "s5-c03-02",
+      "printed_pages": [
+        423,
+        424
+      ]
+    },
+    "tags": [
+      "wcag-2.2.5",
+      "re-authentication",
+      "session",
+      "data-loss"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-067",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.2.6 (AAA): заранее предупреждать о тайм-ауте бездействия",
+    "statement": "Уровень AAA: о периоде бездействия, после которого данные пропадут, нужно сообщить до начала заполнения, если данные не хранятся более 20 часов.",
+    "applies_to": [
+      "requirements",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Перед длинными формами (анкета, заявка) искать дисклеймер о лимите бездействия. Сброс через N минут без предупреждения на старте — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c03-02",
+      "printed_pages": [
+        424,
+        425
+      ]
+    },
+    "tags": [
+      "wcag-2.2.6",
+      "timeouts",
+      "data-loss"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-068",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.3.1 (A): не больше трёх вспышек в секунду",
+    "statement": "WCAG SC 2.3.1 Three Flashes or Below Threshold, уровень A: ничто на странице (видео, GIF, баннеры, CSS-анимации) не должно вспыхивать чаще трёх раз в секунду, если вспышка крупная (порядка 25% экрана) и контрастная. Мигающая кнопка «Скидка!» красный↔белый — нарушение; плавная пульсация раз в 2 секунды — допустима.",
+    "rationale": "Частые вспышки могут спровоцировать приступ фотосенситивной эпилепсии.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти CSS-анимации с длительностью цикла < 333 мс, меняющие цвет/яркость/opacity, и мигающие GIF/видео. Для видео — анализатор вспышек (например, PEAT). Превышение порога — fail. Неустранимые вспышки в видео как минимум предваряются предупреждением. Анимации и переходы удобно просматривать замедленно в DevTools (панель Animations)."
+    },
+    "source": {
+      "chunk_id": "s5-c03-03",
+      "printed_pages": [
+        425,
+        426
+      ]
+    },
+    "tags": [
+      "wcag-2.3.1",
+      "flashing",
+      "seizures",
+      "animation",
+      "gui",
+      "animations",
+      "accessibility",
+      "also-gui",
+      "ios",
+      "web",
+      "also-mobile-hig"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-069",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.3.2 (AAA): никаких вспышек чаще 3 раз в секунду, без исключений",
+    "statement": "Уровень AAA: запрещено любое мигание чаще трёх раз в секунду независимо от размера и контраста, даже крошечная точка в углу.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти любые анимации/индикаторы с частотой мигания > 3 Гц (CSS animation-duration < 333ms с изменением видимости). Наличие — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c03-03",
+      "printed_pages": [
+        426,
+        427
+      ]
+    },
+    "tags": [
+      "wcag-2.3.2",
+      "flashing",
+      "seizures"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-070",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.3.3 (AAA): анимации от взаимодействия можно отключить",
+    "statement": "Уровень AAA: анимации, запускаемые действиями пользователя (параллакс при скролле, сильное увеличение или «подпрыгивание» карточек при наведении, вылет фото на весь экран), должны отключаться, если они не критичны для функции.",
+    "rationale": "У людей с вестибулярными расстройствами такие эффекты вызывают головокружение и тошноту.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Включить reduced motion (Playwright emulateMedia({reducedMotion:'reduce'}) или системная настройка) либо переключатель анимаций на сайте; затем проскроллить и навести на карточки/фото. Параллакс, сильный зум и «подпрыгивание» продолжают работать и нет способа их выключить — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c03-03",
+      "printed_pages": [
+        427,
+        428
+      ]
+    },
+    "tags": [
+      "wcag-2.3.3",
+      "animation",
+      "parallax",
+      "prefers-reduced-motion",
+      "vestibular"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-071",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.4.1 (A): есть способ пропустить повторяющиеся блоки (skip link)",
+    "statement": "WCAG SC 2.4.1 Bypass Blocks, уровень A: должен быть механизм перехода сразу к основному контенту в обход шапки и меню — обычно первая в DOM ссылка «Перейти к основному контенту», видимая при фокусе.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "axe правило bypass (наличие skip link, landmarks или заголовков). Вручную: загрузить страницу, нажать Tab — первым должен появиться видимый skip link; Enter переводит фокус к основному контенту. Нет или ссылка не работает — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p1",
+      "printed_pages": [
+        428,
+        429
+      ]
+    },
+    "tags": [
+      "wcag-2.4.1",
+      "skip-link",
+      "bypass-blocks",
+      "axe-bypass"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-072",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.4.2 (A): уникальный и информативный <title> страницы",
+    "statement": "WCAG SC 2.4.2 Page Titled, уровень A: у каждой страницы свой краткий заголовок в <title>, описывающий её содержание; суть страницы ставится перед названием бренда («Корзина — Мой сайт»), а не одинаковое «Мой сайт» везде.",
+    "rationale": "Скринридер зачитывает title первым при загрузке; он же нужен для вкладок, истории и выдачи поиска.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "axe/Lighthouse правило document-title (наличие). Скриптом обойти страницы и собрать document.title: пустые и дубли на разных страницах — fail; бренд в начале длинного title — замечание."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p1",
+      "printed_pages": [
+        429,
+        430
+      ]
+    },
+    "tags": [
+      "wcag-2.4.2",
+      "page-title",
+      "axe-document-title",
+      "seo"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-073",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "SC 2.4.2: заголовок вкладки отражает состояние страницы",
+    "statement": "При изменении состояния (ошибка, результаты поиска, новое сообщение, 404) title должен обновляться, например «(1) Новое сообщение — Почта» или «Ошибка 404: страница не найдена».",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В e2e-тестах или на продукте вызвать смену состояния (ошибка валидации, выдача поиска, новое сообщение, 404) и прочитать title (expect(page).toHaveTitle / document.title). Отражает ли он новое состояние — решает аудитор; title не меняется вообще — замечание."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p1",
+      "printed_pages": [
+        430
+      ]
+    },
+    "tags": [
+      "wcag-2.4.2",
+      "page-title",
+      "spa",
+      "404"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-074",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.4.3 (A): порядок фокуса совпадает с визуальным",
+    "statement": "WCAG SC 2.4.3 Focus Order, уровень A: при навигации Tab фокус идёт в логичном порядке (слева направо, сверху вниз). Частая причина нарушения — перестановка блоков через CSS (order, flex-direction: *-reverse) без изменения порядка в HTML.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Пройти страницу Tab'ом и сравнить путь фокуса с визуальным порядком (наглядно — функция Tab stops в Accessibility Insights или визуализация порядка в ANDI). Прыжки шапка→футер→середина — fail. Grep CSS на order:/row-reverse/column-reverse — кандидаты."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p1",
+      "printed_pages": [
+        430,
+        431
+      ]
+    },
+    "tags": [
+      "wcag-2.4.3",
+      "focus-order",
+      "keyboard",
+      "css-order",
+      "see-SRK-HIG-109"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-075",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.4.3 (A): не использовать положительный tabindex",
+    "statement": "tabindex со значением 1 и выше ломает естественный порядок фокуса; допустимы только tabindex=\"0\" (добавить в поток) и tabindex=\"-1\" (убрать из потока).",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "axe правило tabindex; grep по коду/DOM: regex tabindex=\"?[1-9]\\d*\"? — любое совпадение = fail."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p1",
+      "printed_pages": [
+        431
+      ]
+    },
+    "tags": [
+      "wcag-2.4.3",
+      "tabindex",
+      "axe-tabindex"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-076",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 2.4.3 (A): при открытии модалки или меню фокус переходит внутрь",
+    "statement": "Когда открывается поп-ап, модальное окно или меню, фокус должен сразу переходить в него, а не оставаться на фоне.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "В Playwright открыть диалог и проверить, что document.activeElement находится внутри [role=dialog]; затем Tab не уводит фокус на фон. Иначе — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p1",
+      "printed_pages": [
+        431
+      ]
+    },
+    "tags": [
+      "wcag-2.4.3",
+      "modal",
+      "focus-management"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-077",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.4.4 (A): цель ссылки понятна из текста или контекста",
+    "statement": "WCAG SC 2.4.4 Link Purpose (In Context), уровень A: текст ссылки вместе с ближайшим контекстом должен объяснять, куда она ведёт. Повторяющиеся «Читать далее», «тут», «Подробнее» без контекста или aria-label и иконки-ссылки без текста — нарушение. Хороший пример — «Скачать отчёт за 2025 год (PDF, 2 МБ)».",
+    "rationale": "Пользователи скринридеров просматривают список всех ссылок вне контекста.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "axe правило link-name ловит пустые ссылки. Затем собрать все ссылки с доступными именами (список ссылок NVDA Insert+F7 / ротор VoiceOver / ANDI links): regex ^(тут|здесь|подробнее|читать далее|далее|click here|read more|more)$ без уточняющего aria-label, а также дубли имён с разными href — fail. Тексты ссылок можно собрать и автотестом (Playwright: locator('a'))."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p1",
+      "printed_pages": [
+        432,
+        433
+      ]
+    },
+    "tags": [
+      "wcag-2.4.4",
+      "link-purpose",
+      "links",
+      "axe-link-name",
+      "web",
+      "ios",
+      "ux-writing",
+      "link",
+      "screen-reader",
+      "also-mobile-hig"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-078",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.4.5 (AA): минимум два способа найти страницу",
+    "statement": "WCAG SC 2.4.5 Multiple Ways, уровень AA: на сайте должно быть не менее двух способов добраться до страницы — например, меню и поиск, карта сайта, блок связанных страниц или оглавление.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить наличие хотя бы двух механизмов: навигационное меню, поиск, карта сайта, «Смотрите также», оглавление. Только один — fail (кроме страниц-шагов процесса)."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p1",
+      "printed_pages": [
+        433,
+        434
+      ]
+    },
+    "tags": [
+      "wcag-2.4.5",
+      "navigation",
+      "search",
+      "sitemap"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-079",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.4.6 (AA): заголовки разделов информативны",
+    "statement": "Заголовки должны описывать содержание раздела («Условия доставки по Москве»), а не быть общими словами вроде «Разное», «Общая информация».",
+    "rationale": "Пользователи скринридеров перемещаются, прыгая по заголовкам.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Выгрузить структуру заголовков (HeadingsMap, ANDI, ротор VoiceOver) и прочитать её без контента: пустые (axe empty-heading) или ничего не говорящие заголовки — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p1",
+      "printed_pages": [
+        434,
+        435
+      ]
+    },
+    "tags": [
+      "wcag-2.4.6",
+      "headings",
+      "content"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-080",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.4.6 (AA): подписи полей точно описывают ожидаемые данные",
+    "statement": "Метки полей должны прямо говорить, что ввести, при необходимости с форматом и ограничениями («Дата рождения (ДД.ММ.ГГГГ)», «Пароль (минимум 8 символов)»), а не «Поле 1» или «Данные».",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Пройти все формы: метки-заглушки, неоднозначные метки, поля с форматом без указания формата — fail. В требованиях проверить, что тексты подписей полей определены."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p1",
+      "printed_pages": [
+        435
+      ]
+    },
+    "tags": [
+      "wcag-2.4.6",
+      "labels",
+      "forms"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-081",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.4.7 (AA): фокус клавиатуры всегда виден",
+    "statement": "WCAG SC 2.4.7 Focus Visible, уровень AA: каждый элемент, получающий фокус с клавиатуры, должен иметь заметный индикатор фокуса. Удаление системной рамки через outline: none без замены — нарушение.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Кликнуть в адресную строку и проходить страницу Tab'ом: если в какой-то момент на экране ничего не выделено — баг. Для отдельного элемента: DevTools → Elements → Styles → :hov → отметить :focus и :focus-visible и посмотреть рамку. Grep CSS на outline:\\s*(none|0) без альтернативного стиля :focus-visible — кандидат на fail."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p1",
+      "printed_pages": [
+        435,
+        436
+      ]
+    },
+    "tags": [
+      "wcag-2.4.7",
+      "focus-visible",
+      "outline",
+      "keyboard"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-082",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.4.8 (AAA): видно, где пользователь находится в структуре сайта",
+    "statement": "Уровень AAA: местоположение страницы в иерархии показано хлебными крошками (Главная > Электроника > Смартфоны) и/или выделением текущего раздела в меню, который программно помечен aria-current=\"page\".",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Открыть внутренние страницы: есть ли хлебные крошки (обычно nav[aria-label] со списком ссылок) или визуальное выделение текущего раздела в меню с aria-current=\"page\" у активного пункта (наличие атрибута можно проверить селектором). Ни одного способа понять местоположение — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p2",
+      "printed_pages": [
+        436,
+        437
+      ]
+    },
+    "tags": [
+      "wcag-2.4.8",
+      "breadcrumbs",
+      "aria-current",
+      "navigation"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-083",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.4.9 (AAA): текст ссылки понятен без контекста",
+    "statement": "Уровень AAA: сама ссылка должна объяснять цель без окружающего текста — «Купить iPhone 15» вместо «Купить» под заголовком, «Скачать отчёт за май в формате PDF» вместо «Скачать PDF».",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Выгрузить список ссылок (NVDA Insert+F7, ротор VoiceOver, ANDI) и оценить каждое имя изолированно. Неоднозначные имена — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p2",
+      "printed_pages": [
+        437
+      ]
+    },
+    "tags": [
+      "wcag-2.4.9",
+      "link-purpose",
+      "links"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-084",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.4.10 (AAA): текст разбит на разделы с заголовками",
+    "statement": "Уровень AAA: при смене темы внутри текстового контента должен появляться новый заголовок раздела; «стена текста» без заголовков — нарушение.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти длинные текстовые блоки без промежуточных h2–h6 (например, > 3 абзацев подряд при смене темы). Наличие — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p2",
+      "printed_pages": [
+        437,
+        438
+      ]
+    },
+    "tags": [
+      "wcag-2.4.10",
+      "headings",
+      "content-structure"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-085",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.4.11 (AA): элемент с фокусом не перекрыт полностью",
+    "statement": "WCAG SC 2.4.11 Focus Not Obscured (Minimum), уровень AA: элемент с фокусом клавиатуры должен быть виден хотя бы частично. Главные виновники перекрытия — липкие шапка и подвал, немодальные поп-апы, баннер cookie, виджеты чата в углу.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Пройти страницу Tab'ом с открытым баннером cookie и закреплённой шапкой/футером. Фокус полностью ушёл под фиксированный слой — fail. Автоматизация: для активного элемента сравнить getBoundingClientRect с прямоугольниками position:fixed/sticky элементов."
+    },
+    "modern_note": "Критерий 2.4.11 добавлен в WCAG 2.2 (октябрь 2023); в WCAG 2.1 его нет.",
+    "source": {
+      "chunk_id": "s5-c03-04-p2",
+      "printed_pages": [
+        438
+      ]
+    },
+    "tags": [
+      "wcag-2.4.11",
+      "focus-not-obscured",
+      "sticky-header",
+      "cookie-banner",
+      "wcag-2.2"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-086",
+    "kind": "tip",
+    "severity": "should",
+    "title": "scroll-margin-top выводит фокус из-под липкой шапки",
+    "statement": "Чтобы элемент с фокусом не прятался под фиксированной шапкой, задают scroll-margin-top (или scroll-padding-top) на высоту шапки; при открытии модалки фокус удерживают внутри неё, чтобы он не проваливался к перекрытым элементам фона.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Если на сайте есть position: sticky/fixed шапка, grep CSS на scroll-margin-top/scroll-padding-top. Нет — кандидат на нарушение 2.4.11, подтвердить проходом Tab'ом."
+    },
+    "source": {
+      "chunk_id": "s5-c03-04-p2",
+      "printed_pages": [
+        439
+      ]
+    },
+    "tags": [
+      "wcag-2.4.11",
+      "scroll-margin",
+      "sticky-header",
+      "focus-trap"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-087",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.4.12 (AAA): элемент с фокусом виден полностью",
+    "statement": "Уровень AAA: элемент с фокусом и его рамка должны быть видны на 100% — никакого частичного среза липкими элементами, баннерами или наложенными модалками.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Tab'ом пройти страницу со sticky-элементами; любое частичное перекрытие фокусированного элемента — замечание при цели AAA."
+    },
+    "modern_note": "Критерий 2.4.12 появился в WCAG 2.2.",
+    "source": {
+      "chunk_id": "s5-c03-04-p2",
+      "printed_pages": [
+        438,
+        439
+      ]
+    },
+    "tags": [
+      "wcag-2.4.12",
+      "focus-not-obscured"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-088",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.4.13 (AAA): индикатор фокуса толстый и контрастный",
+    "statement": "Уровень AAA: рамка фокуса толщиной не менее 2–3 px с контрастом не ниже 3:1 и к элементу, и к фону. Бледный однопиксельный пунктир (#CCCCCC на белом) или синяя рамка на тёмно-синей кнопке — нарушение. Надёжный приём — двойная обводка (белая прослойка плюс цветная рамка через box-shadow).",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Включить :focus-visible в DevTools (:hov) и измерить толщину рамки и её контраст пипеткой + контраст-чекером к элементу и фону. < 2px или < 3:1 — замечание при цели AAA."
+    },
+    "modern_note": "Критерий 2.4.13 появился в WCAG 2.2. Формально он требует, чтобы площадь индикатора была не меньше периметра элемента толщиной 2 CSS px, а контраст между состояниями с фокусом и без фокуса — не ниже 3:1. Формулировка книги («2–3 px, 3:1 к элементу и к фону») — практическое приближение, а не текст SC.",
+    "source": {
+      "chunk_id": "s5-c03-04-p2",
+      "printed_pages": [
+        439,
+        440
+      ]
+    },
+    "tags": [
+      "wcag-2.4.13",
+      "focus-appearance",
+      "focus-visible",
+      "contrast"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-089",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.5.1 (A): сложные жесты дублируются одиночным нажатием",
+    "statement": "WCAG SC 2.5.1 Pointer Gestures, уровень A: всё, что управляется свайпом, жестом по траектории или мультитачем (pinch-to-zoom, два пальца), должно выполняться и простым кликом/тапом: стрелки у слайдера, кнопки +/− и направления на карте, удаление не только свайпом. Исключение — когда траектория составляет суть функции (рисование).",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Перечислить жестовые функции (свайп-удаление, свайп-карусель, pinch-зум карты, графический ключ). Для каждой найти альтернативу одиночным нажатием. Нет — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c03-05-p1",
+      "printed_pages": [
+        440,
+        442
+      ]
+    },
+    "tags": [
+      "wcag-2.5.1",
+      "gestures",
+      "swipe",
+      "multitouch",
+      "mobile",
+      "see-SRK-MOB-021"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-090",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.5.2 (A): действие срабатывает на отпускание, а не на нажатие",
+    "statement": "WCAG SC 2.5.2 Pointer Cancellation, уровень A: важные действия выполняются по событию up/click, а не по mousedown/touchstart/pointerdown; если пользователь увёл палец или курсор с кнопки до отпускания, действие отменяется.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Grep по коду: обработчики onMouseDown/onTouchStart/onPointerDown/'mousedown'/'touchstart', выполняющие бизнес-действия (купить, удалить, отправить) — кандидаты на fail. Вручную: зажать кнопку, увести курсор и отпустить — действие не должно выполниться."
+    },
+    "source": {
+      "chunk_id": "s5-c03-05-p1",
+      "printed_pages": [
+        442,
+        443
+      ]
+    },
+    "tags": [
+      "wcag-2.5.2",
+      "pointer-cancellation",
+      "mousedown",
+      "touch"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-091",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.5.3 (A): доступное имя содержит видимую подпись",
+    "statement": "WCAG SC 2.5.3 Label in Name, уровень A: если у кнопки или ссылки есть видимый текст, её программное имя должно его содержать, желательно с него начинаться. aria-label=\"Читать статью о котиках\" на ссылке «Подробнее» — нарушение; «Подробнее о котиках» — норма.",
+    "rationale": "Голосовое управление сопоставляет команду «нажми Подробнее» с доступным именем, а aria-label перекрывает видимый текст.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "axe правило label-content-name-mismatch (экспериментальное) или скрипт: для элементов с aria-label/aria-labelledby сравнить нормализованный innerText с accessible name — видимый текст не входит в имя = fail."
+    },
+    "source": {
+      "chunk_id": "s5-c03-05-p1",
+      "printed_pages": [
+        443,
+        444
+      ]
+    },
+    "tags": [
+      "wcag-2.5.3",
+      "label-in-name",
+      "aria-label",
+      "voice-control",
+      "accessible-name"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-092",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.5.5 (AAA): область нажатия не меньше 44×44 CSS px",
+    "statement": "Уровень AAA: активная зона интерактивного элемента — минимум 44×44 CSS px; маленькую иконку (например, крестик 16×16) расширяют невидимым padding. Исключения: на странице есть эквивалентный элемент нужного размера, ссылка внутри текста, системный контрол браузера, размер существенен для функции (плотная карта, пианино).",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Скриптом пройти интерактивные элементы и замерить getBoundingClientRect (вместе с padding): всё меньше 44×44 — кандидаты. Затем вручную отсеять исключения (эквивалент, ссылка в тексте, нативный контрол, существенный размер). Остаток — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c03-05-p1",
+      "printed_pages": [
+        445,
+        447
+      ]
+    },
+    "tags": [
+      "wcag-2.5.5",
+      "target-size",
+      "touch",
+      "mobile",
+      "see-SRK-HIG-072"
+    ],
+    "modern_note": "Расхождение с книгой: SC 2.5.5 (AAA) был уже в WCAG 2.1, а в WCAG 2.2 добавлен SC 2.5.8 Target Size (Minimum, AA, 24×24). Исключение «достаточное расстояние между центрами» относится к 2.5.8, а не к 2.5.5 — в 2.5.5 его нет.",
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-093",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 2.5.6 (AAA): не ограничивать способы ввода",
+    "statement": "Уровень AAA: интерфейс не должен отключать мышь, клавиатуру, стилус, тач или голос из-за типа устройства — пользователь переключается между ними в любой момент (например, на сенсорном экране всё ещё работает мышь).",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "На гибридном устройстве (ноутбук с тачскрином, планшет с клавиатурой) выполнить сценарий, чередуя тач, мышь и клавиатуру. Если после касания мышь/клавиатура перестают работать — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c03-05-p1",
+      "printed_pages": [
+        447
+      ]
+    },
+    "tags": [
+      "wcag-2.5.6",
+      "input-modalities",
+      "hybrid-devices"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-094",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.5.7 (AA): у перетаскивания есть альтернатива кликами",
+    "statement": "WCAG SC 2.5.7 Dragging Movements, уровень AA: любую операцию drag-and-drop можно выполнить одиночными нажатиями — стрелки «вверх/вниз» для сортировки, меню «…» с пунктом «Переместить в…» для канбан-карточек, клик по отметке шкалы у ползунка, кнопка «Выбрать файл» вместо перетаскивания. Исключение — когда перетаскивание является сутью (рисование, игровая механика).",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти все draggable-элементы (draggable=\"true\", библиотеки dnd, sortable, ползунки). Для каждого выполнить действие только кликами/тапами. Невозможно — fail."
+    },
+    "modern_note": "Критерий 2.5.7 добавлен в WCAG 2.2 (октябрь 2023).",
+    "source": {
+      "chunk_id": "s5-c03-05-p2",
+      "printed_pages": [
+        447,
+        448
+      ]
+    },
+    "tags": [
+      "wcag-2.5.7",
+      "dragging",
+      "drag-and-drop",
+      "kanban",
+      "slider",
+      "wcag-2.2",
+      "see-SRK-HIG-023"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-095",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 2.5.8 (AA): область нажатия не меньше 24×24 CSS px",
+    "statement": "WCAG SC 2.5.8 Target Size (Minimum), уровень AA: интерактивные цели не меньше 24×24 CSS px, либо меньшая цель окружена свободным местом так, что круг диаметром 24 px вокруг неё не пересекает соседние цели. Исключения: ссылки в тексте, эквивалентный крупный элемент, нестилизованные браузерные контролы, особое отображение, юридические требования.",
+    "rationale": "Тесные мелкие кнопки дают ложные нажатия на мобильных и мешают людям с тремором.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "axe правило target-size (тег wcag22aa, есть в актуальных версиях axe-core; учитывает отступы и исключение для ссылок в тексте) или скрипт по getBoundingClientRect для всех button/a/input/[role=button]: < 24×24 без достаточного отступа до соседей — fail. Исключения «эквивалент» и «существенный размер» axe не знает — их отсеять вручную. Особое внимание — иконки закрытия, пагинация, соседние «Редактировать/Удалить»."
+    },
+    "modern_note": "Критерий 2.5.8 добавлен в WCAG 2.2 (октябрь 2023); в WCAG 2.1 на уровне AA минимального размера не было.",
+    "source": {
+      "chunk_id": "s5-c03-05-p2",
+      "printed_pages": [
+        448,
+        449
+      ]
+    },
+    "tags": [
+      "wcag-2.5.8",
+      "target-size",
+      "touch",
+      "mobile",
+      "axe-target-size",
+      "wcag-2.2",
+      "see-SRK-HIG-072",
+      "see-SRK-UXL-009",
+      "see-SRK-UX-018"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-096",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.1.1 (A): язык страницы указан в <html lang> и верен",
+    "statement": "WCAG SC 3.1.1 Language of Page, уровень A: у тега <html> должен быть атрибут lang с корректным кодом ISO 639-1, соответствующим основному языку контента (lang=\"ru\" для русской страницы).",
+    "rationale": "По lang скринридер выбирает движок произношения; при неверном коде русский текст читается с английским акцентом и становится неразборчивым.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "axe/Lighthouse правила html-has-lang и html-lang-valid; дополнительно сравнить значение lang с фактическим языком текста (lang=\"en\" на русской странице — fail, часто встречается в шаблонах и локализациях)."
+    },
+    "source": {
+      "chunk_id": "s5-c04-00",
+      "printed_pages": [
+        450,
+        451
+      ]
+    },
+    "tags": [
+      "wcag-3.1.1",
+      "lang",
+      "i18n",
+      "axe-html-has-lang"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-097",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.1.2 (AA): иноязычные фрагменты помечены атрибутом lang",
+    "statement": "WCAG SC 3.1.2 Language of Parts, уровень AA: фраза или цитата на другом языке внутри страницы оборачивается в элемент с собственным lang (например, <span lang=\"fr\">). Не требуется для имён собственных, устоявшихся терминов и заимствований.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти в тексте фрагменты на другом языке (цитаты, слоганы, названия песен), исключая бренды и термины; проверить наличие lang у обёртки. axe правило valid-lang проверяет лишь валидность кодов. Нет атрибута — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c04-00",
+      "printed_pages": [
+        451,
+        452
+      ]
+    },
+    "tags": [
+      "wcag-3.1.2",
+      "lang",
+      "i18n",
+      "axe-valid-lang"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-098",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 3.1.3 (AAA): объяснение необычных слов, идиом и жаргона",
+    "statement": "Уровень AAA: для идиом, профессионального жаргона и устаревших слов должен быть механизм пояснения — глоссарий, ссылка на определение, тег <dfn>, список <dl> или пояснение в скобках.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Прочитать контент на предмет жаргона и идиом без пояснений. Наличие — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c04-00",
+      "printed_pages": [
+        452,
+        453
+      ]
+    },
+    "tags": [
+      "wcag-3.1.3",
+      "glossary",
+      "jargon",
+      "plain-language"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-099",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 3.1.4 (AAA): у аббревиатур есть расшифровка",
+    "statement": "Уровень AAA: каждая аббревиатура должна иметь доступную расшифровку — в скобках при первом упоминании, через <abbr title>, глоссарий или aria-details; особенно важно для многозначных сокращений.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Regex по тексту \\b[А-ЯA-Z]{2,6}\\b находит кандидатов-аббревиатуры; затем для каждой проверить, есть ли расшифровка в скобках при первом упоминании, обёртка <abbr title>, ссылка на глоссарий или aria-details. Нет ни одного механизма — замечание при цели AAA (приоритет — многозначные сокращения)."
+    },
+    "source": {
+      "chunk_id": "s5-c04-00",
+      "printed_pages": [
+        453,
+        454
+      ]
+    },
+    "tags": [
+      "wcag-3.1.4",
+      "abbreviations",
+      "abbr"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-100",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 3.1.5 (AAA): сложный текст снабжён упрощённой версией",
+    "statement": "Уровень AAA: если текст сложнее уровня средней школы, нужна упрощённая версия или краткое резюме. Ориентиры: предложения до 15–20 слов, простые синонимы вместо длинных слов, активный залог вместо пассивного.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Посчитать среднюю длину предложений (скриптом) и долю пассивных конструкций в ключевых текстах; > 20 слов в среднем без резюме — замечание при цели AAA. Особенно важно для госуслуг и медицины."
+    },
+    "source": {
+      "chunk_id": "s5-c04-00",
+      "printed_pages": [
+        454
+      ]
+    },
+    "tags": [
+      "wcag-3.1.5",
+      "reading-level",
+      "plain-language"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-101",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 3.1.6 (AAA): указано произношение омографов",
+    "statement": "Уровень AAA: если смысл слова зависит от ударения (за́мок/замо́к, бе́лки/белки́), нужно подсказать верное произношение — знаком ударения (&#769;), пояснением в скобках или aria-label.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Прослушать скринридером тексты с омографами; неверное ударение, меняющее смысл, без разметки — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c04-00",
+      "printed_pages": [
+        454,
+        455
+      ]
+    },
+    "tags": [
+      "wcag-3.1.6",
+      "pronunciation",
+      "screen-reader"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-102",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.2.1 (A): получение фокуса не меняет контекст",
+    "statement": "WCAG SC 3.2.1 On Focus, уровень A: само попадание фокуса на элемент не должно вызывать переход на другую страницу, отправку формы, открытие окна или поп-апа, перенос фокуса в другое место.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Пройти страницу Tab'ом, ничего не нажимая: любой переход, открытие окна, отправка или прыжок фокуса только от focus — fail. В коде: обработчики onFocus/focusin с navigate/submit/window.open — кандидаты."
+    },
+    "source": {
+      "chunk_id": "s5-c04-02",
+      "printed_pages": [
+        455,
+        456
+      ]
+    },
+    "tags": [
+      "wcag-3.2.1",
+      "on-focus",
+      "change-of-context",
+      "keyboard"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-103",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.2.2 (A): ввод значения не меняет контекст без предупреждения",
+    "statement": "WCAG SC 3.2.2 On Input, уровень A: выбор в выпадающем списке, отметка чекбокса или ввод текста не должны без предупреждения отправлять форму, перезагружать страницу, переходить на другую страницу или переносить фокус (например, перезагрузка при выделении страны в списке стрелками).",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "С клавиатуры пролистать опции select стрелками, поменять чекбоксы, выбрать дату: если до явного подтверждения происходит отправка/переход/перезагрузка без предупреждающего текста — fail. В коде: onChange у select с navigate/submit."
+    },
+    "source": {
+      "chunk_id": "s5-c04-02",
+      "printed_pages": [
+        456,
+        457
+      ]
+    },
+    "tags": [
+      "wcag-3.2.2",
+      "on-input",
+      "select",
+      "forms",
+      "change-of-context"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-104",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.2.3 (AA): повторяющаяся навигация в одном порядке на всех страницах",
+    "statement": "WCAG SC 3.2.3 Consistent Navigation, уровень AA: навигационные блоки, повторяющиеся на страницах, сохраняют один и тот же относительный порядок пунктов (например, Главная → О нас → Услуги → Контакты везде).",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Скриптом собрать тексты пунктов главного меню/футера на нескольких страницах и сравнить последовательность: перестановка — fail (добавление/скрытие пунктов допустимо, если относительный порядок не меняется)."
+    },
+    "source": {
+      "chunk_id": "s5-c04-02",
+      "printed_pages": [
+        457,
+        458
+      ]
+    },
+    "tags": [
+      "wcag-3.2.3",
+      "consistent-navigation",
+      "menu"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-105",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.2.4 (AA): одинаковые функции называются одинаково",
+    "statement": "WCAG SC 3.2.4 Consistent Identification, уровень AA: компоненты с одной функцией на разных страницах имеют одинаковые подписи, alt, доступные имена и иконки («В корзину» везде; не «Ок»/«Отправить»/«Готово» для одного действия). И наоборот — разные функции не называются одинаково.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Собрать доступные имена кнопок/иконок по страницам (дерево доступности, ANDI) и сгруппировать по функции: разные имена/иконки для одной функции или одно имя для разных функций — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c04-02",
+      "printed_pages": [
+        458,
+        459
+      ]
+    },
+    "tags": [
+      "wcag-3.2.4",
+      "consistent-identification",
+      "labels",
+      "icons"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-106",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 3.2.5 (AAA): смена контекста только по запросу пользователя",
+    "statement": "Уровень AAA: никаких автоматических редиректов, авто-обновления страницы, самовольного открытия новых окон и мгновенного выкидывания на вход — только по явному действию; вместо редиректа — ссылка «Страница переехала, перейти», вместо автообновления — кнопка или выключенный по умолчанию чекбокс.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Детерминированная часть: <meta http-equiv=\"refresh\"> ловят axe правила meta-refresh и meta-refresh-no-exceptions (последнее — для AAA). Остальное требует оценки: grep setTimeout/setInterval с location.href/reload, target=\"_blank\", автоматический выход по тайм-ауту — проверить, инициирует ли смену контекста сам пользователь. Автоматическая смена — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c04-02",
+      "printed_pages": [
+        459,
+        460
+      ]
+    },
+    "tags": [
+      "wcag-3.2.5",
+      "redirect",
+      "auto-refresh",
+      "target-blank",
+      "axe-meta-refresh"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-107",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.2.6 (A): механизмы помощи в одном и том же месте",
+    "statement": "WCAG SC 3.2.6 Consistent Help, уровень A: если контакты, ссылка на FAQ, чат поддержки или форма обратной связи присутствуют на нескольких страницах, они находятся в одном и том же относительном месте (например, чат не переезжает из правого угла в левый на странице оплаты).",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Пройти несколько типов страниц (главная, каталог, оплата, ЛК) и сравнить расположение помощи. Смена места или порядка — fail."
+    },
+    "modern_note": "Критерий 3.2.6 добавлен в WCAG 2.2 (октябрь 2023).",
+    "source": {
+      "chunk_id": "s5-c04-02",
+      "printed_pages": [
+        460,
+        461
+      ]
+    },
+    "tags": [
+      "wcag-3.2.6",
+      "consistent-help",
+      "support",
+      "chat",
+      "wcag-2.2"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-108",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.3.1 (A): ошибка описана текстом рядом с конкретным полем",
+    "statement": "WCAG SC 3.3.1 Error Identification, уровень A: обнаруженная ошибка ввода описывается словами рядом с полем, к которому относится («Введите 10 цифр без пробелов»). Только красная рамка, общее «В форме есть ошибки» без указания полей или исчезающий через секунду текст — нарушение.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "test-plan",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Отправить форму пустой и с невалидными данными. Для каждого невалидного поля должен появиться постоянный текст ошибки рядом с ним. В требованиях проверить, что тексты ошибок валидации определены для каждого поля."
+    },
+    "source": {
+      "chunk_id": "s5-c04-03-p1",
+      "printed_pages": [
+        461,
+        462
+      ]
+    },
+    "tags": [
+      "wcag-3.3.1",
+      "error-messages",
+      "forms",
+      "validation",
+      "see-SRK-API-092"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-109",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 3.3.1 (A): текст ошибки программно связан с полем",
+    "statement": "Сообщение об ошибке связывается с полем через aria-describedby (а поле помечается aria-invalid), чтобы скринридер зачитал ошибку при переходе на поле.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "После неуспешной отправки для каждого поля с ошибкой проверить: aria-invalid=\"true\" и aria-describedby указывает на id элемента с текстом ошибки (Playwright: expect(field).toHaveAccessibleDescription(/…/)). Нет связи — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c04-03-p1",
+      "printed_pages": [
+        462
+      ]
+    },
+    "tags": [
+      "wcag-3.3.1",
+      "aria-describedby",
+      "aria-invalid",
+      "forms"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-110",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "После отправки фокус переходит на первое поле с ошибкой",
+    "statement": "При неуспешной отправке формы фокус лучше автоматически переносить на первое поле с ошибкой, чтобы скринридер сразу зачитал её текст.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "В e2e-тесте отправить невалидную форму и проверить, что document.activeElement — первое невалидное поле (expect(firstInvalid).toBeFocused()). Иначе — замечание."
+    },
+    "source": {
+      "chunk_id": "s5-c04-03-p1",
+      "printed_pages": [
+        462
+      ]
+    },
+    "tags": [
+      "wcag-3.3.1",
+      "focus-management",
+      "forms",
+      "validation"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-111",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.3.2 (A): у каждого поля видимая постоянная метка, не только placeholder",
+    "statement": "WCAG SC 3.3.2 Labels or Instructions, уровень A: название поля должно быть видно всегда — над полем или рядом. Форма, где подсказкой служит только исчезающий при вводе placeholder, нарушает критерий.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "axe/Lighthouse правило label (поле без программной метки). Дополнительно: input с placeholder, но без <label for>/видимого текста-метки — fail (aria-label без видимой подписи не удовлетворяет требованию видимости). Внимание: axe-правило label засчитывает непустой placeholder как доступное имя, поэтому поле, подписанное только плейсхолдером, оно не ловит. Нужна проверка DOM и поведения: связанный <label>, aria-labelledby на видимый текст или floating label, который остаётся на экране после начала ввода. Fail — подпись исчезает при наборе."
+    },
+    "source": {
+      "chunk_id": "s5-c04-03-p1",
+      "printed_pages": [
+        463
+      ]
+    },
+    "tags": [
+      "wcag-3.3.2",
+      "labels",
+      "placeholder",
+      "forms",
+      "axe-label",
+      "usability",
+      "floating-label",
+      "also-usability",
+      "see-SRK-MD-088",
+      "see-SRK-HIG-105"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-112",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 3.3.2 (A): формат и ограничения поля указаны заранее",
+    "statement": "Требования к формату (дата ДД.ММ.ГГГГ, телефон с кодом страны, пароль от 8 символов с цифрой) показываются до ввода и не исчезают при наборе; нельзя отвергать ввод по формату, который нигде не был назван.",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для каждого поля с валидацией формата сравнить правила валидации с видимыми подсказками. Ошибка по правилу, о котором не предупреждали, — fail. В требованиях: у поля с форматом должен быть описан текст подсказки. Подсказка рядом с полем должна содержать формат и пример значения (например, ДД.ММ.ГГГГ, 15.12.1995)."
+    },
+    "source": {
+      "chunk_id": "s5-c04-03-p1",
+      "printed_pages": [
+        463,
+        464
+      ]
+    },
+    "tags": [
+      "wcag-3.3.2",
+      "instructions",
+      "input-format",
+      "forms",
+      "password",
+      "hints",
+      "placeholder",
+      "date-input",
+      "also-forms",
+      "see-SRK-UX-027"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-113",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 3.3.2 (A): обязательные поля явно обозначены",
+    "statement": "Обязательные поля помечаются текстом «Обязательно» или звёздочкой, смысл которой объяснён в начале формы; в коде — required/aria-required.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Сравнить поля, которые валидатор считает обязательными, с наличием required/aria-required и видимой пометки; звёздочка без пояснения в начале формы — замечание; обязательное поле без пометки — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c04-03-p1",
+      "printed_pages": [
+        464
+      ]
+    },
+    "tags": [
+      "wcag-3.3.2",
+      "required-fields",
+      "forms",
+      "aria-required"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-114",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Группы связанных полей объединены fieldset и legend",
+    "statement": "Составные группы полей (адрес: город, улица, дом; группы радиокнопок) лучше объединять тегами <fieldset> с заголовком <legend>.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти группы radio/checkbox и составные блоки полей без fieldset/legend или role=group с aria-labelledby. Наличие — замечание (для радиогрупп без общего имени — дефект)."
+    },
+    "source": {
+      "chunk_id": "s5-c04-03-p1",
+      "printed_pages": [
+        464
+      ]
+    },
+    "tags": [
+      "wcag-3.3.2",
+      "wcag-1.3.1",
+      "fieldset",
+      "legend",
+      "forms"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-115",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.3.3 (AA): сообщение об ошибке подсказывает, как исправить",
+    "statement": "WCAG SC 3.3.3 Error Suggestion, уровень AA: если система знает правильный вариант, она его предлагает: «Возраст — число от 18 до 120», «В адресе почты пропущен символ @», «Возможно, вы имели в виду „Январь“?», вместо сухого «Ошибка в поле».",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-cases",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Собрать все тексты ошибок валидации (из UI или словаря локализации): regex ^(ошибка|неверно|некорректн\\w*( значение)?|invalid|error)\\.?$ без указания, что исправить, — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c04-03-p1",
+      "printed_pages": [
+        464,
+        465
+      ]
+    },
+    "tags": [
+      "wcag-3.3.3",
+      "error-messages",
+      "validation",
+      "copy",
+      "see-SRK-FORM-003",
+      "see-SRK-HIG-082"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-116",
+    "kind": "rule",
+    "severity": "must",
+    "title": "При неудачном входе — общее сообщение без уточнения, что неверно",
+    "statement": "Исключение из 3.3.3 ради безопасности: при ошибке входа нельзя сообщать «пользователь существует, но пароль неверный» — только общее «Неверный логин или пароль».",
+    "rationale": "Точная подсказка помогает злоумышленникам перебирать учётные данные.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "requirements",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Попробовать вход с несуществующим логином и с существующим логином и неверным паролем: тексты ответа UI и API должны совпадать. Различаются — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c04-03-p1",
+      "printed_pages": [
+        465
+      ]
+    },
+    "tags": [
+      "wcag-3.3.3",
+      "login",
+      "security",
+      "user-enumeration"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-117",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.3.4 (AA): юридические, финансовые и удаляющие действия отменяемы, проверяемы или подтверждаемы",
+    "statement": "WCAG SC 3.3.4 Error Prevention (Legal, Financial, Data), уровень AA: для платежей, юридически значимых заявок и изменения/удаления данных пользователя нужна хотя бы одна защита — возможность отмены (корзина удалённых на 30 дней, отмена заказа), проверка с шансом исправить или шаг просмотра и явного подтверждения.",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Перечислить платёжные, юридические и удаляющие операции. Для каждой найти review-шаг, диалог подтверждения или механизм отмены. «Удалить профиль» без переспроса, списание без итоговой сводки — fail. В тест-плане должны быть сценарии на этот шаг."
+    },
+    "source": {
+      "chunk_id": "s5-c04-03-p1",
+      "printed_pages": [
+        465,
+        466
+      ]
+    },
+    "tags": [
+      "wcag-3.3.4",
+      "error-prevention",
+      "payments",
+      "delete",
+      "confirmation"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-118",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 3.3.5 (AAA): контекстная справка у полей",
+    "statement": "Уровень AAA: там, где пользователю может понадобиться помощь, у поля есть контекстная подсказка — текст под полем, иконка «?» с пояснением, боковая панель справки или пример заполнения («Например: ул. Пушкина, д. 10, кв. 5»).",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Просмотреть сложные формы (банк, юриспруденция, настройки): поля со специальными терминами без пояснения или примера — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c04-03-p1",
+      "printed_pages": [
+        466,
+        467
+      ]
+    },
+    "tags": [
+      "wcag-3.3.5",
+      "help",
+      "forms",
+      "tooltip",
+      "see-SRK-UXL-015"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-119",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 3.3.6 (AAA): защита от ошибок в любых формах",
+    "statement": "Уровень AAA: требования 3.3.4 (отмена, проверка или подтверждение) распространяются на все формы — опросы, тесты, регистрацию, профиль, обратную связь, сохранение фильтров.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для каждой формы найти review-шаг, undo или проверку перед отправкой. Отсутствие — замечание при цели AAA."
+    },
+    "source": {
+      "chunk_id": "s5-c04-03-p1",
+      "printed_pages": [
+        467,
+        468
+      ]
+    },
+    "tags": [
+      "wcag-3.3.6",
+      "error-prevention",
+      "forms"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-120",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 3.3.8 (AA): вход без когнитивных тестов или с помощью",
+    "statement": "WCAG SC 3.3.8 Accessible Authentication (Minimum), уровень AA: вход не должен требовать запоминания, вычислений, головоломок или переписывания символов без альтернативы. Допустимые способы: вставка в поля пароля и OTP (менеджеры паролей), автозаполнение, magic link, WebAuthn/passkeys; капча на распознавание объектов допустима на AA.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Grep по коду полей логина/пароля/OTP: обработчики paste с preventDefault и autocomplete=\"off\" — сильные кандидаты на fail; ожидаются autocomplete=\"username\", \"current-password\", \"one-time-code\". Вручную: вставить пароль из буфера и заполнить менеджером паролей. Итог зависит от наличия альтернативы (magic link, passkeys): когнитивный тест (переписать символы с капчи, решить пример) без альтернативы или помощи — fail."
+    },
+    "modern_note": "Критерий 3.3.8 добавлен в WCAG 2.2 (октябрь 2023).",
+    "source": {
+      "chunk_id": "s5-c04-03-p2",
+      "printed_pages": [
+        468,
+        469
+      ]
+    },
+    "tags": [
+      "wcag-3.3.8",
+      "authentication",
+      "login",
+      "paste",
+      "password-manager",
+      "captcha",
+      "otp",
+      "wcag-2.2",
+      "see-SRK-FORM-032"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-121",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "SC 3.3.9 (AAA): вход без распознавания объектов и лиц",
+    "statement": "Уровень AAA: при входе запрещены даже тесты на распознавание картинок («найдите светофоры») и лиц, если нет альтернативы без когнитивного теста; лучшие варианты — passkeys/WebAuthn, magic link, OTP с разрешённой вставкой, вход через внешние сервисы.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить шаги входа: капча с картинками без альтернативного способа входа — замечание при цели AAA."
+    },
+    "modern_note": "Критерий 3.3.9 добавлен в WCAG 2.2 (октябрь 2023).",
+    "source": {
+      "chunk_id": "s5-c04-03-p2",
+      "printed_pages": [
+        469,
+        470
+      ]
+    },
+    "tags": [
+      "wcag-3.3.9",
+      "authentication",
+      "captcha",
+      "passkeys",
+      "wcag-2.2"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-122",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 4.1.2 (A): у каждого контрола программно определены имя и роль",
+    "statement": "WCAG SC 4.1.2 Name, Role, Value, уровень A: ассистивные технологии должны получать имя элемента («Поиск», «Закрыть» через aria-label у иконки) и его роль (кнопка, флажок, ссылка, меню). Стилизованный div-«кнопка» без role и имени скринридер не распознаёт как интерактивный; предпочтительны нативные теги.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "axe DevTools / IBM Equal Access: правила button-name, link-name, aria-allowed-role, aria-required-attr, aria-valid-attr-value ловят пустые имена и битые ARIA у распознанных контролов. Главный дефект — div/span-«кнопка» без role — axe не видит: найти элементы с обработчиком клика/cursor:pointer и проверить в DevTools Accessibility pane или ANDI, что у них есть Name и Role. В тестах — локаторы getByRole(role, {name}) должны находить контролы; если приходится искать по CSS-классу — сигнал проблемы."
+    },
+    "source": {
+      "chunk_id": "s5-c05-00",
+      "printed_pages": [
+        471,
+        472
+      ]
+    },
+    "tags": [
+      "wcag-4.1.2",
+      "name-role-value",
+      "aria",
+      "custom-widgets",
+      "screen-reader"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-123",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "SC 4.1.2 (A): состояние виджета передаётся через ARIA (expanded, checked)",
+    "statement": "Динамическое состояние должно быть доступно программно: у раскрывающегося меню/аккордеона aria-expanded=\"true/false\" меняется вместе с видом, у кастомного чекбокса — aria-checked, у выбранного таба — aria-selected.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Открыть/закрыть меню и переключить кастомные чекбоксы, проверяя атрибуты в DOM (Playwright: expect(button).toHaveAttribute('aria-expanded','true') после клика). Визуальное состояние меняется, а атрибут — нет, — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c05-00",
+      "printed_pages": [
+        472
+      ]
+    },
+    "tags": [
+      "wcag-4.1.2",
+      "aria-expanded",
+      "aria-checked",
+      "state",
+      "menu",
+      "accordion"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-124",
+    "kind": "rule",
+    "severity": "must",
+    "title": "SC 4.1.3 (AA): статусные сообщения объявляются скринридером без переноса фокуса",
+    "statement": "WCAG SC 4.1.3 Status Messages, уровень AA: сообщения вида «Товар добавлен в корзину», «Найдено 5 результатов», «Настройки сохранены», «Загрузка…» должны быть в live-регионе (role=\"status\" / aria-live=\"polite\", для прогресса — role=\"progressbar\"), чтобы скринридер их озвучил, не меняя фокус. Типичный баг — счётчик корзины молча меняется с 0 на 1.",
+    "applies_to": [
+      "live-product",
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти все динамические сообщения (тосты, счётчики корзины, результаты поиска без перезагрузки, лоадеры) и проверить, что их контейнер имеет role=status/alert/progressbar или aria-live, присутствующий в DOM до вставки текста. Проверить на слух в NVDA/VoiceOver: сообщение не озвучено — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c05-00",
+      "printed_pages": [
+        472,
+        473
+      ]
+    },
+    "tags": [
+      "wcag-4.1.3",
+      "status-messages",
+      "aria-live",
+      "toast",
+      "cart",
+      "screen-reader"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-125",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "aria-live=\"assertive\"/role=\"alert\" — только для критичных ошибок",
+    "statement": "Режим, прерывающий чтение (assertive / role=\"alert\"), используется лишь для критичных ошибок, требующих немедленного внимания; для обычных уведомлений об успехе и результатах — вежливый режим polite / role=\"status\".",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Grep по коду на aria-live=\"assertive\" и role=\"alert\": если ими объявляются некритичные события (успешное сохранение, количество результатов) — замечание."
+    },
+    "source": {
+      "chunk_id": "s5-c05-00",
+      "printed_pages": [
+        472,
+        473
+      ]
+    },
+    "tags": [
+      "wcag-4.1.3",
+      "aria-live",
+      "role-alert"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-126",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Lighthouse — быстрый стартовый a11y-аудит, отдельно для Mobile и Desktop",
+    "statement": "Первичный автоматический аудит удобно начинать с Lighthouse в DevTools: оставить только категорию Accessibility и прогнать страницу в режимах Mobile и Desktop; отчёт даёт балл 0–100 и подсвечивает проблемные элементы. Это лишь базовый слой — ручные проверки он не заменяет.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Запустить Lighthouse (DevTools или CLI: lighthouse <url> --only-categories=accessibility, в CI — lighthouse-ci) для ключевых страниц в mobile и desktop. Проваленные аудиты — дефекты. В тест-плане a11y должны быть и автоматический прогон, и ручные проверки (клавиатура, скринридер)."
+    },
+    "source": {
+      "chunk_id": "s5-c06-00",
+      "printed_pages": [
+        474,
+        475
+      ]
+    },
+    "tags": [
+      "lighthouse",
+      "automation",
+      "tools",
+      "ci"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-127",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Web Disability Simulator — посмотреть сайт глазами разных пользователей",
+    "statement": "Расширение Web Disability Simulator симулирует нарушения цветовосприятия, размытие, туннельное зрение, яркое солнце, тремор (дрожание курсора и случайные клики), дислексию, СДВГ и РАС — удобно для эмпатийной проверки и демонстрации проблем команде.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Пройти ключевой сценарий с режимами цветовой слепоты, туннельного зрения и тремора. Если информация теряется (цвет-only статусы) или мелкие цели становятся недостижимыми — заводить дефекты по соответствующим SC (1.4.1, 2.5.8)."
+    },
+    "source": {
+      "chunk_id": "s5-c06-02",
+      "printed_pages": [
+        475,
+        476
+      ]
+    },
+    "tags": [
+      "web-disability-simulator",
+      "simulation",
+      "color-blindness",
+      "tools"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-128",
+    "kind": "tip",
+    "severity": "should",
+    "title": "axe DevTools точнее Lighthouse: минимум ложных срабатываний",
+    "statement": "Lighthouse использует движок axe, но расширение axe DevTools работает глубже: правила настроены на реальные нарушения WCAG с минимумом false positives, ошибку можно подсветить на странице с разбором DOM, а в PRO-версии есть полуавтоматические проверки модалок, кастомных селектов и форм.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Прогнать axe DevTools (или @axe-core/playwright в e2e: new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']).analyze()) на ключевых страницах и состояниях (открытая модалка, ошибки формы). Нарушения (violations) — дефекты; результаты incomplete (needs review) — разбирать вручную."
+    },
+    "source": {
+      "chunk_id": "s5-c06-03",
+      "printed_pages": [
+        476,
+        477
+      ]
+    },
+    "tags": [
+      "axe-devtools",
+      "axe-core",
+      "automation",
+      "tools",
+      "playwright"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-A11Y-129",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "IBM Equal Access Checker — строгое соответствие стандартам и подробные рецепты исправления",
+    "statement": "IBM Equal Access Accessibility Checker встраивается в панель Elements DevTools, ориентирован на строгое соответствие международным стандартам и даёт разработчикам пошаговые инструкции по исправлению — полезен как второй сканер после axe.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "DevTools → Elements → Accessibility Checker → Scan. Найденные нарушения прикладывать к баг-репорту вместе с рекомендацией по исправлению из отчёта."
+    },
+    "source": {
+      "chunk_id": "s5-c06-04",
+      "printed_pages": [
+        477,
+        478
+      ]
+    },
+    "tags": [
+      "ibm-equal-access",
+      "automation",
+      "tools"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-130",
+    "kind": "tip",
+    "severity": "should",
+    "title": "ANDI — визуализация порядка Tab и элементов без имени",
+    "statement": "Букмарклет ANDI (разработка SSA США) показывает порядок обхода элементов клавишей Tab и выявляет элементы, выпавшие из потока фокуса или не имеющие программного имени. Для языков слева направо порядок табуляции должен совпадать с визуальным чтением.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Запустить ANDI на странице: элементы без accessible name — дефекты 4.1.2/1.1.1; расхождение порядка фокуса с визуальным (слева направо, сверху вниз) — дефект 2.4.3; интерактивные элементы, отсутствующие в последовательности — дефект 2.1.1."
+    },
+    "source": {
+      "chunk_id": "s5-c06-05",
+      "printed_pages": [
+        478,
+        479
+      ]
+    },
+    "tags": [
+      "andi",
+      "focus-order",
+      "accessible-name",
+      "tools"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-131",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Массовые контраст-чекеры ошибаются на тексте поверх картинок и градиентов",
+    "statement": "Расширение WCAG Contrast Checker сканирует всю страницу и подсвечивает текст с контрастом ниже 4.5:1 (AA) или 7:1 (AAA), но на нетиповой вёрстке — текст на фоновом изображении или градиенте — может ошибаться; такие места перепроверяются вручную.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Прогнать массовый контраст-чекер на выбранном уровне. Для каждого текста поверх background-image/градиента/видео (сканер не видит реальный фон) выполнить ручную проверку пипеткой; не доверять «зелёному» результату на таких элементах."
+    },
+    "source": {
+      "chunk_id": "s5-c06-06",
+      "printed_pages": [
+        479
+      ]
+    },
+    "tags": [
+      "contrast-checker",
+      "wcag-1.4.3",
+      "tools",
+      "false-negative"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-132",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Ручная проверка контраста пипеткой DevTools по реальному фону",
+    "statement": "Сканер берёт цвет фона из соседнего HTML-элемента и не видит background-image, поэтому может завышать контраст (пример автора: сканер показал 4.17:1, реально около 3.1–3.3:1). Точное значение даёт пипетка DevTools: Styles → квадрат цвета color → Contrast ratio → Pick background color → взять цвет прямо из картинки за буквами.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Для текста на изображениях: DevTools → Styles → color → Contrast ratio → пипеткой выбрать фон под буквами (самый светлый/тёмный участок). Значение ниже 4.5:1 (3:1 для крупного) — дефект 1.4.3, в баг-репорт приложить оба значения."
+    },
+    "source": {
+      "chunk_id": "s5-c06-07",
+      "printed_pages": [
+        479,
+        482
+      ]
+    },
+    "tags": [
+      "devtools",
+      "eyedropper",
+      "contrast",
+      "wcag-1.4.3",
+      "tools"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-133",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "CSS Overview в DevTools — список всех проблем контраста страницы",
+    "statement": "Встроенная панель CSS Overview (Cmd/Ctrl+Shift+P → Show CSS Overview → Capture overview → Colors → Contrast issues) собирает все пары цветов с недостаточным контрастом и позволяет перейти к элементу в DOM.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Снять CSS Overview на ключевых страницах и пройти список Contrast issues; каждую позицию проверить и завести дефект 1.4.3."
+    },
+    "source": {
+      "chunk_id": "s5-c06-08",
+      "printed_pages": [
+        482
+      ]
+    },
+    "tags": [
+      "devtools",
+      "css-overview",
+      "contrast",
+      "wcag-1.4.3",
+      "tools"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-A11Y-134",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Ключевой сценарий проходится скринридером на слух (NVDA / VoiceOver)",
+    "statement": "Автоматические сканеры не заменяют проверку на слух: нужно включить NVDA (Windows) или VoiceOver (macOS/iOS), не смотреть на экран и пройти ключевой пользовательский сценарий (найти товар, добавить в корзину, оформить заказ) только клавиатурой и по озвучке. Запутанность, нечитаемые имена кнопок или зацикливание — критичный дефект.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В тест-плане должен быть хотя бы один сценарий с NVDA или VoiceOver для каждого ключевого пользовательского пути; нет — gap. При выполнении: выключить монитор/закрыть глаза, пройти путь; бессмысленные имена («кнопка», имя файла), потеря ориентации или ловушка — fail."
+    },
+    "source": {
+      "chunk_id": "s5-c06-08",
+      "printed_pages": [
+        482,
+        483
+      ]
+    },
+    "tags": [
+      "screen-reader",
+      "nvda",
+      "voiceover",
+      "manual-testing",
+      "tools",
+      "see-SRK-MOB-054"
+    ],
+    "verification": "ok"
+  }
+]

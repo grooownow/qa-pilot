@@ -1,0 +1,1661 @@
+[
+  {
+    "id": "SRK-FORM-001",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Поля формы выровнены по единой сетке с одинаковыми отступами",
+    "statement": "Поля, лейблы и кнопки формы должны стоять по одной сетке: одинаковая ширина однотипных инпутов, лейблы выровнены по одному краю, отступы между блоками единообразны.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "На живой форме сравнить ширину однотипных полей, выравнивание лейблов и вертикальные отступы между блоками (DevTools Computed / Box Model). Fail: разная ширина однотипных полей, лейблы с разным выравниванием, хаотичные отступы (например, 5px и 40px между равнозначными блоками). Подпись должна однозначно относиться к своему полю (зазор между полями больше, чем между подписью и полем), поля выстроены одной вертикальной колонкой."
+    },
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        47
+      ]
+    },
+    "tags": [
+      "forms",
+      "gui",
+      "layout",
+      "spacing",
+      "web",
+      "ios",
+      "also-mobile-hig"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-FORM-003",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Текст ошибки валидации называет конкретную причину",
+    "statement": "Сообщение об ошибке должно объяснять, что именно не так со значением (например, несуществующий месяц или дата в будущем), а не ограничиваться общим «неверное значение».",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Ввести в поле несколько разных видов невалидных значений (неверный формат, несуществующее значение, значение вне допустимого диапазона) и сравнить тексты ошибок. Fail: на разные причины выводится один и тот же общий текст без указания причины и способа исправить."
+    },
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        48
+      ]
+    },
+    "tags": [
+      "forms",
+      "validation",
+      "error-messages",
+      "see-SRK-A11Y-115"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-004",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Одно поле — одно значение",
+    "statement": "Каждое поле формы хранит ровно одно атомарное значение: имя, фамилия, отчество, дата рождения вводятся в отдельные поля, а не в один комбинированный инпут.",
+    "rationale": "Комбинированные поля трудно валидировать: пользователи вводят части в произвольном порядке и составе, а бэкенду приходится их парсить.",
+    "applies_to": [
+      "requirements",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В требованиях/макете и на форме найти поля, лейбл которых объединяет несколько сущностей («ФИО», «Имя и фамилия», «ФИО и дата рождения», «Адрес одной строкой» при раздельном хранении). Fail: одно поле принимает несколько логических значений, которые потом нужно разбирать."
+    },
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        48,
+        49
+      ]
+    },
+    "tags": [
+      "forms",
+      "field-design",
+      "one-field-one-value"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-005",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Инлайн-валидация при вводе или потере фокуса",
+    "statement": "Ошибки поля показываются во время ввода или при уходе фокуса с поля (blur), а не только после нажатия кнопки отправки.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Ввести невалидное значение в поле и перевести фокус на следующее (Tab), не отправляя форму. Pass: ошибка появляется у поля сразу. Fail: форма молчит до клика «Отправить»."
+    },
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        49
+      ]
+    },
+    "tags": [
+      "forms",
+      "validation",
+      "inline-validation",
+      "blur"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-006",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Текст ошибки не вводит в заблуждение относительно причины",
+    "statement": "Сообщение об ошибке должно соответствовать реальной причине отказа; например, опечатка в домене email не должна выдаваться как «адрес уже используется».",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Сопоставить фактическую причину отказа (ответ API, правило валидации) с текстом, который видит пользователь, для типовых опечаток (gnail.com вместо gmail.com и т.п.). Fail: пользователь получает сообщение о другой проблеме, чем та, что произошла."
+    },
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        49
+      ]
+    },
+    "tags": [
+      "forms",
+      "validation",
+      "error-messages"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-007",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Поле с ошибкой визуально выделено",
+    "statement": "Поле, не прошедшее валидацию, подсвечивается (например, красной рамкой), а рядом с ним показывается причина, чтобы пользователь не искал ошибку среди всех полей.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Отправить форму с одним невалидным полем среди многих. Pass: именно это поле выделено и рядом выведен текст ошибки. Fail: есть только общее сообщение без указания поля или поле не выделено."
+    },
+    "modern_note": "Только цвет рамки как признак ошибки недостаточен для доступности: по WCAG SC 1.4.1 Use of Color и SC 3.3.1 Error Identification ошибка должна быть обозначена и текстом.",
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        49
+      ]
+    },
+    "tags": [
+      "forms",
+      "validation",
+      "error-state"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-008",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Ошибка с советом действия содержит ссылку на это действие",
+    "statement": "Если текст ошибки предлагает действие (например, восстановить пароль), рядом должна быть кликабельная ссылка или кнопка, выполняющая его.",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти все сообщения об ошибках с призывом к действию («восстановите пароль», «войдите», «обратитесь в поддержку»). Fail: в сообщении или рядом нет кликабельного элемента, ведущего к этому действию."
+    },
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        49
+      ]
+    },
+    "tags": [
+      "forms",
+      "error-messages",
+      "cta"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-009",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Подпись кнопки соответствует состоянию формы после ошибки",
+    "statement": "После неуспешной отправки кнопки и подписи не должны предлагать бессмысленное «Продолжить»: текст кнопки отражает реальное доступное действие.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Вызвать ошибку отправки формы и прочитать подписи кнопок на экране ошибки. Fail: кнопка предлагает действие, которое не имеет смысла в состоянии ошибки (например, «Продолжить» без указания чего)."
+    },
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        49
+      ]
+    },
+    "tags": [
+      "forms",
+      "button-labels",
+      "error-state"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-010",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Введённые данные не сбрасываются при ошибке валидации",
+    "statement": "Если форма не прошла валидацию, все корректно заполненные поля сохраняют свои значения, и пользователю нужно исправить только ошибочное поле.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Playwright: заполнить все поля, одно — невалидным значением, отправить, затем проверить toHaveValue() для остальных полей. Fail: хотя бы одно ранее заполненное поле очищено."
+    },
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        49
+      ]
+    },
+    "tags": [
+      "forms",
+      "validation",
+      "data-loss",
+      "see-SRK-UX-028"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-011",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Экран успеха содержит номер, статус и следующие шаги",
+    "statement": "После отправки формы заказа/заявки экран успеха показывает идентификатор (номер заказа), статус (например, оплаты), куда отправлено подтверждение и ссылку на поддержку.",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Пройти отправку формы до конца и проверить экран/модалку успеха на наличие: номера заказа или заявки, статуса, канала подтверждения (email/SMS), контакта поддержки. Fail: только «Спасибо» без идентификатора и информации о дальнейших шагах."
+    },
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        50
+      ]
+    },
+    "tags": [
+      "forms",
+      "feedback",
+      "success-page"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-012",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Кнопка «Назад» браузера не ломает многошаговую форму",
+    "statement": "В многошаговой форме возврат на предыдущий шаг (кнопкой браузера или интерфейса) не приводит к ошибке вида «Page has expired» и сохраняет ранее введённые данные, если возврат разрешён.",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Playwright: заполнить шаг 1, перейти на шаг 2, вызвать page.goBack(); проверить отсутствие страницы ошибки и сохранность значений шага 1 через toHaveValue(). В требованиях проверить, что поведение «Назад» описано для каждого шага."
+    },
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        50
+      ]
+    },
+    "tags": [
+      "forms",
+      "multi-step",
+      "browser-back",
+      "data-loss"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-013",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Запрет возврата на шаг сопровождается предупреждением или редиректом",
+    "statement": "Если возврат на предыдущий шаг запрещён из соображений безопасности (например, шаги оплаты), система явно предупреждает об этом или безопасно перенаправляет на начальный шаг.",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для шагов, где возврат запрещён, нажать «Назад» в браузере. Pass: показано понятное предупреждение или выполнен редирект на безопасный стартовый шаг. Fail: ошибка, пустая страница или повторная отправка платежа. В требованиях: правило возврата явно описано."
+    },
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        50
+      ]
+    },
+    "tags": [
+      "forms",
+      "multi-step",
+      "payments",
+      "browser-back"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-014",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Форма устойчива к SQL-инъекциям и XSS",
+    "statement": "Ввод SQL-инъекций (например, ' OR '1'='1) и скриптов (<script>alert('XSS')</script>) не ломает бэкенд и не исполняется в браузере: ввод экранируется и санитизируется.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Отправить в каждое текстовое поле набор payload'ов SQLi и XSS; затем открыть страницы, где значение отображается. Fail: ответ 5xx или ошибка БД в ответе; сработал диалог alert (Playwright page.on('dialog')); payload отрисован как HTML, а не как текст."
+    },
+    "source": {
+      "chunk_id": "s1-c07-01",
+      "printed_pages": [
+        51
+      ]
+    },
+    "tags": [
+      "forms",
+      "security",
+      "sql-injection",
+      "xss",
+      "see-SRK-API-090",
+      "see-SRK-STRAT-022"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-015",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Позитивный сценарий: валидные данные",
+    "statement": "Заполнить поле корректными валидными данными и убедиться, что форма принимается и данные сохраняются.",
+    "applies_to": [
+      "test-plan",
+      "test-code",
+      "test-cases",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане/кейсах для каждой формы есть позитивный сценарий с валидными данными и проверкой сохранения результата. Fail: проверяются только негативные кейсы или нет проверки результата."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        51
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "positive"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-016",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Обязательное поле оставлено пустым",
+    "statement": "Отправить форму с незаполненным обязательным полем: отправка блокируется, поле помечается ошибкой.",
+    "applies_to": [
+      "test-plan",
+      "test-code",
+      "test-cases",
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Для каждого обязательного поля: оставить пустым, отправить, проверить отсутствие запроса на сервер (или 4xx) и видимый текст ошибки у поля. В плане — наличие такого сценария для каждого обязательного поля."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        51
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "required",
+      "negative"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-017",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Граница: ровно максимальная длина",
+    "statement": "Ввести в поле ровно максимально допустимое количество символов (например, 50) — значение принимается и сохраняется целиком.",
+    "applies_to": [
+      "requirements",
+      "test-plan",
+      "test-code",
+      "test-cases",
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Взять max длину из требований (или maxlength в DOM), ввести строку ровно этой длины, отправить, проверить, что сохранено без обрезки. В требованиях: max длина поля указана; если нет — это пробел требований."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        51
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "bva",
+      "max-length",
+      "see-SRK-TD-009"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-018",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Граница: максимальная длина + 1",
+    "statement": "Ввести Max+1 символ: система либо не даёт ввести лишний символ, либо показывает ошибку валидации; молчаливая обрезка на сервере или 500 недопустимы.",
+    "applies_to": [
+      "test-plan",
+      "test-code",
+      "test-cases",
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Ввести строку длиной max+1 (в т.ч. вставкой из буфера и прямым API-запросом в обход maxlength). Pass: ввод ограничен или ошибка валидации/4xx. Fail: 5xx, ошибка БД или сохранено усечённое значение без уведомления."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        51
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "bva",
+      "max-length",
+      "negative"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-019",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Спецсимволы в текстовом поле",
+    "statement": "Ввести набор спецсимволов (' \" < > \\ / ; : @ # $ % ^ & * ( ) _ +): форма не падает, значение сохраняется и отображается корректно либо выводится понятная валидация.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Отправить строку со всеми перечисленными спецсимволами; проверить отсутствие 5xx и что после перезагрузки значение отображается посимвольно идентично (без HTML-сущностей и обрезки) либо показана явная валидация. В набор также включить кавычки-ёлочки « », скобки и иероглифы (CJK); эмодзи — см. SRK-FORM-020."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        51
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "special-characters",
+      "negative",
+      "error-guessing",
+      "emoji",
+      "unicode",
+      "also-test-design"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-FORM-020",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Эмодзи в текстовом поле",
+    "statement": "Ввести строку с эмодзи: система не падает с ошибкой кодировки в БД (типичная проблема — отсутствие utf8mb4 в MySQL) и корректно хранит/отображает символы либо явно их отклоняет.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Отправить значение с эмодзи (например, 😃👍🔥), затем прочитать его обратно (UI или API). Fail: 5xx, ошибка вида «Incorrect string value», вопросительные знаки вместо эмодзи."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        51,
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "emoji",
+      "encoding",
+      "utf8mb4"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-021",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Поле, заполненное только пробелами",
+    "statement": "Заполнить обязательное поле одними пробелами: оно должно считаться пустым и не проходить валидацию обязательности.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Ввести в обязательное поле строку из пробелов и отправить. Pass: ошибка «поле обязательно». Fail: форма принята и сохранена пустая/пробельная строка. Невидимые символы (U+200B) проверяются отдельно, см. SRK-FORM-027."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "whitespace",
+      "trim",
+      "required",
+      "error-guessing",
+      "unicode",
+      "validation",
+      "also-test-design"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-FORM-022",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Ведущие и замыкающие пробелы обрезаются",
+    "statement": "Пробелы в начале и в конце значения автоматически удаляются (trim) перед сохранением и валидацией.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Ввести «  value  », отправить, прочитать сохранённое значение через UI/API. Pass: сохранено «value». Также проверить, что email/логин с пробелом в конце не считаются другим значением. Для email допустим и другой исход — понятная ошибка валидации; недопустимы 5xx и сохранение значения с пробелами."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "whitespace",
+      "trim",
+      "error-guessing",
+      "email",
+      "also-test-design"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-FORM-023",
+    "kind": "checklist",
+    "severity": "nice",
+    "title": "Пробелы внутри значения сохраняются корректно",
+    "statement": "Пробел в середине текста не удаляется и не ломает валидацию для полей, где он допустим (например, составные имена).",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Ввести значение с внутренним пробелом (например, «Анна Мария»), отправить и прочитать обратно. Pass: внутренний пробел сохранён, валидация не отклоняет допустимое значение."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "whitespace"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-024",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Мультиязычный ввод, включая RTL",
+    "statement": "Ввести текст одновременно на кириллице, латинице, иероглифах и арабском (RTL): значение сохраняется и отображается без искажений.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Отправить строку вида «Привет Hello 你好 مرحبا», прочитать обратно и сравнить побайтно; визуально проверить, что RTL-фрагмент не ломает вёрстку поля."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "i18n",
+      "rtl",
+      "unicode"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-025",
+    "kind": "checklist",
+    "severity": "nice",
+    "title": "Сохранение введённых данных при перезагрузке страницы",
+    "statement": "Проверить, остаются ли значения полей после перезагрузки (F5); исключение — пароль и капча, которые сохраняться не должны.",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Заполнить форму, перезагрузить страницу, сравнить значения с ожидаемым поведением из требований. Fail: поведение не описано в требованиях, либо после перезагрузки восстановились пароль или капча."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "reload",
+      "persistence"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-026",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Двойной клик по кнопке отправки не создаёт дубль",
+    "statement": "Быстрый двойной клик по кнопке «Отправить» должен приводить ровно к одному запросу/одной созданной записи.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Playwright: dblclick() по submit и подсчёт запросов через page.on('request') к эндпоинту отправки; либо проверить количество созданных сущностей. Fail: больше одного POST или дубликат записи."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "double-submit",
+      "idempotency",
+      "see-SRK-PERF-014",
+      "see-SRK-API-003"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-027",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Невидимые символы (Zero Width Space)",
+    "statement": "Отправить в поле невидимый Unicode-символ U+200B (Zero Width Space) и проверить, как система его обрабатывает: значение из одного такого символа не должно приниматься как заполненное, а сама отправка не должна приводить к сбою.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Ввести в обязательное поле только \\u200B и отправить. Fail: форма принимает визуально пустое значение или отвечает 5xx. Дополнительно (общая практика, не из книги): ввести существующий логин/email с \\u200B внутри и убедиться, что не создаётся визуально идентичный дубликат."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "unicode",
+      "zero-width-space",
+      "negative"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-FORM-028",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Пароль маскируется при вводе",
+    "statement": "Символы в поле пароля отображаются маской (точки или звёздочки).",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Проверить атрибут type=\"password\" у поля пароля (Playwright toHaveAttribute('type','password')) в состоянии по умолчанию."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "password",
+      "masking"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-029",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Пароль очищается при перезагрузке и при ошибке формы, не хранится открыто в DOM",
+    "statement": "Поле пароля очищается при перезагрузке страницы и после ошибки отправки формы; введённый пароль не должен оставаться в разметке в открытом виде (атрибут value, data-*, скрытые поля).",
+    "rationale": "Пункт чек-листа противоречит SRK-UX-028 из главы о юзабилити, где сброс пароля при ошибке назван UX-проблемой; книга не разрешает это противоречие, поэтому ожидаемое поведение при ошибке нужно брать из требований продукта.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Ввести пароль и перезагрузить страницу: поле должно быть пустым. Поиском по page.content() проверить, что пароль не попал в HTML (value-атрибут, data-*, hidden input). Поведение поля после ошибки валидации сверить с требованиями продукта: книга даёт для него противоположные рекомендации (см. SRK-UX-028)."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "password",
+      "security",
+      "see-SRK-UX-028"
+    ],
+    "verification": "doubtful"
+  },
+  {
+    "id": "SRK-FORM-030",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Проверка сложности пароля",
+    "statement": "Система отклоняет или предупреждает о слишком простых паролях (123456, qwerty и т.п.).",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Попробовать установить пароли из списка самых распространённых (123456, qwerty, password). Fail: пароль принят без предупреждения. В требованиях: правила сложности описаны."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "password",
+      "security"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-031",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Пароль не совпадает с персональными данными",
+    "statement": "Система предупреждает, если пароль совпадает с логином, email или номером телефона пользователя.",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Указать пароль, равный логину/email/телефону из той же формы. Fail: пароль принят без ошибки или предупреждения."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "password",
+      "security"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-032",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Вставка пароля из буфера и менеджера паролей",
+    "statement": "В поле пароля работает вставка из буфера обмена и автозаполнение менеджером паролей.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Вставить пароль через Ctrl/Cmd+V и через автозаполнение менеджера паролей; проверить отсутствие блокировки onpaste и наличие корректного autocomplete (current-password/new-password)."
+    },
+    "modern_note": "WCAG 2.2 SC 3.3.8 Accessible Authentication (Minimum), уровень AA: вход не должен требовать когнитивного теста (запомнить или перепечатать пароль) без вспомогательного механизма; поддержка вставки и менеджеров паролей считается таким механизмом, поэтому блокировка вставки в поле пароля обычно нарушает этот критерий.",
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "password",
+      "paste",
+      "autocomplete",
+      "wcag-3.3.8",
+      "see-SRK-A11Y-120"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-FORM-033",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Переключатель «Показать пароль» работает в обе стороны",
+    "statement": "Иконка «глазик» переключает тип поля с password на text и обратно без потери введённого значения.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Кликнуть по иконке показа пароля — type=\"text\"; кликнуть ещё раз — type=\"password\"; значение поля не изменилось."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "password",
+      "show-password"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-034",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Согласие с правилами не отмечено по умолчанию",
+    "statement": "Значения по умолчанию у чекбоксов, радиокнопок и селектов логичны; чекбокс согласия (с правилами, на обработку данных, рассылку) не должен быть предвыбран (требование GDPR для ЕС).",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Открыть форму и проверить, что чекбоксы согласия не checked (Playwright not.toBeChecked()). Для прочих дефолтов — сверить с требованиями."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "checkbox",
+      "defaults",
+      "gdpr",
+      "consent",
+      "see-SRK-UXL-028"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-035",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Клик по лейблу переключает чекбокс/радиокнопку",
+    "statement": "Состояние чекбокса или радиокнопки меняется при клике по связанному тексту, а не только по самому маленькому значку.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Кликнуть по тексту лейбла и проверить изменение checked; в DOM — у input есть связанный <label for> или он вложен в label (getByLabel находит элемент)."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "checkbox",
+      "radio",
+      "label"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-036",
+    "kind": "checklist",
+    "severity": "nice",
+    "title": "Групповые действия выбора",
+    "statement": "Если есть кнопки «Выбрать все», «Снять все», «Инвертировать», они корректно меняют состояние всех элементов группы.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Нажать каждую групповую кнопку и проверить состояние всех чекбоксов группы, включая сценарий с частично выбранными элементами."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "checkbox",
+      "bulk-actions"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-037",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Обязательная группа радиокнопок без выбора",
+    "statement": "Форму нельзя отправить, не выбрав ни одной радиокнопки в обязательной группе.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Оставить обязательную радио-группу без выбора и отправить форму. Pass: отправка заблокирована, выведена ошибка у группы. Парный позитивный сценарий: с выбранным допустимым вариантом форма отправляется."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "radio",
+      "required",
+      "equivalence-partitioning",
+      "radio-button",
+      "also-test-design"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-FORM-038",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Загрузка файлов: фильтрация по расширению",
+    "statement": "Поле загрузки отклоняет недопустимые типы файлов (например, .exe или .php вместо .png/.jpg), причём проверка выполняется и на сервере.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Через setInputFiles загрузить .exe/.php и файл с подменённым расширением; дополнительно отправить запрос напрямую в обход атрибута accept. Fail: файл принят сервером."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "file-upload",
+      "security",
+      "see-SRK-TD-062",
+      "see-SRK-TD-019"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-039",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Загрузка файлов: пустой и очень большой файл",
+    "statement": "Проверить загрузку файла нулевого размера (0 байт) и гигантского файла (100 МБ+): система показывает понятную ошибку или корректно обрабатывает файл без падения.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Загрузить файл 0 байт и файл больше лимита; проверить отсутствие 5xx/зависания и наличие понятного сообщения об ограничении размера."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        52,
+        53
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "file-upload",
+      "bva",
+      "see-SRK-TD-012",
+      "see-SRK-API-028"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-040",
+    "kind": "checklist",
+    "severity": "nice",
+    "title": "Загрузка файлов: корректный прогресс-бар",
+    "statement": "Прогресс-бар загрузки отображает реальный ход загрузки и завершается в состоянии успеха или ошибки.",
+    "applies_to": [
+      "live-product",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Загрузить крупный файл при замедленной сети (DevTools Network throttling); прогресс монотонно растёт до 100%, а по завершении показано итоговое состояние."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        53
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "file-upload",
+      "progress-bar"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-041",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "GUI-проверка формы: шрифты, размеры кнопок, контраст",
+    "statement": "При проверке формы оценить выравнивание, отступы, шрифты, размеры кнопок и контрастность элементов.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Сверить форму с макетом (шрифты, размеры кнопок), прогнать axe-правило color-contrast. Fail: расхождения с макетом или нарушения контраста."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        53
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "gui",
+      "contrast"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-042",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Форма полностью проходится с клавиатуры",
+    "statement": "Между полями можно перемещаться Tab и Shift+Tab в логичном порядке, а форму можно отправить клавишей Enter/Return.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Playwright: keyboard.press('Tab') по всем полям с проверкой фокуса в ожидаемом порядке, Shift+Tab назад, Enter в последнем поле отправляет форму. Fail: поле недостижимо фокусом, порядок фокуса нарушен или Enter не отправляет форму. Вручную — пройти форму целиком без мыши."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        53
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "accessibility",
+      "keyboard",
+      "wcag-2.1.1",
+      "also-accessibility",
+      "also-test-strategy",
+      "see-SRK-A11Y-051"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-FORM-043",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Отправка формы на мобильных и в разных браузерах",
+    "statement": "Форма корректно отправляется на iOS/Android, планшетах и в разных браузерах, особенно в Safari.",
+    "applies_to": [
+      "test-plan",
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане есть кросс-браузерные/мобильные прогоны формы (включая WebKit/Safari); в Playwright-конфиге присутствуют проекты webkit и мобильные устройства."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        53
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "compatibility",
+      "safari",
+      "mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-044",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Локализация текстов формы",
+    "statement": "Тексты ошибок и плейсхолдеры переведены на все поддерживаемые языки, а длинные переводы (например, немецкий) не выходят за границы кнопок и полей.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Переключить локаль и вызвать все ошибки валидации; проверить отсутствие непереведённых строк и переполнения текста в кнопках (scrollWidth > clientWidth)."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        53
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "localization"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-045",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Форма защищена CSRF-токеном",
+    "statement": "Изменяющие данные формы защищены от CSRF (токен или эквивалентный механизм).",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Проверить наличие CSRF-токена в форме/заголовке запроса либо SameSite-cookie; повторить запрос с другого origin без токена — ожидается отказ (403)."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        53
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "security",
+      "csrf"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-046",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Ограничение частоты отправок (rate limiting)",
+    "statement": "Формы входа и другие чувствительные формы ограничивают число попыток для защиты от перебора.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Отправить серию неверных попыток входа подряд; ожидается блокировка, капча или ответ 429 после порога. В требованиях: порог описан."
+    },
+    "source": {
+      "chunk_id": "s1-c07-02",
+      "printed_pages": [
+        53
+      ]
+    },
+    "tags": [
+      "forms",
+      "checklist",
+      "security",
+      "rate-limiting",
+      "brute-force"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-047",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "В баг-репортах UI-элементы названы стандартными терминами",
+    "statement": "В баг-репортах и тест-кейсах элементы интерфейса называются принятыми терминами (дропдаун, тостер, чекбокс, кебаб-меню, хлебные крошки), а не описательными словами вроде «синяя штука».",
+    "applies_to": [
+      "test-cases",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Прочитать шаги и заголовки баг-репортов/тест-кейсов; Fail: элементы описаны цветом или формой («синяя штучка с галочкой», «три точки справа») вместо названия элемента и его подписи."
+    },
+    "source": {
+      "chunk_id": "s1-c08-00",
+      "printed_pages": [
+        54
+      ]
+    },
+    "tags": [
+      "bug-report",
+      "ui-terminology"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-FORM-048",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Проверены все четыре состояния кнопки",
+    "statement": "Для каждой кнопки проверяются состояния Enabled (default), Focused (видимая обводка при фокусе с клавиатуры), Hovered (визуальная реакция на наведение) и Disabled (не реагирует на клики до выполнения условия).",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для ключевых кнопок: навести курсор (hover), сфокусировать Tab (виден индикатор фокуса), привести в disabled и кликнуть — действие не выполняется. В тест-плане/кейсах: состояния кнопки перечислены."
+    },
+    "modern_note": "Видимость фокуса — требование WCAG SC 2.4.7 Focus Visible (AA).",
+    "source": {
+      "chunk_id": "s1-c08-02",
+      "printed_pages": [
+        59,
+        60
+      ]
+    },
+    "tags": [
+      "buttons",
+      "states",
+      "hover",
+      "focus",
+      "disabled"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-049",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Сплит-кнопка: обе части работают раздельно",
+    "statement": "У составной кнопки основная часть выполняет главное действие, а часть со стрелкой раскрывает меню дополнительных действий; проверяются обе.",
+    "applies_to": [
+      "live-product",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Кликнуть по основной части — выполнено главное действие без открытия меню; кликнуть по стрелке — открылось меню, каждое действие меню работает."
+    },
+    "source": {
+      "chunk_id": "s1-c08-02",
+      "printed_pages": [
+        60
+      ]
+    },
+    "tags": [
+      "split-button",
+      "buttons"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-050",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Проверены шесть состояний поля ввода",
+    "statement": "Для поля ввода проверяются состояния: Inactive (default), Hovered, Focused (активен курсор), Activated (заполнено), Error (выделено при невалидном вводе), Disabled (ввод невозможен).",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Провести поле через все шесть состояний и сверить вид каждого с макетом; в disabled попытка ввода не меняет значение."
+    },
+    "source": {
+      "chunk_id": "s1-c08-04",
+      "printed_pages": [
+        61,
+        62
+      ]
+    },
+    "tags": [
+      "input",
+      "states",
+      "forms"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-051",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Радиокнопки — для одного варианта, чекбоксы — для нескольких",
+    "statement": "Радиокнопки используются там, где нужно выбрать ровно один вариант из группы, чекбоксы — для множественного выбора.",
+    "applies_to": [
+      "requirements",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Сопоставить тип элемента с логикой выбора в требованиях. Fail: взаимоисключающие варианты оформлены чекбоксами или множественный выбор — радиокнопками."
+    },
+    "source": {
+      "chunk_id": "s1-c08-04",
+      "printed_pages": [
+        60,
+        61
+      ]
+    },
+    "tags": [
+      "radio",
+      "checkbox",
+      "forms"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-052",
+    "kind": "checklist",
+    "severity": "nice",
+    "title": "Комбобокс: выбор из списка и фильтрация вводом",
+    "statement": "В комбобоксе можно как выбрать вариант из списка, так и начать вводить текст для фильтрации вариантов.",
+    "applies_to": [
+      "live-product",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Открыть комбобокс и выбрать вариант; затем ввести часть названия и проверить фильтрацию, регистронезависимость и поведение при отсутствии совпадений."
+    },
+    "source": {
+      "chunk_id": "s1-c08-04",
+      "printed_pages": [
+        63
+      ]
+    },
+    "tags": [
+      "combobox",
+      "dropdown",
+      "forms"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-053",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Тостер скрывается сам через несколько секунд",
+    "statement": "По описанию автора, тостер обычно исчезает автоматически примерно через 3–5 секунд; стоит проверить, что он не висит бесконечно и успевает прочитаться.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Вызвать тостер и замерить время до скрытия (Playwright: toBeVisible, затем toBeHidden с таймаутом). Сверить с требованиями/дизайн-системой; без них ориентир — несколько секунд. Fail: тостер не исчезает или пропадает раньше, чем текст можно прочитать."
+    },
+    "modern_note": "Автоскрытие важных сообщений может нарушать WCAG SC 2.2.1 Timing Adjustable (A), если пользователь не может продлить или остановить показ; содержимое тоста должно объявляться скринридером без перевода фокуса через role=status/alert или aria-live (SC 4.1.3 Status Messages, AA).",
+    "source": {
+      "chunk_id": "s1-c08-05",
+      "printed_pages": [
+        65
+      ]
+    },
+    "tags": [
+      "toast",
+      "notifications",
+      "timing",
+      "wcag-2.2.1",
+      "wcag-4.1.3",
+      "see-SRK-A11Y-060"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "SRK-FORM-054",
+    "kind": "checklist",
+    "severity": "nice",
+    "title": "Цвет тостера соответствует типу сообщения",
+    "statement": "Тип тостера соответствует смыслу сообщения: Success — зелёный, Error — красный, Info — синий, Warning — жёлтый.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Вызвать успешное действие, ошибку, информационное и предупреждающее уведомление; Fail: ошибка показана зелёным/успехом или наоборот."
+    },
+    "source": {
+      "chunk_id": "s1-c08-05",
+      "printed_pages": [
+        65
+      ]
+    },
+    "tags": [
+      "toast",
+      "notifications",
+      "color"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-055",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Действие в снэкбаре работает",
+    "statement": "Если снэкбар содержит кнопку быстрого действия (например, «Отменить» после удаления), она действительно отменяет операцию.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Удалить объект, нажать «Отменить» в снэкбаре до его скрытия, проверить, что объект восстановлен (UI и API)."
+    },
+    "source": {
+      "chunk_id": "s1-c08-05",
+      "printed_pages": [
+        66
+      ]
+    },
+    "tags": [
+      "snackbar",
+      "undo",
+      "notifications",
+      "see-SRK-MD-082"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "SRK-FORM-056",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Модальное окно блокирует фон и требует явного действия",
+    "statement": "Модальное окно затемняет и блокирует основной интерфейс; закрывается только явным действием пользователя (кнопки «ОК», «Отмена» или крестик).",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Открыть модалку и попытаться кликнуть по элементу фона — клик не срабатывает; проверить наличие кнопки закрытия и что каждая кнопка выполняет заявленное действие."
+    },
+    "modern_note": "Паттерн Dialog (Modal) из WAI-ARIA Authoring Practices дополнительно рекомендует удерживать фокус внутри модалки, закрывать её по Esc и возвращать фокус на вызвавший элемент.",
+    "source": {
+      "chunk_id": "s1-c08-05",
+      "printed_pages": [
+        66
+      ]
+    },
+    "tags": [
+      "modal",
+      "popup"
+    ],
+    "verification": "fixed"
+  }
+]

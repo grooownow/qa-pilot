@@ -1,26 +1,257 @@
 {
  "topics": {
-  "principles": {"title": "Принципы и роль QA", "depth": "deep", "id_prefix": "PRIN", "rules": "rules/principles.json", "prefixes": ["s1-c00", "s1-c01"]},
-  "test-strategy": {"title": "Виды тестирования, классификация, пирамида, «Протестируй»", "depth": "deep", "id_prefix": "STRAT", "rules": "rules/test-strategy.json", "prefixes": ["s1-c02", "s1-c10", "s1-c11"]},
-  "requirements": {"title": "Тестирование требований и документации", "depth": "deep", "id_prefix": "REQ", "rules": "rules/requirements.json", "prefixes": ["s1-c03", "s7-c04-00", "s7-c04-01", "s7-c04-03"]},
-  "test-artifacts": {"title": "Чек-листы, тест-кейсы, свиты, раны, план, отчёт, баг-репорт", "depth": "deep", "id_prefix": "ART", "rules": "rules/test-artifacts.json", "prefixes": ["s1-c04", "s1-c05", "s1-c06"]},
-  "forms": {"title": "Веб-формы, поля ввода и словарь UI-элементов", "depth": "deep", "id_prefix": "FORM", "rules": "rules/forms.json", "prefixes": ["s1-c07", "s1-c08"]},
-  "test-design": {"title": "Техники тест-дизайна", "depth": "deep", "id_prefix": "TD", "rules": "rules/test-design.json", "prefixes": ["s1-c09"]},
-  "api": {"title": "API: архитектура, форматы, тестирование, инструменты", "depth": "deep", "id_prefix": "API", "rules": "rules/api.json", "prefixes": ["s2-c00", "s2-c01", "s2-c02", "s2-c03", "s2-c04", "s2-c05", "s2-c06", "s2-c07", "s2-c08", "s2-c09", "s2-c10", "s2-c11"], "note": "Глубоко — 2.5 (тестирование API) и 2.1–2.2; инструменты (DevTools, Postman, Swagger, GraphQL, Proxyman) — средне."},
-  "databases": {"title": "Базы данных и SQL", "depth": "medium", "id_prefix": "DB", "rules": "rules/databases.json", "prefixes": ["s3-c00", "s3-c01", "s3-c02", "s3-c03", "s3-c04", "s3-c05", "s3-c06"]},
-  "install-config": {"title": "Инсталляция, конфигурации и совместимость", "depth": "deep", "id_prefix": "INST", "rules": "rules/install-config.json", "prefixes": ["s4-c00", "s4-c01", "s4-c02"]},
-  "gui": {"title": "Тестирование графического интерфейса", "depth": "deep", "id_prefix": "GUI", "rules": "rules/gui.json", "prefixes": ["s4-c03"]},
-  "usability": {"title": "Тестирование удобства (usability)", "depth": "deep", "id_prefix": "UX", "rules": "rules/usability.json", "prefixes": ["s4-c04"]},
-  "localization": {"title": "Тестирование локализации", "depth": "deep", "id_prefix": "L10N", "rules": "rules/localization.json", "prefixes": ["s4-c05"]},
-  "performance": {"title": "Клиентская и серверная производительность, Core Web Vitals", "depth": "deep", "id_prefix": "PERF", "rules": "rules/performance.json", "prefixes": ["s4-c06", "s4-c07", "s7-c04-02"]},
-  "accessibility": {"title": "Цифровая доступность (WCAG, POUR, инструменты)", "depth": "deep", "id_prefix": "A11Y", "rules": "rules/accessibility.json", "prefixes": ["s5-c00", "s5-c01", "s5-c02", "s5-c03", "s5-c04", "s5-c05", "s5-c06"]},
-  "mobile": {"title": "Мобильные приложения: специфика, Xcode, Android Studio, отладка, жизненный цикл", "depth": "deep", "id_prefix": "MOB", "rules": "rules/mobile.json", "prefixes": ["s6-c00", "s6-c02", "s6-c06", "s6-c07", "s6-c08", "s6-c09", "s6-c10"], "note": "Глубоко — 6.2; инструменты и жизненный цикл (6.6–6.10) — средне."},
-  "mobile-hig": {"title": "Стандарты Apple (HIG)", "depth": "deep", "id_prefix": "HIG", "rules": "rules/mobile-hig.json", "prefixes": ["s6-c03", "s6-c04"]},
-  "mobile-material": {"title": "Стандарты Material Design (Google)", "depth": "deep", "id_prefix": "MD", "rules": "rules/mobile-material.json", "prefixes": ["s6-c05"]},
-  "games": {"title": "Тестирование видеоигр", "depth": "deep", "id_prefix": "GAME", "rules": "rules/games.json", "prefixes": ["s6-c01"]},
-  "process": {"title": "Процессы: консоль, CI/CD, Git, QA в разных командах, продуктивность", "depth": "medium", "id_prefix": "PROC", "rules": "rules/process.json", "prefixes": ["s7-c00", "s7-c01", "s7-c02", "s7-c03", "s7-c05", "s7-c07"]},
-  "ux-laws-dark-patterns": {"title": "Законы UX и тёмные паттерны", "depth": "deep", "id_prefix": "UXL", "rules": "rules/ux-laws-dark-patterns.json", "prefixes": ["s7-c04-04", "s7-c04-05"]},
-  "ai-in-qa": {"title": "Тестирование с ИИ", "depth": "deep", "id_prefix": "AI", "rules": "rules/ai-in-qa.json", "prefixes": ["s7-c06"]},
-  "index-only": {"title": "Вне свода: об авторе, доступность в Беларуси, карьера", "depth": "index", "id_prefix": null, "rules": null, "prefixes": ["s0-c00", "s5-c07", "s7-c08"], "note": "Правила не извлекаются по решению пользователя (2026-10-12): нерелевантно для аудита продукта. Кратко упомянуто в summary.md."}
+  "principles": {
+   "title": "Принципы и роль QA",
+   "depth": "deep",
+   "id_prefix": "PRIN",
+   "rules": "rules/principles.json",
+   "prefixes": [
+    "s1-c00",
+    "s1-c01"
+   ]
+  },
+  "test-strategy": {
+   "title": "Виды тестирования, классификация, пирамида, «Протестируй»",
+   "depth": "deep",
+   "id_prefix": "STRAT",
+   "rules": "rules/test-strategy.json",
+   "prefixes": [
+    "s1-c02",
+    "s1-c10",
+    "s1-c11"
+   ]
+  },
+  "requirements": {
+   "title": "Тестирование требований и документации",
+   "depth": "deep",
+   "id_prefix": "REQ",
+   "rules": "rules/requirements.json",
+   "prefixes": [
+    "s1-c03",
+    "s7-c04-00",
+    "s7-c04-01",
+    "s7-c04-03"
+   ]
+  },
+  "test-artifacts": {
+   "title": "Чек-листы, тест-кейсы, свиты, раны, план, отчёт, баг-репорт",
+   "depth": "deep",
+   "id_prefix": "ART",
+   "rules": "rules/test-artifacts.json",
+   "prefixes": [
+    "s1-c04",
+    "s1-c05",
+    "s1-c06"
+   ]
+  },
+  "forms": {
+   "title": "Веб-формы, поля ввода и словарь UI-элементов",
+   "depth": "deep",
+   "id_prefix": "FORM",
+   "rules": "rules/forms.json",
+   "prefixes": [
+    "s1-c07",
+    "s1-c08"
+   ]
+  },
+  "test-design": {
+   "title": "Техники тест-дизайна",
+   "depth": "deep",
+   "id_prefix": "TD",
+   "rules": "rules/test-design.json",
+   "prefixes": [
+    "s1-c09"
+   ]
+  },
+  "api": {
+   "title": "API: архитектура, форматы, тестирование, инструменты",
+   "depth": "deep",
+   "id_prefix": "API",
+   "rules": "rules/api.json",
+   "prefixes": [
+    "s2-c00",
+    "s2-c01",
+    "s2-c02",
+    "s2-c03",
+    "s2-c04",
+    "s2-c05",
+    "s2-c06",
+    "s2-c07",
+    "s2-c08",
+    "s2-c09",
+    "s2-c10",
+    "s2-c11"
+   ],
+   "note": "Глубоко — 2.5 (тестирование API) и 2.1–2.2; инструменты (DevTools, Postman, Swagger, GraphQL, Proxyman) — средне."
+  },
+  "databases": {
+   "title": "Базы данных и SQL",
+   "depth": "medium",
+   "id_prefix": "DB",
+   "rules": "rules/databases.json",
+   "prefixes": [
+    "s3-c00",
+    "s3-c01",
+    "s3-c02",
+    "s3-c03",
+    "s3-c04",
+    "s3-c05",
+    "s3-c06"
+   ]
+  },
+  "install-config": {
+   "title": "Инсталляция, конфигурации и совместимость",
+   "depth": "deep",
+   "id_prefix": "INST",
+   "rules": "rules/install-config.json",
+   "prefixes": [
+    "s4-c00",
+    "s4-c01",
+    "s4-c02"
+   ]
+  },
+  "gui": {
+   "title": "Тестирование графического интерфейса",
+   "depth": "deep",
+   "id_prefix": "GUI",
+   "rules": "rules/gui.json",
+   "prefixes": [
+    "s4-c03"
+   ]
+  },
+  "usability": {
+   "title": "Тестирование удобства (usability)",
+   "depth": "deep",
+   "id_prefix": "UX",
+   "rules": "rules/usability.json",
+   "prefixes": [
+    "s4-c04"
+   ]
+  },
+  "localization": {
+   "title": "Тестирование локализации",
+   "depth": "deep",
+   "id_prefix": "L10N",
+   "rules": "rules/localization.json",
+   "prefixes": [
+    "s4-c05"
+   ]
+  },
+  "performance": {
+   "title": "Клиентская и серверная производительность, Core Web Vitals",
+   "depth": "deep",
+   "id_prefix": "PERF",
+   "rules": "rules/performance.json",
+   "prefixes": [
+    "s4-c06",
+    "s4-c07",
+    "s7-c04-02"
+   ]
+  },
+  "accessibility": {
+   "title": "Цифровая доступность (WCAG, POUR, инструменты)",
+   "depth": "deep",
+   "id_prefix": "A11Y",
+   "rules": "rules/accessibility.json",
+   "prefixes": [
+    "s5-c00",
+    "s5-c01",
+    "s5-c02",
+    "s5-c03",
+    "s5-c04",
+    "s5-c05",
+    "s5-c06"
+   ]
+  },
+  "mobile": {
+   "title": "Мобильные приложения: специфика, Xcode, Android Studio, отладка, жизненный цикл",
+   "depth": "deep",
+   "id_prefix": "MOB",
+   "rules": "rules/mobile.json",
+   "prefixes": [
+    "s6-c00",
+    "s6-c02",
+    "s6-c06",
+    "s6-c07",
+    "s6-c08",
+    "s6-c09",
+    "s6-c10"
+   ],
+   "note": "Глубоко — 6.2; инструменты и жизненный цикл (6.6–6.10) — средне."
+  },
+  "mobile-hig": {
+   "title": "Стандарты Apple (HIG)",
+   "depth": "deep",
+   "id_prefix": "HIG",
+   "rules": "rules/mobile-hig.json",
+   "prefixes": [
+    "s6-c03",
+    "s6-c04"
+   ]
+  },
+  "mobile-material": {
+   "title": "Стандарты Material Design (Google)",
+   "depth": "deep",
+   "id_prefix": "MD",
+   "rules": "rules/mobile-material.json",
+   "prefixes": [
+    "s6-c05"
+   ]
+  },
+  "games": {
+   "title": "Тестирование видеоигр",
+   "depth": "deep",
+   "id_prefix": "GAME",
+   "rules": "rules/games.json",
+   "prefixes": [
+    "s6-c01"
+   ]
+  },
+  "process": {
+   "title": "Процессы: консоль, CI/CD, Git, QA в разных командах, продуктивность",
+   "depth": "medium",
+   "id_prefix": "PROC",
+   "rules": "rules/process.json",
+   "prefixes": [
+    "s7-c00",
+    "s7-c01",
+    "s7-c02",
+    "s7-c03",
+    "s7-c05",
+    "s7-c07"
+   ],
+   "note": "Глава 7.1 (консольные команды, s7-c01) — пошаговый туториал по терминалу/npm/vim, правил не дала; доступна как справка в raw/. Вводные куски разделов (s*-c00) — без правил по определению."
+  },
+  "ux-laws-dark-patterns": {
+   "title": "Законы UX и тёмные паттерны",
+   "depth": "deep",
+   "id_prefix": "UXL",
+   "rules": "rules/ux-laws-dark-patterns.json",
+   "prefixes": [
+    "s7-c04-04",
+    "s7-c04-05"
+   ]
+  },
+  "ai-in-qa": {
+   "title": "Тестирование с ИИ",
+   "depth": "deep",
+   "id_prefix": "AI",
+   "rules": "rules/ai-in-qa.json",
+   "prefixes": [
+    "s7-c06"
+   ]
+  },
+  "index-only": {
+   "title": "Вне свода: об авторе, доступность в Беларуси, карьера",
+   "depth": "index",
+   "id_prefix": null,
+   "rules": null,
+   "prefixes": [
+    "s0-c00",
+    "s5-c07",
+    "s7-c08"
+   ],
+   "note": "Правила не извлекаются по решению пользователя (2026-10-12): нерелевантно для аудита продукта. Кратко упомянуто в summary.md."
+  }
  }
 }
