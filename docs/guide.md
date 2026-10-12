@@ -65,6 +65,37 @@ or a hands-on browser session on a bug report.
 When to re-run `onboard`: after a framework migration, a test-layout
 reorganization, new environments — any time the profile's facts go stale.
 
+## Auditing requirements and test plans
+
+Before (or instead of) writing tests, check the requirements themselves:
+
+```
+/qa-pilot:spec-audit <feature, spec files, or ticket>
+```
+
+It answers "which test cases are we missing for this flow?", "what in this spec
+is ambiguous or contradicts another doc?", and "what does the owner still need
+to decide?". How it works:
+
+- **Rules, not vibes.** It checks against `knowledge/` — 1137 rules distilled
+  from Roman Surkov's QA handbook (test design techniques, requirements quality,
+  a11y/WCAG 2.2, API, forms, UX laws, dark patterns…) plus qa-pilot's own rules
+  learned from real audits. Your **Product traits** (in the project profile)
+  drop rules that cannot apply — no iOS guidelines for a web app, no checkout
+  rules without payments.
+- **Your decisions win.** Records in `docs/decisions/`, CLAUDE.md and
+  `docs/qa/rule-overrides.json` override the book. When you say "that's
+  deliberate" during triage, it offers to record the decision so it never
+  nags again.
+- **Checked against the code.** A "missing scenario" is only reported after
+  grepping your tests; spec claims are compared with what the code actually
+  does. In the pilot this was where every critical finding came from.
+- **Cost.** One feature by default (~40k tokens per spec document). A
+  whole-project audit is offered only on request, with the estimate first.
+
+The report lands in `docs/qa/spec-audit/`; on request the missing scenarios
+of a feature become a `plan-tests` plan that `write-tests` can implement.
+
 ## How coverage analysis actually works
 
 Honestly: qa-pilot is not a coverage-percentage tool. It doesn't instrument

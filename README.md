@@ -62,6 +62,7 @@ hands-on verification anytime.
 | `/qa-pilot:audit` | Deep health check of the test codebase: flakiness, false-greens, duplication → findings + ordered refactoring plan, executable step by step | `docs/qa/audit-report.md`, `docs/qa/refactoring-plan.md` |
 | `/qa-pilot:cover` | The everyday orchestrator: what changed → coverage gaps → plan → write → review | `docs/qa/test-plans/<feature>.md` + test files |
 | `/qa-pilot:plan-tests` | Feature → prioritized test scenarios with an explicit depth/cost tradeoff (smoke / standard / thorough) | `docs/qa/test-plans/<feature>.md` |
+| `/qa-pilot:spec-audit` | Audits requirements & test plans against a 1100+ rule QA catalog (test design, requirements quality, a11y, API, UX…), cross-checked against your code → which test cases are missing, what's ambiguous, what the owner must decide | `docs/qa/spec-audit/<date>-<slug>.md` |
 | `/qa-pilot:write-tests` | Implements tests from a plan per your conventions; proves each test can fail; adversarial review loop | test files + scenario→file map in the plan |
 | `/qa-pilot:test` | Exploratory testing session in a real browser (Playwright MCP); guarded low-risk fixes on request | `docs/qa/test-sessions/<date>-<slug>.md` |
 
@@ -88,6 +89,13 @@ Design test scenarios for a feature:
 /qa-pilot:plan-tests <feature, ticket, or PR>
 ```
 
+Audit the requirements / spec of a flow — what test cases are missing, what's
+ambiguous or contradictory (one feature by default; whole project on request):
+
+```
+/qa-pilot:spec-audit <feature, spec files, or ticket>
+```
+
 Write the automated tests from a plan:
 
 ```
@@ -102,7 +110,7 @@ Test a feature hands-on in the browser:
 
 ## What's inside
 
-- **6 skills** (`skills/`) — onboard, audit, cover, plan-tests, write-tests, test.
+- **7 skills** (`skills/`) — onboard, audit, cover, plan-tests, spec-audit, write-tests, test.
   Each follows the same contract: numbered phases, batched questions when
   context is missing, mandatory self-review of any code it changes, evidence
   before claims.
@@ -113,6 +121,13 @@ Test a feature hands-on in the browser:
 - **Reference library** (`references/`) — Playwright e2e patterns, a flakiness
   catalog, browser/dev-server hygiene, the review-loop protocol, quality rules,
   and model-routing rules. Skills load these on demand.
+- **QA rules catalog** (`knowledge/`) — 1137 paraphrased rules, recommendations,
+  tips and checklist items distilled from Roman Surkov's QA handbook «Качество
+  решает всё» (test design, requirements, test artifacts, forms, API, a11y/WCAG
+  2.2, localization, performance, mobile HIG/Material, UX laws, dark patterns,
+  AI-in-QA), each verified against its source and tagged with where it applies
+  and how to check it — plus qa-pilot's own rules learned from real audits.
+  The book text itself is not included (copyright); rules are in Russian.
 - **Playwright MCP** (`.mcp.json`) — the official
   [@playwright/mcp](https://www.npmjs.com/package/@playwright/mcp) server
   (pinned version), giving Claude real browser control for `qa-pilot:test`.

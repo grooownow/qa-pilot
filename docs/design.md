@@ -39,6 +39,7 @@ qa-pilot/
 │   ├── audit/SKILL.md       # test-codebase audit → report + refactoring plan → execute
 │   ├── cover/SKILL.md       # everyday orchestrator: changed code → gap map → plan → write
 │   ├── plan-tests/SKILL.md  # feature → test scenarios (cost/value tradeoff)
+│   ├── spec-audit/          # requirements & test plans vs the rules catalog (+ scripts/)
 │   ├── write-tests/SKILL.md # scenarios → Playwright tests per project conventions
 │   └── test/SKILL.md        # exploratory browser testing via Playwright MCP
 ├── agents/
@@ -52,6 +53,7 @@ qa-pilot/
 │   ├── e2e-patterns.md      # Playwright patterns: fixtures, POM-via-fixtures, waiting, mocking
 │   ├── flakiness-catalog.md # known flakiness sources + fixes + quarantine pattern
 │   └── browser-hygiene.md   # dev-server lifecycle, one-page rule, memory caps
+├── knowledge/               # QA rules catalog: surkov/ (book-derived), qa-pilot/ (own rules)
 └── README.md                # install + quickstart for an AI-agent beginner
 ```
 
@@ -90,6 +92,15 @@ claiming done.
 6. **test** — exploratory/manual testing in a real browser via Playwright MCP: walks
    scenarios, records findings with repro steps, optionally fixes low-risk bugs
    (guarded), re-verifies after fixes. Output: `docs/qa/test-sessions/<date>-<slug>.md`.
+
+7. **spec-audit** (added in 0.3.0) — audits requirements and test plans against
+   the `knowledge/` catalog: product traits filter the rules (`rules_pack.py`), a
+   low-noise lint flags vague/unfinished wording (`spec_lint.py`), cluster agents
+   apply lenses (state models, decision tables, BVA, contradictions, error states)
+   and cross-check every claim against the code and existing tests; the main
+   session verifies P1s and calibrates severity. Output:
+   `docs/qa/spec-audit/<date>-<slug>.md`. Design:
+   `docs/superpowers/specs/2026-10-12-spec-audit-skill-design.md`.
 
 ## Cross-cutting rules (in every skill)
 
