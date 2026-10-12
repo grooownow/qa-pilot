@@ -12,7 +12,8 @@ The work is **read-only.** Never edit the project. You write only your findings 
 
 ## 0. Before the specs: load what overrides the book
 
-1. Read the project's `CLAUDE.md` / `AGENTS.md`, its test-strategy doc (named in `docs/qa/project-profile.md`), and every decision record referenced by your specs (`docs/decisions/*`, ADRs).
+1. Read the decisions digest from your brief, if you got one. Otherwise read the project's `CLAUDE.md` / `AGENTS.md`, its test-strategy doc (named in `docs/qa/project-profile.md`), and every decision record your specs reference (`docs/decisions/*`, ADRs, accepted items in `docs/code-review/`).
+   - **Read code at the baseline sha from your brief.** If the working tree is dirty, use `git show <sha>:<path>`, because uncommitted edits by someone else must not leak into your verdicts.
 2. Project decisions **win over the catalog**. So does any rule line carrying `⚖️ РЕШЕНИЕ ПРОЕКТА`. A rule that would fire but is overridden goes to *Skipped as project decision*, never to *Findings*.
 3. Load the rule packs economically. Each pack is 10–25k tokens.
    - Read `core.md` in full.
@@ -58,6 +59,8 @@ A spec-only audit produced about one third false "missing" items in the pilot, a
 Every P1/P2 needs a `code` reference: the `file:line` of the implementing code, or `n/a` with the reason.
 
 ## 3. Findings file format (append after EACH spec, so progress survives a dead session)
+
+If your Write tool is blocked, append with a shell command (`cat >> <file> <<'EOF'`). If that is blocked too, put the full findings in your final reply, and say that you did.
 
 ```
 ## <spec file>

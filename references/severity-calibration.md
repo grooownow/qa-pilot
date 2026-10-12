@@ -6,11 +6,11 @@ This file is shared by qa-pilot audits. Severity measures the **impact on this p
 
 At least one of these must hold, with evidence:
 
-- **Users can lose or corrupt their data.** Example: a hand-filled document stays `failed` in the DB, and "retry" silently overwrites the manual edits.
+- **Users can lose or corrupt their data.** Example: an edit is saved only in client state, so the next background sync overwrites it.
 - **A security or privacy guard is broken or unproven.**
   - A guard mocked to always succeed in its only test.
   - A protection that fails open.
-  - Internal ids leaking against an explicit project decision.
+  - Internal ids or personal data leaking from an anonymous endpoint against an explicit project decision.
 - **A legal or regulatory obligation the project has adopted is violated.** Example: a GDPR deletion that leaves personal data behind, when the project claims GDPR compliance.
 - **There is no regression or smoke gate between merge and production** for a product with real users.
 
@@ -34,4 +34,5 @@ If you cannot point to the code or config that makes the harm reachable, it is n
 - **Drift:** ask "what breaks if someone makes the code match the spec?" If the answer is real harm, it is P2. If it is nothing, P3.
 - **"Covered in code"** is not a finding at all. Report it in the scenario list so the reader sees it was checked.
 - **Never inflate drift to P1**, and never deflate a proven data or security issue because it is "only" in a test.
-- **A project decision that consciously accepts a risk** is not a finding. If the decision's own premise is broken (e.g. a rate limit that backs it fails open), report *that*, and quote the decision.
+- **A project decision that consciously accepts a risk** is not a finding. If the decision's own premise is broken (e.g. it relies on a safeguard that does not exist or fails open), report *that* as **P2**, quote the decision, and add it to **Decisions needed**. It becomes P1 only when you can show concrete harm that is already reachable. The owner decides; the audit does not overrule a decision on its own.
+- **"Real users?"** Release-gating and data-loss severity depend on it. Count it as yes if the product is publicly reachable with sign-up, or the docs mention beta or production users. If you cannot tell, say which assumption you made.

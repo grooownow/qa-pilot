@@ -21,6 +21,7 @@ sloppy iterations.** Quality is never traded down — waste is.
    | Writing test code from a precise brief; adapting a known pattern | `test-author` (sonnet) |
    | Repo exploration / searching when the answer location is unknown | Explore agent (sonnet) |
    | Review lenses in the review loop | `qa-reviewer` (inherits session model — verdicts are judgment) |
+   | Parallel judgment-heavy analysis with a precise brief (e.g. `spec-audit` clusters) | general-purpose agent on the session model; the main session re-verifies every high-severity result |
    | Planning, triage, final verdicts, anything underspecified | main session, no delegation |
 
 4. **Escalate on failure, don't retry in place.** If a cheap agent produces a bad
