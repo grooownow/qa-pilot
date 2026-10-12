@@ -111,6 +111,18 @@ def parse_toc(lines):
     return entries
 
 
+def drop_trailing_headers(text):
+    """Trim the chunk and drop a trailing chapter/section header line: the next
+    chapter's running header is kept on its first page and can precede the
+    section heading that actually opens the next chunk."""
+    lines = text.strip().split("\n")
+    while len(lines) > 1 and RUNNING_HEADER_RE.match(lines[-1]):
+        lines.pop()
+        while lines and not lines[-1].strip():
+            lines.pop()
+    return re.sub(r"\n{3,}", "\n\n", "\n".join(lines))
+
+
 def split_long(text, max_words=MAX_WORDS):
     """Split text on blank-line paragraph boundaries into parts <= max_words.
 
@@ -280,8 +292,7 @@ def build(pdf, kb_dir):
         if n == 0:
             idx = 0  # body lines before the first heading belong to the first chunk
         end = boundaries[n + 1][0] if n + 1 < len(boundaries) else len(body)
-        text = "\n".join(body[i][2] for i in range(idx, end)).strip()
-        text = re.sub(r"\n{3,}", "\n\n", text)
+        text = drop_trailing_headers("\n".join(body[i][2] for i in range(idx, end)))
         pdf_pages, printed = span_meta(idx, end)
         raw_chunks.append({
             "id": cid, "section": sec_title, "chapter": ch_title,

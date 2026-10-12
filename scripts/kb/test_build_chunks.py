@@ -1,6 +1,6 @@
 import unittest
 
-from build_chunks import find_heading, normalize, parse_toc, split_long, strip_page_furniture
+from build_chunks import drop_trailing_headers, find_heading, normalize, parse_toc, split_long, strip_page_furniture
 
 
 class NormalizeTest(unittest.TestCase):
@@ -83,6 +83,15 @@ class FindHeadingTest(unittest.TestCase):
             self.lines, "Анализ Граничных Значений (Boundary Value Analysis — BVA)", 0, len(self.lines)), 6)
         self.assertIsNone(find_heading(self.lines, "Цвет (Color)", 0, 5))
         self.assertIsNone(find_heading(self.lines, "Совсем другой заголовок", 0, len(self.lines)))
+
+
+class DropTrailingHeadersTest(unittest.TestCase):
+    def test_drops_next_chapter_header_only_at_end(self):
+        text = "ГЛАВА 7: СЕРВЕРНАЯ\nТекст.\n\n\n\nКонец.\n\nГЛАВА 1: ПОНЯТИЕ ДОСТУПНОСТИ\n"
+        self.assertEqual(drop_trailing_headers(text), "ГЛАВА 7: СЕРВЕРНАЯ\nТекст.\n\nКонец.")
+
+    def test_keeps_header_only_chunk(self):
+        self.assertEqual(drop_trailing_headers("ГЛАВА 2: ВВЕДЕНИЕ"), "ГЛАВА 2: ВВЕДЕНИЕ")
 
 
 class SplitLongTest(unittest.TestCase):
