@@ -14,9 +14,9 @@ The work is **read-only.** Never edit the project. You write only your findings 
 
 1. Read the project's `CLAUDE.md` / `AGENTS.md`, its test-strategy doc (named in `docs/qa/project-profile.md`), and every decision record referenced by your specs (`docs/decisions/*`, ADRs).
 2. Project decisions **win over the catalog**. So does any rule line carrying `⚖️ РЕШЕНИЕ ПРОЕКТА`. A rule that would fire but is overridden goes to *Skipped as project decision*, never to *Findings*.
-3. Load the rule packs:
-   - `core.md` always;
-   - `forms-ui`, `api-data`, `a11y-l10n` and `platform` only where your specs touch that area.
+3. Load the rule packs economically. Each pack is 10–25k tokens.
+   - Read `core.md` in full.
+   - For `forms-ui`, `api-data`, `a11y-l10n` and `platform`, do not read the whole file. `grep` them for the domain words of your specs (e.g. `upload|файл`, `share|ссылк`, `date|дат`, `password|парол`, `focus|keyboard`) and read only the matching lines.
 
    Full records are in the catalog JSON (`knowledge/*/rules/*.json`); look a record up with `jq` by id when a one-line summary is not enough.
 
