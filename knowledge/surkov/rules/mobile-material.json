@@ -175,7 +175,8 @@
       "notifications",
       "push",
       "character-limit",
-      "localization"
+      "localization",
+      "needs-android"
     ],
     "verification": "fixed"
   },
@@ -523,7 +524,8 @@
       "android",
       "layout",
       "margins",
-      "spacing"
+      "spacing",
+      "needs-android"
     ],
     "verification": "fixed"
   },
@@ -554,7 +556,8 @@
       "web",
       "rtl",
       "localization",
-      "text-rendering"
+      "text-rendering",
+      "needs-rtl"
     ],
     "verification": "fixed"
   },
@@ -583,7 +586,8 @@
       "web",
       "rtl",
       "email",
-      "text-field"
+      "text-field",
+      "needs-rtl"
     ],
     "verification": "ok"
   },
@@ -612,7 +616,8 @@
       "android",
       "web",
       "rtl",
-      "icons"
+      "icons",
+      "needs-rtl"
     ],
     "verification": "ok"
   },
@@ -644,7 +649,8 @@
       "progress-indicator",
       "hebrew",
       "arabic",
-      "see-SRK-L10N-028"
+      "see-SRK-L10N-028",
+      "needs-rtl"
     ],
     "verification": "ok"
   },
@@ -674,7 +680,8 @@
       "web",
       "rtl",
       "media-player",
-      "charts"
+      "charts",
+      "needs-rtl"
     ],
     "verification": "ok"
   },
@@ -703,7 +710,8 @@
       "web",
       "rtl",
       "time-picker",
-      "time-format"
+      "time-format",
+      "needs-rtl"
     ],
     "verification": "ok"
   },
@@ -734,7 +742,8 @@
       "rtl",
       "layout",
       "list-detail",
-      "feed"
+      "feed",
+      "needs-rtl"
     ],
     "verification": "ok"
   },
@@ -767,7 +776,8 @@
       "toolbar",
       "app-bar",
       "navigation-rail",
-      "fab"
+      "fab",
+      "needs-rtl"
     ],
     "verification": "ok"
   },
@@ -798,7 +808,8 @@
       "rtl",
       "text-field",
       "chips",
-      "fab"
+      "fab",
+      "needs-rtl"
     ],
     "verification": "ok"
   },
@@ -828,7 +839,8 @@
       "rtl",
       "slider",
       "range-selector",
-      "see-SRK-HIG-021"
+      "see-SRK-HIG-021",
+      "needs-rtl"
     ],
     "verification": "ok"
   },
@@ -858,7 +870,8 @@
       "web",
       "rtl",
       "gestures",
-      "swipe"
+      "swipe",
+      "needs-rtl"
     ],
     "verification": "ok"
   },

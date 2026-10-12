@@ -338,7 +338,8 @@
       "gui",
       "navigation",
       "tab-bar",
-      "mobile"
+      "mobile",
+      "needs-mobile"
     ],
     "verification": "ok"
   },

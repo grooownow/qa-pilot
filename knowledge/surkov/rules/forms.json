@@ -811,7 +811,8 @@
       "forms",
       "checklist",
       "password",
-      "masking"
+      "masking",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -843,7 +844,8 @@
       "checklist",
       "password",
       "security",
-      "see-SRK-UX-028"
+      "see-SRK-UX-028",
+      "needs-auth"
     ],
     "verification": "fixed",
     "decision": "Решение команды от 2026-10-12. При ошибке формы пароль НЕ очищается: введённое значение сохраняется (действует SRK-UX-028). Пункт книги про очистку после ошибки не применяется. Остаются в силе очистка при перезагрузке страницы и запрет хранить пароль открыто в разметке."
@@ -875,7 +877,8 @@
       "forms",
       "checklist",
       "password",
-      "security"
+      "security",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -906,7 +909,8 @@
       "forms",
       "checklist",
       "password",
-      "security"
+      "security",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -940,7 +944,8 @@
       "paste",
       "autocomplete",
       "wcag-3.3.8",
-      "see-SRK-A11Y-120"
+      "see-SRK-A11Y-120",
+      "needs-auth"
     ],
     "verification": "fixed"
   },
@@ -970,7 +975,8 @@
       "forms",
       "checklist",
       "password",
-      "show-password"
+      "show-password",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -1131,7 +1137,8 @@
       "file-upload",
       "security",
       "see-SRK-TD-062",
-      "see-SRK-TD-019"
+      "see-SRK-TD-019",
+      "needs-uploads"
     ],
     "verification": "ok"
   },
@@ -1164,7 +1171,8 @@
       "file-upload",
       "bva",
       "see-SRK-TD-012",
-      "see-SRK-API-028"
+      "see-SRK-API-028",
+      "needs-uploads"
     ],
     "verification": "ok"
   },
@@ -1192,7 +1200,8 @@
       "forms",
       "checklist",
       "file-upload",
-      "progress-bar"
+      "progress-bar",
+      "needs-uploads"
     ],
     "verification": "ok"
   },
@@ -1312,7 +1321,8 @@
     "tags": [
       "forms",
       "checklist",
-      "localization"
+      "localization",
+      "needs-i18n"
     ],
     "verification": "ok"
   },

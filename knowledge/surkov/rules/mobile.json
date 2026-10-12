@@ -25,7 +25,8 @@
       "native",
       "ios",
       "android",
-      "cross-platform"
+      "cross-platform",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -57,7 +58,8 @@
       "offline",
       "native",
       "hybrid",
-      "mobile-web"
+      "mobile-web",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -88,7 +90,8 @@
       "media-queries",
       "user-agent",
       "playwright",
-      "web"
+      "web",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -122,7 +125,8 @@
       "bluetooth",
       "nfc",
       "ios",
-      "web"
+      "web",
+      "needs-mobile"
     ],
     "verification": "fixed"
   },
@@ -149,7 +153,8 @@
       "mobile",
       "release",
       "app-review",
-      "hotfix"
+      "hotfix",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -179,7 +184,8 @@
       "interruptions",
       "incoming-call",
       "audio-focus",
-      "see-SRK-HIG-051"
+      "see-SRK-HIG-051",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -208,7 +214,8 @@
       "mobile",
       "interruptions",
       "push",
-      "notifications"
+      "notifications",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -237,7 +244,8 @@
       "interruptions",
       "headphones",
       "bluetooth",
-      "screenshot"
+      "screenshot",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -268,7 +276,8 @@
       "power-saving",
       "gps",
       "geofencing",
-      "android"
+      "android",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -296,7 +305,8 @@
     "tags": [
       "mobile",
       "installation",
-      "clean-install"
+      "clean-install",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -324,7 +334,8 @@
     "tags": [
       "mobile",
       "installation",
-      "uninstall"
+      "uninstall",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -352,7 +363,8 @@
     "tags": [
       "mobile",
       "installation",
-      "reinstall"
+      "reinstall",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -380,7 +392,8 @@
       "mobile",
       "network",
       "wifi",
-      "cellular"
+      "cellular",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -409,7 +422,8 @@
       "mobile",
       "network",
       "packet-loss",
-      "idempotency"
+      "idempotency",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -436,7 +450,8 @@
     "tags": [
       "mobile",
       "performance",
-      "responsiveness"
+      "responsiveness",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -466,7 +481,8 @@
       "cpu",
       "memory-leak",
       "profiler",
-      "see-SRK-PERF-007"
+      "see-SRK-PERF-007",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -493,7 +509,8 @@
     "tags": [
       "mobile",
       "performance",
-      "battery-drain"
+      "battery-drain",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -521,7 +538,8 @@
     "tags": [
       "mobile",
       "orientation",
-      "configuration-change"
+      "configuration-change",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -551,7 +569,8 @@
       "gestures",
       "swipe",
       "pinch-zoom",
-      "see-SRK-A11Y-089"
+      "see-SRK-A11Y-089",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -581,7 +600,8 @@
       "camera",
       "biometrics",
       "faceid",
-      "sensors"
+      "sensors",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -611,7 +631,8 @@
       "fragmentation",
       "background",
       "samsung",
-      "xiaomi"
+      "xiaomi",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -643,7 +664,8 @@
       "huawei",
       "gms",
       "push",
-      "fragmentation"
+      "fragmentation",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -672,7 +694,8 @@
       "os-versions",
       "compatibility",
       "ios",
-      "android"
+      "android",
+      "needs-native-mobile"
     ],
     "verification": "fixed"
   },
@@ -700,7 +723,8 @@
       "mobile",
       "os-versions",
       "beta",
-      "compatibility"
+      "compatibility",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -728,7 +752,8 @@
     },
     "tags": [
       "mobile",
-      "permissions"
+      "permissions",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -758,7 +783,8 @@
       "mobile",
       "permissions",
       "negative",
-      "see-SRK-UXL-036"
+      "see-SRK-UXL-036",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -790,7 +816,8 @@
       "permissions",
       "camera",
       "settings",
-      "see-SRK-API-117"
+      "see-SRK-API-117",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -820,7 +847,8 @@
       "store-certification",
       "hig",
       "material-design",
-      "see-SRK-HIG-001"
+      "see-SRK-HIG-001",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -853,7 +881,8 @@
       "emulator",
       "performance",
       "battery",
-      "see-SRK-STRAT-006"
+      "see-SRK-STRAT-006",
+      "needs-ios"
     ],
     "verification": "fixed",
     "modern_note": "Эмулятор Android тоже плохо подходит для замеров производительности: на современных компьютерах он обычно запускает образ той же архитектуры, что и хост, через аппаратную виртуализацию, и цифры памяти, FPS и нагрева не совпадают с реальным телефоном. Для профилирования обычно рекомендуют реальные устройства, а эмулятор использовать для задания состояний (заряд, сенсоры, сеть)."
@@ -883,7 +912,8 @@
       "emulator",
       "battery",
       "android",
-      "adb"
+      "adb",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -913,7 +943,8 @@
       "ios",
       "simulator",
       "interruptions",
-      "background"
+      "background",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -944,7 +975,8 @@
       "clean-install",
       "onboarding",
       "permissions",
-      "adb"
+      "adb",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -972,7 +1004,8 @@
       "mobile",
       "ios",
       "shake",
-      "gestures"
+      "gestures",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1002,7 +1035,8 @@
       "ios",
       "faceid",
       "biometrics",
-      "negative"
+      "negative",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1031,7 +1065,8 @@
       "mobile",
       "ios",
       "faceid",
-      "biometrics"
+      "biometrics",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1061,7 +1096,8 @@
       "ios",
       "faceid",
       "biometrics",
-      "negative"
+      "negative",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1089,7 +1125,9 @@
       "ios",
       "apple-pay",
       "payments",
-      "simulator"
+      "simulator",
+      "needs-ios",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -1147,7 +1185,8 @@
       "ios",
       "status-bar",
       "interruptions",
-      "layout"
+      "layout",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1174,7 +1213,8 @@
       "mobile",
       "ios",
       "animations",
-      "transitions"
+      "transitions",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1206,7 +1246,8 @@
       "geolocation",
       "geofencing",
       "simulator",
-      "emulator"
+      "emulator",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -1233,7 +1274,8 @@
       "mobile",
       "ios",
       "accessibility",
-      "invert-colors"
+      "invert-colors",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1260,7 +1302,8 @@
       "mobile",
       "ios",
       "accessibility",
-      "contrast"
+      "contrast",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1287,7 +1330,8 @@
       "mobile",
       "ios",
       "accessibility",
-      "transparency"
+      "transparency",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1315,7 +1359,8 @@
       "ios",
       "accessibility",
       "bold-text",
-      "layout"
+      "layout",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1344,7 +1389,8 @@
       "ios",
       "accessibility",
       "toggles",
-      "buttons"
+      "buttons",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1433,7 +1479,8 @@
       "accessibility",
       "dynamic-type",
       "text-resize",
-      "see-SRK-A11Y-001"
+      "see-SRK-A11Y-001",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1461,7 +1508,8 @@
       "ios",
       "accessibility",
       "accessibility-inspector",
-      "audit"
+      "audit",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1490,7 +1538,8 @@
       "accessibility",
       "voiceover",
       "screen-reader",
-      "see-SRK-A11Y-134"
+      "see-SRK-A11Y-134",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1520,7 +1569,8 @@
       "emulator",
       "avd",
       "compatibility",
-      "os-versions"
+      "os-versions",
+      "needs-android"
     ],
     "verification": "fixed"
   },
@@ -1549,7 +1599,8 @@
       "android",
       "navigation-bar",
       "insets",
-      "layout"
+      "layout",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -1579,7 +1630,8 @@
       "android",
       "accessibility",
       "talkback",
-      "screen-reader"
+      "screen-reader",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -1608,7 +1660,8 @@
       "android",
       "accessibility",
       "font-scale",
-      "layout"
+      "layout",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -1636,7 +1689,8 @@
       "mobile",
       "android",
       "layout-bounds",
-      "pixel-perfect"
+      "pixel-perfect",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -1664,7 +1718,8 @@
       "mobile",
       "android",
       "foldable",
-      "configuration-change"
+      "configuration-change",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -1695,7 +1750,8 @@
       "battery",
       "battery-saver",
       "gps",
-      "emulator"
+      "emulator",
+      "needs-android"
     ],
     "verification": "fixed",
     "modern_note": "Пороги в книге отражают опыт автора на конкретных прошивках. В стоковом Android порог автоматического включения Battery Saver задаёт пользователь (или расписание), а набор ограничений (фоновая геолокация, тёмная тема, частота обновления экрана) зависит от версии ОС и производителя. Пороги стоит сверять с устройствами из матрицы проекта."
@@ -1724,7 +1780,8 @@
       "android",
       "emulator",
       "camera",
-      "qr"
+      "qr",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -1752,7 +1809,8 @@
       "android",
       "android-tv",
       "d-pad",
-      "focus"
+      "focus",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -1780,7 +1838,8 @@
       "android",
       "emulator",
       "microphone",
-      "voice-input"
+      "voice-input",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -1809,7 +1868,8 @@
       "mobile",
       "android",
       "fingerprint",
-      "biometrics"
+      "biometrics",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -1838,7 +1898,8 @@
       "android",
       "emulator",
       "apk",
-      "abi"
+      "abi",
+      "needs-android"
     ],
     "verification": "fixed",
     "modern_note": "Системные образы Android 11+ для x86_64 умеют транслировать ARM-код, поэтому на Intel/AMD-машинах многие ARM-only APK всё же устанавливаются; на Mac с Apple Silicon x86-образы не запускаются, нужен arm64-v8a."
@@ -1870,7 +1931,8 @@
       "safari",
       "web-inspector",
       "real-device",
-      "see-SRK-INST-042"
+      "see-SRK-INST-042",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -1903,7 +1965,8 @@
       "charles",
       "error-handling",
       "http-status",
-      "see-SRK-API-125"
+      "see-SRK-API-125",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -1933,7 +1996,8 @@
       "bug-report",
       "logcat",
       "adb",
-      "crash"
+      "crash",
+      "needs-android"
     ],
     "verification": "fixed"
   },
@@ -1967,7 +2031,8 @@
       "process-death",
       "state-restoration",
       "adb",
-      "see-SRK-HIG-032"
+      "see-SRK-HIG-032",
+      "needs-android"
     ],
     "verification": "fixed",
     "modern_note": "Подкоманды `am recover-prep` нет среди документированных команд `adb shell am`, вероятно это неточность книги (проверьте `adb shell am help` на своей версии Android). Обычно process death моделируют так: свернуть приложение кнопкой Home и выполнить `adb shell am kill <package>` — команда убивает процесс, только если приложение в фоне. Developer options → Don't keep activities уничтожает активити, но не процесс, поэтому заменяет сценарий лишь частично. `am force-stop`, как правило, не подходит: он сбрасывает задачу вместе с сохранённым состоянием."
@@ -1998,7 +2063,8 @@
       "pluto",
       "test-data",
       "volume",
-      "local-db"
+      "local-db",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -2027,7 +2093,8 @@
       "android",
       "pluto",
       "shared-preferences",
-      "test-data"
+      "test-data",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -2089,7 +2156,8 @@
       "android",
       "lifecycle",
       "orientation",
-      "loading"
+      "loading",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -2120,7 +2188,9 @@
       "lifecycle",
       "interruptions",
       "otp",
-      "payments"
+      "payments",
+      "needs-native-mobile",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -2151,7 +2221,8 @@
       "lifecycle",
       "background",
       "memory-leak",
-      "battery"
+      "battery",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -2179,7 +2250,8 @@
       "android",
       "lifecycle",
       "bug-report",
-      "logcat"
+      "logcat",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -2211,7 +2283,8 @@
       "lifecycle",
       "background",
       "upload",
-      "see-SRK-STRAT-028"
+      "see-SRK-STRAT-028",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -2242,7 +2315,8 @@
       "lifecycle",
       "suspended",
       "state-restoration",
-      "see-SRK-HIG-032"
+      "see-SRK-HIG-032",
+      "needs-ios"
     ],
     "verification": "ok"
   }

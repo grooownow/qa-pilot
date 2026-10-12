@@ -54,7 +54,8 @@
     "tags": [
       "headers",
       "content-type",
-      "api-testing"
+      "api-testing",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -142,7 +143,8 @@
     "tags": [
       "idempotency",
       "put",
-      "http-methods"
+      "http-methods",
+      "needs-rest"
     ],
     "verification": "ok"
   },
@@ -169,7 +171,8 @@
     "tags": [
       "put",
       "negative-testing",
-      "validation"
+      "validation",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -196,7 +199,8 @@
     "tags": [
       "put",
       "negative-testing",
-      "status-codes"
+      "status-codes",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -223,7 +227,8 @@
     "tags": [
       "patch",
       "http-methods",
-      "crud"
+      "crud",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -250,7 +255,8 @@
     "tags": [
       "delete",
       "idempotency",
-      "crud"
+      "crud",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -309,7 +315,8 @@
     "tags": [
       "options",
       "cors",
-      "http-methods"
+      "http-methods",
+      "needs-rest"
     ],
     "verification": "ok"
   },
@@ -334,7 +341,8 @@
     },
     "tags": [
       "head",
-      "http-methods"
+      "http-methods",
+      "needs-rest"
     ],
     "verification": "ok"
   },
@@ -364,7 +372,8 @@
       "status-codes",
       "validation",
       "negative-testing",
-      "pseudo-rest"
+      "pseudo-rest",
+      "needs-rest"
     ],
     "verification": "ok"
   },
@@ -393,7 +402,8 @@
     "tags": [
       "status-codes",
       "pseudo-rest",
-      "error-handling"
+      "error-handling",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -420,7 +430,8 @@
     "tags": [
       "status-codes",
       "api-testing",
-      "assertions"
+      "assertions",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -476,7 +487,8 @@
       "status-codes",
       "201",
       "crud",
-      "post"
+      "post",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -502,7 +514,8 @@
     "tags": [
       "status-codes",
       "204",
-      "delete"
+      "delete",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -531,7 +544,8 @@
       "status-codes",
       "202",
       "polling",
-      "async"
+      "async",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -559,7 +573,9 @@
       "status-codes",
       "403",
       "authorization",
-      "roles"
+      "roles",
+      "needs-rest",
+      "needs-auth"
     ],
     "verification": "fixed"
   },
@@ -586,7 +602,8 @@
     "tags": [
       "status-codes",
       "404",
-      "negative-testing"
+      "negative-testing",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -614,7 +631,8 @@
       "status-codes",
       "405",
       "http-methods",
-      "negative-testing"
+      "negative-testing",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -671,7 +689,8 @@
       "status-codes",
       "400",
       "negative-testing",
-      "json"
+      "json",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -699,7 +718,8 @@
       "status-codes",
       "422",
       "validation",
-      "negative-testing"
+      "negative-testing",
+      "needs-rest"
     ],
     "verification": "fixed",
     "rationale": "Автор на практике с формой бронирования отмечает: 400 для ошибки валидации допустим, но строже и точнее — 422."
@@ -730,7 +750,8 @@
       "413",
       "file-upload",
       "bva",
-      "see-SRK-FORM-039"
+      "see-SRK-FORM-039",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -758,7 +779,8 @@
       "status-codes",
       "415",
       "content-type",
-      "negative-testing"
+      "negative-testing",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -928,7 +950,8 @@
       "jwt",
       "auth",
       "tokens",
-      "security"
+      "security",
+      "needs-auth"
     ],
     "verification": "fixed"
   },
@@ -959,7 +982,8 @@
       "jwt",
       "refresh-token",
       "session",
-      "auth"
+      "auth",
+      "needs-auth"
     ],
     "verification": "fixed"
   },
@@ -989,7 +1013,8 @@
       "stateless",
       "session",
       "mobile",
-      "network-switch"
+      "network-switch",
+      "needs-auth"
     ],
     "verification": "fixed"
   },
@@ -1046,7 +1071,8 @@
     "tags": [
       "rest",
       "richardson-maturity",
-      "api-design"
+      "api-design",
+      "needs-rest"
     ],
     "verification": "ok"
   },
@@ -1293,7 +1319,8 @@
     "tags": [
       "graphql",
       "error-handling",
-      "assertions"
+      "assertions",
+      "needs-graphql"
     ],
     "verification": "fixed"
   },
@@ -1320,7 +1347,8 @@
     "tags": [
       "graphql",
       "contract",
-      "schema-validation"
+      "schema-validation",
+      "needs-graphql"
     ],
     "verification": "fixed"
   },
@@ -1349,7 +1377,8 @@
       "graphql",
       "security",
       "depth-limit",
-      "dos"
+      "dos",
+      "needs-graphql"
     ],
     "verification": "ok"
   },
@@ -1376,7 +1405,8 @@
     "tags": [
       "graphql",
       "performance",
-      "n-plus-one"
+      "n-plus-one",
+      "needs-graphql"
     ],
     "verification": "ok"
   },
@@ -1403,7 +1433,8 @@
     "tags": [
       "graphql",
       "deprecation",
-      "versioning"
+      "versioning",
+      "needs-graphql"
     ],
     "verification": "fixed"
   },
@@ -1431,7 +1462,8 @@
       "soap",
       "wsdl",
       "xml",
-      "contract"
+      "contract",
+      "needs-soap"
     ],
     "verification": "ok"
   },
@@ -1458,7 +1490,8 @@
     "tags": [
       "soap",
       "error-handling",
-      "xml"
+      "xml",
+      "needs-soap"
     ],
     "verification": "fixed"
   },
@@ -1879,7 +1912,8 @@
       "negative-testing",
       "post",
       "status-codes",
-      "500"
+      "500",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -2078,7 +2112,8 @@
       "binmen",
       "405",
       "http-methods",
-      "error-messages"
+      "error-messages",
+      "needs-rest"
     ],
     "verification": "ok"
   },
@@ -2277,7 +2312,8 @@
       "poised",
       "accept",
       "406",
-      "content-negotiation"
+      "content-negotiation",
+      "needs-rest"
     ],
     "verification": "ok"
   },
@@ -2366,7 +2402,8 @@
       "pii",
       "401",
       "status-codes",
-      "negative-testing"
+      "negative-testing",
+      "needs-auth"
     ],
     "verification": "fixed"
   },
@@ -2629,7 +2666,8 @@
       "postman",
       "auth",
       "tokens",
-      "test-setup"
+      "test-setup",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -2657,7 +2695,8 @@
       "swagger",
       "openapi",
       "documentation",
-      "status-codes"
+      "status-codes",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -2685,7 +2724,8 @@
       "swagger",
       "openapi",
       "test-design",
-      "coverage"
+      "coverage",
+      "needs-rest"
     ],
     "verification": "fixed"
   },
@@ -2713,7 +2753,8 @@
     "tags": [
       "graphql",
       "non-null",
-      "negative-testing"
+      "negative-testing",
+      "needs-graphql"
     ],
     "verification": "fixed"
   },
@@ -2798,7 +2839,8 @@
     "tags": [
       "graphql",
       "error-handling",
-      "schema-validation"
+      "schema-validation",
+      "needs-graphql"
     ],
     "verification": "fixed"
   },
@@ -2827,7 +2869,8 @@
       "local-storage",
       "cart",
       "persistence",
-      "devtools"
+      "devtools",
+      "needs-payments"
     ],
     "verification": "fixed"
   },
@@ -2967,7 +3010,8 @@
       "cookies",
       "logout",
       "session",
-      "security"
+      "security",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -2994,7 +3038,8 @@
     "tags": [
       "cookies",
       "session-timeout",
-      "auth"
+      "auth",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -3021,7 +3066,8 @@
     "tags": [
       "local-storage",
       "cart",
-      "empty-state"
+      "empty-state",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -3050,7 +3096,9 @@
       "cart",
       "merge",
       "local-storage",
-      "auth"
+      "auth",
+      "needs-payments",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -3477,7 +3525,8 @@
       "status-codes",
       "openapi",
       "test-design",
-      "coverage"
+      "coverage",
+      "needs-rest"
     ],
     "verification": "ok"
   },
@@ -3507,7 +3556,8 @@
       "idor",
       "authorization",
       "api-testing",
-      "see-SRK-DB-029"
+      "see-SRK-DB-029",
+      "needs-auth"
     ],
     "verification": "ok"
   }

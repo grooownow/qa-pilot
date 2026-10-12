@@ -622,7 +622,8 @@
       "usability",
       "prices",
       "currency",
-      "localization"
+      "localization",
+      "needs-payments"
     ],
     "verification": "fixed"
   },
@@ -742,7 +743,8 @@
       "password",
       "data-loss",
       "see-SRK-FORM-010",
-      "see-SRK-FORM-029"
+      "see-SRK-FORM-029",
+      "needs-auth"
     ],
     "verification": "fixed",
     "decision": "Решение команды от 2026-10-12. Это правило проекта: при ошибке пароль не очищается. Противоположный пункт SRK-FORM-029 в этой части не применяется."
@@ -773,7 +775,8 @@
       "mobile",
       "keyboard",
       "inputmode",
-      "forms"
+      "forms",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -929,7 +932,8 @@
       "target-size",
       "ios",
       "android",
-      "see-SRK-HIG-072"
+      "see-SRK-HIG-072",
+      "needs-mobile"
     ],
     "verification": "ok"
   },

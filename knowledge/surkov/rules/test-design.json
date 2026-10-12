@@ -109,7 +109,8 @@
     "tags": [
       "equivalence-partitioning",
       "file-upload",
-      "negative-testing"
+      "negative-testing",
+      "needs-uploads"
     ],
     "verification": "fixed"
   },
@@ -139,7 +140,8 @@
       "equivalence-partitioning",
       "access-control",
       "roles",
-      "security"
+      "security",
+      "needs-auth"
     ],
     "verification": "fixed"
   },
@@ -294,7 +296,8 @@
       "3bva",
       "discounts",
       "money",
-      "e-commerce"
+      "e-commerce",
+      "needs-payments"
     ],
     "verification": "fixed"
   },
@@ -324,7 +327,8 @@
       "bva",
       "file-upload",
       "file-size",
-      "see-SRK-FORM-039"
+      "see-SRK-FORM-039",
+      "needs-uploads"
     ],
     "rationale": "В примере книги лимит «до 2 Мб» трактуется как строгий: 1.98 и 1.99 Мб принимаются, а 2.00 Мб уже даёт ошибку превышения, — то есть включённость самого лимита нужно знать заранее.",
     "verification": "fixed"
@@ -356,7 +360,8 @@
       "bva",
       "file-upload",
       "drag-and-drop",
-      "implicit-requirements"
+      "implicit-requirements",
+      "needs-uploads"
     ],
     "verification": "ok"
   },
@@ -385,7 +390,8 @@
     "tags": [
       "bva",
       "file-upload",
-      "file-name"
+      "file-name",
+      "needs-uploads"
     ],
     "verification": "ok"
   },
@@ -415,7 +421,8 @@
       "file-upload",
       "file-name",
       "encoding",
-      "i18n"
+      "i18n",
+      "needs-uploads"
     ],
     "verification": "fixed"
   },
@@ -443,7 +450,8 @@
     },
     "tags": [
       "file-upload",
-      "file-name"
+      "file-name",
+      "needs-uploads"
     ],
     "verification": "fixed"
   },
@@ -472,7 +480,8 @@
     "tags": [
       "file-upload",
       "path-traversal",
-      "security"
+      "security",
+      "needs-uploads"
     ],
     "verification": "ok"
   },
@@ -502,7 +511,8 @@
       "file-upload",
       "file-name",
       "emoji",
-      "unicode"
+      "unicode",
+      "needs-uploads"
     ],
     "verification": "ok"
   },
@@ -532,7 +542,8 @@
       "file-upload",
       "security",
       "double-extension",
-      "see-SRK-FORM-038"
+      "see-SRK-FORM-038",
+      "needs-uploads"
     ],
     "verification": "ok"
   },
@@ -948,7 +959,8 @@
       "decision-table",
       "access-control",
       "roles",
-      "security"
+      "security",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -1122,7 +1134,8 @@
       "state-transition",
       "bva",
       "lockout",
-      "auth"
+      "auth",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -1181,7 +1194,8 @@
       "state-transition",
       "password-reset",
       "token",
-      "security"
+      "security",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -1348,7 +1362,8 @@
       "race-condition",
       "fintech",
       "concurrency",
-      "see-SRK-DB-024"
+      "see-SRK-DB-024",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -1379,7 +1394,8 @@
       "e-commerce",
       "inventory",
       "see-SRK-REQ-004",
-      "see-SRK-API-025"
+      "see-SRK-API-025",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -1470,7 +1486,8 @@
       "error-guessing",
       "network-loss",
       "file-upload",
-      "resilience"
+      "resilience",
+      "needs-uploads"
     ],
     "verification": "ok"
   },
@@ -1499,7 +1516,8 @@
       "error-guessing",
       "interruption",
       "payments",
-      "mobile"
+      "mobile",
+      "needs-payments"
     ],
     "verification": "fixed"
   },
@@ -1620,7 +1638,8 @@
       "file-upload",
       "security",
       "content-type",
-      "see-SRK-FORM-038"
+      "see-SRK-FORM-038",
+      "needs-uploads"
     ],
     "verification": "fixed"
   }

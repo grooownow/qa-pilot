@@ -24,7 +24,8 @@
     "tags": [
       "gamedev",
       "crash",
-      "crash-dump"
+      "crash-dump",
+      "needs-game"
     ],
     "verification": "fixed"
   },
@@ -52,7 +53,8 @@
     "tags": [
       "gamedev",
       "anr",
-      "freeze"
+      "freeze",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -80,7 +82,8 @@
       "gamedev",
       "stutter",
       "fps",
-      "memory-leak"
+      "memory-leak",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -110,7 +113,8 @@
       "gamedev",
       "walkthrough-blocker",
       "quest",
-      "scripting"
+      "scripting",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -138,7 +142,8 @@
       "gamedev",
       "hud",
       "gui",
-      "menu"
+      "menu",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -166,7 +171,8 @@
       "gamedev",
       "gameplay",
       "exploit",
-      "balance"
+      "balance",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -193,7 +199,8 @@
     "tags": [
       "gamedev",
       "npc",
-      "ai-behavior"
+      "ai-behavior",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -221,7 +228,8 @@
       "gamedev",
       "graphics",
       "rendering",
-      "settings"
+      "settings",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -248,7 +256,8 @@
     "tags": [
       "gamedev",
       "level-art",
-      "textures"
+      "textures",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -275,7 +284,8 @@
     "tags": [
       "gamedev",
       "level-design",
-      "collision"
+      "collision",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -302,7 +312,8 @@
     "tags": [
       "gamedev",
       "lod",
-      "performance"
+      "performance",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -331,7 +342,8 @@
       "gamedev",
       "audio",
       "lipsync",
-      "localization"
+      "localization",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -358,7 +370,9 @@
     "tags": [
       "gamedev",
       "l10n",
-      "i18n"
+      "i18n",
+      "needs-game",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -385,7 +399,8 @@
       "gamedev",
       "severity",
       "bug-report",
-      "see-SRK-ART-057"
+      "see-SRK-ART-057",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -412,7 +427,8 @@
       "gamedev",
       "severity",
       "bug-report",
-      "placeholder"
+      "placeholder",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -438,7 +454,8 @@
     "tags": [
       "gamedev",
       "severity",
-      "bug-report"
+      "bug-report",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -466,7 +483,8 @@
     "tags": [
       "gamedev",
       "error-guessing",
-      "exploratory"
+      "exploratory",
+      "needs-game"
     ],
     "verification": "ok"
   }

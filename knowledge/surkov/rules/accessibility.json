@@ -28,7 +28,8 @@
       "dynamic-type",
       "dark-mode",
       "system-settings",
-      "see-SRK-MOB-052"
+      "see-SRK-MOB-052",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -292,7 +293,8 @@
       "a11y",
       "inclusive",
       "also-test-strategy",
-      "see-SRK-UXL-009"
+      "see-SRK-UXL-009",
+      "needs-mobile"
     ],
     "verification": "fixed"
   },
@@ -323,7 +325,8 @@
       "motion-actuation",
       "shake",
       "accelerometer",
-      "mobile"
+      "mobile",
+      "needs-mobile"
     ],
     "rationale": "При треморе или в транспорте устройство постоянно движется, и функция срабатывает случайно (например, пауза в игре в поезде).",
     "verification": "ok"
@@ -831,7 +834,8 @@
       "orientation",
       "mobile",
       "tablet",
-      "axe-css-orientation-lock"
+      "axe-css-orientation-lock",
+      "needs-mobile"
     ],
     "verification": "fixed"
   },
@@ -1887,7 +1891,8 @@
       "wcag-2.2.5",
       "re-authentication",
       "session",
-      "data-loss"
+      "data-loss",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -3387,7 +3392,8 @@
       "wcag-3.3.3",
       "login",
       "security",
-      "user-enumeration"
+      "user-enumeration",
+      "needs-auth"
     ],
     "verification": "fixed"
   },
@@ -3513,7 +3519,8 @@
       "captcha",
       "otp",
       "wcag-2.2",
-      "see-SRK-FORM-032"
+      "see-SRK-FORM-032",
+      "needs-auth"
     ],
     "verification": "fixed"
   },
@@ -3544,7 +3551,8 @@
       "authentication",
       "captcha",
       "passkeys",
-      "wcag-2.2"
+      "wcag-2.2",
+      "needs-auth"
     ],
     "verification": "ok"
   },

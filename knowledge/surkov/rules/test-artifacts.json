@@ -587,7 +587,8 @@
     "tags": [
       "promo-code",
       "e-commerce",
-      "negative-testing"
+      "negative-testing",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -617,7 +618,8 @@
       "cart",
       "e-commerce",
       "state-persistence",
-      "web"
+      "web",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -647,7 +649,8 @@
       "cart",
       "browser-navigation",
       "web",
-      "see-SRK-TD-056"
+      "see-SRK-TD-056",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -676,7 +679,8 @@
     "tags": [
       "cart",
       "e-commerce",
-      "edge-cases"
+      "edge-cases",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -733,7 +737,8 @@
     "tags": [
       "login",
       "auth",
-      "password-reset"
+      "password-reset",
+      "needs-auth"
     ],
     "verification": "ok"
   },

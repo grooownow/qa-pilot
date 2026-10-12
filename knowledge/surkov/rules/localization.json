@@ -23,7 +23,8 @@
     "tags": [
       "localization",
       "i18n",
-      "coverage"
+      "coverage",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -51,7 +52,8 @@
     "tags": [
       "localization",
       "date-format",
-      "intl"
+      "intl",
+      "needs-i18n"
     ],
     "verification": "fixed"
   },
@@ -79,7 +81,8 @@
     "tags": [
       "localization",
       "holidays",
-      "calendar"
+      "calendar",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -107,7 +110,8 @@
     "tags": [
       "localization",
       "calendar",
-      "date-picker"
+      "date-picker",
+      "needs-i18n"
     ],
     "verification": "fixed"
   },
@@ -136,7 +140,8 @@
     "tags": [
       "localization",
       "date-picker",
-      "first-day-of-week"
+      "first-day-of-week",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -163,7 +168,8 @@
     },
     "tags": [
       "localization",
-      "time-format"
+      "time-format",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -189,7 +195,8 @@
     },
     "tags": [
       "localization",
-      "time-format"
+      "time-format",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -217,7 +224,9 @@
     "tags": [
       "localization",
       "currency",
-      "intl"
+      "intl",
+      "needs-i18n",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -244,7 +253,9 @@
     "tags": [
       "localization",
       "currency",
-      "layout"
+      "layout",
+      "needs-i18n",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -273,7 +284,9 @@
     "tags": [
       "localization",
       "currency",
-      "negative-numbers"
+      "negative-numbers",
+      "needs-i18n",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -302,7 +315,8 @@
       "localization",
       "number-format",
       "decimal-separator",
-      "see-SRK-MD-015"
+      "see-SRK-MD-015",
+      "needs-i18n"
     ],
     "verification": "fixed"
   },
@@ -330,7 +344,8 @@
     "tags": [
       "localization",
       "number-format",
-      "india"
+      "india",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -564,7 +579,8 @@
     "tags": [
       "localization",
       "culture",
-      "pricing"
+      "pricing",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -594,7 +610,8 @@
       "localization",
       "culture",
       "icons",
-      "gestures"
+      "gestures",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -622,7 +639,8 @@
     "tags": [
       "localization",
       "culture",
-      "color"
+      "color",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -651,7 +669,8 @@
       "localization",
       "culture",
       "imagery",
-      "legal-risk"
+      "legal-risk",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -678,7 +697,8 @@
     "tags": [
       "localization",
       "copywriting",
-      "translation"
+      "translation",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -710,7 +730,8 @@
       "layout",
       "pseudo-localization",
       "german",
-      "also-test-strategy"
+      "also-test-strategy",
+      "needs-i18n"
     ],
     "verification": "fixed"
   },
@@ -803,7 +824,8 @@
       "ios",
       "web",
       "also-mobile-hig",
-      "see-SRK-MD-023"
+      "see-SRK-MD-023",
+      "needs-rtl"
     ],
     "verification": "fixed"
   },
@@ -831,7 +853,8 @@
       "localization",
       "rtl",
       "fonts",
-      "urdu"
+      "urdu",
+      "needs-rtl"
     ],
     "verification": "ok"
   },
@@ -858,7 +881,8 @@
     "tags": [
       "localization",
       "culture",
-      "content"
+      "content",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -885,7 +909,8 @@
     "tags": [
       "localization",
       "culture",
-      "illustrations"
+      "illustrations",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -1027,7 +1052,8 @@
       "localization",
       "rtl",
       "animations",
-      "illustrations"
+      "illustrations",
+      "needs-rtl"
     ],
     "verification": "ok"
   }

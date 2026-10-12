@@ -54,7 +54,8 @@
     },
     "tags": [
       "installation",
-      "progress-indicator"
+      "progress-indicator",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -81,7 +82,8 @@
     },
     "tags": [
       "installation",
-      "disk-space"
+      "disk-space",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -109,7 +111,8 @@
     },
     "tags": [
       "installation",
-      "install-path"
+      "install-path",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -136,7 +139,8 @@
     },
     "tags": [
       "installation",
-      "shortcuts"
+      "shortcuts",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -167,7 +171,8 @@
       "code-signing",
       "antivirus",
       "windows",
-      "macos"
+      "macos",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -195,7 +200,8 @@
     "tags": [
       "installation",
       "installer-options",
-      "dark-patterns"
+      "dark-patterns",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -223,7 +229,8 @@
     "tags": [
       "installation",
       "encoding",
-      "localization"
+      "localization",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -253,7 +260,8 @@
       "installation",
       "apple-silicon",
       "arm",
-      "negative"
+      "negative",
+      "needs-desktop"
     ],
     "verification": "fixed"
   },
@@ -282,7 +290,8 @@
       "installation",
       "disk-space",
       "negative",
-      "error-message"
+      "error-message",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -312,7 +321,8 @@
       "installation",
       "unicode-path",
       "cyrillic",
-      "negative"
+      "negative",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -340,7 +350,8 @@
     "tags": [
       "installation",
       "dependencies",
-      "negative"
+      "negative",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -369,7 +380,8 @@
     "tags": [
       "installation",
       "drivers",
-      "negative"
+      "negative",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -398,7 +410,8 @@
       "installation",
       "cancel",
       "cleanup",
-      "negative"
+      "negative",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -426,7 +439,8 @@
     "tags": [
       "installation",
       "interruption",
-      "negative"
+      "negative",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -454,7 +468,8 @@
     "tags": [
       "installation",
       "network-loss",
-      "negative"
+      "negative",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -482,7 +497,8 @@
     "tags": [
       "installation",
       "concurrency",
-      "negative"
+      "negative",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -512,7 +528,8 @@
       "permissions",
       "negative",
       "windows",
-      "linux"
+      "linux",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -660,7 +677,8 @@
       "update",
       "android",
       "apk",
-      "huawei"
+      "huawei",
+      "needs-android"
     ],
     "verification": "ok"
   },
@@ -859,7 +877,8 @@
     },
     "tags": [
       "uninstall",
-      "cancel"
+      "cancel",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -886,7 +905,8 @@
     },
     "tags": [
       "uninstall",
-      "shortcuts"
+      "shortcuts",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -913,7 +933,8 @@
     },
     "tags": [
       "uninstall",
-      "negative"
+      "negative",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -942,7 +963,8 @@
       "uninstall",
       "concurrency",
       "negative",
-      "windows"
+      "windows",
+      "needs-desktop"
     ],
     "verification": "ok"
   },
@@ -1104,7 +1126,8 @@
       "cross-browser",
       "ios",
       "webkit",
-      "compatibility-matrix"
+      "compatibility-matrix",
+      "needs-mobile"
     ],
     "verification": "fixed"
   },
@@ -1137,7 +1160,8 @@
       "mobile-web",
       "compatibility",
       "also-test-strategy",
-      "see-SRK-MOB-067"
+      "see-SRK-MOB-067",
+      "needs-mobile"
     ],
     "verification": "fixed",
     "modern_note": "WebKit-движок Playwright приближает, но не заменяет реальный Safari на iOS; финальную проверку визуала лучше делать на устройстве или в облачной ферме."
@@ -1279,7 +1303,8 @@
     "tags": [
       "fps",
       "gamedev",
-      "hardware"
+      "hardware",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -1307,7 +1332,8 @@
     "tags": [
       "input-lag",
       "gamedev",
-      "latency"
+      "latency",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -1390,7 +1416,8 @@
     "tags": [
       "gamedev",
       "gpu",
-      "polycount"
+      "polycount",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -1533,7 +1560,8 @@
     "tags": [
       "hardware-detection",
       "graphics-presets",
-      "gamedev"
+      "gamedev",
+      "needs-game"
     ],
     "verification": "ok"
   },

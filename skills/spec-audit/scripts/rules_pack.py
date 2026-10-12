@@ -1,0 +1,164 @@
+#!/usr/bin/env python3
+"""Build compact rule packs for a spec audit, filtered by product traits.
+
+Usage:
+  python3 rules_pack.py --kb <plugin>/knowledge --profile docs/qa/project-profile.md \
+      [--overrides docs/qa/rule-overrides.json] [--targets requirements,test-plan] --out <dir>
+
+Reads every rules/*.json under <kb>/surkov and <kb>/qa-pilot, plus project
+rules (PRJ-…) from the overrides file. Keeps rules whose applies_to meets the
+targets and whose needs-* tags are all satisfied by the product traits.
+Writes <out>/packs/<pack>.md (one line per rule) and <out>/manifest.json.
+"""
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+
+DEFAULT_TRAITS = {"platform": ["web"], "api_style": [], "has_payments": False, "has_auth": False,
+                  "has_user_uploads": False, "i18n": False, "rtl": False, "regulated": []}
+
+MOBILE_PLATFORMS = {"ios", "android", "pwa", "mobile-web"}
+
+# needs-* tag -> predicate over traits
+NEEDS = {
+    "needs-ios": lambda t: "ios" in t["platform"],
+    "needs-android": lambda t: "android" in t["platform"],
+    "needs-native-mobile": lambda t: bool({"ios", "android"} & set(t["platform"])),
+    "needs-mobile": lambda t: bool(MOBILE_PLATFORMS & set(t["platform"])),
+    "needs-desktop": lambda t: "desktop" in t["platform"],
+    "needs-game": lambda t: "game" in t["platform"],
+    "needs-payments": lambda t: t["has_payments"],
+    "needs-rest": lambda t: "rest" in t["api_style"],
+    "needs-graphql": lambda t: "graphql" in t["api_style"],
+    "needs-soap": lambda t: "soap" in t["api_style"],
+    "needs-auth": lambda t: t["has_auth"],
+    "needs-uploads": lambda t: t["has_user_uploads"],
+    "needs-i18n": lambda t: t["i18n"],
+    "needs-rtl": lambda t: t["rtl"],
+}
+
+PACKS = {
+    "core": ["requirements", "test-design", "test-artifacts", "test-strategy", "principles", "ai-in-qa"],
+    "forms-ui": ["forms", "gui", "usability", "ux-laws-dark-patterns"],
+    "api-data": ["api", "databases", "performance"],
+    "a11y-l10n": ["accessibility", "localization"],
+    "platform": ["mobile", "mobile-hig", "mobile-material", "games", "install-config", "process"],
+}
+HOW_LIMIT = 260
+
+
+def parse_scalar(value):
+    value = value.strip().split(" #", 1)[0].strip()
+    if value.startswith("[") and value.endswith("]"):
+        return [v.strip().strip("'\"") for v in value[1:-1].split(",") if v.strip()]
+    if value.lower() in ("true", "yes"):
+        return True
+    if value.lower() in ("false", "no"):
+        return False
+    return value.strip("'\"")
+
+
+def parse_traits(profile_text):
+    """Traits from the '## Product traits' section: `key: value` lines, inline
+    lists, booleans. Missing section or keys fall back to DEFAULT_TRAITS."""
+    traits = {k: (list(v) if isinstance(v, list) else v) for k, v in DEFAULT_TRAITS.items()}
+    m = re.search(r"^##\s+Product traits\s*$(.*?)(?=^##\s|\Z)", profile_text or "", re.M | re.S)
+    if not m:
+        return traits, False
+    for line in m.group(1).splitlines():
+        kv = re.match(r"^\s*([a-z0-9_]+)\s*:\s*(.+)$", line)
+        if kv and kv.group(1) in traits:
+            value = parse_scalar(kv.group(2))
+            if isinstance(traits[kv.group(1)], list) and not isinstance(value, list):
+                value = [value] if value not in ("", "none") else []
+            traits[kv.group(1)] = value
+    return traits, True
+
+
+def load_rules(kb, overrides):
+    rules = []
+    for source in ("surkov", "qa-pilot"):
+        for path in sorted((kb / source / "rules").glob("*.json")):
+            for r in json.loads(path.read_text(encoding="utf-8")):
+                rules.append((path.stem if source == "surkov" else "qa-pilot", r))
+    rules += [("project", r) for r in overrides.get("rules", [])]
+    return rules
+
+
+def pack_of(topic):
+    for name, topics in PACKS.items():
+        if topic in topics:
+            return name
+    return "core"
+
+
+def rule_line(r):
+    how = re.sub(r"\s+", " ", r["check"]["how"])
+    if len(how) > HOW_LIMIT:
+        how = how[:HOW_LIMIT - 1] + "…"
+    line = f"- {r['id']} [{r['severity']}/{r['check']['mode']}] {r['title']} — проверка: {how}"
+    if r.get("decision"):
+        line += f" ⚖️ РЕШЕНИЕ ПРОЕКТА (приоритетнее): {r['decision']}"
+    return line
+
+
+def build(kb, profile_text, overrides, targets):
+    traits, has_section = parse_traits(profile_text)
+    disabled = set(overrides.get("disabled", []))
+    decisions = overrides.get("decisions", {})
+    packs = {name: [] for name in PACKS}
+    excluded, unknown_tags, applied = {}, set(), []
+    for topic, r in load_rules(kb, overrides):
+        if not set(r.get("applies_to", [])) & set(targets):
+            continue
+        if r["id"] in disabled:
+            excluded[r["id"]] = "disabled by project"
+            continue
+        needs = [t for t in r.get("tags", []) if t.startswith("needs-")]
+        unknown_tags.update(t for t in needs if t not in NEEDS)
+        missing = [t for t in needs if t in NEEDS and not NEEDS[t](traits)]
+        if missing:
+            excluded[r["id"]] = "trait not present: " + ", ".join(missing)
+            continue
+        if r["id"] in decisions:
+            r = {**r, "decision": decisions[r["id"]]}
+            applied.append(r["id"])
+        packs[pack_of(topic)].append(r)
+    manifest = {
+        "targets": targets, "traits": traits, "traits_section_found": has_section,
+        "counts": {name: len(rs) for name, rs in packs.items()},
+        "excluded": dict(sorted(excluded.items())),
+        "decisions_applied": sorted(applied),
+        "unknown_needs_tags": sorted(unknown_tags),
+    }
+    return packs, manifest
+
+
+def main(argv):
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--kb", required=True, type=Path)
+    ap.add_argument("--profile", type=Path)
+    ap.add_argument("--overrides", type=Path)
+    ap.add_argument("--targets", default="requirements,test-plan")
+    ap.add_argument("--out", required=True, type=Path)
+    args = ap.parse_args(argv[1:])
+    profile_text = args.profile.read_text(encoding="utf-8") if args.profile and args.profile.exists() else ""
+    overrides = (json.loads(args.overrides.read_text(encoding="utf-8"))
+                 if args.overrides and args.overrides.exists() else {})
+    targets = [t.strip() for t in args.targets.split(",") if t.strip()]
+    packs, manifest = build(args.kb, profile_text, overrides, targets)
+    (args.out / "packs").mkdir(parents=True, exist_ok=True)
+    for name, rules in packs.items():
+        lines = [f"# Pack: {name} ({len(rules)} rules)", ""] + [rule_line(r) for r in rules]
+        (args.out / "packs" / f"{name}.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (args.out / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n",
+                                            encoding="utf-8")
+    print(json.dumps({"counts": manifest["counts"], "excluded": len(manifest["excluded"]),
+                      "traits_section_found": manifest["traits_section_found"]}, ensure_ascii=False))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

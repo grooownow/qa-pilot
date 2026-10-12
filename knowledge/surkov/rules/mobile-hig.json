@@ -25,7 +25,8 @@
       "ios",
       "hig",
       "app-store-review",
-      "see-SRK-MOB-030"
+      "see-SRK-MOB-030",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -560,7 +561,8 @@
       "rtl",
       "slider",
       "progress-indicator",
-      "see-SRK-MD-029"
+      "see-SRK-MD-029",
+      "needs-rtl"
     ],
     "verification": "ok"
   },
@@ -589,7 +591,9 @@
       "ios",
       "rtl",
       "sf-symbols",
-      "icons"
+      "icons",
+      "needs-ios",
+      "needs-rtl"
     ],
     "verification": "ok"
   },
@@ -820,7 +824,8 @@
     "tags": [
       "ios",
       "app-launch",
-      "launch-screen"
+      "launch-screen",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -881,7 +886,8 @@
       "state-restoration",
       "lifecycle",
       "see-SRK-MOB-071",
-      "see-SRK-MOB-080"
+      "see-SRK-MOB-080",
+      "needs-native-mobile"
     ],
     "verification": "fixed"
   },
@@ -911,7 +917,8 @@
       "android",
       "orientation",
       "app-launch",
-      "games"
+      "games",
+      "needs-native-mobile"
     ],
     "verification": "fixed"
   },
@@ -1028,7 +1035,8 @@
       "ios",
       "android",
       "games",
-      "loading"
+      "loading",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -1059,7 +1067,8 @@
       "web",
       "auth",
       "registration",
-      "onboarding"
+      "onboarding",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -1089,7 +1098,9 @@
       "ios",
       "auth",
       "sign-in-with-apple",
-      "app-store-review"
+      "app-store-review",
+      "needs-ios",
+      "needs-auth"
     ],
     "verification": "fixed"
   },
@@ -1119,7 +1130,8 @@
       "android",
       "web",
       "auth",
-      "ux-writing"
+      "ux-writing",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -1151,7 +1163,8 @@
       "web",
       "auth",
       "guest-mode",
-      "e-commerce"
+      "e-commerce",
+      "needs-auth"
     ],
     "verification": "fixed"
   },
@@ -1182,7 +1195,8 @@
       "web",
       "account-deletion",
       "privacy",
-      "app-store-review"
+      "app-store-review",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -1210,7 +1224,8 @@
       "ios",
       "android",
       "account-deletion",
-      "settings"
+      "settings",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -1240,7 +1255,8 @@
       "android",
       "account-deletion",
       "privacy",
-      "legal"
+      "legal",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -1448,7 +1464,8 @@
       "interruptions",
       "games",
       "media-player",
-      "see-SRK-MOB-006"
+      "see-SRK-MOB-006",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -1476,7 +1493,8 @@
       "ios",
       "android",
       "multitasking",
-      "state-restoration"
+      "state-restoration",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -1617,7 +1635,8 @@
       "android",
       "onboarding",
       "loading",
-      "games"
+      "games",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -1645,7 +1664,8 @@
       "ios",
       "onboarding",
       "eula",
-      "legal"
+      "legal",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1701,7 +1721,8 @@
       "ios",
       "android",
       "haptics",
-      "feedback"
+      "feedback",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -1727,7 +1748,8 @@
     "tags": [
       "ios",
       "android",
-      "haptics"
+      "haptics",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -1757,7 +1779,8 @@
       "android",
       "haptics",
       "accessibility",
-      "settings"
+      "settings",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -2063,7 +2086,8 @@
       "wcag-2.5.8",
       "see-SRK-A11Y-095",
       "see-SRK-UX-035",
-      "see-SRK-A11Y-092"
+      "see-SRK-A11Y-092",
+      "needs-mobile"
     ],
     "verification": "fixed"
   },
@@ -2415,7 +2439,8 @@
     "tags": [
       "ios",
       "quick-actions",
-      "home-screen"
+      "home-screen",
+      "needs-ios"
     ],
     "verification": "fixed"
   },
@@ -2759,7 +2784,8 @@
       "sidebar",
       "liquid-glass",
       "performance",
-      "battery"
+      "battery",
+      "needs-ios"
     ],
     "verification": "fixed"
   },
@@ -3206,7 +3232,8 @@
       "mobile",
       "keyboard",
       "scroll",
-      "also-usability"
+      "also-usability",
+      "needs-mobile"
     ],
     "verification": "fixed"
   },

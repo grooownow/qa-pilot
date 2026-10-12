@@ -1,0 +1,109 @@
+import json
+import tempfile
+import unittest
+from pathlib import Path
+
+from rules_pack import build, parse_traits, rule_line
+
+
+def record(rid, tags=(), applies=("requirements",), how="Проверить."):
+    return {"id": rid, "kind": "rule", "severity": "must", "title": f"Правило {rid}", "statement": "s",
+            "applies_to": list(applies), "check": {"mode": "heuristic", "how": how},
+            "source": {"chunk_id": "s1-c01-01"}, "tags": list(tags)}
+
+
+PROFILE = """# Profile
+
+## Product traits
+
+```yaml
+platform: [web, pwa]   # web | pwa
+api_style: [server-actions]
+has_payments: false
+has_auth: true
+i18n: yes
+```
+
+## Commands
+platform: [ios]
+"""
+
+
+class TraitsTest(unittest.TestCase):
+    def test_parses_section_only_with_defaults(self):
+        traits, found = parse_traits(PROFILE)
+        self.assertTrue(found)
+        self.assertEqual(traits["platform"], ["web", "pwa"])
+        self.assertEqual(traits["api_style"], ["server-actions"])
+        self.assertIs(traits["has_auth"], True)
+        self.assertIs(traits["i18n"], True)
+        self.assertIs(traits["rtl"], False)
+
+    def test_missing_section_gives_defaults(self):
+        traits, found = parse_traits("# no traits here")
+        self.assertFalse(found)
+        self.assertEqual(traits["platform"], ["web"])
+
+
+class BuildTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        kb = Path(self.tmp.name)
+        (kb / "surkov" / "rules").mkdir(parents=True)
+        (kb / "qa-pilot" / "rules").mkdir(parents=True)
+        (kb / "surkov" / "rules" / "mobile-hig.json").write_text(json.dumps([
+            record("SRK-HIG-001", ["ios", "needs-ios"]),
+            record("SRK-HIG-002", ["web"]),
+        ]))
+        (kb / "surkov" / "rules" / "requirements.json").write_text(json.dumps([
+            record("SRK-REQ-001"),
+            record("SRK-REQ-002", ["needs-payments"]),
+            record("SRK-REQ-003", applies=("live-product",)),
+            record("SRK-REQ-004", ["needs-teleport"]),
+        ]))
+        (kb / "qa-pilot" / "rules" / "pilot.json").write_text(json.dumps([record("QAP-AUTH-001", ["needs-auth"])]))
+        self.kb = kb
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def ids(self, packs):
+        return {r["id"] for rs in packs.values() for r in rs}
+
+    def test_trait_filtering(self):
+        packs, manifest = build(self.kb, PROFILE, {}, ["requirements", "test-plan"])
+        self.assertEqual(self.ids(packs), {"SRK-HIG-002", "SRK-REQ-001", "QAP-AUTH-001", "SRK-REQ-004"})
+        self.assertIn("needs-ios", manifest["excluded"]["SRK-HIG-001"])
+        self.assertIn("needs-payments", manifest["excluded"]["SRK-REQ-002"])
+        self.assertEqual(manifest["unknown_needs_tags"], ["needs-teleport"])
+        self.assertEqual(packs["platform"][0]["id"], "SRK-HIG-002")
+        self.assertEqual(packs["core"][-1]["id"], "QAP-AUTH-001")
+
+    def test_untagged_rule_kept_even_without_profile(self):
+        packs, manifest = build(self.kb, "", {}, ["requirements"])
+        self.assertIn("SRK-REQ-001", self.ids(packs))
+        self.assertNotIn("QAP-AUTH-001", self.ids(packs))
+        self.assertFalse(manifest["traits_section_found"])
+
+    def test_overrides_disable_decide_and_add_project_rules(self):
+        overrides = {"disabled": ["SRK-REQ-001"], "decisions": {"SRK-HIG-002": "У нас иначе."},
+                     "rules": [record("PRJ-SEC-001")]}
+        packs, manifest = build(self.kb, PROFILE, overrides, ["requirements"])
+        ids = self.ids(packs)
+        self.assertNotIn("SRK-REQ-001", ids)
+        self.assertIn("PRJ-SEC-001", ids)
+        self.assertEqual(manifest["excluded"]["SRK-REQ-001"], "disabled by project")
+        self.assertEqual(manifest["decisions_applied"], ["SRK-HIG-002"])
+        line = rule_line(packs["platform"][0])
+        self.assertIn("РЕШЕНИЕ ПРОЕКТА (приоритетнее): У нас иначе.", line)
+
+
+class RuleLineTest(unittest.TestCase):
+    def test_truncates_long_check(self):
+        line = rule_line(record("SRK-REQ-009", how="а" * 400))
+        self.assertTrue(line.endswith("…"))
+        self.assertIn("[must/heuristic]", line)
+
+
+if __name__ == "__main__":
+    unittest.main()

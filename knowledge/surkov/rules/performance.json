@@ -404,7 +404,8 @@
       "error-guessing",
       "double-click",
       "also-test-design",
-      "see-SRK-FORM-026"
+      "see-SRK-FORM-026",
+      "needs-payments"
     ],
     "verification": "fixed"
   },
@@ -734,7 +735,8 @@
     "tags": [
       "k6",
       "auth",
-      "setup"
+      "setup",
+      "needs-auth"
     ],
     "verification": "ok"
   },

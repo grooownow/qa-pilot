@@ -711,7 +711,8 @@
       "checkout",
       "pricing",
       "e-commerce",
-      "payment"
+      "payment",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -775,7 +776,8 @@
       "subscription",
       "free-trial",
       "auto-renewal",
-      "payment"
+      "payment",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -806,7 +808,8 @@
       "forced-continuity",
       "subscription",
       "pricing",
-      "paywall"
+      "paywall",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -937,7 +940,8 @@
       "checkout",
       "cart",
       "insurance",
-      "upsell"
+      "upsell",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -1027,7 +1031,8 @@
       "fomo",
       "false-urgency",
       "countdown-timer",
-      "promo"
+      "promo",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -1057,7 +1062,8 @@
       "fomo",
       "scarcity",
       "booking",
-      "e-commerce"
+      "e-commerce",
+      "needs-payments"
     ],
     "verification": "ok"
   },
@@ -1087,7 +1093,8 @@
       "price-discrimination",
       "dynamic-pricing",
       "ab-testing",
-      "pricing"
+      "pricing",
+      "needs-payments"
     ],
     "verification": "ok"
   },

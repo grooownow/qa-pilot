@@ -86,7 +86,8 @@
       "security",
       "access-control",
       "pii",
-      "roles"
+      "roles",
+      "needs-auth"
     ],
     "verification": "ok"
   },
@@ -858,7 +859,8 @@
       "eventual-consistency",
       "idor",
       "privacy",
-      "see-SRK-API-128"
+      "see-SRK-API-128",
+      "needs-auth"
     ],
     "verification": "ok"
   },

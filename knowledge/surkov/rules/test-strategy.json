@@ -134,7 +134,8 @@
       "usability",
       "otp",
       "autofill",
-      "sms"
+      "sms",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -192,7 +193,8 @@
       "usability",
       "gestures",
       "mobile",
-      "platform-conventions"
+      "platform-conventions",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -220,7 +222,8 @@
       "mobile",
       "touch-target",
       "safe-area",
-      "ios"
+      "ios",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -247,7 +250,8 @@
     "tags": [
       "localization",
       "l10n",
-      "legal"
+      "legal",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -277,7 +281,8 @@
       "localization",
       "geo",
       "currency",
-      "locale"
+      "locale",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -304,7 +309,8 @@
     "tags": [
       "localization",
       "translation",
-      "linguistic"
+      "linguistic",
+      "needs-i18n"
     ],
     "verification": "ok"
   },
@@ -472,7 +478,8 @@
       "mobile",
       "background",
       "configuration",
-      "see-SRK-MOB-079"
+      "see-SRK-MOB-079",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -1039,7 +1046,8 @@
       "whittaker-tours",
       "money-tour",
       "payments",
-      "cart"
+      "cart",
+      "needs-payments"
     ],
     "verification": "ok"
   },

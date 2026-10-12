@@ -554,7 +554,8 @@
       "network",
       "latency",
       "batching",
-      "performance"
+      "performance",
+      "needs-mobile"
     ],
     "verification": "ok"
   },
@@ -809,7 +810,8 @@
       "mobile-web",
       "click-to-call",
       "tel-link",
-      "phone"
+      "phone",
+      "needs-mobile"
     ],
     "verification": "fixed"
   },
