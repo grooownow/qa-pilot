@@ -11,10 +11,10 @@ changes, open questions or alternatives (extendable via overrides).
 Also skips lines that record a dated decision ("решение 2026-06-13").
 
 Checks:
-  vague-word  (SRK-REQ-014)  unmeasurable words: быстро, удобно, интуитивно…
+  vague-word  (SRK-REQ-014)  unmeasurable words: быстро, удобно, интуитивно… / fast, easy, intuitive, properly…
                              quantified=true when the line already has a number
                              with a unit — usually a false positive, triage drops it
-  unfinished  (QAP-REQ-001)  TBD / TBC / TODO / ??? / ЧЕРНОВИК (caps) / уточнить
+  unfinished  (QAP-REQ-001)  TBD / TBC / TODO / DRAFT / ??? / ЧЕРНОВИК (caps) / уточнить
 """
 import argparse
 import json
@@ -23,12 +23,14 @@ import sys
 from pathlib import Path
 
 VAGUE_STEMS = ["быстр", "удобн", "адекватн", "интуитивн", "гибк", "корректн"]
+VAGUE_EN = (r"fast|quickly|user[- ]friendly|intuitive(?:ly)?|easy|easily|flexible|adequate(?:ly)?|"
+            r"appropriate(?:ly)?|properly|correctly|seamless(?:ly)?|reasonabl[ey]|as needed|if necessary|when necessary")
 DEFAULT_SKIP_SECTIONS = [
     r"rationale", r"обоснован", r"истори", r"history", r"изменени", r"changes?\b", r"changelog",
     r"open questions", r"открыт\w*\s+(вопрос|решени)", r"альтернатив", r"alternatives",
     r"почему", r"\bwhy\b", r"контекст", r"context", r"\bцел[ьи]\b", r"\bgoals?\b",
 ]
-UNFINISHED = re.compile(r"\b(TBD|TBC|TODO)\b|\?\?\?|ЧЕРНОВИК|(?<![а-яёa-zА-ЯЁ])[Уу]точнить")
+UNFINISHED = re.compile(r"\b(TBD|TBC|TODO|DRAFT)\b|\?\?\?|ЧЕРНОВИК|(?<![а-яёa-zА-ЯЁ])[Уу]точнить")
 # A line that records a dated product decision is rationale, not a requirement.
 DATED_DECISION = re.compile(r"(decision|решени\w*)\W{0,3}(от\s+)?\d{4}-\d{2}-\d{2}", re.I)
 # A number with a unit on the same line usually already makes the wording measurable.
@@ -40,7 +42,8 @@ STRIP = [re.compile(p) for p in (r"`[^`]*`", r"«[^»]*»", r"\"[^\"]*\"", r"“
 
 def vague_regex(extra):
     stems = "|".join(re.escape(s) for s in VAGUE_STEMS + [e for e in extra if e not in VAGUE_STEMS])
-    return re.compile(rf"(?<![а-яё])(не)?({stems})[а-яё]*|(?<![а-яё])(по\s+мере|при)\s+необходимости", re.I)
+    return re.compile(rf"(?<![а-яё])(не)?({stems})[а-яё]*|(?<![а-яё])(по\s+мере|при)\s+необходимости"
+                      rf"|(?<![a-z-])({VAGUE_EN})(?![a-z-])", re.I)
 
 
 def prose(line):

@@ -13,7 +13,7 @@ The work is **read-only.** Never edit the project. You write only your findings 
 ## 0. Before the specs: load what overrides the book
 
 1. Read the decisions digest from your brief, if you got one. Otherwise read the project's `CLAUDE.md` / `AGENTS.md`, its test-strategy doc (named in `docs/qa/project-profile.md`), and every decision record your specs reference (`docs/decisions/*`, ADRs, accepted items in `docs/code-review/`).
-   - **Read code at the baseline sha from your brief.** If the working tree is dirty, use `git show <sha>:<path>`, because uncommitted edits by someone else must not leak into your verdicts.
+   - **Read code at the baseline sha from your brief.** If the working tree is dirty, use `git show "${SHA}:<path>"` (quote it: in zsh an unquoted `$SHA:A…` is read as a path modifier), because uncommitted edits by someone else must not leak into your verdicts.
 2. Project decisions **win over the catalog**. So does any rule line carrying `⚖️ РЕШЕНИЕ ПРОЕКТА`. A rule that would fire but is overridden goes to *Skipped as project decision*, never to *Findings*.
 3. Load the rule packs economically. Each pack is 10–25k tokens.
    - Read `core.md` in full.

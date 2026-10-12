@@ -35,7 +35,7 @@ Paths below are relative to this skill's base directory. The catalog is `../../k
    has_user_uploads: false
    i18n: false              # more than one locale
    rtl: false
-   regulated: []            # gdpr | hipaa | pci | eaa
+   regulated: []            # free list, e.g. gdpr | hipaa | pci | eaa | 152-fz
    ```
 
 2. **What overrides the book.**
@@ -52,7 +52,7 @@ Paths below are relative to this skill's base directory. The catalog is `../../k
      - `skip_section_patterns`: regexes;
      - `rules`: project rules `PRJ-…` in the catalog schema.
 
-3. **Baseline.** Record the code version you audit: `git rev-parse HEAD` and `git status --short`. If the tree is dirty, or another session may be editing it, audit the committed state: read code with `git show <sha>:<path>` and tell the agents to do the same. Put the sha in the report header.
+3. **Baseline.** Record the code version you audit: `git rev-parse HEAD` and `git status --short`. If the tree is dirty, or another session may be editing it, audit the committed state: read code with `git show "${SHA}:<path>"` (quote it: in zsh an unquoted `$SHA:A…` is read as a path modifier) and tell the agents to do the same. Put the sha in the report header.
 
 4. **Scope.** The default is **one feature or flow**: its spec files, ticket text or description, plus the sibling docs it references.
    - **Cost** (measured on a real project): about 60k tokens of fixed overhead per cluster agent (lens brief and rule packs), plus about 50–100k per spec document read against the code. One feature with 2 docs is about 250k tokens. A whole 30-document project is 1–1.5M tokens, which is a lot for a Pro plan.
@@ -115,6 +115,7 @@ Check these once, not per spec, and record each as a finding or "ok". Look up th
 **When to run it:**
 - Run it for whole-project and multi-cluster audits.
 - For a single-feature audit, skip it unless the user asks, or the feature's correctness depends on one of these items. Example: an offline-first feature needs the offline behaviour defined. Say in the report header that the phase was skipped.
+- Project-level issues noticed anyway during a single-feature audit (e.g. no CI gate) go under **Non-functional** as "observed, not audited", with severity. Keep them out of the feature's summary row and recommend a project-level audit.
 
 ## Phase 4 — Gaps for the catalog
 

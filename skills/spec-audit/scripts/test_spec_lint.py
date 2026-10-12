@@ -30,6 +30,12 @@ class FiresTest(unittest.TestCase):
         self.assertEqual(lint("## AC\n- 20 нормальных документов\n"), [])
 
 
+class EnglishTest(unittest.TestCase):
+    def test_english_vague_words_and_draft(self):
+        text = "## Acceptance criteria\n- The list loads fast and renders correctly.\n- Status: DRAFT\n- Breakfast is a draft of steadfast.\n"
+        self.assertEqual(lint(text), [(2, "vague-word", "fast"), (2, "vague-word", "correctly"), (3, "unfinished", "DRAFT")])
+
+
 class QuietTest(unittest.TestCase):
     def test_quotes_and_code(self):
         text = ("## AC\n- Боль: «не могу быстро найти документ».\n- Кнопка \"Быстрый вход\".\n"
