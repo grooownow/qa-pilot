@@ -90,7 +90,7 @@ to decide?". How it works:
 - **Checked against the code.** A "missing scenario" is only reported after
   grepping your tests; spec claims are compared with what the code actually
   does. In the pilot this was where every critical finding came from.
-- **Cost.** One feature by default (~40k tokens per spec document). A
+- **Cost.** One feature by default (~250k tokens for a feature with 2 spec docs). A
   whole-project audit is offered only on request, with the estimate first.
 
 The report lands in `docs/qa/spec-audit/`; on request the missing scenarios
