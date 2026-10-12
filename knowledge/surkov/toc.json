@@ -1,0 +1,4144 @@
+[
+ {
+  "level": "section",
+  "title": "РАЗДЕЛ 1 — ТЕОРИЯ ТЕСТИРОВАНИЯ",
+  "toc_page": 7,
+  "pdf_page": 15,
+  "chunk_id": "s1-c00-00",
+  "words": 9,
+  "parts": [
+   "s1-c00-00"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 1: ЧТО ТАКОЕ ТЕСТИРОВАНИЕ?",
+  "toc_page": 7,
+  "pdf_page": 15,
+  "chunk_id": "s1-c01-00",
+  "words": 198,
+  "parts": [
+   "s1-c01-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Кто вообще такой этот ваш QA?",
+  "toc_page": 7,
+  "pdf_page": 15,
+  "chunk_id": "s1-c01-01",
+  "words": 237,
+  "parts": [
+   "s1-c01-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "7 Заповедей QA (Принципы ISTQB)",
+  "toc_page": 8,
+  "pdf_page": 16,
+  "chunk_id": "s1-c01-02",
+  "words": 317,
+  "parts": [
+   "s1-c01-02"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 2: ВИДЫ И МЕТОДЫ ТЕСТИРОВАНИЯ",
+  "toc_page": 10,
+  "pdf_page": 18,
+  "chunk_id": "s1-c02-00",
+  "words": 195,
+  "parts": [
+   "s1-c02-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. Инсталляционное тестирование",
+  "toc_page": 11,
+  "pdf_page": 19,
+  "chunk_id": "s1-c02-01",
+  "words": 261,
+  "parts": [
+   "s1-c02-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. Конфигурационное тестирование",
+  "toc_page": 11,
+  "pdf_page": 19,
+  "chunk_id": "s1-c02-01",
+  "words": 261,
+  "parts": [
+   "s1-c02-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. Тестирование графического интерфейса (GUI)",
+  "toc_page": 12,
+  "pdf_page": 20,
+  "chunk_id": "s1-c02-03",
+  "words": 272,
+  "parts": [
+   "s1-c02-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4. Тестирование удобства (Usability)",
+  "toc_page": 12,
+  "pdf_page": 20,
+  "chunk_id": "s1-c02-03",
+  "words": 272,
+  "parts": [
+   "s1-c02-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "5. Тестирование локализации",
+  "toc_page": 14,
+  "pdf_page": 22,
+  "chunk_id": "s1-c02-05",
+  "words": 197,
+  "parts": [
+   "s1-c02-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "6. Тестирование безопасности",
+  "toc_page": 15,
+  "pdf_page": 23,
+  "chunk_id": "s1-c02-06",
+  "words": 156,
+  "parts": [
+   "s1-c02-06"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "7. Тестирование доступности (Accessibility / a11y)",
+  "toc_page": 15,
+  "pdf_page": 23,
+  "chunk_id": "s1-c02-06",
+  "words": 156,
+  "parts": [
+   "s1-c02-06"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "8. Тестирование производительности (Performance)",
+  "toc_page": 16,
+  "pdf_page": 24,
+  "chunk_id": "s1-c02-08",
+  "words": 275,
+  "parts": [
+   "s1-c02-08"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Классификация всех видов тестирования",
+  "toc_page": 17,
+  "pdf_page": 25,
+  "chunk_id": "s1-c02-08",
+  "words": 275,
+  "parts": [
+   "s1-c02-08"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Шпаргалка: Как не тупить, когда дали задачу «Протестируй»",
+  "toc_page": 18,
+  "pdf_page": 26,
+  "chunk_id": "s1-c02-08",
+  "words": 275,
+  "parts": [
+   "s1-c02-08"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 3: ТЕСТИРОВАНИЕ ТРЕБОВАНИЙ И ДОКУМЕНТАЦИИ",
+  "toc_page": 19,
+  "pdf_page": 27,
+  "chunk_id": "s1-c03-00",
+  "words": 335,
+  "parts": [
+   "s1-c03-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Типы и уровни требований",
+  "toc_page": 20,
+  "pdf_page": 28,
+  "chunk_id": "s1-c03-01",
+  "words": 114,
+  "parts": [
+   "s1-c03-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Критерии качественного требования (Изучи сам и заставь аналитика)",
+  "toc_page": 20,
+  "pdf_page": 28,
+  "chunk_id": "s1-c03-02",
+  "words": 365,
+  "parts": [
+   "s1-c03-02"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 4: ТЕСТОВЫЕ АРТЕФАКТЫ: ЧЕКЛИСТ И ТЕСТ КЕЙС",
+  "toc_page": 22,
+  "pdf_page": 30,
+  "chunk_id": "s1-c04-00",
+  "words": 256,
+  "parts": [
+   "s1-c04-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Чек-лист: Быстро, дёшево, сердито",
+  "toc_page": 22,
+  "pdf_page": 30,
+  "chunk_id": "s1-c04-00",
+  "words": 256,
+  "parts": [
+   "s1-c04-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Тест-кейс: Рецепт для джуна и автотестов",
+  "toc_page": 23,
+  "pdf_page": 31,
+  "chunk_id": "s1-c04-02",
+  "words": 584,
+  "parts": [
+   "s1-c04-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Чек-лист vs Тест-кейс: Что выбрать?",
+  "toc_page": 26,
+  "pdf_page": 34,
+  "chunk_id": "s1-c04-03",
+  "words": 243,
+  "parts": [
+   "s1-c04-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 5: ТЕСТОВЫЕ АРТЕФАКТЫ: ТЕСТ СВИТ, ТЕСТ РАН, ТЕСТ ПЛАН И ТЕСТ ОТЧЕТ",
+  "toc_page": 27,
+  "pdf_page": 35,
+  "chunk_id": "s1-c05-00",
+  "words": 489,
+  "parts": [
+   "s1-c05-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Тест-свит (Test-Suite)",
+  "toc_page": 27,
+  "pdf_page": 35,
+  "chunk_id": "s1-c05-00",
+  "words": 489,
+  "parts": [
+   "s1-c05-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Тест-ран (Test Run)",
+  "toc_page": 29,
+  "pdf_page": 37,
+  "chunk_id": "s1-c05-02",
+  "words": 157,
+  "parts": [
+   "s1-c05-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Тест-план (Test Plan)",
+  "toc_page": 30,
+  "pdf_page": 38,
+  "chunk_id": "s1-c05-03",
+  "words": 380,
+  "parts": [
+   "s1-c05-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Тестовый отчет (Test Result Report)",
+  "toc_page": 31,
+  "pdf_page": 39,
+  "chunk_id": "s1-c05-04",
+  "words": 526,
+  "parts": [
+   "s1-c05-04"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 6: ТЕСТОВЫЕ АРТЕФАКТЫ: БАГ-РЕПОРТ",
+  "toc_page": 34,
+  "pdf_page": 42,
+  "chunk_id": "s1-c06-00",
+  "words": 103,
+  "parts": [
+   "s1-c06-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Атрибуты Баг-репорта: Анатомия идеального тикета",
+  "toc_page": 34,
+  "pdf_page": 42,
+  "chunk_id": "s1-c06-01",
+  "words": 602,
+  "parts": [
+   "s1-c06-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Дополнительные понятия: То, о чем молчат учебники",
+  "toc_page": 38,
+  "pdf_page": 46,
+  "chunk_id": "s1-c06-02",
+  "words": 338,
+  "parts": [
+   "s1-c06-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Пример Баг-репорта:",
+  "toc_page": 39,
+  "pdf_page": 47,
+  "chunk_id": "s1-c06-03",
+  "words": 128,
+  "parts": [
+   "s1-c06-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 7: ТЕСТИРОВАНИЕ ВЕБ-ФОРМ И ПОЛЕЙ ВВОДА",
+  "toc_page": 40,
+  "pdf_page": 48,
+  "chunk_id": "s1-c07-00",
+  "words": 114,
+  "parts": [
+   "s1-c07-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "На что обращать внимание при тестировании форм?",
+  "toc_page": 41,
+  "pdf_page": 49,
+  "chunk_id": "s1-c07-01",
+  "words": 538,
+  "parts": [
+   "s1-c07-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Полный Чек-лист для тестирования форм и полей ввода",
+  "toc_page": 45,
+  "pdf_page": 53,
+  "chunk_id": "s1-c07-02",
+  "words": 507,
+  "parts": [
+   "s1-c07-02"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 8: СЛОВАРЬ ЭЛЕМЕНТОВ UI (USER INTERFACE)",
+  "toc_page": 48,
+  "pdf_page": 56,
+  "chunk_id": "s1-c08-00",
+  "words": 288,
+  "parts": [
+   "s1-c08-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. Навигация, Структура и Поиск",
+  "toc_page": 48,
+  "pdf_page": 56,
+  "chunk_id": "s1-c08-00",
+  "words": 288,
+  "parts": [
+   "s1-c08-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. \"Кулинарное\" семейство иконок навигации",
+  "toc_page": 52,
+  "pdf_page": 60,
+  "chunk_id": "s1-c08-02",
+  "words": 204,
+  "parts": [
+   "s1-c08-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. Интерактивные элементы, Кнопки и Ссылки",
+  "toc_page": 53,
+  "pdf_page": 61,
+  "chunk_id": "s1-c08-02",
+  "words": 204,
+  "parts": [
+   "s1-c08-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4. Ввод, Формы и Элементы выбора",
+  "toc_page": 54,
+  "pdf_page": 62,
+  "chunk_id": "s1-c08-04",
+  "words": 289,
+  "parts": [
+   "s1-c08-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "5. Оповещения, Индикаторы и Загрузка",
+  "toc_page": 59,
+  "pdf_page": 67,
+  "chunk_id": "s1-c08-05",
+  "words": 151,
+  "parts": [
+   "s1-c08-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "6. Контент, Оценка и Медиа",
+  "toc_page": 61,
+  "pdf_page": 69,
+  "chunk_id": "s1-c08-06",
+  "words": 160,
+  "parts": [
+   "s1-c08-06"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 9: ТЕХНИКИ ТЕСТ-ДИЗАЙНА",
+  "toc_page": 64,
+  "pdf_page": 72,
+  "chunk_id": "s1-c09-00",
+  "words": 85,
+  "parts": [
+   "s1-c09-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Что такое техники тест-дизайн?",
+  "toc_page": 64,
+  "pdf_page": 72,
+  "chunk_id": "s1-c09-01",
+  "words": 104,
+  "parts": [
+   "s1-c09-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. Классы Эквивалентности (Equivalence Partitioning — EP)",
+  "toc_page": 64,
+  "pdf_page": 72,
+  "chunk_id": "s1-c09-02",
+  "words": 357,
+  "parts": [
+   "s1-c09-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. Анализ Граничных Значений (Boundary Value Analysis — BVA)",
+  "toc_page": 66,
+  "pdf_page": 74,
+  "chunk_id": "s1-c09-03",
+  "words": 1260,
+  "parts": [
+   "s1-c09-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. Комбинаторные техники (Combinatorial Techniques)",
+  "toc_page": 72,
+  "pdf_page": 80,
+  "chunk_id": "s1-c09-04",
+  "words": 1011,
+  "parts": [
+   "s1-c09-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4. Таблицы принятия решений (Decision Tables)",
+  "toc_page": 80,
+  "pdf_page": 87,
+  "chunk_id": "s1-c09-05",
+  "words": 714,
+  "parts": [
+   "s1-c09-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "5. Диаграмма причинно-следственных связей (Cause-Effect Graphing)",
+  "toc_page": 83,
+  "pdf_page": 90,
+  "chunk_id": "s1-c09-06",
+  "words": 442,
+  "parts": [
+   "s1-c09-06"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "6. Диаграмма состояний и переходов (State Transition)",
+  "toc_page": 85,
+  "pdf_page": 92,
+  "chunk_id": "s1-c09-07",
+  "words": 435,
+  "parts": [
+   "s1-c09-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "7. Предугадывание ошибок (Error Guessing)",
+  "toc_page": 87,
+  "pdf_page": 94,
+  "chunk_id": "s1-c09-08",
+  "words": 540,
+  "parts": [
+   "s1-c09-08"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 10: ПИРАМИДА ТЕСТИРОВАНИЯ",
+  "toc_page": 90,
+  "pdf_page": 97,
+  "chunk_id": "s1-c10-00",
+  "words": 107,
+  "parts": [
+   "s1-c10-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Классическая 3-х слойная пирамида (Майк Кон)",
+  "toc_page": 90,
+  "pdf_page": 97,
+  "chunk_id": "s1-c10-01",
+  "words": 318,
+  "parts": [
+   "s1-c10-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4-х слойная пирамида: Добавляем Ручной QA",
+  "toc_page": 92,
+  "pdf_page": 99,
+  "chunk_id": "s1-c10-02",
+  "words": 108,
+  "parts": [
+   "s1-c10-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Тестовые Соты Spotify (Testing Honeycomb)",
+  "toc_page": 93,
+  "pdf_page": 100,
+  "chunk_id": "s1-c10-03",
+  "words": 88,
+  "parts": [
+   "s1-c10-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Тестовый Трофей (Testing Trophy)",
+  "toc_page": 94,
+  "pdf_page": 101,
+  "chunk_id": "s1-c10-03",
+  "words": 88,
+  "parts": [
+   "s1-c10-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Суровая реальность: Как устроена пирамида на реальных проектах?",
+  "toc_page": 94,
+  "pdf_page": 101,
+  "chunk_id": "s1-c10-05",
+  "words": 197,
+  "parts": [
+   "s1-c10-05"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 11: КЛАССИФИКАЦИЯ И ПОДХОДЫ В ТЕСТИРОВАНИИ",
+  "toc_page": 96,
+  "pdf_page": 103,
+  "chunk_id": "s1-c11-00",
+  "words": 83,
+  "parts": [
+   "s1-c11-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "0. Верификация VS Валидация (В чем, блять, разница?)",
+  "toc_page": 96,
+  "pdf_page": 103,
+  "chunk_id": "s1-c11-01",
+  "words": 295,
+  "parts": [
+   "s1-c11-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. По знанию системы (Уровни прозрачности)",
+  "toc_page": 97,
+  "pdf_page": 104,
+  "chunk_id": "s1-c11-02",
+  "words": 273,
+  "parts": [
+   "s1-c11-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. По степени формализации (Степень свободы)",
+  "toc_page": 98,
+  "pdf_page": 105,
+  "chunk_id": "s1-c11-03",
+  "words": 252,
+  "parts": [
+   "s1-c11-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. По моменту запуска (Позиция в SDLC)",
+  "toc_page": 99,
+  "pdf_page": 106,
+  "chunk_id": "s1-c11-04",
+  "words": 85,
+  "parts": [
+   "s1-c11-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4. По запуску кода",
+  "toc_page": 99,
+  "pdf_page": 106,
+  "chunk_id": "s1-c11-04",
+  "words": 85,
+  "parts": [
+   "s1-c11-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "5. По характеру тестового сценария",
+  "toc_page": 100,
+  "pdf_page": 107,
+  "chunk_id": "s1-c11-06",
+  "words": 94,
+  "parts": [
+   "s1-c11-06"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "6. По степени автоматизации",
+  "toc_page": 100,
+  "pdf_page": 107,
+  "chunk_id": "s1-c11-07",
+  "words": 113,
+  "parts": [
+   "s1-c11-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "7. По уровням (Пирамида тестирования)",
+  "toc_page": 100,
+  "pdf_page": 107,
+  "chunk_id": "s1-c11-07",
+  "words": 113,
+  "parts": [
+   "s1-c11-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "8. По целям (Причина запуска)",
+  "toc_page": 101,
+  "pdf_page": 108,
+  "chunk_id": "s1-c11-09",
+  "words": 105,
+  "parts": [
+   "s1-c11-09"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "9. По среде и объекту (Кто тестирует)",
+  "toc_page": 101,
+  "pdf_page": 108,
+  "chunk_id": "s1-c11-10",
+  "words": 176,
+  "parts": [
+   "s1-c11-10"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Итоговая Матрица Подходов в Тестировании (Шпаргалка QA)",
+  "toc_page": 102,
+  "pdf_page": 109,
+  "chunk_id": "s1-c11-10",
+  "words": 176,
+  "parts": [
+   "s1-c11-10"
+  ]
+ },
+ {
+  "level": "section",
+  "title": "РАЗДЕЛ 2 — API",
+  "toc_page": 103,
+  "pdf_page": 110,
+  "chunk_id": "s2-c00-00",
+  "words": 47,
+  "parts": [
+   "s2-c00-00"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 1: КЛИЕНТ СЕРВЕРНАЯ АРХИТЕКТУРА",
+  "toc_page": 103,
+  "pdf_page": 110,
+  "chunk_id": "s2-c01-00",
+  "words": 164,
+  "parts": [
+   "s2-c01-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Как работает Клиент-Серверная архитектура?",
+  "toc_page": 104,
+  "pdf_page": 111,
+  "chunk_id": "s2-c01-01",
+  "words": 217,
+  "parts": [
+   "s2-c01-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Анатомия URL, URI, URN и Resource",
+  "toc_page": 105,
+  "pdf_page": 112,
+  "chunk_id": "s2-c01-02",
+  "words": 193,
+  "parts": [
+   "s2-c01-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Структура HTTP-Запроса и Ответа",
+  "toc_page": 106,
+  "pdf_page": 113,
+  "chunk_id": "s2-c01-03",
+  "words": 622,
+  "parts": [
+   "s2-c01-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "HTTP-Методы (Глаголы действий)",
+  "toc_page": 109,
+  "pdf_page": 116,
+  "chunk_id": "s2-c01-04",
+  "words": 791,
+  "parts": [
+   "s2-c01-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "HTTP СТАТУС-КОДЫ (STATUS CODES)",
+  "toc_page": 114,
+  "pdf_page": 121,
+  "chunk_id": "s2-c01-05",
+  "words": 968,
+  "parts": [
+   "s2-c01-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "CACHE, COOKIE, TOKENS И АУТЕНТИФИКАЦИЯ",
+  "toc_page": 118,
+  "pdf_page": 125,
+  "chunk_id": "s2-c01-06",
+  "words": 435,
+  "parts": [
+   "s2-c01-06"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 2: ПАТТЕРНЫ, СТИЛИ И ФОРМАТЫ ДАННЫХ API",
+  "toc_page": 121,
+  "pdf_page": 128,
+  "chunk_id": "s2-c02-00",
+  "words": 102,
+  "parts": [
+   "s2-c02-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. REST (Representational State Transfer)",
+  "toc_page": 121,
+  "pdf_page": 128,
+  "chunk_id": "s2-c02-01",
+  "words": 1218,
+  "parts": [
+   "s2-c02-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. Webhooks (Обратные вызовы)",
+  "toc_page": 127,
+  "pdf_page": 134,
+  "chunk_id": "s2-c02-02",
+  "words": 205,
+  "parts": [
+   "s2-c02-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. WebSockets (Двусторонний туннель)",
+  "toc_page": 128,
+  "pdf_page": 135,
+  "chunk_id": "s2-c02-03",
+  "words": 177,
+  "parts": [
+   "s2-c02-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4. GraphQL (Гибкий язык запросов)",
+  "toc_page": 130,
+  "pdf_page": 137,
+  "chunk_id": "s2-c02-04",
+  "words": 531,
+  "parts": [
+   "s2-c02-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "5. SOAP (Simple Object Access Protocol)",
+  "toc_page": 132,
+  "pdf_page": 139,
+  "chunk_id": "s2-c02-05",
+  "words": 623,
+  "parts": [
+   "s2-c02-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Сводная матрица 5 популярных паттернов API",
+  "toc_page": 137,
+  "pdf_page": 144,
+  "chunk_id": "s2-c02-06",
+  "words": 642,
+  "parts": [
+   "s2-c02-06"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 3: API ПРАКТИКА — DEVTOOLS И NETWORK",
+  "toc_page": 140,
+  "pdf_page": 147,
+  "chunk_id": "s2-c03-00",
+  "words": 93,
+  "parts": [
+   "s2-c03-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Подготовка Chrome DevTools",
+  "toc_page": 140,
+  "pdf_page": 147,
+  "chunk_id": "s2-c03-01",
+  "words": 124,
+  "parts": [
+   "s2-c03-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Панель управления Network: Основные кнопки и настройки",
+  "toc_page": 143,
+  "pdf_page": 150,
+  "chunk_id": "s2-c03-02",
+  "words": 190,
+  "parts": [
+   "s2-c03-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Фильтрация трафика",
+  "toc_page": 145,
+  "pdf_page": 152,
+  "chunk_id": "s2-c03-03",
+  "words": 102,
+  "parts": [
+   "s2-c03-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика: Инспектируем реальные API-запросы",
+  "toc_page": 146,
+  "pdf_page": 153,
+  "chunk_id": "s2-c03-04",
+  "words": 246,
+  "parts": [
+   "s2-c03-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 2: Ловим ошибки валидации (Payload & Error Response)",
+  "toc_page": 149,
+  "pdf_page": 156,
+  "chunk_id": "s2-c03-05",
+  "words": 331,
+  "parts": [
+   "s2-c03-05"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 4: API ПРАКТИКА — POSTMAN",
+  "toc_page": 154,
+  "pdf_page": 161,
+  "chunk_id": "s2-c04-00",
+  "words": 92,
+  "parts": [
+   "s2-c04-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Знакомство с интерфейсом Postman",
+  "toc_page": 154,
+  "pdf_page": 161,
+  "chunk_id": "s2-c04-01",
+  "words": 165,
+  "parts": [
+   "s2-c04-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 1: Перехват и отправка первого POST-запроса авторизации",
+  "toc_page": 155,
+  "pdf_page": 162,
+  "chunk_id": "s2-c04-02",
+  "words": 367,
+  "parts": [
+   "s2-c04-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 2: GET-запрос и прохождение сквозной Пользовательской Истории (User Story)",
+  "toc_page": 159,
+  "pdf_page": 166,
+  "chunk_id": "s2-c04-03",
+  "words": 725,
+  "parts": [
+   "s2-c04-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 5: API ПРАКТИКА — ТЕСТИРОВАНИЕ API",
+  "toc_page": 169,
+  "pdf_page": 176,
+  "chunk_id": "s2-c05-00",
+  "words": 246,
+  "parts": [
+   "s2-c05-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Почему Frontend-тестирования НЕ ДОСТАТОЧНО?",
+  "toc_page": 169,
+  "pdf_page": 176,
+  "chunk_id": "s2-c05-00",
+  "words": 246,
+  "parts": [
+   "s2-c05-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "МНЕМОНИКА BINMEN (Проверка граничных и невалидных данных)",
+  "toc_page": 170,
+  "pdf_page": 177,
+  "chunk_id": "s2-c05-02",
+  "words": 401,
+  "parts": [
+   "s2-c05-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "МНЕМОНИКА POISED (Комплексная проверка бизнес-логики)",
+  "toc_page": 173,
+  "pdf_page": 180,
+  "chunk_id": "s2-c05-03",
+  "words": 741,
+  "parts": [
+   "s2-c05-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Сводный чек-лист мнемоник для ежедневной работы",
+  "toc_page": 179,
+  "pdf_page": 186,
+  "chunk_id": "s2-c05-04",
+  "words": 142,
+  "parts": [
+   "s2-c05-04"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 6: API ПРАКТИКА — РАСШИРЕННЫЕ ПРАКТИКИ POSTMAN",
+  "toc_page": 180,
+  "pdf_page": 187,
+  "chunk_id": "s2-c06-00",
+  "words": 226,
+  "parts": [
+   "s2-c06-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. Мгновенное копирование запросов через cURL",
+  "toc_page": 180,
+  "pdf_page": 187,
+  "chunk_id": "s2-c06-00",
+  "words": 226,
+  "parts": [
+   "s2-c06-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. Настройка Коллекционных Переменных (Collection Variables)",
+  "toc_page": 181,
+  "pdf_page": 188,
+  "chunk_id": "s2-c06-02",
+  "words": 162,
+  "parts": [
+   "s2-c06-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. Переменные Окружения (Environment Variables)",
+  "toc_page": 183,
+  "pdf_page": 190,
+  "chunk_id": "s2-c06-03",
+  "words": 253,
+  "parts": [
+   "s2-c06-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4. Автоматизация токенов через Postman Scripts (Pre-request & Post-response)",
+  "toc_page": 187,
+  "pdf_page": 194,
+  "chunk_id": "s2-c06-04",
+  "words": 313,
+  "parts": [
+   "s2-c06-04"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 7: API ПРАКТИКА — SWAGGER",
+  "toc_page": 190,
+  "pdf_page": 197,
+  "chunk_id": "s2-c07-00",
+  "words": 265,
+  "parts": [
+   "s2-c07-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Знакомство с интерфейсом Swagger UI (Petstore)",
+  "toc_page": 190,
+  "pdf_page": 197,
+  "chunk_id": "s2-c07-00",
+  "words": 265,
+  "parts": [
+   "s2-c07-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика: Отправка первого запроса через Swagger",
+  "toc_page": 192,
+  "pdf_page": 199,
+  "chunk_id": "s2-c07-02",
+  "words": 172,
+  "parts": [
+   "s2-c07-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Зачем нужен Swagger и в чем его отличие от Postman?",
+  "toc_page": 194,
+  "pdf_page": 201,
+  "chunk_id": "s2-c07-03",
+  "words": 139,
+  "parts": [
+   "s2-c07-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 8: API ПРАКТИКА — GRAPHQL",
+  "toc_page": 195,
+  "pdf_page": 202,
+  "chunk_id": "s2-c08-00",
+  "words": 208,
+  "parts": [
+   "s2-c08-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Создание GraphQL-запроса в Postman",
+  "toc_page": 195,
+  "pdf_page": 202,
+  "chunk_id": "s2-c08-00",
+  "words": 208,
+  "parts": [
+   "s2-c08-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 1: Выполнение Query (Get a Post)",
+  "toc_page": 197,
+  "pdf_page": 204,
+  "chunk_id": "s2-c08-02",
+  "words": 592,
+  "parts": [
+   "s2-c08-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 2: Работа с Мутациями (Mutation)",
+  "toc_page": 204,
+  "pdf_page": 211,
+  "chunk_id": "s2-c08-03",
+  "words": 292,
+  "parts": [
+   "s2-c08-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 9: API ПРАКТИКА — РАЗДЕЛ APPLICATIONS",
+  "toc_page": 207,
+  "pdf_page": 214,
+  "chunk_id": "s2-c09-00",
+  "words": 117,
+  "parts": [
+   "s2-c09-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 1: Инспектируем и ломаем Cookies",
+  "toc_page": 207,
+  "pdf_page": 214,
+  "chunk_id": "s2-c09-01",
+  "words": 211,
+  "parts": [
+   "s2-c09-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 2: Local Storage vs Session Storage vs Cookies",
+  "toc_page": 208,
+  "pdf_page": 215,
+  "chunk_id": "s2-c09-02",
+  "words": 294,
+  "parts": [
+   "s2-c09-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 3: Реальный кейс Amazon.de и сессии",
+  "toc_page": 210,
+  "pdf_page": 217,
+  "chunk_id": "s2-c09-03",
+  "words": 314,
+  "parts": [
+   "s2-c09-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ТОП-10 QA-Сценариев: Что тестировать через сброс Cookies и Storage?",
+  "toc_page": 214,
+  "pdf_page": 221,
+  "chunk_id": "s2-c09-04",
+  "words": 327,
+  "parts": [
+   "s2-c09-04"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 10: API ПРАКТИКА — РАЗДЕЛ SOURCES",
+  "toc_page": 215,
+  "pdf_page": 222,
+  "chunk_id": "s2-c10-00",
+  "words": 339,
+  "parts": [
+   "s2-c10-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Зачем тестировщику нужна подмена трафика (Mocking)?",
+  "toc_page": 215,
+  "pdf_page": 222,
+  "chunk_id": "s2-c10-00",
+  "words": 339,
+  "parts": [
+   "s2-c10-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 1: Подмена данных через DevTools Local Overrides (Пустое состояние)",
+  "toc_page": 216,
+  "pdf_page": 223,
+  "chunk_id": "s2-c10-02",
+  "words": 312,
+  "parts": [
+   "s2-c10-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 2: Проверка адаптива и верстки при критической длине текста",
+  "toc_page": 220,
+  "pdf_page": 227,
+  "chunk_id": "s2-c10-03",
+  "words": 187,
+  "parts": [
+   "s2-c10-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 3: Блокировка сетевых запросов (Network Request Blocking)",
+  "toc_page": 222,
+  "pdf_page": 229,
+  "chunk_id": "s2-c10-04",
+  "words": 321,
+  "parts": [
+   "s2-c10-04"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 11: API ПРАКТИКА — ИНСТРУМЕНТЫ ПРОКСИРОВАНИЯ — PROXYMAN",
+  "toc_page": 225,
+  "pdf_page": 232,
+  "chunk_id": "s2-c11-00",
+  "words": 169,
+  "parts": [
+   "s2-c11-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "DevTools Overrides vs Свобода Прокси-инструментов",
+  "toc_page": 225,
+  "pdf_page": 232,
+  "chunk_id": "s2-c11-00",
+  "words": 169,
+  "parts": [
+   "s2-c11-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Настройка и интерфейс Proxyman",
+  "toc_page": 225,
+  "pdf_page": 232,
+  "chunk_id": "s2-c11-02",
+  "words": 149,
+  "parts": [
+   "s2-c11-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 1: Подмена тела ответа через Breakpoints (Response Body)",
+  "toc_page": 226,
+  "pdf_page": 233,
+  "chunk_id": "s2-c11-03",
+  "words": 207,
+  "parts": [
+   "s2-c11-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 2: Эмуляция падения сервера (Подмена Status Code на 500)",
+  "toc_page": 232,
+  "pdf_page": 239,
+  "chunk_id": "s2-c11-04",
+  "words": 145,
+  "parts": [
+   "s2-c11-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика 3: Подмена Заголовков Запроса (Request Headers & Security)",
+  "toc_page": 234,
+  "pdf_page": 241,
+  "chunk_id": "s2-c11-05",
+  "words": 246,
+  "parts": [
+   "s2-c11-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Итоги Раздела: Зачем нам тестировать API, если есть готовый Frontend?",
+  "toc_page": 236,
+  "pdf_page": 243,
+  "chunk_id": "s2-c11-06",
+  "words": 187,
+  "parts": [
+   "s2-c11-06"
+  ]
+ },
+ {
+  "level": "section",
+  "title": "РАЗДЕЛ 3 — БАЗЫ ДАННЫХ",
+  "toc_page": 237,
+  "pdf_page": 244,
+  "chunk_id": "s3-c00-00",
+  "words": 47,
+  "parts": [
+   "s3-c00-00"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 1: ЧТО ТАКОЕ БАЗА ДАННЫХ",
+  "toc_page": 237,
+  "pdf_page": 244,
+  "chunk_id": "s3-c01-00",
+  "words": 182,
+  "parts": [
+   "s3-c01-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Первичные и Внешние Ключи (PK и FK)",
+  "toc_page": 239,
+  "pdf_page": 246,
+  "chunk_id": "s3-c01-01",
+  "words": 793,
+  "parts": [
+   "s3-c01-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "НОРМАЛИЗАЦИЯ БАЗ ДАННЫХ (1NF, 2NF, 3NF)",
+  "toc_page": 244,
+  "pdf_page": 251,
+  "chunk_id": "s3-c01-02",
+  "words": 589,
+  "parts": [
+   "s3-c01-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СУБД и Клиенты БД",
+  "toc_page": 249,
+  "pdf_page": 256,
+  "chunk_id": "s3-c01-03",
+  "words": 58,
+  "parts": [
+   "s3-c01-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 2: ВВЕДЕНИЕ В SQL",
+  "toc_page": 250,
+  "pdf_page": 257,
+  "chunk_id": "s3-c02-00",
+  "words": 392,
+  "parts": [
+   "s3-c02-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. Базовый запрос SELECT",
+  "toc_page": 250,
+  "pdf_page": 257,
+  "chunk_id": "s3-c02-00",
+  "words": 392,
+  "parts": [
+   "s3-c02-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. Фильтрация данных (WHERE) и ОПЕРАТОРЫ",
+  "toc_page": 253,
+  "pdf_page": 260,
+  "chunk_id": "s3-c02-02",
+  "words": 393,
+  "parts": [
+   "s3-c02-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. Сортировка результатов (ORDER BY)",
+  "toc_page": 256,
+  "pdf_page": 263,
+  "chunk_id": "s3-c02-03",
+  "words": 82,
+  "parts": [
+   "s3-c02-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4. ОБЪЕДИНЕНИЕ ТАБЛИЦ (JOINS)",
+  "toc_page": 257,
+  "pdf_page": 264,
+  "chunk_id": "s3-c02-04",
+  "words": 570,
+  "parts": [
+   "s3-c02-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "5. ОБЪЕДИНЕНИЕ ВЫБОРОК (UNION)",
+  "toc_page": 262,
+  "pdf_page": 269,
+  "chunk_id": "s3-c02-05",
+  "words": 308,
+  "parts": [
+   "s3-c02-05"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 3: РАСШИРЕННЫЕ ПРАКТИКИ SQL",
+  "toc_page": 265,
+  "pdf_page": 272,
+  "chunk_id": "s3-c03-00",
+  "words": 84,
+  "parts": [
+   "s3-c03-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. Агрегатные функции (MIN, MAX, COUNT, SUM, AVG)",
+  "toc_page": 265,
+  "pdf_page": 272,
+  "chunk_id": "s3-c03-01",
+  "words": 235,
+  "parts": [
+   "s3-c03-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. ГРУППИРОВКА ДАННЫХ (GROUP BY и HAVING)",
+  "toc_page": 268,
+  "pdf_page": 275,
+  "chunk_id": "s3-c03-02",
+  "words": 431,
+  "parts": [
+   "s3-c03-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. СЛОЖНЫЕ КОМБИНАЦИИ ОПЕРАТОРОВ И JOIN'ОВ",
+  "toc_page": 273,
+  "pdf_page": 280,
+  "chunk_id": "s3-c03-03",
+  "words": 191,
+  "parts": [
+   "s3-c03-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4. МОДИФИКАЦИЯ ДАННЫХ (INSERT, UPDATE, DELETE)",
+  "toc_page": 274,
+  "pdf_page": 281,
+  "chunk_id": "s3-c03-04",
+  "words": 412,
+  "parts": [
+   "s3-c03-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Финальное резюме по разделу SQL",
+  "toc_page": 278,
+  "pdf_page": 285,
+  "chunk_id": "s3-c03-05",
+  "words": 45,
+  "parts": [
+   "s3-c03-05"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 4: ВОЙНА ДИАЛЕКТОВ — РАЗНИЦА МЕЖДУ СУБД",
+  "toc_page": 279,
+  "pdf_page": 286,
+  "chunk_id": "s3-c04-00",
+  "words": 169,
+  "parts": [
+   "s3-c04-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ТОП-8 синтаксических различий между СУБД",
+  "toc_page": 279,
+  "pdf_page": 286,
+  "chunk_id": "s3-c04-01",
+  "words": 622,
+  "parts": [
+   "s3-c04-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Сводная шпаргалка различий СУБД для QA:",
+  "toc_page": 283,
+  "pdf_page": 290,
+  "chunk_id": "s3-c04-02",
+  "words": 99,
+  "parts": [
+   "s3-c04-02"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 5: НЕРЕЛЯЦИОННЫЕ БАЗЫ ДАННЫХ",
+  "toc_page": 284,
+  "pdf_page": 291,
+  "chunk_id": "s3-c05-00",
+  "words": 100,
+  "parts": [
+   "s3-c05-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Отсутствие схемы (Schema-less) и вложенность",
+  "toc_page": 284,
+  "pdf_page": 291,
+  "chunk_id": "s3-c05-01",
+  "words": 92,
+  "parts": [
+   "s3-c05-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "В чем принципиальная разница с SQL?",
+  "toc_page": 285,
+  "pdf_page": 292,
+  "chunk_id": "s3-c05-02",
+  "words": 80,
+  "parts": [
+   "s3-c05-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Практика в MongoDB Compass",
+  "toc_page": 286,
+  "pdf_page": 293,
+  "chunk_id": "s3-c05-03",
+  "words": 103,
+  "parts": [
+   "s3-c05-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Главная боль NoSQL: Дублирование и целостность данных",
+  "toc_page": 286,
+  "pdf_page": 293,
+  "chunk_id": "s3-c05-04",
+  "words": 135,
+  "parts": [
+   "s3-c05-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Почему NoSQL идет на эту жертву?",
+  "toc_page": 287,
+  "pdf_page": 294,
+  "chunk_id": "s3-c05-05",
+  "words": 80,
+  "parts": [
+   "s3-c05-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Масштабирование: В чем главная проблема SQL?",
+  "toc_page": 287,
+  "pdf_page": 294,
+  "chunk_id": "s3-c05-06",
+  "words": 176,
+  "parts": [
+   "s3-c05-06"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Главный козырь NoSQL: Нативное Шардирование и Репликация",
+  "toc_page": 288,
+  "pdf_page": 295,
+  "chunk_id": "s3-c05-07",
+  "words": 166,
+  "parts": [
+   "s3-c05-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Репликация (Master-Slave / Primary-Secondary)",
+  "toc_page": 289,
+  "pdf_page": 296,
+  "chunk_id": "s3-c05-07",
+  "words": 166,
+  "parts": [
+   "s3-c05-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Сводное сравнение: SQL vs NoSQL",
+  "toc_page": 290,
+  "pdf_page": 297,
+  "chunk_id": "s3-c05-09",
+  "words": 63,
+  "parts": [
+   "s3-c05-09"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 6: КИСЛОТНАЯ БАЗА В БАЗАХ ДАННЫХ",
+  "toc_page": 291,
+  "pdf_page": 298,
+  "chunk_id": "s3-c06-00",
+  "words": 533,
+  "parts": [
+   "s3-c06-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. ACID в Реляционных БД (Строгость и Надежность)",
+  "toc_page": 291,
+  "pdf_page": 298,
+  "chunk_id": "s3-c06-00",
+  "words": 533,
+  "parts": [
+   "s3-c06-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. BASE в Нереляционных БД (Скорость и Хаос)",
+  "toc_page": 293,
+  "pdf_page": 300,
+  "chunk_id": "s3-c06-02",
+  "words": 323,
+  "parts": [
+   "s3-c06-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ЗАЧЕМ QA ЭТА ИНФОРМАЦИЯ? (КЕЙС МЕССЕНДЖЕРА MAX)",
+  "toc_page": 294,
+  "pdf_page": 301,
+  "chunk_id": "s3-c06-03",
+  "words": 396,
+  "parts": [
+   "s3-c06-03"
+  ]
+ },
+ {
+  "level": "section",
+  "title": "РАЗДЕЛ 4 — НЕФУНКЦИОНАЛЬНОЕ ТЕСТИРОВАНИЕ",
+  "toc_page": 296,
+  "pdf_page": 303,
+  "chunk_id": "s4-c00-00",
+  "words": 199,
+  "parts": [
+   "s4-c00-00"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 1: ИНСТАЛЛЯЦИОННОЕ ТЕСТИРОВАНИЕ",
+  "toc_page": 298,
+  "pdf_page": 305,
+  "chunk_id": "s4-c01-00",
+  "words": 94,
+  "parts": [
+   "s4-c01-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. Установка и Запуск (Install & Launch)",
+  "toc_page": 298,
+  "pdf_page": 305,
+  "chunk_id": "s4-c01-01",
+  "words": 414,
+  "parts": [
+   "s4-c01-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. Обновления (Updates)",
+  "toc_page": 300,
+  "pdf_page": 307,
+  "chunk_id": "s4-c01-02",
+  "words": 310,
+  "parts": [
+   "s4-c01-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. Удаление (Uninstall)",
+  "toc_page": 302,
+  "pdf_page": 309,
+  "chunk_id": "s4-c01-03",
+  "words": 146,
+  "parts": [
+   "s4-c01-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Как часто тестировать инсталляцию?",
+  "toc_page": 303,
+  "pdf_page": 310,
+  "chunk_id": "s4-c01-04",
+  "words": 83,
+  "parts": [
+   "s4-c01-04"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 2: ТЕСТИРОВАНИЕ КОНФИГУРАЦИЙ И СОВМЕСТИМОСТИ",
+  "toc_page": 304,
+  "pdf_page": 311,
+  "chunk_id": "s4-c02-00",
+  "words": 86,
+  "parts": [
+   "s4-c02-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. ПРОГРАММНАЯ СОВМЕСТИМОСТЬ (КРОСС-БРАУЗЕРНОСТЬ И ОС)",
+  "toc_page": 304,
+  "pdf_page": 311,
+  "chunk_id": "s4-c02-01",
+  "words": 678,
+  "parts": [
+   "s4-c02-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. АППАРАТНАЯ ПРОИЗВОДИТЕЛЬНОСТЬ (GAMEDEV И МОБИЛКИ)",
+  "toc_page": 307,
+  "pdf_page": 314,
+  "chunk_id": "s4-c02-02",
+  "words": 581,
+  "parts": [
+   "s4-c02-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. АППАРАТНОЕ ТЕСТИРОВАНИЕ В ВЕБ-ПРИЛОЖЕНИЯХ",
+  "toc_page": 312,
+  "pdf_page": 319,
+  "chunk_id": "s4-c02-03",
+  "words": 137,
+  "parts": [
+   "s4-c02-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 3: ТЕСТИРОВАНИЕ ГРАФИЧЕСКОГО ИНТЕРФЕЙСА",
+  "toc_page": 314,
+  "pdf_page": 321,
+  "chunk_id": "s4-c03-00",
+  "words": 147,
+  "parts": [
+   "s4-c03-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "«Казнить нельзя помиловать»: Разбор ужасного GUI",
+  "toc_page": 314,
+  "pdf_page": 321,
+  "chunk_id": "s4-c03-01",
+  "words": 107,
+  "parts": [
+   "s4-c03-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Плохие UX решения:",
+  "toc_page": 317,
+  "pdf_page": 324,
+  "chunk_id": "s4-c03-02",
+  "words": 698,
+  "parts": [
+   "s4-c03-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ПРАКТИКА: ТЕСТИРОВАНИЕ GUI В FIGMA И DEVTOOLS",
+  "toc_page": 327,
+  "pdf_page": 334,
+  "chunk_id": "s4-c03-03",
+  "words": 626,
+  "parts": [
+   "s4-c03-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 4: ТЕСТИРОВАНИЕ УДОБСТВА",
+  "toc_page": 337,
+  "pdf_page": 344,
+  "chunk_id": "s4-c04-00",
+  "words": 106,
+  "parts": [
+   "s4-c04-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ТЕОРИЯ ЮЗАБИЛИТИ: ТРИ КИТА ДИЗАЙНА",
+  "toc_page": 337,
+  "pdf_page": 344,
+  "chunk_id": "s4-c04-01",
+  "words": 703,
+  "parts": [
+   "s4-c04-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "РАЗБОР РЕАЛЬНЫХ УЖАСОВ UX И ИХ ИСПРАВЛЕНИЕ",
+  "toc_page": 340,
+  "pdf_page": 347,
+  "chunk_id": "s4-c04-02",
+  "words": 918,
+  "parts": [
+   "s4-c04-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Резюме по Юзабилити",
+  "toc_page": 352,
+  "pdf_page": 359,
+  "chunk_id": "s4-c04-03",
+  "words": 36,
+  "parts": [
+   "s4-c04-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 5: ТЕСТИРОВАНИЕ ЛОКАЛИЗАЦИИ",
+  "toc_page": 353,
+  "pdf_page": 360,
+  "chunk_id": "s4-c05-00",
+  "words": 188,
+  "parts": [
+   "s4-c05-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. ДАТЫ, КАЛЕНДАРИ И ВРЕМЯ",
+  "toc_page": 353,
+  "pdf_page": 360,
+  "chunk_id": "s4-c05-01",
+  "words": 334,
+  "parts": [
+   "s4-c05-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. ВАЛЮТЫ, ЧИСЛА И РАЗДЕЛИЛИ",
+  "toc_page": 355,
+  "pdf_page": 362,
+  "chunk_id": "s4-c05-02",
+  "words": 125,
+  "parts": [
+   "s4-c05-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. ИМЕНА, ФАМИЛИИ, АДРЕСА И ТЕЛЕФОНЫ",
+  "toc_page": 356,
+  "pdf_page": 363,
+  "chunk_id": "s4-c05-03",
+  "words": 255,
+  "parts": [
+   "s4-c05-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4. СУЕВЕРИЯ И ЧИСЛА В КУЛЬТУРАХ",
+  "toc_page": 357,
+  "pdf_page": 364,
+  "chunk_id": "s4-c05-04",
+  "words": 126,
+  "parts": [
+   "s4-c05-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "5. ЖЕСТЫ, ЦВЕТА И ПОЛИТИЧЕСКИЕ РИСКИ",
+  "toc_page": 357,
+  "pdf_page": 364,
+  "chunk_id": "s4-c05-05",
+  "words": 200,
+  "parts": [
+   "s4-c05-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "6. ТЕКСТЫ, ШРИФТЫ И ВЕРСТКА",
+  "toc_page": 359,
+  "pdf_page": 366,
+  "chunk_id": "s4-c05-06",
+  "words": 208,
+  "parts": [
+   "s4-c05-06"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ПРАКТИЧЕСКИЕ КЕЙСЫ ПРИЛОЖЕНИЯ «МАЛЕНЬКИЕ ИСТОРИИ»",
+  "toc_page": 361,
+  "pdf_page": 368,
+  "chunk_id": "s4-c05-07",
+  "words": 255,
+  "parts": [
+   "s4-c05-07"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 6: ТЕСТИРОВАНИЕ КЛИЕНТСКОЙ ПРОИЗВОДИТЕЛЬНОСТИ",
+  "toc_page": 362,
+  "pdf_page": 369,
+  "chunk_id": "s4-c06-00",
+  "words": 290,
+  "parts": [
+   "s4-c06-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. ПРАКТИКА: ТЕСТИРОВАНИЕ FPS И FRAME TIME В DEVTOOLS",
+  "toc_page": 363,
+  "pdf_page": 370,
+  "chunk_id": "s4-c06-01",
+  "words": 280,
+  "parts": [
+   "s4-c06-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. УТЕЧКА ПАМЯТИ (MEMORY LEAKS) И СБОРЩИК МУСОРА",
+  "toc_page": 366,
+  "pdf_page": 373,
+  "chunk_id": "s4-c06-02",
+  "words": 514,
+  "parts": [
+   "s4-c06-02"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 7: ТЕСТИРОВАНИЕ СЕРВЕРНОЙ ПРОИЗВОДИТЕЛЬНОСТИ",
+  "toc_page": 371,
+  "pdf_page": 378,
+  "chunk_id": "s4-c07-00",
+  "words": 326,
+  "parts": [
+   "s4-c07-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "КЛЮЧЕВЫЕ МЕТРИКИ СЕРВЕРНОЙ ПРОИЗВОДИТЕЛЬНОСТИ",
+  "toc_page": 371,
+  "pdf_page": 378,
+  "chunk_id": "s4-c07-00",
+  "words": 326,
+  "parts": [
+   "s4-c07-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "6 ВИДОВ ТЕСТИРОВАНИЯ НАГРУЗКИ (МОДЕЛЬ K6)",
+  "toc_page": 373,
+  "pdf_page": 380,
+  "chunk_id": "s4-c07-02",
+  "words": 229,
+  "parts": [
+   "s4-c07-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ПРАКТИКА: ЗАПУСК И СКРИПТЫ K6",
+  "toc_page": 374,
+  "pdf_page": 381,
+  "chunk_id": "s4-c07-03",
+  "words": 858,
+  "parts": [
+   "s4-c07-03"
+  ]
+ },
+ {
+  "level": "section",
+  "title": "РАЗДЕЛ 5 — ТЕСТИРОВАНИЕ ДОСТУПНОСТИ",
+  "toc_page": 382,
+  "pdf_page": 389,
+  "chunk_id": "s5-c00-00",
+  "words": 173,
+  "parts": [
+   "s5-c00-00"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 1: ПОНЯТИЕ ЦИФРОВОЙ ДОСТУПНОСТИ И ИНКЛЮЗИВНОСТИ",
+  "toc_page": 383,
+  "pdf_page": 390,
+  "chunk_id": "s5-c01-00",
+  "words": 362,
+  "parts": [
+   "s5-c01-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Что такое Доступность?",
+  "toc_page": 383,
+  "pdf_page": 390,
+  "chunk_id": "s5-c01-00",
+  "words": 362,
+  "parts": [
+   "s5-c01-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "УРОВНИ ДОСТУПНОСТИ В WCAG",
+  "toc_page": 384,
+  "pdf_page": 391,
+  "chunk_id": "s5-c01-02",
+  "words": 465,
+  "parts": [
+   "s5-c01-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "КТО НАШИ ПОЛЬЗОВАТЕЛИ?",
+  "toc_page": 384,
+  "pdf_page": 391,
+  "chunk_id": "s5-c01-02",
+  "words": 465,
+  "parts": [
+   "s5-c01-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4 СТОЛПА ДОСТУПНОСТИ WCAG (ПРИНЦИПЫ POUR)",
+  "toc_page": 388,
+  "pdf_page": 395,
+  "chunk_id": "s5-c01-04",
+  "words": 114,
+  "parts": [
+   "s5-c01-04"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 2: ВОСПРИНИМАЕМОСТЬ — Я ЭТО ВИЖУ/СЛЫШУ?",
+  "toc_page": 389,
+  "pdf_page": 396,
+  "chunk_id": "s5-c02-00",
+  "words": 245,
+  "parts": [
+   "s5-c02-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1.1 ТЕКСТОВЫЕ АЛЬТЕРНАТИВЫ",
+  "toc_page": 389,
+  "pdf_page": 396,
+  "chunk_id": "s5-c02-00",
+  "words": 245,
+  "parts": [
+   "s5-c02-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1.2 МУЛЬТИМЕДИА (ТАЙМ-МЕДИА)",
+  "toc_page": 390,
+  "pdf_page": 397,
+  "chunk_id": "s5-c02-02",
+  "words": 620,
+  "parts": [
+   "s5-c02-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1.3 АДАПТИРУЕМОСТЬ (ADAPTABLE)",
+  "toc_page": 393,
+  "pdf_page": 400,
+  "chunk_id": "s5-c02-03",
+  "words": 563,
+  "parts": [
+   "s5-c02-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1.4 РАЗЛИЧИМОСТЬ (DISTINGUISHABLE)",
+  "toc_page": 397,
+  "pdf_page": 404,
+  "chunk_id": "s5-c02-04",
+  "words": 1433,
+  "parts": [
+   "s5-c02-04"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 3: УПРАВЛЯЕМОСТЬ — Я МОГУ НА ЭТО НАЖАТЬ?",
+  "toc_page": 408,
+  "pdf_page": 415,
+  "chunk_id": "s5-c03-00",
+  "words": 986,
+  "parts": [
+   "s5-c03-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2.1 ДОСТУПНОСТЬ С КЛАВИАТУРЫ (KEYBOARD ACCESSIBLE)",
+  "toc_page": 408,
+  "pdf_page": 415,
+  "chunk_id": "s5-c03-00",
+  "words": 986,
+  "parts": [
+   "s5-c03-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2.2 ДОСТАТОЧНО ВРЕМЕНИ (ENOUGH TIME)",
+  "toc_page": 412,
+  "pdf_page": 419,
+  "chunk_id": "s5-c03-02",
+  "words": 1441,
+  "parts": [
+   "s5-c03-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2.3 СУДОРОГИ И ФИЗИЧЕСКИЕ РЕАКЦИИ (SEIZURES AND PHYSICAL REACTIONS)",
+  "toc_page": 420,
+  "pdf_page": 427,
+  "chunk_id": "s5-c03-03",
+  "words": 516,
+  "parts": [
+   "s5-c03-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2.4 НАВИГАЦИЯ (NAVIGABLE)",
+  "toc_page": 423,
+  "pdf_page": 430,
+  "chunk_id": "s5-c03-04",
+  "words": 2642,
+  "parts": [
+   "s5-c03-04-p1",
+   "s5-c03-04-p2"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2.5 МОДАЛЬНОСТИ ВВОДА (INPUT MODALITIES)",
+  "toc_page": 435,
+  "pdf_page": 442,
+  "chunk_id": "s5-c03-05",
+  "words": 1905,
+  "parts": [
+   "s5-c03-05-p1",
+   "s5-c03-05-p2"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 4: ПОНЯТНОСТЬ — Я ПОНИМАЮ КОНТЕНТ?",
+  "toc_page": 445,
+  "pdf_page": 452,
+  "chunk_id": "s5-c04-00",
+  "words": 1198,
+  "parts": [
+   "s5-c04-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3.1 ЧИТАЕМОСТЬ (READABLE)",
+  "toc_page": 445,
+  "pdf_page": 452,
+  "chunk_id": "s5-c04-00",
+  "words": 1198,
+  "parts": [
+   "s5-c04-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3.2 ПРЕДСКАЗУЕМОСТЬ (PREDICTABLE)",
+  "toc_page": 450,
+  "pdf_page": 457,
+  "chunk_id": "s5-c04-02",
+  "words": 1192,
+  "parts": [
+   "s5-c04-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3.3 ПОМОЩЬ ПРИ ВВОДЕ (INPUT ASSISTANCE)",
+  "toc_page": 456,
+  "pdf_page": 463,
+  "chunk_id": "s5-c04-03",
+  "words": 2158,
+  "parts": [
+   "s5-c04-03-p1",
+   "s5-c04-03-p2"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 5: НАДЕЖНОСТЬ — ЭТО НЕ СЛОМАЕТСЯ?",
+  "toc_page": 466,
+  "pdf_page": 473,
+  "chunk_id": "s5-c05-00",
+  "words": 540,
+  "parts": [
+   "s5-c05-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4.1 СООВМЕСТИМОСТЬ (COMPATIBLE)",
+  "toc_page": 466,
+  "pdf_page": 473,
+  "chunk_id": "s5-c05-00",
+  "words": 540,
+  "parts": [
+   "s5-c05-00"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 6: ИНСТРУМЕНТЫ ДЛЯ ТЕСТИРОВАНИЯ ДОСТУПНОСТИ",
+  "toc_page": 469,
+  "pdf_page": 476,
+  "chunk_id": "s5-c06-00",
+  "words": 157,
+  "parts": [
+   "s5-c06-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. Google Lighthouse",
+  "toc_page": 469,
+  "pdf_page": 476,
+  "chunk_id": "s5-c06-00",
+  "words": 157,
+  "parts": [
+   "s5-c06-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. Расширение Web Disability Simulator",
+  "toc_page": 470,
+  "pdf_page": 477,
+  "chunk_id": "s5-c06-02",
+  "words": 97,
+  "parts": [
+   "s5-c06-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. Расширение axe DevTools",
+  "toc_page": 471,
+  "pdf_page": 478,
+  "chunk_id": "s5-c06-03",
+  "words": 103,
+  "parts": [
+   "s5-c06-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4. Расширение IBM Equal Access Accessibility Checker",
+  "toc_page": 472,
+  "pdf_page": 479,
+  "chunk_id": "s5-c06-04",
+  "words": 86,
+  "parts": [
+   "s5-c06-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "5. Инструмент ANDI (Accessible Name & Description Inspector)",
+  "toc_page": 473,
+  "pdf_page": 480,
+  "chunk_id": "s5-c06-05",
+  "words": 102,
+  "parts": [
+   "s5-c06-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "6. Расширение WCAG Contrast Checker",
+  "toc_page": 474,
+  "pdf_page": 481,
+  "chunk_id": "s5-c06-06",
+  "words": 103,
+  "parts": [
+   "s5-c06-06"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "7. Ручная проверка контраста через DevTools (Пипетка)",
+  "toc_page": 474,
+  "pdf_page": 481,
+  "chunk_id": "s5-c06-07",
+  "words": 178,
+  "parts": [
+   "s5-c06-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "8. Раздел CSS Overview в DevTools",
+  "toc_page": 477,
+  "pdf_page": 484,
+  "chunk_id": "s5-c06-08",
+  "words": 159,
+  "parts": [
+   "s5-c06-08"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "9. Скринридеры: NVDA и VoiceOver",
+  "toc_page": 478,
+  "pdf_page": 485,
+  "chunk_id": "s5-c06-08",
+  "words": 159,
+  "parts": [
+   "s5-c06-08"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 7: ЦИФРОВАЯ (НЕ)ДОСТУПНОСТЬ В БЕЛАРУСИ",
+  "toc_page": 479,
+  "pdf_page": 486,
+  "chunk_id": "s5-c07-00",
+  "words": 153,
+  "parts": [
+   "s5-c07-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Наблюдение 1: Пользователи с психическими и ментальными особенностями",
+  "toc_page": 480,
+  "pdf_page": 487,
+  "chunk_id": "s5-c07-01",
+  "words": 346,
+  "parts": [
+   "s5-c07-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Наблюдение 2: Пользователи с нарушениями зрения (БелТИЗ)",
+  "toc_page": 482,
+  "pdf_page": 489,
+  "chunk_id": "s5-c07-02",
+  "words": 332,
+  "parts": [
+   "s5-c07-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "КАК ЭТО ИСПРАВИТЬ И ПОЧЕМУ ВСЁ ТАК СЛОЖНО?",
+  "toc_page": 484,
+  "pdf_page": 491,
+  "chunk_id": "s5-c07-03",
+  "words": 234,
+  "parts": [
+   "s5-c07-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ЗАКЛЮЧЕНИЕ К РАЗДЕЛУ 5",
+  "toc_page": 485,
+  "pdf_page": 492,
+  "chunk_id": "s5-c07-04",
+  "words": 177,
+  "parts": [
+   "s5-c07-04"
+  ]
+ },
+ {
+  "level": "section",
+  "title": "РАЗДЕЛ 6 — ТЕСТИРОВАНИЕ МОБИЛЬНЫХ ПРИЛОЖЕНИЙ И ВИДЕОИГР",
+  "toc_page": 486,
+  "pdf_page": 493,
+  "chunk_id": "s6-c00-00",
+  "words": 143,
+  "parts": [
+   "s6-c00-00"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 1: ТЕСТИРОВАНИЕ ВИДЕОИГР",
+  "toc_page": 486,
+  "pdf_page": 493,
+  "chunk_id": "s6-c01-00",
+  "words": 171,
+  "parts": [
+   "s6-c01-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Процессы и этапы разработки в Геймдеве",
+  "toc_page": 486,
+  "pdf_page": 493,
+  "chunk_id": "s6-c01-00",
+  "words": 171,
+  "parts": [
+   "s6-c01-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СПЕЦИФИЧЕСКИЕ ТИПЫ БАГОВ В GAMEDEV",
+  "toc_page": 487,
+  "pdf_page": 494,
+  "chunk_id": "s6-c01-02",
+  "words": 546,
+  "parts": [
+   "s6-c01-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ГРАДАЦИЯ СЕРЬЕЗНОСТИ (SEVERITY) В GAMEDEV",
+  "toc_page": 493,
+  "pdf_page": 500,
+  "chunk_id": "s6-c01-03",
+  "words": 171,
+  "parts": [
+   "s6-c01-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 2: ТЕСТИРОВАНИЕ МОБИЛЬНЫХ ПРИЛОЖЕНИЙ",
+  "toc_page": 494,
+  "pdf_page": 501,
+  "chunk_id": "s6-c02-00",
+  "words": 911,
+  "parts": [
+   "s6-c02-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ТРИ АРХИТЕКТУРНЫХ ВИДА МОБИЛЬНЫХ ПРИЛОЖЕНИЙ",
+  "toc_page": 494,
+  "pdf_page": 501,
+  "chunk_id": "s6-c02-00",
+  "words": 911,
+  "parts": [
+   "s6-c02-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СПЕЦИФИЧЕСКИЕ ПРОВЕРКИ МОБИЛЬНЫХ ПРИЛОЖЕНИЙ",
+  "toc_page": 498,
+  "pdf_page": 505,
+  "chunk_id": "s6-c02-02",
+  "words": 603,
+  "parts": [
+   "s6-c02-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СЕРТИФИКАЦИЯ И ГАЙДЛАЙНЫ (APPLE & GOOGLE)",
+  "toc_page": 500,
+  "pdf_page": 507,
+  "chunk_id": "s6-c02-03",
+  "words": 90,
+  "parts": [
+   "s6-c02-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 3: ОСНОВНЫЕ СТАНДАРТЫ APPLE",
+  "toc_page": 501,
+  "pdf_page": 508,
+  "chunk_id": "s6-c03-00",
+  "words": 182,
+  "parts": [
+   "s6-c03-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Цвет (Color):",
+  "toc_page": 501,
+  "pdf_page": 508,
+  "chunk_id": "s6-c03-01",
+  "words": 911,
+  "parts": [
+   "s6-c03-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Доступность",
+  "toc_page": 507,
+  "pdf_page": 514,
+  "chunk_id": "s6-c03-02",
+  "words": 153,
+  "parts": [
+   "s6-c03-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Конфиденциальность данных",
+  "toc_page": 508,
+  "pdf_page": 515,
+  "chunk_id": "s6-c03-03",
+  "words": 171,
+  "parts": [
+   "s6-c03-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Справа налево (Right to left)",
+  "toc_page": 508,
+  "pdf_page": 515,
+  "chunk_id": "s6-c03-04",
+  "words": 166,
+  "parts": [
+   "s6-c03-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Drag-and-Drop (перетаскивания)",
+  "toc_page": 511,
+  "pdf_page": 518,
+  "chunk_id": "s6-c03-05",
+  "words": 320,
+  "parts": [
+   "s6-c03-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Обратная связь (Feedback)",
+  "toc_page": 513,
+  "pdf_page": 520,
+  "chunk_id": "s6-c03-06",
+  "words": 101,
+  "parts": [
+   "s6-c03-06"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Запуск приложений (App Launch)",
+  "toc_page": 514,
+  "pdf_page": 521,
+  "chunk_id": "s6-c03-07",
+  "words": 347,
+  "parts": [
+   "s6-c03-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Загрузки (Loadings)",
+  "toc_page": 517,
+  "pdf_page": 524,
+  "chunk_id": "s6-c03-08",
+  "words": 228,
+  "parts": [
+   "s6-c03-08"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Управление учетными записями (Managing accounts)",
+  "toc_page": 519,
+  "pdf_page": 526,
+  "chunk_id": "s6-c03-09",
+  "words": 170,
+  "parts": [
+   "s6-c03-09"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Удаление учетных записей (Deleting accounts)",
+  "toc_page": 520,
+  "pdf_page": 527,
+  "chunk_id": "s6-c03-10",
+  "words": 139,
+  "parts": [
+   "s6-c03-10"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Уведомления (Notifications):",
+  "toc_page": 521,
+  "pdf_page": 528,
+  "chunk_id": "s6-c03-11",
+  "words": 140,
+  "parts": [
+   "s6-c03-11"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Модальность (Modality):",
+  "toc_page": 522,
+  "pdf_page": 529,
+  "chunk_id": "s6-c03-12",
+  "words": 201,
+  "parts": [
+   "s6-c03-12"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Многозадачность (Multitasking):",
+  "toc_page": 523,
+  "pdf_page": 530,
+  "chunk_id": "s6-c03-13",
+  "words": 93,
+  "parts": [
+   "s6-c03-13"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Предложение помощи (Offering help):",
+  "toc_page": 523,
+  "pdf_page": 530,
+  "chunk_id": "s6-c03-14",
+  "words": 326,
+  "parts": [
+   "s6-c03-14"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Онбординг (Onboarding):",
+  "toc_page": 524,
+  "pdf_page": 531,
+  "chunk_id": "s6-c03-14",
+  "words": 326,
+  "parts": [
+   "s6-c03-14"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Использование тактильной отдачи (Playing haptics):",
+  "toc_page": 525,
+  "pdf_page": 532,
+  "chunk_id": "s6-c03-16",
+  "words": 143,
+  "parts": [
+   "s6-c03-16"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Поиск (Searching)",
+  "toc_page": 526,
+  "pdf_page": 533,
+  "chunk_id": "s6-c03-17",
+  "words": 216,
+  "parts": [
+   "s6-c03-17"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Настройки (Settings):",
+  "toc_page": 529,
+  "pdf_page": 536,
+  "chunk_id": "s6-c03-18",
+  "words": 113,
+  "parts": [
+   "s6-c03-18"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Отмена и повтор действий (Undo and redo):",
+  "toc_page": 530,
+  "pdf_page": 537,
+  "chunk_id": "s6-c03-19",
+  "words": 212,
+  "parts": [
+   "s6-c03-19"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 4: РАСШИРЕННЫЕ СТАНДАРТЫ APPLE",
+  "toc_page": 532,
+  "pdf_page": 539,
+  "chunk_id": "s6-c04-00",
+  "words": 223,
+  "parts": [
+   "s6-c04-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Кнопки (Buttons):",
+  "toc_page": 532,
+  "pdf_page": 539,
+  "chunk_id": "s6-c04-00",
+  "words": 223,
+  "parts": [
+   "s6-c04-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Меню редактирования (Edit Menus):",
+  "toc_page": 533,
+  "pdf_page": 540,
+  "chunk_id": "s6-c04-02",
+  "words": 145,
+  "parts": [
+   "s6-c04-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Тексты в интерфейсе (Writing):",
+  "toc_page": 534,
+  "pdf_page": 541,
+  "chunk_id": "s6-c04-03",
+  "words": 304,
+  "parts": [
+   "s6-c04-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Быстрые действия на главном экране (Home screen quick actions):",
+  "toc_page": 536,
+  "pdf_page": 543,
+  "chunk_id": "s6-c04-04",
+  "words": 498,
+  "parts": [
+   "s6-c04-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Проектирование меню (Menus):",
+  "toc_page": 536,
+  "pdf_page": 543,
+  "chunk_id": "s6-c04-04",
+  "words": 498,
+  "parts": [
+   "s6-c04-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Поиск (Search):",
+  "toc_page": 539,
+  "pdf_page": 546,
+  "chunk_id": "s6-c04-06",
+  "words": 132,
+  "parts": [
+   "s6-c04-06"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Боковая панель (Sidebar):",
+  "toc_page": 540,
+  "pdf_page": 547,
+  "chunk_id": "s6-c04-07",
+  "words": 165,
+  "parts": [
+   "s6-c04-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Панель вкладок (Tab Bar):",
+  "toc_page": 541,
+  "pdf_page": 548,
+  "chunk_id": "s6-c04-08",
+  "words": 89,
+  "parts": [
+   "s6-c04-08"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Предупреждения (Alerts):",
+  "toc_page": 542,
+  "pdf_page": 549,
+  "chunk_id": "s6-c04-09",
+  "words": 153,
+  "parts": [
+   "s6-c04-09"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Индикаторы страниц (Page Controls):",
+  "toc_page": 543,
+  "pdf_page": 550,
+  "chunk_id": "s6-c04-10",
+  "words": 160,
+  "parts": [
+   "s6-c04-10"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Комбинированное поле ввода (Combo Box):",
+  "toc_page": 543,
+  "pdf_page": 550,
+  "chunk_id": "s6-c04-10",
+  "words": 160,
+  "parts": [
+   "s6-c04-10"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Текстовые поля и формы (Text Fields / Forms):",
+  "toc_page": 544,
+  "pdf_page": 551,
+  "chunk_id": "s6-c04-12",
+  "words": 324,
+  "parts": [
+   "s6-c04-12"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Переключатели (Toggles):",
+  "toc_page": 546,
+  "pdf_page": 553,
+  "chunk_id": "s6-c04-13",
+  "words": 86,
+  "parts": [
+   "s6-c04-13"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Виртуальные клавиатуры (Virtual Keyboards):",
+  "toc_page": 547,
+  "pdf_page": 554,
+  "chunk_id": "s6-c04-14",
+  "words": 80,
+  "parts": [
+   "s6-c04-14"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Индикаторы выполнения (Progress indicators):",
+  "toc_page": 548,
+  "pdf_page": 555,
+  "chunk_id": "s6-c04-15",
+  "words": 186,
+  "parts": [
+   "s6-c04-15"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Уведомления (Notifications):",
+  "toc_page": 549,
+  "pdf_page": 556,
+  "chunk_id": "s6-c03-11",
+  "words": 140,
+  "parts": [
+   "s6-c03-11"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 5: СТАНДАРТЫ MATERIAL DESIGN ОТ GOOGLE",
+  "toc_page": 550,
+  "pdf_page": 557,
+  "chunk_id": "s6-c05-00",
+  "words": 187,
+  "parts": [
+   "s6-c05-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Международный стиль написания:",
+  "toc_page": 550,
+  "pdf_page": 557,
+  "chunk_id": "s6-c05-00",
+  "words": 187,
+  "parts": [
+   "s6-c05-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Уведомления:",
+  "toc_page": 551,
+  "pdf_page": 558,
+  "chunk_id": "s6-c05-02",
+  "words": 607,
+  "parts": [
+   "s6-c05-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Руководство по стилю:",
+  "toc_page": 556,
+  "pdf_page": 563,
+  "chunk_id": "s6-c05-03",
+  "words": 634,
+  "parts": [
+   "s6-c05-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Состояния (States):",
+  "toc_page": 562,
+  "pdf_page": 569,
+  "chunk_id": "s6-c05-04",
+  "words": 1388,
+  "parts": [
+   "s6-c05-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Макет (Layout):",
+  "toc_page": 562,
+  "pdf_page": 569,
+  "chunk_id": "s6-c05-04",
+  "words": 1388,
+  "parts": [
+   "s6-c05-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Двунаправленность и чтение справа налево (Bidirectionality & RTL):",
+  "toc_page": 563,
+  "pdf_page": 570,
+  "chunk_id": "s6-c05-04",
+  "words": 1388,
+  "parts": [
+   "s6-c05-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Иконки (Icons):",
+  "toc_page": 572,
+  "pdf_page": 579,
+  "chunk_id": "s6-c05-07",
+  "words": 174,
+  "parts": [
+   "s6-c05-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Плавность и продолжительность (Easing and Duration):",
+  "toc_page": 573,
+  "pdf_page": 580,
+  "chunk_id": "s6-c05-07",
+  "words": 174,
+  "parts": [
+   "s6-c05-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Верхняя панель приложения (Top App Bar):",
+  "toc_page": 575,
+  "pdf_page": 582,
+  "chunk_id": "s6-c05-09",
+  "words": 102,
+  "parts": [
+   "s6-c05-09"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Значки (Badges):",
+  "toc_page": 576,
+  "pdf_page": 583,
+  "chunk_id": "s6-c05-10",
+  "words": 113,
+  "parts": [
+   "s6-c05-10"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Кнопки (Buttons):",
+  "toc_page": 577,
+  "pdf_page": 584,
+  "chunk_id": "s6-c04-00",
+  "words": 223,
+  "parts": [
+   "s6-c04-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Плавающие кнопки (FABs):",
+  "toc_page": 579,
+  "pdf_page": 586,
+  "chunk_id": "s6-c05-12",
+  "words": 320,
+  "parts": [
+   "s6-c05-12"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Плавающее кнопка с меню (FAB menu):",
+  "toc_page": 584,
+  "pdf_page": 591,
+  "chunk_id": "s6-c05-13",
+  "words": 161,
+  "parts": [
+   "s6-c05-13"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Кнопки-иконки (Icon buttons):",
+  "toc_page": 585,
+  "pdf_page": 592,
+  "chunk_id": "s6-c05-13",
+  "words": 161,
+  "parts": [
+   "s6-c05-13"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Сегменты (Segments):",
+  "toc_page": 586,
+  "pdf_page": 593,
+  "chunk_id": "s6-c05-15",
+  "words": 197,
+  "parts": [
+   "s6-c05-15"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Карусель (Carousel):",
+  "toc_page": 587,
+  "pdf_page": 594,
+  "chunk_id": "s6-c05-15",
+  "words": 197,
+  "parts": [
+   "s6-c05-15"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Чекбокс (Checkbox)",
+  "toc_page": 588,
+  "pdf_page": 595,
+  "chunk_id": "s6-c05-17",
+  "words": 328,
+  "parts": [
+   "s6-c05-17"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Диалоговые окна (Dialogs)",
+  "toc_page": 589,
+  "pdf_page": 596,
+  "chunk_id": "s6-c05-17",
+  "words": 328,
+  "parts": [
+   "s6-c05-17"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Индикаторы загрузки и прогресса (Loading and Progress Indicators)",
+  "toc_page": 592,
+  "pdf_page": 599,
+  "chunk_id": "s6-c05-19",
+  "words": 192,
+  "parts": [
+   "s6-c05-19"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Индикаторы прогресса (Progress Indicator)",
+  "toc_page": 593,
+  "pdf_page": 600,
+  "chunk_id": "s6-c05-20",
+  "words": 127,
+  "parts": [
+   "s6-c05-20"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Навигационная панель (Navigation Bar)",
+  "toc_page": 595,
+  "pdf_page": 602,
+  "chunk_id": "s6-c05-21",
+  "words": 191,
+  "parts": [
+   "s6-c05-21"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Боковая панель (Sidebar)",
+  "toc_page": 597,
+  "pdf_page": 604,
+  "chunk_id": "s6-c05-22",
+  "words": 136,
+  "parts": [
+   "s6-c05-22"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Радиокнопки (Radio buttons)",
+  "toc_page": 598,
+  "pdf_page": 605,
+  "chunk_id": "s6-c05-23",
+  "words": 166,
+  "parts": [
+   "s6-c05-23"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Ползунки диапазона (Range Sliders)",
+  "toc_page": 600,
+  "pdf_page": 607,
+  "chunk_id": "s6-c05-24",
+  "words": 509,
+  "parts": [
+   "s6-c05-24"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Снекбары (Snackbars)",
+  "toc_page": 601,
+  "pdf_page": 608,
+  "chunk_id": "s6-c05-24",
+  "words": 509,
+  "parts": [
+   "s6-c05-24"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Переключатели (Toggle Switches)",
+  "toc_page": 606,
+  "pdf_page": 613,
+  "chunk_id": "s6-c05-26",
+  "words": 181,
+  "parts": [
+   "s6-c05-26"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Вкладки (Tabs)",
+  "toc_page": 609,
+  "pdf_page": 616,
+  "chunk_id": "s6-c05-27",
+  "words": 181,
+  "parts": [
+   "s6-c05-27"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Текстовые поля (Text Fields)",
+  "toc_page": 609,
+  "pdf_page": 616,
+  "chunk_id": "s6-c05-27",
+  "words": 181,
+  "parts": [
+   "s6-c05-27"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "— Подсказки (Tooltips)",
+  "toc_page": 611,
+  "pdf_page": 618,
+  "chunk_id": "s6-c05-29",
+  "words": 58,
+  "parts": [
+   "s6-c05-29"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 6: ТЕСТИРОВАНИЕ В XCODE",
+  "toc_page": 612,
+  "pdf_page": 619,
+  "chunk_id": "s6-c06-00",
+  "words": 87,
+  "parts": [
+   "s6-c06-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СИМУЛЯТОР ПРОТИВ ЭМУЛЯТОРА: В ЧЕМ ПРИНЦИПИАЛЬНАЯ РАЗНИЦА?",
+  "toc_page": 613,
+  "pdf_page": 620,
+  "chunk_id": "s6-c06-01",
+  "words": 247,
+  "parts": [
+   "s6-c06-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ПЕРВЫЙ ЗАПУСК И СБОРКА ПРОЕКТА В XCODE",
+  "toc_page": 614,
+  "pdf_page": 621,
+  "chunk_id": "s6-c06-02",
+  "words": 147,
+  "parts": [
+   "s6-c06-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "УПРАВЛЕНИЕ И ЖЕСТЫ В СИМУЛЯТОРЕ XCODE",
+  "toc_page": 617,
+  "pdf_page": 624,
+  "chunk_id": "s6-c06-03",
+  "words": 155,
+  "parts": [
+   "s6-c06-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ПОЛЕЗНЫЕ ФУНКЦИИ XCODE ДЛЯ QA-ИНЖЕНЕРА",
+  "toc_page": 621,
+  "pdf_page": 628,
+  "chunk_id": "s6-c06-04",
+  "words": 1080,
+  "parts": [
+   "s6-c06-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "Ползунок внизу:",
+  "toc_page": 630,
+  "pdf_page": 637,
+  "chunk_id": "s6-c06-05",
+  "words": 202,
+  "parts": [
+   "s6-c06-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "УСТАНОВКА ПРИЛОЖЕНИЯ ИЗ XCODE НА ФИЗИЧЕСКИЙ IPHONE",
+  "toc_page": 633,
+  "pdf_page": 640,
+  "chunk_id": "s6-c06-06",
+  "words": 240,
+  "parts": [
+   "s6-c06-06"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 7: ТЕСТИРОВАНИЕ В ANDROID STUDIO",
+  "toc_page": 636,
+  "pdf_page": 643,
+  "chunk_id": "s6-c07-00",
+  "words": 290,
+  "parts": [
+   "s6-c07-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ПЕРВИЧНАЯ НАСТРОЙКА И СОЗДАНИЕ ЭМУЛЯТОРА (AVD)",
+  "toc_page": 636,
+  "pdf_page": 643,
+  "chunk_id": "s6-c07-00",
+  "words": 290,
+  "parts": [
+   "s6-c07-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ИНТЕРФЕЙС И КНОПКИ УПРАВЛЕНИЯ ЭМУЛЯТОРА ANDROID",
+  "toc_page": 643,
+  "pdf_page": 650,
+  "chunk_id": "s6-c07-02",
+  "words": 1121,
+  "parts": [
+   "s6-c07-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "БЫСТРАЯ УСТАНОВКА ПРИЛОЖЕНИЙ (.APK) НА ЭМУЛЯТОР",
+  "toc_page": 653,
+  "pdf_page": 660,
+  "chunk_id": "s6-c07-03",
+  "words": 125,
+  "parts": [
+   "s6-c07-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 8: ОТЛАДКА СО СМАРТФОНА",
+  "toc_page": 655,
+  "pdf_page": 662,
+  "chunk_id": "s6-c08-00",
+  "words": 542,
+  "parts": [
+   "s6-c08-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ОТЛАДКА НА ИНСТРУМЕНТАХ IOS (MACOS)",
+  "toc_page": 655,
+  "pdf_page": 662,
+  "chunk_id": "s6-c08-00",
+  "words": 542,
+  "parts": [
+   "s6-c08-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ОТЛАДКА НА ИНСТРУМЕНТАХ ANDROID OS",
+  "toc_page": 660,
+  "pdf_page": 667,
+  "chunk_id": "s6-c08-02",
+  "words": 1436,
+  "parts": [
+   "s6-c08-02"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 9: ЖИЗНЕННЫЙ ЦИКЛ В ANDROID OS",
+  "toc_page": 674,
+  "pdf_page": 681,
+  "chunk_id": "s6-c09-00",
+  "words": 942,
+  "parts": [
+   "s6-c09-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ЖИЗНЕННЫЙ ЦИКЛ ACTIVITY В ANDROID",
+  "toc_page": 674,
+  "pdf_page": 681,
+  "chunk_id": "s6-c09-00",
+  "words": 942,
+  "parts": [
+   "s6-c09-00"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 10: ЖИЗНЕННЫЙ ЦИКЛ В iOS",
+  "toc_page": 679,
+  "pdf_page": 686,
+  "chunk_id": "s6-c10-00",
+  "words": 233,
+  "parts": [
+   "s6-c10-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. ЖИЗНЕННЫЙ ЦИКЛ ПРИЛОЖЕНИЯ В IOS (APP LIFECYCLE)",
+  "toc_page": 679,
+  "pdf_page": 686,
+  "chunk_id": "s6-c10-00",
+  "words": 233,
+  "parts": [
+   "s6-c10-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. ЖИЗНЕННЫЙ ЦИКЛ ЭКРАНА В IOS (VIEWCONTROLLER LIFECYCLE)",
+  "toc_page": 681,
+  "pdf_page": 688,
+  "chunk_id": "s6-c10-02",
+  "words": 430,
+  "parts": [
+   "s6-c10-02"
+  ]
+ },
+ {
+  "level": "section",
+  "title": "РАЗДЕЛ 7 — РАСШИРЕННЫЕ ПРАКТИКИ QA: ОТ ПРОЦЕССОВ ДО КАРЬЕРЫ",
+  "toc_page": 684,
+  "pdf_page": 691,
+  "chunk_id": "s7-c00-00",
+  "words": 71,
+  "parts": [
+   "s7-c00-00"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 1: КОНСОЛЬНЫЕ КОМАНДЫ",
+  "toc_page": 684,
+  "pdf_page": 691,
+  "chunk_id": "s7-c01-00",
+  "words": 493,
+  "parts": [
+   "s7-c01-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ВВЕДЕНИЕ В МЕНЕДЖЕРЫ ПАКЕТОВ: NPM И YARN",
+  "toc_page": 684,
+  "pdf_page": 691,
+  "chunk_id": "s7-c01-00",
+  "words": 493,
+  "parts": [
+   "s7-c01-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ПРАКТИКУМ: КЛОНИРОВАНИЕ И ЛОКАЛЬНЫЙ ЗАПУСК ПРОЕКТА",
+  "toc_page": 690,
+  "pdf_page": 697,
+  "chunk_id": "s7-c01-02",
+  "words": 274,
+  "parts": [
+   "s7-c01-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "РАБОТА С КОНСОЛЬНЫМ ТЕКСТОВЫМ РЕДАКТОРОМ VIM",
+  "toc_page": 694,
+  "pdf_page": 701,
+  "chunk_id": "s7-c01-03",
+  "words": 166,
+  "parts": [
+   "s7-c01-03"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 2: CI/CD",
+  "toc_page": 698,
+  "pdf_page": 705,
+  "chunk_id": "s7-c02-00",
+  "words": 529,
+  "parts": [
+   "s7-c02-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "АНАЛОГИЯ С КОНВЕЙЕРОМ ГЕНРИ ФОРДА",
+  "toc_page": 698,
+  "pdf_page": 705,
+  "chunk_id": "s7-c02-00",
+  "words": 529,
+  "parts": [
+   "s7-c02-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "МЕХАНИКА CONTINUOUS INTEGRATION (CI)",
+  "toc_page": 700,
+  "pdf_page": 707,
+  "chunk_id": "s7-c02-02",
+  "words": 337,
+  "parts": [
+   "s7-c02-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "CONTINUOUS DELIVERY (CD) И АРХИТЕКТУРА PIPELINE",
+  "toc_page": 703,
+  "pdf_page": 710,
+  "chunk_id": "s7-c02-03",
+  "words": 91,
+  "parts": [
+   "s7-c02-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "МАКРО-СХЕМА WORKFLOW",
+  "toc_page": 705,
+  "pdf_page": 712,
+  "chunk_id": "s7-c02-04",
+  "words": 96,
+  "parts": [
+   "s7-c02-04"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 3: VCS И GIT",
+  "toc_page": 706,
+  "pdf_page": 713,
+  "chunk_id": "s7-c03-00",
+  "words": 90,
+  "parts": [
+   "s7-c03-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ЧТО ТАКОЕ VCS И ЧЕМ ОНА ОТЛИЧАЕТСЯ ОТ GIT?",
+  "toc_page": 706,
+  "pdf_page": 713,
+  "chunk_id": "s7-c03-01",
+  "words": 337,
+  "parts": [
+   "s7-c03-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "GIT",
+  "toc_page": 710,
+  "pdf_page": 717,
+  "chunk_id": "s7-c03-02",
+  "words": 442,
+  "parts": [
+   "s7-c03-02"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 4: РАСШИРЕННЫЕ ТРЕБОВАНИЯ, ЗАКОНЫ UX И ТЕМНЫЕ ПАТТЕРНЫ",
+  "toc_page": 715,
+  "pdf_page": 722,
+  "chunk_id": "s7-c04-00",
+  "words": 81,
+  "parts": [
+   "s7-c04-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СЕКЦИЯ 1: СТАНДАРТЫ W3C ДЛЯ МОБИЛЬНЫХ ВЕБ-ПРИЛОЖЕНИЙ",
+  "toc_page": 715,
+  "pdf_page": 722,
+  "chunk_id": "s7-c04-01",
+  "words": 637,
+  "parts": [
+   "s7-c04-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СЕКЦИЯ 2: GOOGLE CORE WEB VITALS (ПРОИЗВОДИТЕЛЬНОСТЬ)",
+  "toc_page": 717,
+  "pdf_page": 724,
+  "chunk_id": "s7-c04-02",
+  "words": 281,
+  "parts": [
+   "s7-c04-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СЕКЦИЯ 3: ГАЙДЛАЙНЫ MICROSOFT ДЛЯ ВИДЕОИГР И ИНКЛЮЗИВНОСТИ",
+  "toc_page": 719,
+  "pdf_page": 726,
+  "chunk_id": "s7-c04-03",
+  "words": 196,
+  "parts": [
+   "s7-c04-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СЕКЦИЯ 4: 18 ЗАКОНОВ UX ДЛЯ QA-ИНЖЕНЕРА",
+  "toc_page": 720,
+  "pdf_page": 727,
+  "chunk_id": "s7-c04-04",
+  "words": 2051,
+  "parts": [
+   "s7-c04-04-p1",
+   "s7-c04-04-p2"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СЕКЦИЯ 5: ТЁМНЫЕ ПАТТЕРНЫ (DARK PATTERNS / DECEPTIVE DESIGN)",
+  "toc_page": 738,
+  "pdf_page": 745,
+  "chunk_id": "s7-c04-05",
+  "words": 1683,
+  "parts": [
+   "s7-c04-05-p1",
+   "s7-c04-05-p2"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 5: ПРОЦЕСС ТЕСТИРОВАНИЯ В РАЗНЫХ КОМАНДАХ",
+  "toc_page": 752,
+  "pdf_page": 759,
+  "chunk_id": "s7-c05-00",
+  "words": 166,
+  "parts": [
+   "s7-c05-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ПОДХОДЫ К РАЗРАБОТКЕ: SCRUM VS KANBAN",
+  "toc_page": 752,
+  "pdf_page": 759,
+  "chunk_id": "s7-c05-01",
+  "words": 1190,
+  "parts": [
+   "s7-c05-01"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 6: ТЕСТИРОВАНИЕ С ИИ",
+  "toc_page": 758,
+  "pdf_page": 765,
+  "chunk_id": "s7-c06-00",
+  "words": 90,
+  "parts": [
+   "s7-c06-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "1. СОСТАВЛЕНИЕ ТЕСТ-КЕЙСОВ",
+  "toc_page": 758,
+  "pdf_page": 765,
+  "chunk_id": "s7-c06-01",
+  "words": 458,
+  "parts": [
+   "s7-c06-01"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "2. ГЕНЕРАЦИЯ СЛОЖНЫХ ТЕСТОВЫХ ДАННЫХ",
+  "toc_page": 761,
+  "pdf_page": 768,
+  "chunk_id": "s7-c06-02",
+  "words": 802,
+  "parts": [
+   "s7-c06-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "3. АВТОМАТИЗАЦИЯ ОФОРМЛЕНИЯ БАГ-РЕПОРТОВ",
+  "toc_page": 767,
+  "pdf_page": 774,
+  "chunk_id": "s7-c06-03",
+  "words": 130,
+  "parts": [
+   "s7-c06-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "4. СБОР ТРЕБОВАНИЙ И ПОКРЫТИЕ ТЕСТАМИ НА ОСНОВЕ КОДА",
+  "toc_page": 769,
+  "pdf_page": 776,
+  "chunk_id": "s7-c06-04",
+  "words": 233,
+  "parts": [
+   "s7-c06-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "5. ЛОКАЛИЗАЦИЯ И ДИАГНОСТИКА ПРИЧИН БАГА (ROOT CAUSE ANALYSIS).",
+  "toc_page": 771,
+  "pdf_page": 778,
+  "chunk_id": "s7-c06-05",
+  "words": 258,
+  "parts": [
+   "s7-c06-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "6. АНАЛИЗ СТЭК-ТРЕЙСОВ И ЛОГОВ (LOG ANALYSIS)",
+  "toc_page": 772,
+  "pdf_page": 779,
+  "chunk_id": "s7-c06-06",
+  "words": 394,
+  "parts": [
+   "s7-c06-06"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "7. УСКОРЕНИЕ НАПИСАНИЯ SQL-ЗАПРОСОВ",
+  "toc_page": 773,
+  "pdf_page": 780,
+  "chunk_id": "s7-c06-07",
+  "words": 127,
+  "parts": [
+   "s7-c06-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "8. ЭМУЛЯЦИЯ ПОЛЬЗОВАТЕЛЬСКИХ АГЕНТОВ (AI AGENTS)",
+  "toc_page": 773,
+  "pdf_page": 780,
+  "chunk_id": "s7-c06-07",
+  "words": 127,
+  "parts": [
+   "s7-c06-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "9. ТЕСТИРОВАНИЕ УДОБСТВА И UX/UI (USABILITY TESTING)",
+  "toc_page": 774,
+  "pdf_page": 781,
+  "chunk_id": "s7-c06-09",
+  "words": 654,
+  "parts": [
+   "s7-c06-09"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ОБРАТНАЯ СТОРОНА, ОГРАНИЧЕНИЯ И РИСКИ ПРИМЕНЕНИЯ ИИ:",
+  "toc_page": 778,
+  "pdf_page": 785,
+  "chunk_id": "s7-c06-10",
+  "words": 410,
+  "parts": [
+   "s7-c06-10"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 7: ПОВЫШЕНИЕ ПРОДУКТИВНОСТИ",
+  "toc_page": 780,
+  "pdf_page": 787,
+  "chunk_id": "s7-c07-00",
+  "words": 308,
+  "parts": [
+   "s7-c07-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ИЗОЛЯЦИЯ КОНТЕКСТА И ПРОФИЛИ В GOOGLE CHROME",
+  "toc_page": 780,
+  "pdf_page": 787,
+  "chunk_id": "s7-c07-00",
+  "words": 308,
+  "parts": [
+   "s7-c07-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "МАКСИМАЛЬНАЯ СКОРОСТЬ: 21 ПРАКТИЧЕСКИЙ ШОРТКАТ ДЛЯ QA",
+  "toc_page": 782,
+  "pdf_page": 789,
+  "chunk_id": "s7-c07-02",
+  "words": 793,
+  "parts": [
+   "s7-c07-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "РАСШИРЕНИЯ ДЛЯ ХРОМА (EXTENSIONS)",
+  "toc_page": 787,
+  "pdf_page": 794,
+  "chunk_id": "s7-c07-03",
+  "words": 471,
+  "parts": [
+   "s7-c07-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "РЕКОМЕНДАЦИЯ ПО ВЫБОРУ ЖЕЛЕЗА: ПОЧЕМУ МАКБУК — ЭТО СТАНДАРТ ДЛЯ QA",
+  "toc_page": 789,
+  "pdf_page": 796,
+  "chunk_id": "s7-c07-04",
+  "words": 180,
+  "parts": [
+   "s7-c07-04"
+  ]
+ },
+ {
+  "level": "chapter",
+  "title": "ГЛАВА 8: КАРЬЕРНЫЕ РЕКОМЕНДАЦИИ",
+  "toc_page": 790,
+  "pdf_page": 797,
+  "chunk_id": "s7-c08-00",
+  "words": 103,
+  "parts": [
+   "s7-c08-00"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СТАДИЯ 1: ПОИСК РАБОТЫ (ОТРИЦАНИЕ)",
+  "toc_page": 790,
+  "pdf_page": 797,
+  "chunk_id": "s7-c08-01",
+  "words": 2050,
+  "parts": [
+   "s7-c08-01-p1",
+   "s7-c08-01-p2"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СТАДИЯ 2: РАБОТА В КОМПАНИИ (ГНЕВ)",
+  "toc_page": 802,
+  "pdf_page": 809,
+  "chunk_id": "s7-c08-02",
+  "words": 431,
+  "parts": [
+   "s7-c08-02"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СТАДИЯ 3: УВОЛЬНЕНИЕ И СОКРАЩЕНИЕ (ТОРГ)",
+  "toc_page": 803,
+  "pdf_page": 810,
+  "chunk_id": "s7-c08-03",
+  "words": 377,
+  "parts": [
+   "s7-c08-03"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "СТАДИЯ 4: ОБУЧЕНИЕ (ПРИНЯТИЕ)",
+  "toc_page": 804,
+  "pdf_page": 811,
+  "chunk_id": "s7-c08-04",
+  "words": 459,
+  "parts": [
+   "s7-c08-04"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "ПОСЛЕСЛОВИЕ",
+  "toc_page": 807,
+  "pdf_page": 814,
+  "chunk_id": "s7-c08-05",
+  "words": 145,
+  "parts": [
+   "s7-c08-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "О жертве:",
+  "toc_page": 807,
+  "pdf_page": 814,
+  "chunk_id": "s7-c08-05",
+  "words": 145,
+  "parts": [
+   "s7-c08-05"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "О цене:",
+  "toc_page": 807,
+  "pdf_page": 814,
+  "chunk_id": "s7-c08-07",
+  "words": 233,
+  "parts": [
+   "s7-c08-07"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "О будущем:",
+  "toc_page": 808,
+  "pdf_page": 815,
+  "chunk_id": "s7-c08-08",
+  "words": 151,
+  "parts": [
+   "s7-c08-08"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "О героях:",
+  "toc_page": 808,
+  "pdf_page": 815,
+  "chunk_id": "s7-c08-09",
+  "words": 357,
+  "parts": [
+   "s7-c08-09"
+  ]
+ },
+ {
+  "level": "sub",
+  "title": "О качестве:",
+  "toc_page": 809,
+  "pdf_page": 817,
+  "chunk_id": "s7-c08-10",
+  "words": 225,
+  "parts": [
+   "s7-c08-10"
+  ]
+ }
+]
