@@ -61,6 +61,24 @@ class ValidateTest(unittest.TestCase):
         self.assertEqual(validate_all({"forms": [with_change(source={"chunk_id": "s9-c99-99"})]}, None), [])
 
 
+class NonBookRulesTest(unittest.TestCase):
+    QAP = {**copy.deepcopy(VALID), "id": "QAP-INFRA-001", "source": {"origin": "pilot pawfile 2026-10-12"}}
+
+    def test_qap_with_origin_passes_and_renders_origin(self):
+        self.assertEqual(validate_all({"pilot": [self.QAP]}, CHUNKS), [])
+        md = render_topic("pilot", [self.QAP])
+        self.assertIn("источник: pilot pawfile 2026-10-12", md)
+        self.assertIn("Собственные правила qa-pilot", md)
+
+    def test_qap_without_origin_fails(self):
+        bad = {**self.QAP, "source": {"chunk_id": "s1-c07-01"}}
+        self.assertTrue(any("source.origin is required" in e for e in validate_all({"pilot": [bad]}, CHUNKS)))
+
+    def test_book_rule_needs_chunk_id(self):
+        bad = with_change(source={"origin": "somewhere"})
+        self.assertTrue(any("source.chunk_id is required" in e for e in validate_all({"forms": [bad]}, CHUNKS)))
+
+
 class RenderTest(unittest.TestCase):
     def test_groups_by_kind_and_shows_check(self):
         tip = with_change(id="SRK-FORM-002", kind="tip", verification="doubtful")

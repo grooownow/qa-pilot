@@ -19,7 +19,7 @@ SEVERITIES = ("must", "should", "nice")
 MODES = ("deterministic", "heuristic", "manual")
 TARGETS = ("requirements", "test-plan", "test-code", "live-product", "test-cases")
 VERIFICATION = ("ok", "fixed", "doubtful")
-ID_RE = re.compile(r"^SRK-[A-Z0-9]+(-[A-Z0-9]+)*-\d{3}$")
+ID_RE = re.compile(r"^(SRK|QAP|PRJ)-[A-Z0-9]+(-[A-Z0-9]+)*-\d{3}$")
 REQUIRED_TEXT = ("id", "kind", "severity", "title", "statement")
 OPTIONAL_TEXT = ("rationale", "modern_note", "decision")
 ALLOWED = set(REQUIRED_TEXT + OPTIONAL_TEXT + ("applies_to", "check", "source", "tags", "verification"))
@@ -73,7 +73,11 @@ def validate_record(r, chunks):
     if "verification" in r and r["verification"] not in VERIFICATION:
         errors.append(f"{rid}: verification must be one of {VERIFICATION}")
     source = r.get("source")
-    if not isinstance(source, dict) or not isinstance(source.get("chunk_id"), str):
+    from_book = str(r.get("id", "")).startswith("SRK-")
+    if not from_book:
+        if not isinstance(source, dict) or not isinstance(source.get("origin"), str) or not source["origin"].strip():
+            errors.append(f"{rid}: source.origin is required for non-book rules")
+    elif not isinstance(source, dict) or not isinstance(source.get("chunk_id"), str):
         errors.append(f"{rid}: source.chunk_id is required")
     else:
         pages = source.get("printed_pages", [])
@@ -108,9 +112,12 @@ def validate_all(rule_sets, chunks):
 
 
 def render_topic(topic, records):
+    from_book = all(r["id"].startswith("SRK-") for r in records)
+    provenance = ("Формулировки — пересказ книги Р. Суркова «Качество решает всё»; страницы — печатные номера книги."
+                  if from_book else "Собственные правила qa-pilot: источник каждого правила указан в поле «источник».")
     out = [f"# {topic}", "",
            f"Сгенерировано из `{topic}.json` скриптом `scripts/kb/render_rules.py` — правьте JSON, не этот файл.",
-           "Формулировки — пересказ книги Р. Суркова «Качество решает всё»; страницы — печатные номера книги.", ""]
+           provenance, ""]
     for kind in KINDS:
         group = [r for r in records if r["kind"] == kind]
         if not group:
@@ -118,11 +125,14 @@ def render_topic(topic, records):
         out += [f"## {KIND_RU[kind]} ({len(group)})", ""]
         for r in group:
             src = r["source"]
-            pages = "–".join(map(str, src.get("printed_pages", []))) or "?"
+            if "chunk_id" in src:
+                where = f"`{src['chunk_id']}`, с. " + ("–".join(map(str, src.get("printed_pages", []))) or "?")
+            else:
+                where = src["origin"]
             flag = " ⚠️ сомнительно" if r.get("verification") == "doubtful" else ""
             out += [f"### {r['id']} · {r['title']}{flag}", "",
                     f"`{r['severity']}` · проверка: {MODE_RU[r['check']['mode']]} · "
-                    f"для: {', '.join(r['applies_to'])} · источник: `{src['chunk_id']}`, с. {pages}", "",
+                    f"для: {', '.join(r['applies_to'])} · источник: {where}", "",
                     r["statement"], ""]
             if r.get("rationale"):
                 out += [f"**Почему:** {r['rationale']}", ""]
