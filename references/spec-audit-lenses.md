@@ -19,7 +19,7 @@ The work is **read-only.** Never edit the project. You write only your findings 
    - Read `core.md` in full.
    - For `forms-ui`, `api-data`, `a11y-l10n` and `platform`, do not read the whole file. `grep` them for the domain words of your specs (e.g. `upload|файл`, `share|ссылк`, `date|дат`, `password|парол`, `focus|keyboard`) and read only the matching lines.
 
-   Full records are in the catalog JSON (`knowledge/*/rules/*.json`); look a record up with `jq` by id when a one-line summary is not enough.
+   Full records are in the catalog JSON (`<catalog path from your brief>/*/rules/*.json`); look a record up with `jq` by id when a one-line summary is not enough.
 
 ## 1. Lenses: apply them in this order to every spec
 
@@ -72,7 +72,7 @@ If your Write tool is blocked, append with a shell command (`cat >> <file> <<'EO
 - <rule id> — <decision source>
 ```
 
-- Set severity with `references/severity-calibration.md`. The rule's own severity is only a hint.
+- Set severity with the severity-calibration file from your brief. The rule's own severity is only a hint.
 - **Be sharp, not long.** 10 grounded findings beat 50 generic ones. No finding without a location.
 - **End the file with `## Lens notes`** (≤5 bullets): rules that were noisy or missing for this product. The main session uses these notes to tune overrides.
 

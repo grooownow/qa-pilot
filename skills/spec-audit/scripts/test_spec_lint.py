@@ -1,9 +1,8 @@
-import re
 import unittest
 
-from spec_lint import DEFAULT_SKIP_SECTIONS, lint_text, vague_regex
+from spec_lint import lint_text, skip_regex, vague_regex
 
-SKIP = re.compile("|".join(DEFAULT_SKIP_SECTIONS), re.I)
+SKIP = skip_regex()
 VAGUE = vague_regex([])
 
 
@@ -28,6 +27,21 @@ class FiresTest(unittest.TestCase):
         text = "## AC\n- Отображается адекватно и шустро.\n"
         self.assertEqual([m for _, _, m in lint(text, vague=vague_regex(["шустр"]))], ["адекватно", "шустро"])
         self.assertEqual(lint("## AC\n- 20 нормальных документов\n"), [])
+
+
+class HeadingScopeTest(unittest.TestCase):
+    def test_feature_headings_are_not_skipped(self):
+        for heading in ["Change password", "Change email", "Изменение пароля", "Order history", "История заказов",
+                        "Purchase history", "Context menu", "Why us page", "Exchange rates"]:
+            self.assertFalse(SKIP.search(heading), heading)
+
+    def test_meta_headings_are_skipped(self):
+        for heading in ["1a. Изменения 2026-08-29", "4. Открытые решения", "1. Цель и контекст", "Rationale",
+                        "Open questions", "Changelog", "История изменений", "Alternatives considered", "Почему так"]:
+            self.assertTrue(SKIP.search(heading), heading)
+
+    def test_project_patterns_are_added(self):
+        self.assertTrue(skip_regex([r"^Заметки"]).search("Заметки дизайнера"))
 
 
 class EnglishTest(unittest.TestCase):

@@ -23,6 +23,14 @@ Paths below are relative to this skill's base directory. The catalog is `../../k
 
 ## Phase 0 — Preflight and scope
 
+Work from the **project root**. Set two variables first; every later step uses them:
+
+```bash
+SKILL_DIR=<absolute base directory of this skill>   # shown when the skill loads
+SCRATCH=docs/qa/spec-audit/.work/<slug>             # suggest the user gitignore docs/qa/spec-audit/.work/
+mkdir -p "$SCRATCH"
+```
+
 1. **Profile.**
    - If `docs/qa/project-profile.md` is missing, stop and run `qa-pilot:onboard`.
    - If it has no `## Product traits` section, ask the user in ONE message for the traits below and add the section yourself. These are facts about the product, so asking is cheap and saves noise later.
@@ -63,11 +71,7 @@ Paths below are relative to this skill's base directory. The catalog is `../../k
 
 ## Phase 1 — Rule packs and the deterministic pass
 
-Run these from the **project root**. `SKILL_DIR` is this skill's base directory, an absolute path shown when the skill loads.
-
 ```bash
-SKILL_DIR=<absolute base directory of this skill>
-SCRATCH=docs/qa/spec-audit/.work/<slug>     # suggest the user gitignore docs/qa/spec-audit/.work/
 python3 "$SKILL_DIR/scripts/rules_pack.py" --kb "$SKILL_DIR/../../knowledge" \
   --profile docs/qa/project-profile.md --overrides docs/qa/rule-overrides.json \
   --targets requirements,test-plan --out "$SCRATCH"
@@ -77,6 +81,7 @@ python3 "$SKILL_DIR/scripts/spec_lint.py" --overrides docs/qa/rule-overrides.jso
 Both scripts accept a missing overrides file, so pass the flag every time.
 
 - `manifest.json` lists every excluded rule and why. Put the counts in the report header.
+- Read `manifest.json` → `warnings`. Each warning is either a trait value that could not be parsed or a malformed `PRJ` rule. Fix the profile or the overrides and re-run, or tell the user.
 - **Lint output is candidates, not findings.**
   - Candidates with `quantified: true` are almost always false positives (the line already has a number with a unit). Drop them unless the vague word is about something else.
   - Keep the rest for triage in Phase 5.
@@ -91,7 +96,8 @@ Both scripts accept a missing overrides file, so pass the flag every time.
 - Group the in-scope docs into clusters: one feature with its pages, or one lifecycle. One cluster can be the whole scope.
 - Dispatch **one agent per cluster, at most 5 in parallel**: a general-purpose agent on the session model, because this is judgment work.
 - The brief, kept short:
-  - "Follow `<abs path>/references/spec-audit-lenses.md` exactly";
+  - "Follow `$SKILL_DIR/../../references/spec-audit-lenses.md` exactly" (as an absolute path);
+  - absolute paths to the catalog `$SKILL_DIR/../../knowledge` and to `$SKILL_DIR/../../references/severity-calibration.md`;
   - the cluster's spec files, the project root and the baseline sha;
   - the pack dir `$SCRATCH/packs` and the decisions digest `$SCRATCH/decisions.md`;
   - the lint candidates for those files;

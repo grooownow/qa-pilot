@@ -3,7 +3,7 @@
 
 Usage: python3 spec_lint.py [--overrides docs/qa/rule-overrides.json] <file.md> ...
 
-Prints a JSON array of candidates: {file, line, check, rule, match, text}.
+Prints a JSON array of candidates: {file, line, check, rule, match, quantified, text}.
 Checks only requirement prose: skips fenced code, inline code, quoted strings
 («…», "…", “…”) and whole sections whose heading looks like rationale, history,
 changes, open questions or alternatives (extendable via overrides).
@@ -25,11 +25,15 @@ from pathlib import Path
 VAGUE_STEMS = ["быстр", "удобн", "адекватн", "интуитивн", "гибк", "корректн"]
 VAGUE_EN = (r"fast|quickly|user[- ]friendly|intuitive(?:ly)?|easy|easily|flexible|adequate(?:ly)?|"
             r"appropriate(?:ly)?|properly|correctly|seamless(?:ly)?|reasonabl[ey]|as needed|if necessary|when necessary")
+# Matched against the heading text after any "1." / "1a)" numbering, anchored at
+# its start, so "Change password" or "История заказов" stay checked.
 DEFAULT_SKIP_SECTIONS = [
-    r"rationale", r"обоснован", r"истори", r"history", r"изменени", r"changes?\b", r"changelog",
-    r"open questions", r"открыт\w*\s+(вопрос|решени)", r"альтернатив", r"alternatives",
-    r"почему", r"\bwhy\b", r"контекст", r"context", r"\bцел[ьи]\b", r"\bgoals?\b",
+    r"rationale", r"обоснование", r"история изменений", r"history\s*$", r"changes\b", r"changelog",
+    r"изменения\b", r"изменено\b", r"open questions", r"открытые\s+(вопросы|решения)", r"альтернатив",
+    r"alternatives\b", r"почему\b", r"why\b(?!\s+us)", r"контекст\s*$", r"context\s*$", r"background\s*$",
+    r"цел[ьи]\b", r"goals?\s*$",
 ]
+HEADING_PREFIX = r"^\s*(?:\d+[a-zа-я]?[.)]\s*)?(?:"
 UNFINISHED = re.compile(r"\b(TBD|TBC|TODO|DRAFT)\b|\?\?\?|ЧЕРНОВИК|(?<![а-яёa-zА-ЯЁ])[Уу]точнить")
 # A line that records a dated product decision is rationale, not a requirement.
 DATED_DECISION = re.compile(r"(decision|решени\w*)\W{0,3}(от\s+)?\d{4}-\d{2}-\d{2}", re.I)
@@ -44,6 +48,12 @@ def vague_regex(extra):
     stems = "|".join(re.escape(s) for s in VAGUE_STEMS + [e for e in extra if e not in VAGUE_STEMS])
     return re.compile(rf"(?<![а-яё])(не)?({stems})[а-яё]*|(?<![а-яё])(по\s+мере|при)\s+необходимости"
                       rf"|(?<![a-z-])({VAGUE_EN})(?![a-z-])", re.I)
+
+
+def skip_regex(project_patterns=()):
+    """Default patterns anchored at the heading start; project patterns as written."""
+    parts = [HEADING_PREFIX + "|".join(DEFAULT_SKIP_SECTIONS) + ")"] + list(project_patterns)
+    return re.compile("|".join(f"(?:{p})" for p in parts), re.I)
 
 
 def prose(line):
@@ -91,7 +101,7 @@ def main(argv):
     overrides = (json.loads(args.overrides.read_text(encoding="utf-8"))
                  if args.overrides and args.overrides.exists() else {})
     vague = vague_regex(overrides.get("extra_vague_words", []))
-    skip_rx = re.compile("|".join(DEFAULT_SKIP_SECTIONS + overrides.get("skip_section_patterns", [])), re.I)
+    skip_rx = skip_regex(overrides.get("skip_section_patterns", []))
     findings = []
     for path in args.files:
         findings += lint_text(path, path.read_text(encoding="utf-8"), vague, skip_rx)

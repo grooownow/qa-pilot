@@ -235,10 +235,14 @@ def build(pdf, kb_dir):
         (raw_dir / "pages" / f"{i:03d}.txt").write_text(text, encoding="utf-8")
 
     toc_idx = [i for i, p in enumerate(pages) if is_toc_page(p)]
+    if not toc_idx:
+        sys.exit("No table-of-contents pages (dot-leader lines) found — this script expects the Surkov book layout.")
     toc_first, toc_last = toc_idx[0], toc_idx[-1]
     toc_lines = [line for p in pages[toc_first:toc_last + 1] for line in p.split("\n")]
     toc = parse_toc(toc_lines)
-    first_section = next(i for i, e in enumerate(toc) if e[0] == "section")
+    first_section = next((i for i, e in enumerate(toc) if e[0] == "section"), None)
+    if first_section is None:
+        sys.exit("TOC has no 'РАЗДЕЛ N' entries — cannot assign chunk ids.")
     front_titles = [e[2] for e in toc[:first_section]]
     toc = toc[first_section:]
 
@@ -391,7 +395,7 @@ def build(pdf, kb_dir):
         f"pages: {len(pages)}  toc pages: {toc_first + 1}-{toc_last + 1}",
         f"toc entries: {len(toc)}  matched: {len(toc) - len(unmatched)}  unmatched: {len(unmatched)}",
         f"chunks: {len(chunks)}",
-        f"coverage: {chunk_words_total}/{body_words} words = {100 * chunk_words_total / body_words:.2f}%",
+        f"coverage: {chunk_words_total}/{body_words} words = {100 * chunk_words_total / max(body_words, 1):.2f}%",
         "", "UNMATCHED (text stays in the preceding chunk):",
     ] + [f"  [{e[0]}] {e[2]} (toc p.{e[3]})" for e in unmatched]
     if topics_cfg:

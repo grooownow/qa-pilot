@@ -53,28 +53,55 @@ def parse_scalar(value):
     value = value.strip().split(" #", 1)[0].strip()
     if value.startswith("[") and value.endswith("]"):
         return [v.strip().strip("'\"") for v in value[1:-1].split(",") if v.strip()]
+    value = value.strip("'\"")
     if value.lower() in ("true", "yes"):
         return True
     if value.lower() in ("false", "no"):
         return False
-    return value.strip("'\"")
+    return value
 
 
 def parse_traits(profile_text):
-    """Traits from the '## Product traits' section: `key: value` lines, inline
-    lists, booleans. Missing section or keys fall back to DEFAULT_TRAITS."""
+    """Traits from the '## Product traits' section. Supports `key: value`,
+    inline lists `[a, b]`, comma lists `a, b`, block lists (`key:` then `- a`)
+    and true/false/yes/no (quoted or not). Missing keys fall back to
+    DEFAULT_TRAITS. Returns (traits, section_found, warnings)."""
     traits = {k: (list(v) if isinstance(v, list) else v) for k, v in DEFAULT_TRAITS.items()}
+    warnings = []
     m = re.search(r"^##\s+Product traits\s*$(.*?)(?=^##\s|\Z)", profile_text or "", re.M | re.S)
     if not m:
-        return traits, False
+        return traits, False, warnings
+    block_key = None
     for line in m.group(1).splitlines():
-        kv = re.match(r"^\s*([a-z0-9_]+)\s*:\s*(.+)$", line)
-        if kv and kv.group(1) in traits:
-            value = parse_scalar(kv.group(2))
-            if isinstance(traits[kv.group(1)], list) and not isinstance(value, list):
-                value = [value] if value not in ("", "none") else []
-            traits[kv.group(1)] = value
-    return traits, True
+        item = re.match(r"^\s*-\s+(.+)$", line)
+        if item and block_key:
+            traits[block_key].append(str(parse_scalar(item.group(1))))
+            continue
+        kv = re.match(r"^\s*([a-z0-9_]+)\s*:\s*(.*)$", line)
+        if not kv:
+            continue
+        key, raw = kv.group(1), kv.group(2).split(" #", 1)[0].strip()
+        block_key = None
+        if key not in traits:
+            warnings.append(f"unknown trait '{key}' ignored")
+            continue
+        expected = DEFAULT_TRAITS[key]
+        if isinstance(expected, list):
+            if not raw:
+                traits[key] = []
+                block_key = key
+                continue
+            value = parse_scalar(raw)
+            if not isinstance(value, list):
+                value = [v.strip() for v in str(value).split(",") if v.strip() and v.strip() != "none"]
+            traits[key] = value
+        else:
+            value = parse_scalar(raw)
+            if not isinstance(value, bool):
+                warnings.append(f"trait '{key}' expects true/false, got '{raw}' — kept default {expected}")
+                continue
+            traits[key] = value
+    return traits, True, warnings
 
 
 def load_rules(kb, overrides):
@@ -85,6 +112,14 @@ def load_rules(kb, overrides):
                 rules.append((path.stem if source == "surkov" else "qa-pilot", r))
     rules += [("project", r) for r in overrides.get("rules", [])]
     return rules
+
+
+def malformed(r):
+    """Missing fields a pack line needs (project rules are not validated elsewhere)."""
+    missing = [k for k in ("id", "title", "severity", "applies_to") if not r.get(k)]
+    if not isinstance(r.get("check"), dict) or not r["check"].get("how") or not r["check"].get("mode"):
+        missing.append("check.mode/how")
+    return missing
 
 
 def pack_of(topic):
@@ -105,12 +140,16 @@ def rule_line(r):
 
 
 def build(kb, profile_text, overrides, targets):
-    traits, has_section = parse_traits(profile_text)
+    traits, has_section, warnings = parse_traits(profile_text)
     disabled = set(overrides.get("disabled", []))
     decisions = overrides.get("decisions", {})
     packs = {name: [] for name in PACKS}
     excluded, unknown_tags, applied = {}, set(), []
     for topic, r in load_rules(kb, overrides):
+        missing = malformed(r)
+        if missing:
+            warnings.append(f"rule {r.get('id', '<no id>')} skipped: missing {', '.join(missing)}")
+            continue
         if not set(r.get("applies_to", [])) & set(targets):
             continue
         if r["id"] in disabled:
@@ -132,6 +171,7 @@ def build(kb, profile_text, overrides, targets):
         "excluded": dict(sorted(excluded.items())),
         "decisions_applied": sorted(applied),
         "unknown_needs_tags": sorted(unknown_tags),
+        "warnings": warnings,
     }
     return packs, manifest
 
@@ -156,7 +196,8 @@ def main(argv):
     (args.out / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n",
                                             encoding="utf-8")
     print(json.dumps({"counts": manifest["counts"], "excluded": len(manifest["excluded"]),
-                      "traits_section_found": manifest["traits_section_found"]}, ensure_ascii=False))
+                      "traits_section_found": manifest["traits_section_found"],
+                      "warnings": manifest["warnings"]}, ensure_ascii=False))
     return 0
 
 

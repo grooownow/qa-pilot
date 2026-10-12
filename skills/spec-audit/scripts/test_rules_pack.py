@@ -31,7 +31,7 @@ platform: [ios]
 
 class TraitsTest(unittest.TestCase):
     def test_parses_section_only_with_defaults(self):
-        traits, found = parse_traits(PROFILE)
+        traits, found, _ = parse_traits(PROFILE)
         self.assertTrue(found)
         self.assertEqual(traits["platform"], ["web", "pwa"])
         self.assertEqual(traits["api_style"], ["server-actions"])
@@ -40,9 +40,21 @@ class TraitsTest(unittest.TestCase):
         self.assertIs(traits["rtl"], False)
 
     def test_missing_section_gives_defaults(self):
-        traits, found = parse_traits("# no traits here")
+        traits, found, _ = parse_traits("# no traits here")
         self.assertFalse(found)
         self.assertEqual(traits["platform"], ["web"])
+
+
+class TraitFormsTest(unittest.TestCase):
+    def test_comma_quoted_and_block_forms(self):
+        text = ("## Product traits\nplatform: web, ios\nhas_payments: \"false\"\napi_style:\n  - rest\n  - graphql\n"
+                "i18n: maybe\ncolour: blue\n")
+        traits, _, warnings = parse_traits(text)
+        self.assertEqual(traits["platform"], ["web", "ios"])
+        self.assertIs(traits["has_payments"], False)
+        self.assertEqual(traits["api_style"], ["rest", "graphql"])
+        self.assertIs(traits["i18n"], False)
+        self.assertEqual(len(warnings), 2)
 
 
 class BuildTest(unittest.TestCase):
@@ -88,8 +100,11 @@ class BuildTest(unittest.TestCase):
     def test_overrides_disable_decide_and_add_project_rules(self):
         overrides = {"disabled": ["SRK-REQ-001"], "decisions": {"SRK-HIG-002": "У нас иначе."},
                      "rules": [record("PRJ-SEC-001")]}
+        overrides["rules"].append({"id": "PRJ-BAD-001", "applies_to": ["requirements"]})
         packs, manifest = build(self.kb, PROFILE, overrides, ["requirements"])
         ids = self.ids(packs)
+        self.assertNotIn("PRJ-BAD-001", ids)
+        self.assertTrue(any("PRJ-BAD-001 skipped" in w for w in manifest["warnings"]))
         self.assertNotIn("SRK-REQ-001", ids)
         self.assertIn("PRJ-SEC-001", ids)
         self.assertEqual(manifest["excluded"]["SRK-REQ-001"], "disabled by project")
