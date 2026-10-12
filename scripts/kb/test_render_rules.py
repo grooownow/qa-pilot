@@ -43,6 +43,7 @@ class ValidateTest(unittest.TestCase):
         self.assert_error(with_change(applies_to=[]), "applies_to")
         self.assert_error(with_change(check={"mode": "auto", "how": "x"}), "check must be")
         self.assert_error(with_change(verification="maybe"), "verification")
+        self.assert_error(with_change(decision=["не очищать"]), "'decision' must be a string")
 
     def test_missing_and_unknown_fields(self):
         self.assert_error(with_change(statement=None), "missing or empty 'statement'")
@@ -68,6 +69,10 @@ class RenderTest(unittest.TestCase):
         self.assertIn("**Как проверить:** Ищем в плане", md)
         self.assertIn("SRK-FORM-002 · Проверять пробелы в начале и конце ввода ⚠️ сомнительно", md)
         self.assertIn("с. 41–42", md)
+
+    def test_renders_team_decision(self):
+        md = render_topic("forms", [with_change(decision="Пароль при ошибке не очищать.")])
+        self.assertIn("**Решение команды (приоритетнее книги):** Пароль при ошибке не очищать.", md)
 
 
 if __name__ == "__main__":

@@ -57,9 +57,12 @@ jq '.[] | select((.applies_to|index("test-plan")) and .check.mode=="deterministi
   "modern_note": "Что изменилось с тех пор (опц.)",
   "source": { "chunk_id": "s1-c07-01", "printed_pages": [43] },
   "tags": ["forms"],
-  "verification": "ok | fixed | doubtful"
+  "verification": "ok | fixed | doubtful",
+  "decision": "Решение команды, приоритетнее книги (опц.)"
 }
 ```
+
+`decision` — решение команды для случаев, где книга противоречит сама себе или команда сознательно отходит от рекомендации. Аудит руководствуется `decision`, если оно есть. `statement` при этом остаётся пересказом книги.
 
 Поле `verification` проставляет проход сверки с первоисточником:
 - `ok` — подтверждено;
@@ -95,7 +98,7 @@ jq '.[] | select((.applies_to|index("test-plan")) and .check.mode=="deterministi
 | [usability](rules/usability.md) | 35 | 14 | 9 | 2 | 10 | 11 |
 | [ux-laws-dark-patterns](rules/ux-laws-dark-patterns.md) | 38 | 15 | 18 | 4 | 1 | 5 |
 
-По severity: must — 272, should — 655, nice — 210
+По severity: must — 273, should — 654, nice — 210
 
 По способу проверки: deterministic — 234, heuristic — 702, manual — 201
 <!-- /stats -->

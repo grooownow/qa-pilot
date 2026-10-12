@@ -21,7 +21,7 @@ TARGETS = ("requirements", "test-plan", "test-code", "live-product", "test-cases
 VERIFICATION = ("ok", "fixed", "doubtful")
 ID_RE = re.compile(r"^SRK-[A-Z0-9]+(-[A-Z0-9]+)*-\d{3}$")
 REQUIRED_TEXT = ("id", "kind", "severity", "title", "statement")
-OPTIONAL_TEXT = ("rationale", "modern_note")
+OPTIONAL_TEXT = ("rationale", "modern_note", "decision")
 ALLOWED = set(REQUIRED_TEXT + OPTIONAL_TEXT + ("applies_to", "check", "source", "tags", "verification"))
 
 KIND_RU = {"rule": "Жёсткие правила", "recommendation": "Рекомендации",
@@ -129,6 +129,8 @@ def render_topic(topic, records):
             out += [f"**Как проверить:** {r['check']['how']}", ""]
             if r.get("modern_note"):
                 out += [f"**Сегодня:** {r['modern_note']}", ""]
+            if r.get("decision"):
+                out += [f"**Решение команды (приоритетнее книги):** {r['decision']}", ""]
     return "\n".join(out).rstrip() + "\n"
 
 
