@@ -55,7 +55,9 @@
       "intl",
       "needs-i18n"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-L10N-003",
@@ -228,7 +230,10 @@
       "needs-i18n",
       "needs-payments"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "conflict",
+    "modern_note": "Положение знака валюты зависит от локали, а не страны: en-CA «$100.00», fr-CA «100,00 $» (Unicode CLDR). Проверять через Intl.NumberFormat."
   },
   {
     "id": "SRK-L10N-009",
@@ -318,7 +323,9 @@
       "see-SRK-MD-015",
       "needs-i18n"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-L10N-012",
@@ -377,7 +384,9 @@
       "name-validation",
       "forms"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-L10N-014",
@@ -408,7 +417,9 @@
       "forms",
       "required-field"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-L10N-015",
@@ -438,7 +449,9 @@
       "forms",
       "special-characters"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-L10N-016",
@@ -496,7 +509,9 @@
       "postal-code",
       "required-field"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-L10N-018",
@@ -525,7 +540,9 @@
       "phone",
       "validation"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-L10N-019",
@@ -733,7 +750,10 @@
       "also-test-strategy",
       "needs-i18n"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "По W3C (Text size in translation) короткие строки могут удлиняться в 2–3 раза, длинные тексты — примерно на 30%."
   },
   {
     "id": "SRK-L10N-026",
@@ -827,7 +847,10 @@
       "see-SRK-MD-023",
       "needs-rtl"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned",
+    "modern_note": "Не всё зеркалится: элементы управления медиа, часы, логотипы и галочки остаются как есть (Material Bidirectionality, Apple HIG Right to left)."
   },
   {
     "id": "SRK-L10N-029",
@@ -942,7 +965,9 @@
       "nbsp",
       "see-SRK-UX-037"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-L10N-033",
@@ -1026,7 +1051,9 @@
       "glyphs",
       "polish"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-L10N-036",

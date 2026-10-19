@@ -149,7 +149,9 @@
       "foreign-key",
       "sql"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-DB-006",
@@ -265,7 +267,9 @@
       "normalization",
       "root-cause-analysis"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-DB-010",
@@ -393,7 +397,7 @@
       "test-code"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "Grep по тест-коду и SQL-фикстурам: регулярное выражение (?is)\\b(UPDATE\\s+\\w+\\s+SET|DELETE\\s+FROM\\s+\\w+)\\b(?![^;]*\\bWHERE\\b)[^;]*; — любое совпадение = нарушение. Также флагать TRUNCATE/DROP TABLE вне изолированной (одноразовой) базы."
     },
     "source": {
@@ -411,7 +415,10 @@
       "delete",
       "test-code"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "В одноразовой изолированной тестовой БД очистка таблиц без WHERE (DELETE/TRUNCATE) — стандартная стратегия; нарушением это считается только на общей базе."
   },
   {
     "id": "SRK-DB-015",
@@ -647,7 +654,9 @@
       "soap",
       "also-api"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-DB-023",
@@ -862,7 +871,9 @@
       "see-SRK-API-128",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-DB-030",

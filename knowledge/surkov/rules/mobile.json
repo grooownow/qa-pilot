@@ -28,7 +28,9 @@
       "cross-platform",
       "needs-native-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-002",
@@ -75,7 +77,7 @@
       "live-product"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "В e2e-тестах мобильного веба проверить, что используется полная эмуляция устройства (в Playwright — `devices['iPhone …']` или `isMobile`/`hasTouch`/`userAgent`), а не только `setViewportSize`. Найден только resize viewport — fail."
     },
     "source": {
@@ -93,7 +95,10 @@
       "web",
       "needs-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned",
+    "modern_note": "Для чисто адаптивной вёрстки (только CSS media queries по ширине) изменения viewport достаточно; полная эмуляция устройства нужна, если сайт ветвится по UA/Client Hints или pointer/hover. Только setViewportSize — повод проверить, а не автоматический fail."
   },
   {
     "id": "SRK-MOB-004",
@@ -187,7 +192,9 @@
       "see-SRK-HIG-051",
       "needs-native-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-007",
@@ -217,7 +224,9 @@
       "notifications",
       "needs-native-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-008",
@@ -308,7 +317,9 @@
       "clean-install",
       "needs-native-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-011",
@@ -395,7 +406,9 @@
       "cellular",
       "needs-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-016",
@@ -425,7 +438,9 @@
       "idempotency",
       "needs-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-017",
@@ -541,7 +556,9 @@
       "configuration-change",
       "needs-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-021",
@@ -755,7 +772,9 @@
       "permissions",
       "needs-native-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-028",
@@ -786,7 +805,9 @@
       "see-SRK-UXL-036",
       "needs-native-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-029",
@@ -819,12 +840,14 @@
       "see-SRK-API-117",
       "needs-native-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-030",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Перед отправкой в стор проверить соответствие HIG/Material и правилам ревью",
     "statement": "Нативные и гибридные приложения должны соответствовать Human Interface Guidelines (Apple) и Material Design (Google). Перед App Review проверяют типичные причины реджекта: безопасность, подписки, доступность, нарушение UX-гайдлайнов.",
     "applies_to": [
@@ -850,7 +873,10 @@
       "see-SRK-HIG-001",
       "needs-native-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned",
+    "modern_note": "Apple App Review опирается на HIG, но Google Play не требует соответствия Material Design: это рекомендация, а не условие публикации. Pre-submission чек стоит строить по App Review Guidelines и Google Play Developer Policy."
   },
   {
     "id": "SRK-MOB-031",
@@ -1038,7 +1064,9 @@
       "negative",
       "needs-ios"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-037",
@@ -1068,7 +1096,9 @@
       "biometrics",
       "needs-ios"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-038",
@@ -1099,7 +1129,9 @@
       "negative",
       "needs-ios"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-039",
@@ -1422,7 +1454,9 @@
       "wcag-1.4.1",
       "see-SRK-A11Y-036"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-051",
@@ -1482,7 +1516,9 @@
       "see-SRK-A11Y-001",
       "needs-ios"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-053",
@@ -1494,7 +1530,7 @@
       "live-product"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "Accessibility Inspector → выбрать Simulator → Audit → Run Audit на каждом экране. Любое предупреждение о размере hit area, отсутствии label или контрасте — fail. В автотестах есть аналог: XCUITest `performAccessibilityAudit()` (Xcode 15+)."
     },
     "source": {
@@ -1511,7 +1547,10 @@
       "audit",
       "needs-ios"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned",
+    "modern_note": "Аудит Accessibility Inspector даёт ложные срабатывания (Apple сама рекомендует проверять результаты вручную); каждое предупреждение — повод разобрать, а не автоматический fail."
   },
   {
     "id": "SRK-MOB-054",
@@ -1541,7 +1580,9 @@
       "see-SRK-A11Y-134",
       "needs-ios"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-055",
@@ -1633,7 +1674,9 @@
       "screen-reader",
       "needs-android"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-058",
@@ -1663,7 +1706,9 @@
       "layout",
       "needs-android"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-059",
@@ -1871,7 +1916,9 @@
       "biometrics",
       "needs-android"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-066",
@@ -1902,7 +1949,9 @@
       "needs-android"
     ],
     "verification": "fixed",
-    "modern_note": "Системные образы Android 11+ для x86_64 умеют транслировать ARM-код, поэтому на Intel/AMD-машинах многие ARM-only APK всё же устанавливаются; на Mac с Apple Silicon x86-образы не запускаются, нужен arm64-v8a."
+    "modern_note": "Системные образы Android 11+ для x86_64 умеют транслировать ARM-код, поэтому на Intel/AMD-машинах многие ARM-only APK всё же устанавливаются; на Mac с Apple Silicon x86-образы не запускаются, нужен arm64-v8a.",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-067",
@@ -2035,7 +2084,9 @@
       "needs-android"
     ],
     "verification": "fixed",
-    "modern_note": "Подкоманды `am recover-prep` нет среди документированных команд `adb shell am`, вероятно это неточность книги (проверьте `adb shell am help` на своей версии Android). Обычно process death моделируют так: свернуть приложение кнопкой Home и выполнить `adb shell am kill <package>` — команда убивает процесс, только если приложение в фоне. Developer options → Don't keep activities уничтожает активити, но не процесс, поэтому заменяет сценарий лишь частично. `am force-stop`, как правило, не подходит: он сбрасывает задачу вместе с сохранённым состоянием."
+    "modern_note": "Подкоманды `am recover-prep` нет среди документированных команд `adb shell am`, вероятно это неточность книги (проверьте `adb shell am help` на своей версии Android). Обычно process death моделируют так: свернуть приложение кнопкой Home и выполнить `adb shell am kill <package>` — команда убивает процесс, только если приложение в фоне. Developer options → Don't keep activities уничтожает активити, но не процесс, поэтому заменяет сценарий лишь частично. `am force-stop`, как правило, не подходит: он сбрасывает задачу вместе с сохранённым состоянием.",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-072",
@@ -2192,7 +2243,9 @@
       "needs-native-mobile",
       "needs-payments"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-077",
@@ -2286,7 +2339,9 @@
       "see-SRK-STRAT-028",
       "needs-ios"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MOB-080",
@@ -2318,6 +2373,8 @@
       "see-SRK-HIG-032",
       "needs-ios"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   }
 ]

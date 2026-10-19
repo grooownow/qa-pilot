@@ -98,7 +98,7 @@
       "live-product"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "Через getComputedStyle сравнить padding/margin у элементов одного типа (например, всех кнопок в панели). Fail: значения различаются без причины, заданной макетом."
     },
     "source": {
@@ -114,7 +114,9 @@
       "padding",
       "margin"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GUI-005",
@@ -126,7 +128,7 @@
       "live-product"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "Сравнить computed font-size/font-weight/font-family у подписей однотипных элементов. Fail: значения скачут между соседними кнопками одного уровня."
     },
     "source": {
@@ -140,7 +142,9 @@
       "typography",
       "font-size"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GUI-006",
@@ -153,7 +157,7 @@
       "requirements"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "Собрать тексты однотипных элементов (с учётом CSS text-transform) и классифицировать регистр: sentence case / Title Case / ALL CAPS / lowercase. Fail: в одной группе встречается больше одного стиля."
     },
     "source": {
@@ -167,7 +171,9 @@
       "casing",
       "consistency"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GUI-007",
@@ -195,7 +201,9 @@
       "icons",
       "broken-images"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GUI-008",
@@ -341,7 +349,9 @@
       "mobile",
       "needs-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GUI-013",
@@ -368,7 +378,9 @@
       "navigation",
       "layout-stability"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GUI-014",
@@ -398,7 +410,10 @@
       "labels",
       "see-SRK-HIG-099"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned",
+    "modern_note": "Видимые подписи рекомендованы для основной навигации (Material, HIG). Общепонятные иконки в тулбаре допустимы без подписи при наличии доступного имени (WCAG 2.2 SC 4.1.2)."
   },
   {
     "id": "SRK-GUI-015",
@@ -437,7 +452,7 @@
       "test-code"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "Найти заголовки с text-overflow: ellipsis, у которых scrollWidth > clientWidth, на целевых разрешениях. Fail: заголовок отображается усечённым."
     },
     "source": {
@@ -453,7 +468,10 @@
       "text-overflow",
       "see-SRK-AI-028"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "Усечение заголовка само по себе не дефект (Material/HIG допускают ellipsis); дефект — потеря смысла без доступа к полному тексту."
   },
   {
     "id": "SRK-GUI-017",
@@ -564,7 +582,9 @@
       "navigation",
       "active-state"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GUI-022",
@@ -680,7 +700,9 @@
       "figma",
       "also-test-strategy"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GUI-026",
@@ -694,7 +716,7 @@
       "test-plan"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "getComputedStyle: padding-*/margin-* у элемента и расстояние до соседей (getBoundingClientRect) сравнить с макетом. Fail: расхождение больше 1px. В тест-плане должен быть пункт сверки отступов с макетом."
     },
     "source": {
@@ -711,7 +733,9 @@
       "figma",
       "also-test-strategy"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GUI-027",
@@ -742,7 +766,9 @@
       "pixel-perfect",
       "also-test-strategy"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GUI-028",

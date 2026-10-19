@@ -448,7 +448,9 @@
       "privacy",
       "permissions"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-017",
@@ -476,7 +478,9 @@
       "permissions",
       "ux-writing"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-018",
@@ -504,7 +508,9 @@
       "hide-my-email",
       "app-tracking-transparency"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-019",
@@ -629,7 +635,9 @@
       "wcag-2.5.7",
       "see-SRK-A11Y-094"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-024",
@@ -770,7 +778,9 @@
       "feedback",
       "error-message"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-029",
@@ -827,7 +837,9 @@
       "launch-screen",
       "needs-ios"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-031",
@@ -1070,7 +1082,9 @@
       "onboarding",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-039",
@@ -1198,7 +1212,9 @@
       "app-store-review",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-043",
@@ -1227,7 +1243,9 @@
       "settings",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-044",
@@ -1258,7 +1276,9 @@
       "legal",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-045",
@@ -1289,7 +1309,9 @@
       "marketing",
       "consent"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-046",
@@ -1321,7 +1343,9 @@
       "push",
       "settings"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-047",
@@ -1467,7 +1491,9 @@
       "see-SRK-MOB-006",
       "needs-native-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-052",
@@ -1782,7 +1808,9 @@
       "settings",
       "needs-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-063",
@@ -2089,7 +2117,9 @@
       "see-SRK-A11Y-092",
       "needs-mobile"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-073",
@@ -2119,7 +2149,9 @@
       "press-state",
       "feedback"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-074",
@@ -2297,7 +2329,7 @@
   {
     "id": "SRK-HIG-081",
     "kind": "recommendation",
-    "severity": "should",
+    "severity": "nice",
     "title": "Не писать «мы» в интерфейсе, особенно в ошибках",
     "statement": "Избегать местоимения «мы»: вместо «У нас возникли проблемы с загрузкой» — «Не удалось загрузить контент». Это касается всех текстов интерфейса: писать с точки зрения пользователя («ваш», «вам») или без местоимений.",
     "rationale": "Неясно, кто такие «мы».",
@@ -2322,7 +2354,10 @@
       "error-message",
       "also-mobile-material"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned",
+    "modern_note": "Стилистический выбор: Apple и Google советуют избегать «мы», Microsoft Style Guide допускает «we» от лица компании. Следовать голосу продукта."
   },
   {
     "id": "SRK-HIG-082",
@@ -2357,7 +2392,9 @@
       "validation",
       "see-SRK-A11Y-115"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-083",
@@ -2385,7 +2422,9 @@
       "ux-writing",
       "error-message"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-084",
@@ -2499,7 +2538,10 @@
       "capitalization",
       "see-SRK-MD-011"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned",
+    "modern_note": "Title-style — конвенция Apple (macOS-меню). Material и Microsoft используют sentence case; применять только к Apple-платформам или по стайлгайду продукта."
   },
   {
     "id": "SRK-HIG-088",
@@ -2526,7 +2568,9 @@
       "menu",
       "ux-writing"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-089",
@@ -2843,7 +2887,9 @@
       "labels",
       "see-SRK-GUI-014"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-100",
@@ -2960,7 +3006,9 @@
       "page-control",
       "carousel"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-104",
@@ -3051,7 +3099,9 @@
       "password",
       "security"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-107",
@@ -3111,7 +3161,9 @@
       "wcag-2.4.3",
       "see-SRK-A11Y-074"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-110",
@@ -3235,7 +3287,9 @@
       "also-usability",
       "needs-mobile"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-114",
@@ -3293,7 +3347,9 @@
       "push",
       "ux-writing"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-HIG-116",

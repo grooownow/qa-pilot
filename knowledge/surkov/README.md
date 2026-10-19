@@ -80,31 +80,31 @@ jq '.[] | select((.applies_to|index("test-plan")) and .check.mode=="deterministi
 
 | Тема | Всего | rule | recommendation | tip | checklist | deterministic |
 |---|---|---|---|---|---|---|
-| [accessibility](rules/accessibility.md) | 133 | 96 | 7 | 13 | 17 | 24 |
+| [accessibility](rules/accessibility.md) | 133 | 96 | 7 | 13 | 17 | 23 |
 | [ai-in-qa](rules/ai-in-qa.md) | 38 | 5 | 13 | 6 | 14 | 6 |
-| [api](rules/api.md) | 124 | 11 | 53 | 32 | 28 | 68 |
-| [databases](rules/databases.md) | 32 | 4 | 11 | 17 | 0 | 2 |
+| [api](rules/api.md) | 124 | 11 | 53 | 32 | 28 | 65 |
+| [databases](rules/databases.md) | 32 | 4 | 11 | 17 | 0 | 1 |
 | [forms](rules/forms.md) | 55 | 9 | 7 | 2 | 37 | 29 |
 | [games](rules/games.md) | 17 | 3 | 0 | 1 | 13 | 0 |
-| [gui](rules/gui.md) | 28 | 9 | 7 | 7 | 5 | 12 |
+| [gui](rules/gui.md) | 28 | 9 | 7 | 7 | 5 | 7 |
 | [install-config](rules/install-config.md) | 57 | 5 | 8 | 11 | 33 | 0 |
 | [localization](rules/localization.md) | 36 | 16 | 2 | 6 | 12 | 1 |
-| [mobile](rules/mobile.md) | 76 | 3 | 4 | 18 | 51 | 3 |
+| [mobile](rules/mobile.md) | 76 | 3 | 4 | 18 | 51 | 1 |
 | [mobile-hig](rules/mobile-hig.md) | 112 | 34 | 72 | 6 | 0 | 9 |
-| [mobile-material](rules/mobile-material.md) | 92 | 52 | 40 | 0 | 0 | 20 |
+| [mobile-material](rules/mobile-material.md) | 92 | 52 | 40 | 0 | 0 | 18 |
 | [performance](rules/performance.md) | 30 | 6 | 6 | 7 | 11 | 5 |
 | [principles](rules/principles.md) | 12 | 7 | 4 | 1 | 0 | 0 |
 | [process](rules/process.md) | 15 | 1 | 5 | 7 | 2 | 2 |
 | [requirements](rules/requirements.md) | 30 | 4 | 10 | 8 | 8 | 5 |
 | [test-artifacts](rules/test-artifacts.md) | 69 | 38 | 21 | 4 | 6 | 26 |
 | [test-design](rules/test-design.md) | 56 | 13 | 10 | 4 | 29 | 2 |
-| [test-strategy](rules/test-strategy.md) | 52 | 14 | 13 | 6 | 19 | 4 |
-| [usability](rules/usability.md) | 35 | 14 | 9 | 2 | 10 | 11 |
+| [test-strategy](rules/test-strategy.md) | 52 | 14 | 13 | 6 | 19 | 3 |
+| [usability](rules/usability.md) | 35 | 14 | 9 | 2 | 10 | 10 |
 | [ux-laws-dark-patterns](rules/ux-laws-dark-patterns.md) | 38 | 15 | 18 | 4 | 1 | 5 |
 
-По severity: must — 273, should — 654, nice — 210
+По severity: must — 252, should — 673, nice — 212
 
-По способу проверки: deterministic — 234, heuristic — 702, manual — 201
+По способу проверки: deterministic — 218, heuristic — 719, manual — 200
 <!-- /stats -->
 
 ## Ограничения

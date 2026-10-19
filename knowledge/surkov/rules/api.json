@@ -28,7 +28,10 @@
       "security",
       "web"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Для API OWASP рекомендует отдавать только HTTPS-эндпоинты; отказ на http:// (без редиректа) допустим и даже предпочтителен, т.к. редирект не защищает уже отправленные в открытом виде токены. Для сайтов — редирект + HSTS."
   },
   {
     "id": "SRK-API-002",
@@ -57,7 +60,9 @@
       "api-testing",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-003",
@@ -117,7 +122,10 @@
       "get",
       "safe-method"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "По RFC 9110 §9.2.1 safe-метод может иметь побочные эффекты на сервере (логи, счётчики просмотров, аналитика), если клиент их не запрашивал; проверять нужно бизнес-состояние, а не любые счётчики."
   },
   {
     "id": "SRK-API-006",
@@ -146,7 +154,9 @@
       "http-methods",
       "needs-rest"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-007",
@@ -202,7 +212,10 @@
       "status-codes",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "RFC 9110 §9.3.4 не запрещает PUT на URI коллекции (замена её состояния); ожидать 405/404 стоит, только если контракт этот метод не заявляет."
   },
   {
     "id": "SRK-API-009",
@@ -230,7 +243,9 @@
       "crud",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-010",
@@ -258,7 +273,9 @@
       "crud",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-011",
@@ -318,7 +335,9 @@
       "http-methods",
       "needs-rest"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-013",
@@ -344,7 +363,10 @@
       "http-methods",
       "needs-rest"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "RFC 9110 §9.3.2: сервер SHOULD отдавать те же заголовки, что и GET, но MAY опустить генерируемые при формировании тела (например, Content-Length)."
   },
   {
     "id": "SRK-API-014",
@@ -375,7 +397,9 @@
       "pseudo-rest",
       "needs-rest"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-015",
@@ -405,7 +429,9 @@
       "error-handling",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-016",
@@ -433,7 +459,9 @@
       "assertions",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-017",
@@ -490,7 +518,9 @@
       "post",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-019",
@@ -517,7 +547,9 @@
       "delete",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-020",
@@ -577,7 +609,9 @@
       "needs-rest",
       "needs-auth"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-023",
@@ -605,7 +639,9 @@
       "negative-testing",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-024",
@@ -634,7 +670,10 @@
       "negative-testing",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "RFC 9110 §15.5.6: при 405 заголовок Allow обязателен (MUST), а не «желателен»."
   },
   {
     "id": "SRK-API-025",
@@ -663,7 +702,10 @@
       "duplicates",
       "see-SRK-TD-050"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "409 на занятый email раскрывает существование аккаунта; OWASP Authentication Cheat Sheet рекомендует при регистрации нейтральный ответ без перечисления пользователей."
   },
   {
     "id": "SRK-API-026",
@@ -692,7 +734,9 @@
       "json",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-027",
@@ -722,7 +766,9 @@
       "needs-rest"
     ],
     "verification": "fixed",
-    "rationale": "Автор на практике с формой бронирования отмечает: 400 для ошибки валидации допустим, но строже и точнее — 422."
+    "rationale": "Автор на практике с формой бронирования отмечает: 400 для ошибки валидации допустим, но строже и точнее — 422.",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-028",
@@ -753,7 +799,9 @@
       "see-SRK-FORM-039",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-029",
@@ -782,7 +830,9 @@
       "negative-testing",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-030",
@@ -811,7 +861,9 @@
       "rate-limit",
       "security"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-031",
@@ -840,7 +892,9 @@
       "redirects",
       "web"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-032",
@@ -853,7 +907,7 @@
       "test-code"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "Отправить POST на перенаправляемый URL без автоследования: при редиректе assert код 307 или 308."
     },
     "source": {
@@ -868,7 +922,10 @@
       "308",
       "post"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "conflict",
+    "modern_note": "RFC 9110 §15.4.4: после обработки POST перенаправление на результат делается кодом 303 (паттерн Post/Redirect/Get) — это корректно; 307/308 нужны, только когда сам POST должен быть повторён по новому адресу."
   },
   {
     "id": "SRK-API-033",
@@ -1043,7 +1100,9 @@
       "cache",
       "headers"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-039",
@@ -1157,7 +1216,9 @@
       "contract",
       "data-types"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-043",
@@ -1184,7 +1245,9 @@
       "fixtures",
       "syntax"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-044",
@@ -1212,7 +1275,9 @@
       "security",
       "signature"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-045",
@@ -1266,7 +1331,9 @@
       "idempotency",
       "duplicates"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-047",
@@ -1322,7 +1389,10 @@
       "assertions",
       "needs-graphql"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "По черновику GraphQL-over-HTTP при media type application/graphql-response+json ошибки запроса (парсинг, валидация) отдаются кодом 4xx; при application/json — по-прежнему 200."
   },
   {
     "id": "SRK-API-049",
@@ -1350,7 +1420,9 @@
       "schema-validation",
       "needs-graphql"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-050",
@@ -1380,7 +1452,9 @@
       "dos",
       "needs-graphql"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-051",
@@ -1436,7 +1510,9 @@
       "versioning",
       "needs-graphql"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-053",
@@ -1465,7 +1541,9 @@
       "contract",
       "needs-soap"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-054",
@@ -1493,7 +1571,9 @@
       "xml",
       "needs-soap"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-056",
@@ -1520,7 +1600,9 @@
       "well-formed",
       "syntax"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-057",
@@ -1547,7 +1629,9 @@
       "escaping",
       "special-characters"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-058",
@@ -1603,7 +1687,9 @@
       "breaking-changes",
       "contract"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-060",
@@ -1915,7 +2001,9 @@
       "500",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-072",
@@ -1973,7 +2061,9 @@
       "negative-testing",
       "security"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-074",
@@ -2030,7 +2120,9 @@
       "boundary",
       "validation"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-076",
@@ -2059,7 +2151,9 @@
       "validation",
       "negative-testing"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-077",
@@ -2086,7 +2180,9 @@
       "negative-testing",
       "ids"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-078",
@@ -2115,7 +2211,10 @@
       "error-messages",
       "needs-rest"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "conflict",
+    "modern_note": "RFC 9110 §15.5.6: заголовок Allow в ответе 405 обязателен (MUST); тело с описанием — по желанию и Allow не заменяет."
   },
   {
     "id": "SRK-API-079",
@@ -2143,7 +2242,9 @@
       "required-fields",
       "validation"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-080",
@@ -2173,7 +2274,10 @@
       "500",
       "negative-testing"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Для необязательных полей null или отсутствие ключа — валидный ввод, ожидается 2xx; дефектом во всех случаях является только 5xx."
   },
   {
     "id": "SRK-API-081",
@@ -2259,7 +2363,9 @@
       "business-logic",
       "validation"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-084",
@@ -2293,14 +2399,14 @@
     "id": "SRK-API-085",
     "kind": "checklist",
     "severity": "should",
-    "title": "POISED-P: неподдерживаемый Accept → нужный формат или 406",
+    "title": "POISED-P: политика content negotiation задокументирована — 406 или формат по умолчанию",
     "statement": "Если клиент запрашивает формат через Accept (например application/xml), сервер должен вернуть его или ответить 406 Not Acceptable, а не молча прислать другой формат.",
     "applies_to": [
       "test-code"
     ],
     "check": {
-      "mode": "deterministic",
-      "how": "API-тест с Accept: application/xml: assert (status == 406) или (content-type содержит xml). Fail — 200 с application/json."
+      "mode": "heuristic",
+      "how": "Сверить с API-спекой, какую политику выбрал сервис для неподдерживаемого Accept. API-тест с Accept: application/xml: pass — поведение совпадает с задокументированным (406 Not Acceptable или представление по умолчанию с корректным Content-Type). Fail — поведение не задокументировано или расходится с документацией."
     },
     "source": {
       "chunk_id": "s2-c05-03",
@@ -2315,7 +2421,10 @@
       "content-negotiation",
       "needs-rest"
     ],
-    "verification": "ok"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "RFC 9110 §12.5.1 разрешает серверу игнорировать Accept и вернуть представление по умолчанию; 406 — лишь один из допустимых вариантов. Дефект — не выбор политики, а её отсутствие или расхождение с документацией."
   },
   {
     "id": "SRK-API-086",
@@ -2343,12 +2452,14 @@
       "response-time",
       "ttfb"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-087",
     "kind": "checklist",
-    "severity": "must",
+    "severity": "should",
     "title": "POISED-I: после удаления ресурс освобождается",
     "statement": "В сквозной цепочке создай сущность, найди её в связанных списках, измени, удали — и затем повтори создание на тех же условиях (те же даты брони): ресурс должен снова быть доступен.",
     "applies_to": [
@@ -2372,7 +2483,9 @@
       "interoperability",
       "resource-release"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-088",
@@ -2405,7 +2518,9 @@
       "negative-testing",
       "needs-auth"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-089",
@@ -2436,7 +2551,9 @@
       "mass-assignment",
       "payments"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-090",
@@ -2465,7 +2582,10 @@
       "sql-injection",
       "see-SRK-FORM-014"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Защита от SQLi — параметризованные запросы; отклонение апострофа (422) не защита и ломает легитимный ввод (O'Brien). Одиночный payload не доказывает отсутствие blind-инъекций."
   },
   {
     "id": "SRK-API-091",
@@ -2478,7 +2598,7 @@
       "live-product"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "Сравнить поля ответа со схемой — лишние ключи fail (additionalProperties: false); grep тел и заголовков на is_admin|password|hash|stack|version, проверить X-Powered-By/Server на версии."
     },
     "source": {
@@ -2493,7 +2613,10 @@
       "data-exposure",
       "headers"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Новые необязательные поля — не нарушение (ср. SRK-API-059); additionalProperties: false и grep по «version» дают ложные срабатывания, находки требуют оценки."
   },
   {
     "id": "SRK-API-092",
@@ -2526,7 +2649,9 @@
       "ux",
       "see-SRK-A11Y-108"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-093",
@@ -2555,7 +2680,9 @@
       "encoding",
       "database"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-094",
@@ -2612,7 +2739,9 @@
       "base-url",
       "test-config"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-096",
@@ -2669,7 +2798,9 @@
       "test-setup",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-098",
@@ -2698,7 +2829,9 @@
       "status-codes",
       "needs-rest"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-099",
@@ -2784,7 +2917,10 @@
       "graphql",
       "api-testing"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "totalCount есть не у всех API: курсорная пагинация (Relay, keyset) часто не отдаёт общий счётчик; проверять по контракту."
   },
   {
     "id": "SRK-API-102",
@@ -2814,7 +2950,9 @@
       "crud",
       "data-integrity"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-103",
@@ -2842,7 +2980,9 @@
       "schema-validation",
       "needs-graphql"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-104",
@@ -3013,7 +3153,9 @@
       "security",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-110",
@@ -3074,7 +3216,7 @@
   {
     "id": "SRK-API-112",
     "kind": "checklist",
-    "severity": "must",
+    "severity": "should",
     "title": "Слияние гостевой корзины с корзиной аккаунта при логине",
     "statement": "Товары, добавленные без авторизации, после входа должны объединиться с корзиной аккаунта на сервере, а не затереть её и не потеряться.",
     "applies_to": [
@@ -3100,7 +3242,10 @@
       "needs-payments",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "Правила слияния гостевой корзины — продуктовое решение (объединить, заменить, спросить); проверять соответствие описанному поведению."
   },
   {
     "id": "SRK-API-113",
@@ -3237,7 +3382,9 @@
       "error-handling",
       "see-SRK-MOB-029"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-118",
@@ -3267,7 +3414,9 @@
       "status-codes",
       "overrides"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-119",
@@ -3349,7 +3498,9 @@
       "overrides",
       "lists"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-122",
@@ -3409,7 +3560,9 @@
       "spinner",
       "resilience"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-124",
@@ -3498,7 +3651,9 @@
       "500",
       "mocking"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-API-127",
@@ -3559,6 +3714,8 @@
       "see-SRK-DB-029",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   }
 ]

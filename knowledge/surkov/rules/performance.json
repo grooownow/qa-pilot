@@ -371,7 +371,10 @@
       "sla",
       "load-testing"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "conflict",
+    "modern_note": "Отраслевых стандартов времени отклика нет: пороги задаются как SLO/SLI по перцентилям (p95/p99) для конкретного сервиса, а не по «нормам отрасли». Ориентиры книги — иллюстрация, не критерий pass/fail (Google SRE Book, гл. 4)."
   },
   {
     "id": "SRK-PERF-014",
@@ -407,7 +410,9 @@
       "see-SRK-FORM-026",
       "needs-payments"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-PERF-016",
@@ -682,7 +687,9 @@
       "thresholds",
       "ci"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-PERF-026",
@@ -709,7 +716,9 @@
       "breakpoint",
       "thresholds"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-PERF-027",
@@ -767,7 +776,9 @@
       "grafana",
       "bottleneck"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-PERF-029",
@@ -798,7 +809,10 @@
       "lighthouse",
       "web"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned",
+    "modern_note": "Пороги Core Web Vitals оцениваются по 75-му перцентилю полевых данных (CrUX/RUM); единичный лабораторный замер Lighthouse — ориентир, а не вердикт."
   },
   {
     "id": "SRK-PERF-030",
@@ -828,7 +842,9 @@
       "fid",
       "web"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-PERF-031",
@@ -858,6 +874,9 @@
       "layout-shift",
       "web"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned",
+    "modern_note": "Пороги CLS оцениваются по 75-му перцентилю полевых данных; лабораторный Lighthouse не видит сдвигов после загрузки и от взаимодействий, поэтому его значение — ориентир."
   }
 ]

@@ -26,7 +26,9 @@
       "ep",
       "coverage"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-002",
@@ -143,7 +145,10 @@
       "security",
       "needs-auth"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "conflict",
+    "modern_note": "Для контроля доступа роли не эквивалентны: проверяют каждую пару роль × действие (OWASP WSTG-ATHZ-02), а не «хотя бы одну разрешённую и одну запрещённую роль»."
   },
   {
     "id": "SRK-TD-007",
@@ -174,13 +179,15 @@
       "off-by-one",
       "see-SRK-AI-033"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-008",
     "kind": "recommendation",
     "severity": "should",
-    "title": "Каждый стык классов проверяется по трём точкам (3BVA), а не по двум",
+    "title": "На каждом стыке классов — граничные значения (2BVA); 3BVA для рискованных порогов",
     "statement": "Использовать 3BVA: на каждом стыке классов брать саму граничную точку и по ближайшему соседу с каждой стороны (3 значения на стык). Пример книги: для правила «скидка от 10 товаров» — 9, 10, 11. Двухточечный вариант (граница и один сосед) автор считает устаревшим и допустимым лишь при аварийной нехватке времени.",
     "rationale": "По разбору автора третья точка ловит ошибки операторов сравнения, которые 2BVA пропускает: условие «= 10» вместо «>= 10» проходит проверки 9 и 10 и проявляется только на 11.",
     "applies_to": [
@@ -190,7 +197,7 @@
     ],
     "check": {
       "mode": "heuristic",
-      "how": "Агентом выписать стыки классов (L — последнее значение нижнего класса, F — первое значение верхнего, шаг = точность величины), затем механически сверить с тестовыми данными. Pass, если для стыка есть три подряд идущих значения, включающих L и F: {L−шаг, L, F} или {L, F, F+шаг}. Есть только L и F — это 2BVA, finding. Для порога вида «от N» (>= N) требовать именно N−шаг, N, N+шаг: без N+шаг не ловится ошибка «= N»."
+      "how": "Выписать стыки классов (L — последнее значение нижнего класса, F — первое значение верхнего). Pass: для каждого стыка в тестовых данных есть L и F (2BVA). Для порогов высокого риска и условий вида «от N» (>= N) дополнительно требуется N+шаг (3BVA), иначе не ловится ошибка «= N». Finding только при отсутствии L или F, либо при 2BVA на рискованном пороге."
     },
     "source": {
       "chunk_id": "s1-c09-03",
@@ -204,12 +211,15 @@
       "3bva",
       "boundary-values"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "ISTQB CTFL v4.0.1 §4.2.2 признаёт и 2-, и 3-значный BVA; 3BVA тщательнее, но не обязателен везде. Позиция автора («2BVA устарел») — мнение, не стандарт."
   },
   {
     "id": "SRK-TD-009",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Поле с ограничением длины: min−1, min, min+1, max−1, max, max+1 символов",
     "statement": "Для строкового поля с длиной от min до max применяют 3BVA к обеим границам допустимого класса: min−1, min, min+1 и max−1, max, max+1 символов. Например, для имени пользователя 3–15 символов (пример из раздела о классах) это 2, 3, 4, 14, 15, 16.",
     "applies_to": [
@@ -236,7 +246,10 @@
       "forms",
       "see-SRK-FORM-017"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "conflict",
+    "modern_note": "ISTQB допускает 2-value и 3-value BVA; минимально необходимы min−1, min, max, max+1. Значения min+1 и max−1 добавляют по риску, их отсутствие — не fail."
   },
   {
     "id": "SRK-TD-010",
@@ -483,7 +496,9 @@
       "security",
       "needs-uploads"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-018",
@@ -545,7 +560,9 @@
       "see-SRK-FORM-038",
       "needs-uploads"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-020",
@@ -687,7 +704,9 @@
       "combinatorial",
       "coverage"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-025",
@@ -716,7 +735,9 @@
       "1-wise",
       "combinatorial"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-026",
@@ -743,7 +764,10 @@
       "3-wise",
       "risk-based-testing"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "conflict",
+    "modern_note": "Проценты «покрытия багов» для pairwise/3-wise — вольное обобщение эмпирических данных NIST (Kuhn et al., IEEE TSE 2004), а не свойство техники; силу покрытия выбирают по риску."
   },
   {
     "id": "SRK-TD-028",
@@ -852,7 +876,9 @@
       "decision-table",
       "coverage"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-032",
@@ -962,7 +988,9 @@
       "security",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-036",
@@ -1076,7 +1104,9 @@
       "lifecycle",
       "see-SRK-STRAT-047"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-040",
@@ -1106,7 +1136,9 @@
       "negative-testing",
       "invalid-transitions"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-041",
@@ -1166,7 +1198,9 @@
       "timeout",
       "booking"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-043",
@@ -1197,7 +1231,9 @@
       "security",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-044",
@@ -1365,7 +1401,9 @@
       "see-SRK-DB-024",
       "needs-payments"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-TD-050",
@@ -1641,6 +1679,8 @@
       "see-SRK-FORM-038",
       "needs-uploads"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   }
 ]

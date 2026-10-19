@@ -201,7 +201,7 @@
       "mode": "deterministic",
       "how": "На live-product (Playwright с замером времени, DevTools Performance или трассировка) замерить время от клика/ввода до видимой реакции UI для ключевых действий. Fail: реакция дольше 400 мс без какого-либо индикатора ожидания (анимация, спиннер, прогресс-бар). В test-plan — есть проверка индикатора загрузки на медленной сети (throttling)."
     },
-    "modern_note": "Вне книги: близкая современная метрика — INP (Interaction to Next Paint), с марта 2024 входит в Core Web Vitals вместо FID; порог «хорошо» — не более 200 мс (75-й перцентиль).",
+    "modern_note": "Вне книги: близкая современная метрика — INP (Interaction to Next Paint), с марта 2024 входит в Core Web Vitals вместо FID; порог «хорошо» — не более 200 мс (75-й перцентиль). Вне книги: «порог Доэрти» 400 мс (1982) мягче современных порогов: для веба INP «хорошо» ≤ 200 мс по 75-му перцентилю (Core Web Vitals, web.dev), RAIL — визуальный отклик ≤ 100 мс. Использовать 200 мс INP как порог fail, а 400 мс — не как норму.",
     "source": {
       "chunk_id": "s7-c04-04-p1",
       "printed_pages": [
@@ -216,7 +216,9 @@
       "spinner",
       "progress-bar"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "conflict"
   },
   {
     "id": "SRK-UXL-008",
@@ -529,7 +531,9 @@
       "credit-card",
       "normalization"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UXL-018",
@@ -679,7 +683,9 @@
       "deceptive-design",
       "ethics"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UXL-023",
@@ -714,7 +720,10 @@
       "payment",
       "needs-payments"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "Вне книги: требования к drip pricing зависят от юрисдикции — ЕС/UK требуют итоговую цену с налогами сразу, а в США sales tax традиционно добавляется на checkout и исключён из FTC Rule on Unfair or Deceptive Fees (2025, касается билетов и краткосрочного жилья); проверять с учётом рынка."
   },
   {
     "id": "SRK-UXL-024",
@@ -746,7 +755,9 @@
       "mobile",
       "interstitial"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UXL-025",
@@ -779,7 +790,9 @@
       "payment",
       "needs-payments"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UXL-026",
@@ -811,7 +824,9 @@
       "paywall",
       "needs-payments"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UXL-027",
@@ -829,7 +844,7 @@
       "mode": "heuristic",
       "how": "Посчитать шаги/экраны оформления подписки (регистрации) и её отмены (удаления аккаунта) на live-product. Fail — отмена требует заметно больше шагов, содержит промо-экраны, маскирует кнопку отмены или недоступна в том же канале, где оформлялась. В test-plan — сценарий отмены с проверкой, что подписка реально отменена и списаний больше нет."
     },
-    "modern_note": "Вне книги, статус проверять на дату аудита: в США поправки FTC к Negative Option Rule («click-to-cancel»), принятые в октябре 2024, в июле 2025 были отменены (vacated) Апелляционным судом 8-го округа по процедурным основаниям, так что федерального правила простой отмены сейчас нет. Требования к простой онлайн-отмене подписок при этом существуют в законах отдельных штатов (например, Калифорнии) и отдельных стран ЕС (например, кнопка расторжения в Германии).",
+    "modern_note": "Вне книги, статус проверять на дату аудита: в США поправки FTC к Negative Option Rule («click-to-cancel»), принятые в октябре 2024, в июле 2025 были отменены (vacated) Апелляционным судом 8-го округа по процедурным основаниям, так что федерального правила простой отмены сейчас нет. Требования к простой онлайн-отмене подписок при этом существуют в законах отдельных штатов (например, Калифорнии) и отдельных стран ЕС (например, кнопка расторжения в Германии). Вне книги: поправки FTC «click-to-cancel» отменены 8-м округом в июле 2025, но федеральный закон ROSCA (15 U.S.C. §8403(3)) по-прежнему требует «простых механизмов» прекращения регулярных списаний и активно применяется FTC (дело Amazon Prime, 2025); дополнительно — California ARL и §312k BGB (Германия).",
     "source": {
       "chunk_id": "s7-c04-05-p1",
       "printed_pages": [
@@ -843,7 +858,9 @@
       "account-deletion",
       "unsubscribe"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UXL-028",
@@ -877,7 +894,9 @@
       "gdpr",
       "see-SRK-FORM-034"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UXL-029",
@@ -908,7 +927,9 @@
       "popup",
       "ux-writing"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UXL-030",
@@ -943,7 +964,9 @@
       "upsell",
       "needs-payments"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UXL-031",
@@ -975,7 +998,9 @@
       "privacy",
       "invitations"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UXL-032",
@@ -1003,7 +1028,9 @@
       "advertising",
       "search-results"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UXL-033",
@@ -1034,7 +1061,9 @@
       "promo",
       "needs-payments"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UXL-034",

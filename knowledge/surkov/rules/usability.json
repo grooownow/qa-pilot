@@ -451,7 +451,10 @@
       "typography",
       "font-size"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "Вне книги: WCAG 2.2 не задаёт минимальный размер шрифта; нормативны SC 1.4.4 (увеличение текста до 200%) и SC 1.4.12 (контент не ломается при line-height 1.5 и letter-spacing 0.12em). Порог 12pt/16px — практическая эвристика, а не стандарт."
   },
   {
     "id": "SRK-UX-018",
@@ -482,7 +485,9 @@
       "see-SRK-A11Y-095"
     ],
     "modern_note": "Порог 24×24 CSS px соответствует WCAG 2.2 SC 2.5.8 Target Size (Minimum), уровень AA; есть исключения (достаточный отступ вокруг меньшей цели, ссылки внутри текста, наличие эквивалентного крупного элемента, размер, заданный браузером).",
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UX-019",
@@ -625,7 +630,9 @@
       "localization",
       "needs-payments"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UX-024",
@@ -717,7 +724,7 @@
   {
     "id": "SRK-UX-028",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Пароль не стирается при ошибке",
     "statement": "При ошибке ввода пароля система не очищает поле целиком: введённое значение сохраняется, поле подсвечивается, и пользователь может исправить опечатку.",
     "rationale": "Повторно набирать длинный сложный пароль из-за одной опечатки утомительно. Этот пункт противоречит SRK-FORM-029 из чек-листа форм, где предлагается очищать пароль при ошибке; книга противоречие не разрешает, поэтому ожидаемое поведение нужно брать из требований продукта.",
@@ -727,7 +734,7 @@
       "test-code"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "Ввести пароль с ошибкой, вызвать сообщение об ошибке и проверить toHaveValue() поля пароля. Fail — поле очищено."
     },
     "source": {
@@ -747,7 +754,10 @@
       "needs-auth"
     ],
     "verification": "fixed",
-    "decision": "Решение команды от 2026-10-12. Это правило проекта: при ошибке пароль не очищается. Противоположный пункт SRK-FORM-029 в этой части не применяется."
+    "decision": "Решение команды от 2026-10-12. Это правило проекта: при ошибке пароль не очищается. Противоположный пункт SRK-FORM-029 в этой части не применяется.",
+    "authority": "author-opinion",
+    "external_check": "conflict",
+    "modern_note": "Вне книги: при неудачном входе очистка поля пароля — распространённая и допустимая практика (Google, Apple), а WCAG 2.2 SC 3.3.7 Redundant Entry прямо исключает повторный ввод по соображениям безопасности. Сохранять значение важно для ошибок валидации при регистрации/смене пароля, но не для неверного пароля при логине."
   },
   {
     "id": "SRK-UX-029",
@@ -778,7 +788,9 @@
       "forms",
       "needs-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UX-031",
@@ -809,7 +821,10 @@
       "double-submit",
       "see-SRK-REQ-032"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Вне книги: суть проверки — нет дублирующих запросов и виден статус выполнения; блокировка через disabled не единственный способ (aria-disabled + игнор повторного клика, aria-busy сохраняют фокус для скринридеров), а для платежей дубли должна исключать и серверная идемпотентность."
   },
   {
     "id": "SRK-UX-032",
@@ -838,7 +853,9 @@
       "error-messages",
       "offline"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UX-033",
@@ -869,12 +886,14 @@
       "destructive-action",
       "see-SRK-MD-058"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UX-034",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Предупреждение о потере несохранённых данных",
     "statement": "При попытке уйти со страницы или экрана с несохранёнными данными (кнопка «Назад», свайп, выход в меню) показывается подтверждение о возможной потере данных.",
     "applies_to": [
@@ -900,7 +919,10 @@
       "unsaved-changes",
       "navigation"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Вне книги: автосохранение черновика — равноценная и часто предпочтительная альтернатива диалогу; beforeunload браузеры показывают только с generic-текстом и после user activation, а на мобильных он ненадёжен."
   },
   {
     "id": "SRK-UX-035",
@@ -935,7 +957,9 @@
       "see-SRK-HIG-072",
       "needs-mobile"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-UX-036",
@@ -1023,6 +1047,8 @@
       "hitbox",
       "dead-zone"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   }
 ]

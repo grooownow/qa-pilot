@@ -174,7 +174,9 @@
       "macos",
       "needs-desktop"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-INST-007",
@@ -293,7 +295,9 @@
       "error-message",
       "needs-desktop"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-INST-011",
@@ -324,7 +328,9 @@
       "negative",
       "needs-desktop"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-INST-012",
@@ -413,7 +419,9 @@
       "negative",
       "needs-desktop"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-INST-015",
@@ -564,7 +572,9 @@
       "migration",
       "also-mobile"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-INST-020",
@@ -593,7 +603,9 @@
       "data-integrity",
       "offline-content"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-INST-021",
@@ -650,7 +662,9 @@
       "cache",
       "stale-assets"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-INST-023",
@@ -767,7 +781,9 @@
       "forward-compatibility",
       "versioning"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-INST-027",
@@ -796,7 +812,9 @@
       "payments",
       "negative"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-INST-028",
@@ -852,7 +870,9 @@
       "uninstall",
       "reinstall"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-INST-031",
@@ -1164,7 +1184,9 @@
       "needs-mobile"
     ],
     "verification": "fixed",
-    "modern_note": "WebKit-движок Playwright приближает, но не заменяет реальный Safari на iOS; финальную проверку визуала лучше делать на устройстве или в облачной ферме."
+    "modern_note": "WebKit-движок Playwright приближает, но не заменяет реальный Safari на iOS; финальную проверку визуала лучше делать на устройстве или в облачной ферме. Все браузеры на iOS обязаны использовать WebKit (App Store Review Guidelines 2.5.6; исключения для ЕС с iOS 17.4 редки). Safari iOS — представитель движка; различия с Chrome iOS в основном в API, а не в вёрстке.",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-INST-043",
@@ -1478,7 +1500,7 @@
   {
     "id": "SRK-INST-054",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Одно ядро CPU на 100% при простое остальных — баг оптимизации",
     "statement": "Нагрузка должна распределяться по ядрам примерно равномерно (ориентир 40–80%). Одно забитое ядро при простаивающих остальных — узкое горлышко (bottleneck).",
     "applies_to": [
@@ -1486,7 +1508,7 @@
       "test-plan"
     ],
     "check": {
-      "mode": "manual",
+      "mode": "heuristic",
       "how": "В мониторе ресурсов смотреть загрузку по ядрам под нагрузкой. Fail — одно ядро ~100%, остальные ~10%."
     },
     "source": {
@@ -1500,7 +1522,10 @@
       "bottleneck",
       "hardware"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "conflict",
+    "modern_note": "Одно загруженное ядро — сигнал для профилирования, а не дефект сам по себе: многие нагрузки однопоточны (закон Амдала, event loop). Дефект — при нарушении требований к FPS/latency."
   },
   {
     "id": "SRK-INST-055",
@@ -1534,7 +1559,9 @@
       "games",
       "also-test-strategy"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-INST-056",

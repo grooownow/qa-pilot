@@ -56,7 +56,9 @@
       "sca",
       "fintech"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-REQ-003",
@@ -139,7 +141,9 @@
       "user-story",
       "acceptance-criteria"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-REQ-006",
@@ -166,7 +170,9 @@
       "bdd",
       "acceptance-criteria"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-REQ-007",
@@ -221,7 +227,9 @@
       "edge-cases",
       "error-handling"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-REQ-009",
@@ -249,7 +257,9 @@
       "consistency",
       "figma"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-REQ-010",
@@ -276,7 +286,9 @@
       "unambiguous",
       "ambiguity"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-REQ-011",
@@ -303,7 +315,9 @@
       "correct",
       "correctness"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-REQ-012",
@@ -330,7 +344,9 @@
       "verifiable",
       "testability"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-REQ-013",
@@ -357,7 +373,9 @@
       "atomic",
       "atomicity"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-REQ-014",
@@ -384,7 +402,9 @@
       "banned-words",
       "measurable"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-REQ-015",
@@ -615,7 +635,9 @@
       "startup-time",
       "pwa"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-REQ-023",
@@ -728,7 +750,9 @@
       "javascript",
       "perceived-performance"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-REQ-027",

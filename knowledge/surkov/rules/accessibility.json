@@ -58,7 +58,9 @@
       "conformance-level",
       "legal"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-003",
@@ -88,7 +90,10 @@
       "low-vision"
     ],
     "rationale": "Масштабирование без развала вёрстки нужно людям с близорукостью и дальнозоркостью.",
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "SC 1.4.4 требует отсутствия потери контента/функций при 200%; запрет горизонтальной прокрутки — это SC 1.4.10 (Reflow, 400%/320px) и AAA SC 1.4.8, а не 1.4.4. Фиксированный px сам по себе не нарушение при браузерном зуме."
   },
   {
     "id": "SRK-A11Y-004",
@@ -117,7 +122,9 @@
       "notifications",
       "video"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-005",
@@ -234,7 +241,9 @@
       "cognitive",
       "wcag-2.2"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-009",
@@ -329,7 +338,9 @@
       "needs-mobile"
     ],
     "rationale": "При треморе или в транспорте устройство постоянно движется, и функция срабатывает случайно (например, пауза в игре в поезде).",
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-013",
@@ -389,7 +400,9 @@
       "images",
       "axe-image-alt"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-015",
@@ -418,7 +431,9 @@
       "aria-label",
       "axe-button-name"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-016",
@@ -446,7 +461,9 @@
       "wcag-1.1.1",
       "captcha"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-017",
@@ -476,7 +493,9 @@
       "audio",
       "video"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-018",
@@ -504,7 +523,9 @@
       "captions",
       "video"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-019",
@@ -531,7 +552,9 @@
       "audio-description",
       "video"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-020",
@@ -558,7 +581,10 @@
       "captions",
       "live-stream"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "conflict",
+    "modern_note": "По Understanding WCAG автоматические субтитры сами по себе не удовлетворяют SC 1.2.2/1.2.4, если их точность не обеспечена (проверка/правка человеком). Наличие авто-CC — не автоматический pass."
   },
   {
     "id": "SRK-A11Y-021",
@@ -585,7 +611,9 @@
       "audio-description",
       "video"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-022",
@@ -719,7 +747,9 @@
       "headings",
       "semantic-html"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-027",
@@ -747,7 +777,9 @@
       "semantic-html",
       "axe-list"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-028",
@@ -775,7 +807,9 @@
       "dom-order",
       "screen-reader"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-029",
@@ -806,7 +840,9 @@
       "instructions",
       "copy"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-030",
@@ -837,7 +873,9 @@
       "axe-css-orientation-lock",
       "needs-mobile"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-031",
@@ -851,7 +889,7 @@
       "test-code"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "Найти input с type=email/tel или name/id вида name|email|phone|tel|address|zip|postal|card и проверить наличие autocomplete с валидным токеном. axe правило autocomplete-valid проверяет валидность значения; отсутствие атрибута ищется грепом/скриптом."
     },
     "source": {
@@ -867,7 +905,10 @@
       "forms",
       "axe-autocomplete-valid"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "SC 1.3.5 касается только полей с данными о самом пользователе (не получателя подарка и т.п.); назначение поля по name/id угадывается, поэтому отсутствие autocomplete — кандидат, а не детерминированный fail."
   },
   {
     "id": "SRK-A11Y-032",
@@ -896,7 +937,9 @@
       "aria-roles",
       "axe-region"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-033",
@@ -929,7 +972,9 @@
       "validation",
       "color-blindness"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-034",
@@ -958,7 +1003,9 @@
       "use-of-color",
       "axe-link-in-text-block"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-035",
@@ -986,7 +1033,9 @@
       "e-commerce",
       "use-of-color"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-036",
@@ -1014,7 +1063,9 @@
       "use-of-color",
       "see-SRK-MOB-050"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-037",
@@ -1045,7 +1096,9 @@
       "audio",
       "axe-no-autoplay-audio"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-038",
@@ -1077,7 +1130,9 @@
       "also-usability"
     ],
     "verification": "fixed",
-    "rationale": "Низкий контраст особенно мешает слабовидящим и пожилым пользователям со сниженной контрастной чувствительностью."
+    "rationale": "Низкий контраст особенно мешает слабовидящим и пожилым пользователям со сниженной контрастной чувствительностью.",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-039",
@@ -1104,7 +1159,9 @@
       "wcag-1.4.5",
       "images-of-text"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-040",
@@ -1130,7 +1187,9 @@
       "contrast",
       "axe-color-contrast-enhanced"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-041",
@@ -1238,7 +1297,9 @@
       "responsive",
       "zoom"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-045",
@@ -1269,7 +1330,9 @@
       "icons",
       "see-SRK-MD-035"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-046",
@@ -1297,7 +1360,9 @@
       "text-spacing",
       "layout"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-047",
@@ -1327,7 +1392,9 @@
       "dismissible",
       "escape"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-048",
@@ -1354,7 +1421,9 @@
       "tooltip",
       "hoverable"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-049",
@@ -1382,12 +1451,14 @@
       "tooltip",
       "persistent"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-050",
     "kind": "checklist",
-    "severity": "must",
+    "severity": "should",
     "title": "Стандартные клавиши навигации работают как ожидается",
     "statement": "Проход с клавиатуры: Tab/Shift+Tab двигают фокус по интерактивным элементам, Enter/Space активируют кнопки, ссылки и чекбоксы, стрелки работают внутри списков, слайдеров и табов, Esc закрывает модалки и меню.",
     "applies_to": [
@@ -1411,7 +1482,10 @@
       "wcag-2.1.1",
       "keyboard-walk"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "conflict",
+    "modern_note": "По HTML и WAI-ARIA APG ссылки активируются только Enter (Space прокручивает страницу), чекбоксы — только Space (Enter может отправить форму). Ожидать Enter/Space для всех трёх — ложный fail."
   },
   {
     "id": "SRK-A11Y-051",
@@ -1441,7 +1515,9 @@
       "semantic-html",
       "see-SRK-FORM-042"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-052",
@@ -1469,7 +1545,9 @@
       "dropdown-menu",
       "hover"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-053",
@@ -1500,7 +1578,9 @@
       "date-picker",
       "file-upload"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-054",
@@ -1530,12 +1610,14 @@
       "iframe",
       "widgets"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-055",
     "kind": "checklist",
-    "severity": "must",
+    "severity": "should",
     "title": "SC 2.1.2 (A): модальное окно закрывается по Esc и возвращает фокус",
     "statement": "В модальном окне Tab после последнего поля переходит на кнопку «Закрыть», Esc мгновенно закрывает окно, и фокус возвращается на элемент, который его открыл.",
     "applies_to": [
@@ -1559,7 +1641,10 @@
       "focus-management",
       "escape"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Esc-закрытие, цикл Tab внутри и возврат фокуса — паттерн WAI-ARIA APG Dialog, а не требование SC 2.1.2: модалка с видимой кнопкой «Закрыть» без Esc не нарушает 2.1.2."
   },
   {
     "id": "SRK-A11Y-056",
@@ -1587,7 +1672,9 @@
       "combobox",
       "keyboard"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-057",
@@ -1647,7 +1734,9 @@
       "screen-reader",
       "voice-control"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-059",
@@ -1678,7 +1767,9 @@
       "session-timeout",
       "timing"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-060",
@@ -1742,7 +1833,9 @@
       "autoplay",
       "gif"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-062",
@@ -1772,7 +1865,9 @@
       "live-feed",
       "focus"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-063",
@@ -1960,7 +2055,10 @@
       "web",
       "also-mobile-hig"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "conflict",
+    "modern_note": "Порог площади в WCAG — не «25% экрана», а суммарно более 0,006 стерадиан (четверть 10° поля зрения, ≈341×256 CSS px при типичном просмотре). Небольшой элемент может нарушать SC, даже занимая малую долю экрана."
   },
   {
     "id": "SRK-A11Y-069",
@@ -2048,7 +2146,10 @@
       "bypass-blocks",
       "axe-bypass"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "conflict",
+    "modern_note": "SC 2.4.1 удовлетворяется не только skip link, но и landmarks (ARIA11) или заголовками в начале секций (H69). Отсутствие skip link при корректных landmarks — не fail, а замечание."
   },
   {
     "id": "SRK-A11Y-072",
@@ -2078,7 +2179,9 @@
       "axe-document-title",
       "seo"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-073",
@@ -2136,12 +2239,14 @@
       "css-order",
       "see-SRK-HIG-109"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-075",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "SC 2.4.3 (A): не использовать положительный tabindex",
     "statement": "tabindex со значением 1 и выше ломает естественный порядок фокуса; допустимы только tabindex=\"0\" (добавить в поток) и tabindex=\"-1\" (убрать из потока).",
     "applies_to": [
@@ -2163,7 +2268,10 @@
       "tabindex",
       "axe-tabindex"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Положительный tabindex — нарушение SC 2.4.3 только если порядок фокуса становится нелогичным (F44); axe относит правило tabindex к best-practice, не к WCAG-fail."
   },
   {
     "id": "SRK-A11Y-076",
@@ -2191,7 +2299,10 @@
       "modal",
       "focus-management"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "WCAG 2.4.3 не требует переноса фокуса во всё всплывающее: по F85 допустимо, если диалог/меню идёт в DOM сразу после триггера. Перенос фокуса и удержание Tab внутри — требование паттерна APG для модальных диалогов."
   },
   {
     "id": "SRK-A11Y-077",
@@ -2227,7 +2338,10 @@
       "screen-reader",
       "also-mobile-hig"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "По SC 2.4.4 цель ссылки может определяться программным контекстом (абзац, пункт списка, ячейка таблицы, заголовок); «Подробнее» с таким контекстом — не fail. Одинаковые имена с разными href — требование AAA SC 2.4.9, на AA это замечание."
   },
   {
     "id": "SRK-A11Y-078",
@@ -2256,7 +2370,9 @@
       "search",
       "sitemap"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-079",
@@ -2285,7 +2401,9 @@
       "headings",
       "content"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-080",
@@ -2313,7 +2431,9 @@
       "labels",
       "forms"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-081",
@@ -2342,7 +2462,9 @@
       "outline",
       "keyboard"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-082",
@@ -2455,7 +2577,9 @@
       "cookie-banner",
       "wcag-2.2"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-086",
@@ -2572,7 +2696,9 @@
       "mobile",
       "see-SRK-MOB-021"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-090",
@@ -2601,7 +2727,9 @@
       "mousedown",
       "touch"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-091",
@@ -2632,7 +2760,9 @@
       "voice-control",
       "accessible-name"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-092",
@@ -2725,7 +2855,9 @@
       "wcag-2.2",
       "see-SRK-HIG-023"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-095",
@@ -2761,7 +2893,9 @@
       "see-SRK-UXL-009",
       "see-SRK-UX-018"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-096",
@@ -2791,7 +2925,9 @@
       "i18n",
       "axe-html-has-lang"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-097",
@@ -2820,7 +2956,9 @@
       "i18n",
       "axe-valid-lang"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-098",
@@ -2960,7 +3098,9 @@
       "change-of-context",
       "keyboard"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-103",
@@ -2991,7 +3131,9 @@
       "forms",
       "change-of-context"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-104",
@@ -3019,7 +3161,9 @@
       "consistent-navigation",
       "menu"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-105",
@@ -3049,7 +3193,9 @@
       "labels",
       "icons"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-106",
@@ -3111,7 +3257,9 @@
       "chat",
       "wcag-2.2"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-108",
@@ -3143,12 +3291,15 @@
       "validation",
       "see-SRK-API-092"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "SC 3.3.1 требует идентифицировать поле с ошибкой и описать ошибку текстом; расположение «рядом с полем» — лучшая практика (GOV.UK, G83/ARIA21), а сводка ошибок со ссылками на поля тоже удовлетворяет критерию."
   },
   {
     "id": "SRK-A11Y-109",
     "kind": "checklist",
-    "severity": "must",
+    "severity": "should",
     "title": "SC 3.3.1 (A): текст ошибки программно связан с полем",
     "statement": "Сообщение об ошибке связывается с полем через aria-describedby (а поле помечается aria-invalid), чтобы скринридер зачитал ошибку при переходе на поле.",
     "applies_to": [
@@ -3171,7 +3322,10 @@
       "aria-invalid",
       "forms"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "aria-invalid + aria-describedby — достаточная техника ARIA21, но не единственный способ соответствовать SC 3.3.1/1.3.1 (например, ошибка внутри label). Отсутствие именно этой разметки — не автоматический fail."
   },
   {
     "id": "SRK-A11Y-110",
@@ -3200,7 +3354,9 @@
       "forms",
       "validation"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-111",
@@ -3235,7 +3391,9 @@
       "see-SRK-MD-088",
       "see-SRK-HIG-105"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-112",
@@ -3272,7 +3430,9 @@
       "also-forms",
       "see-SRK-UX-027"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-113",
@@ -3301,7 +3461,9 @@
       "forms",
       "aria-required"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-114",
@@ -3363,7 +3525,9 @@
       "see-SRK-FORM-003",
       "see-SRK-HIG-082"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-116",
@@ -3395,7 +3559,9 @@
       "user-enumeration",
       "needs-auth"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-117",
@@ -3427,7 +3593,9 @@
       "delete",
       "confirmation"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-118",
@@ -3522,7 +3690,9 @@
       "see-SRK-FORM-032",
       "needs-auth"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-121",
@@ -3584,7 +3754,9 @@
       "custom-widgets",
       "screen-reader"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-123",
@@ -3614,7 +3786,9 @@
       "menu",
       "accordion"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-124",
@@ -3646,7 +3820,9 @@
       "cart",
       "screen-reader"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-125",
@@ -3704,7 +3880,9 @@
       "tools",
       "ci"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-127",
@@ -3762,7 +3940,9 @@
       "tools",
       "playwright"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-129",
@@ -3789,7 +3969,9 @@
       "automation",
       "tools"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-130",
@@ -3901,7 +4083,9 @@
       "wcag-1.4.3",
       "tools"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-A11Y-134",
@@ -3932,6 +4116,8 @@
       "tools",
       "see-SRK-MOB-054"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   }
 ]

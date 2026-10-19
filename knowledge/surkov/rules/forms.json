@@ -86,7 +86,11 @@
       "field-design",
       "one-field-one-value"
     ],
-    "verification": "ok"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "conflict",
+    "decision": "Допускается одно поле «Полное имя»: правило не применяется к именам людей (см. SRK-L10N-014, W3C Personal names, GOV.UK Names). Для остальных составных значений (дата, адрес при раздельном хранении) правило действует.",
+    "modern_note": "W3C Internationalization «Personal names around the world» и GOV.UK Design System (Names) рекомендуют одно поле для полного имени, чтобы не ломать имена, не укладывающиеся в схему «имя + фамилия»."
   },
   {
     "id": "SRK-FORM-005",
@@ -256,7 +260,9 @@
       "data-loss",
       "see-SRK-UX-028"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-011",
@@ -314,7 +320,9 @@
       "browser-back",
       "data-loss"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-013",
@@ -374,7 +382,10 @@
       "see-SRK-API-090",
       "see-SRK-STRAT-022"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Основная защита — параметризованные запросы и контекстное экранирование при выводе; санитизация и запрет символов на вводе — не замена (OWASP)."
   },
   {
     "id": "SRK-FORM-015",
@@ -403,7 +414,9 @@
       "checklist",
       "positive"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-016",
@@ -433,7 +446,9 @@
       "required",
       "negative"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-017",
@@ -465,7 +480,9 @@
       "max-length",
       "see-SRK-TD-009"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-018",
@@ -496,7 +513,9 @@
       "max-length",
       "negative"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-019",
@@ -530,7 +549,9 @@
       "unicode",
       "also-test-design"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-020",
@@ -562,7 +583,9 @@
       "encoding",
       "utf8mb4"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-021",
@@ -597,7 +620,9 @@
       "validation",
       "also-test-design"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-022",
@@ -630,7 +655,10 @@
       "email",
       "also-test-design"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "conflict",
+    "modern_note": "Для паролей trim недопустим: пробелы — допустимые символы секрета (NIST SP 800-63B-4); правило относится к полям вроде имени, email, логина, а не к паролю."
   },
   {
     "id": "SRK-FORM-023",
@@ -659,7 +687,9 @@
       "checklist",
       "whitespace"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-024",
@@ -690,7 +720,9 @@
       "rtl",
       "unicode"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-025",
@@ -752,7 +784,9 @@
       "see-SRK-PERF-014",
       "see-SRK-API-003"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-027",
@@ -783,7 +817,9 @@
       "zero-width-space",
       "negative"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-028",
@@ -814,7 +850,9 @@
       "masking",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-029",
@@ -848,7 +886,9 @@
       "needs-auth"
     ],
     "verification": "fixed",
-    "decision": "Решение команды от 2026-10-12. При ошибке формы пароль НЕ очищается: введённое значение сохраняется (действует SRK-UX-028). Пункт книги про очистку после ошибки не применяется. Остаются в силе очистка при перезагрузке страницы и запрет хранить пароль открыто в разметке."
+    "decision": "Решение команды от 2026-10-12. При ошибке формы пароль НЕ очищается: введённое значение сохраняется (действует SRK-UX-028). Пункт книги про очистку после ошибки не применяется. Остаются в силе очистка при перезагрузке страницы и запрет хранить пароль открыто в разметке.",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-030",
@@ -880,7 +920,10 @@
       "security",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "conflict",
+    "modern_note": "NIST SP 800-63B-4 запрещает правила состава пароля (цифры, спецсимволы) и требует проверку по списку скомпрометированных/словарных паролей и минимальную длину; «описанные правила сложности» не нужны."
   },
   {
     "id": "SRK-FORM-031",
@@ -912,7 +955,9 @@
       "security",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-032",
@@ -947,7 +992,9 @@
       "see-SRK-A11Y-120",
       "needs-auth"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-033",
@@ -978,7 +1025,9 @@
       "show-password",
       "needs-auth"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-034",
@@ -1012,7 +1061,9 @@
       "consent",
       "see-SRK-UXL-028"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-035",
@@ -1043,7 +1094,9 @@
       "radio",
       "label"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-036",
@@ -1073,7 +1126,9 @@
       "checkbox",
       "bulk-actions"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-037",
@@ -1106,7 +1161,9 @@
       "radio-button",
       "also-test-design"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-038",
@@ -1140,7 +1197,9 @@
       "see-SRK-TD-019",
       "needs-uploads"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-039",
@@ -1174,7 +1233,9 @@
       "see-SRK-API-028",
       "needs-uploads"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-040",
@@ -1265,7 +1326,10 @@
       "also-test-strategy",
       "see-SRK-A11Y-051"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "Enter отправляет форму по HTML implicit submission только из однострочных полей при наличии submit-кнопки; в textarea Enter вставляет перевод строки — это не дефект."
   },
   {
     "id": "SRK-FORM-043",
@@ -1353,7 +1417,10 @@
       "security",
       "csrf"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "По OWASP SameSite-cookie — мера defense-in-depth, а не замена токена или проверки Fetch Metadata/Origin."
   },
   {
     "id": "SRK-FORM-046",
@@ -1383,7 +1450,9 @@
       "rate-limiting",
       "brute-force"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-047",
@@ -1414,7 +1483,7 @@
   {
     "id": "SRK-FORM-048",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Проверены все четыре состояния кнопки",
     "statement": "Для каждой кнопки проверяются состояния Enabled (default), Focused (видимая обводка при фокусе с клавиатуры), Hovered (визуальная реакция на наведение) и Disabled (не реагирует на клики до выполнения условия).",
     "applies_to": [
@@ -1441,7 +1510,9 @@
       "focus",
       "disabled"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-049",
@@ -1638,7 +1709,9 @@
       "notifications",
       "see-SRK-MD-082"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-FORM-056",
@@ -1667,6 +1740,8 @@
       "modal",
       "popup"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   }
 ]

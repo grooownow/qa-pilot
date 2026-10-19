@@ -341,7 +341,9 @@
       "gdpr",
       "privacy"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-STRAT-022",
@@ -662,7 +664,7 @@
       "test-code"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "Взять длительность основного CI-прогона автотестов (логи CI, отчёт раннера). Pass: ≤ 15 минут (ориентир книги для правильной пирамиды — 10–15 минут). Fail: дольше 15 минут — указать длительность и искать перекос в сторону E2E и отсутствие параллелизации; прогон в часы — серьёзный сигнал."
     },
     "source": {
@@ -677,7 +679,10 @@
       "ci",
       "duration"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "Порог 10–15 минут — ориентир автора, близкий к рекомендации Continuous Delivery для commit stage. Допустимая длительность полного набора зависит от проекта; превышение — повод искать перекос в E2E, а не автоматический fail."
   },
   {
     "id": "SRK-STRAT-036",
@@ -763,7 +768,9 @@
       "typescript",
       "ci"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-STRAT-039",
@@ -791,7 +798,9 @@
       "regression",
       "red-flag"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-STRAT-040",
@@ -904,7 +913,9 @@
       "branch-coverage",
       "unit"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-STRAT-044",
@@ -1341,7 +1352,9 @@
       "test-design",
       "masking"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-STRAT-059",
@@ -1396,7 +1409,9 @@
       "confirmation-testing",
       "bug-lifecycle"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-STRAT-061",
@@ -1449,7 +1464,10 @@
       "code-freeze",
       "hotfix"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Вне книги: ISTQB CTFL v4 §2.2.3 предлагает определять объём регресса через impact analysis, а не перепроверять «всю платформу»; в CI/CD регресс выполняется автоматически на каждое изменение, а цикл code freeze → регресс — лишь одна из моделей."
   },
   {
     "id": "SRK-STRAT-063",

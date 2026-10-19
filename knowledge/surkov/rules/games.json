@@ -27,7 +27,9 @@
       "crash-dump",
       "needs-game"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GAME-002",
@@ -56,7 +58,9 @@
       "freeze",
       "needs-game"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GAME-003",
@@ -116,7 +120,9 @@
       "scripting",
       "needs-game"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GAME-005",
@@ -287,7 +293,9 @@
       "collision",
       "needs-game"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-GAME-011",
@@ -379,7 +387,7 @@
   {
     "id": "SRK-GAME-014",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Вылеты, ANR, WTB, провалы под карту и низкий FPS — High/Critical",
     "statement": "Вылеты, зависания, блокировщики прохождения, провалы под карту, FPS ниже играбельного порога и полностью сломанные ключевые механики оцениваются как High/Critical severity.",
     "applies_to": [
@@ -402,7 +410,10 @@
       "see-SRK-ART-057",
       "needs-game"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "Градация severity задаётся политикой проекта (ISTQB CTFL v4 §5.5); перечисленные типы — кандидаты в High/Critical, а не жёсткое правило."
   },
   {
     "id": "SRK-GAME-015",

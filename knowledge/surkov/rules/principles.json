@@ -25,7 +25,10 @@
       "expected-result",
       "test-oracle"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "conflict",
+    "modern_note": "Обоснование «тестирование — это сверка с ожидаемым» уже определения ISTQB v4 §1.1. Явный ожидаемый результат обязателен для скриптовых кейсов и автотестов; для исследовательских сессий вместо него используют чартер и оракулы."
   },
   {
     "id": "SRK-PRIN-002",
@@ -243,7 +246,10 @@
       "risk-based",
       "see-SRK-STRAT-053"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "«80% дефектов в 20% модулей» — иллюстрация принципа скопления дефектов (ISTQB CTFL v4.0.1 §1.3), а не закон; используйте историю дефектов проекта, а не пропорцию."
   },
   {
     "id": "SRK-PRIN-011",
@@ -271,7 +277,10 @@
       "pesticide-paradox",
       "maintenance"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "ISTQB CTFL v4.0.1 называет принцип «Tests wear out»: повторяемые автоматические регрессионные тесты остаются полезны; обновлять нужно тесты, переставшие находить дефекты в изменённых областях."
   },
   {
     "id": "SRK-PRIN-012",

@@ -25,7 +25,9 @@
       "error-message",
       "localization"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-002",
@@ -178,7 +180,9 @@
       "localization",
       "needs-android"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "unchecked"
   },
   {
     "id": "SRK-MD-007",
@@ -270,7 +274,9 @@
       "dates",
       "ux-writing"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-010",
@@ -298,7 +304,9 @@
       "push",
       "ux-writing"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-011",
@@ -355,7 +363,9 @@
       "punctuation",
       "see-SRK-HIG-102"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-014",
@@ -441,7 +451,9 @@
       "punctuation",
       "empty-state"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-017",
@@ -474,7 +486,7 @@
   {
     "id": "SRK-MD-018",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Disabled-компонент не реагирует на hover, фокус, нажатие и перетаскивание",
     "statement": "Заблокированный элемент нельзя сфокусировать, перетащить или нажать, и он не меняет вид при наведении или нажатии.",
     "applies_to": [
@@ -499,7 +511,10 @@
       "disabled-state",
       "states"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "conflict",
+    "modern_note": "WAI-ARIA APG рекомендует в ряде виджетов (меню, тулбары) оставлять disabled-элементы фокусируемыми с aria-disabled=\"true\". Обязательно лишь, что действие не выполняется."
   },
   {
     "id": "SRK-MD-019",
@@ -559,7 +574,9 @@
       "text-rendering",
       "needs-rtl"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-021",
@@ -589,7 +606,9 @@
       "text-field",
       "needs-rtl"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-022",
@@ -1016,7 +1035,9 @@
       "wcag-1.4.11",
       "see-SRK-A11Y-045"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-036",
@@ -1048,7 +1069,9 @@
       "counter",
       "bva"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-037",
@@ -1193,7 +1216,9 @@
       "fab",
       "extended-fab"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-042",
@@ -1535,7 +1560,9 @@
       "dialog",
       "ux-writing"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-054",
@@ -1697,7 +1724,7 @@
       "requirements"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "Замерить длительность операций (Playwright: время между действием и появлением результата при throttling): для > 5 с — есть determinate-прогресс; для < 200 мс — нет мигающего спиннера."
     },
     "source": {
@@ -1715,7 +1742,10 @@
       "performance",
       "see-SRK-HIG-036"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "Пороги ориентировочные; NN/g предлагает: до ~1 с без индикатора, 2–10 с — спиннер, более 10 с — determinate-прогресс."
   },
   {
     "id": "SRK-MD-060",
@@ -1887,7 +1917,9 @@
       "navigation-bar",
       "bottom-navigation"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-066",
@@ -1916,7 +1948,9 @@
       "labels",
       "localization"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-067",
@@ -2061,7 +2095,9 @@
       "radio-button",
       "forms"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-072",
@@ -2090,12 +2126,14 @@
       "dropdown",
       "forms"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-073",
     "kind": "rule",
-    "severity": "should",
+    "severity": "nice",
     "title": "Радиокнопки вертикально, один вариант выбран по умолчанию",
     "statement": "Список радиокнопок располагается вертикально, и один из вариантов всегда предвыбран.",
     "applies_to": [
@@ -2103,7 +2141,7 @@
       "test-code"
     ],
     "check": {
-      "mode": "deterministic",
+      "mode": "heuristic",
       "how": "При открытии формы в каждой радиогруппе ровно один checked; варианты расположены столбцом."
     },
     "source": {
@@ -2120,7 +2158,10 @@
       "defaults",
       "forms"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "conflict",
+    "modern_note": "Предвыбор не универсален: GOV.UK Design System не рекомендует его (риск неосознанного ответа). Дефолт уместен, только если он безопасен и ожидаем."
   },
   {
     "id": "SRK-MD-074",
@@ -2150,7 +2191,9 @@
       "touch-target",
       "label"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-075",
@@ -2234,7 +2277,9 @@
       "web",
       "snackbar"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-078",
@@ -2297,7 +2342,9 @@
       "wcag-4.1.3",
       "see-SRK-A11Y-060"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-080",
@@ -2444,7 +2491,9 @@
       "toggle",
       "settings"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-085",
@@ -2562,7 +2611,9 @@
       "wcag-3.3.2",
       "see-SRK-A11Y-111"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-089",
@@ -2650,7 +2701,9 @@
       "icon-button",
       "accessibility"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-092",
@@ -2677,7 +2730,9 @@
       "web",
       "tooltip"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-MD-093",

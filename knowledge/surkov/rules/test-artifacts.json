@@ -22,7 +22,9 @@
       "checklist",
       "required-fields"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-002",
@@ -80,7 +82,7 @@
   {
     "id": "SRK-ART-004",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Тест-кейс содержит все обязательные атрибуты до прогона",
     "statement": "До прогона у тест-кейса заполнены: ID, название, приоритет, предусловие, шаги, тестовые данные (если вводятся данные) и ожидаемый результат.",
     "applies_to": [
@@ -101,7 +103,10 @@
       "test-case",
       "required-fields"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Шаблонная полнота кейса измеряет соответствие форме, а не качество тестирования; по 29119-3 состав полей адаптируется под контекст. Обязательны ожидаемый результат и шаги, остальное — по договорённости команды."
   },
   {
     "id": "SRK-ART-005",
@@ -127,7 +132,10 @@
       "actual-result",
       "test-run"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "Заполненный Actual Result у Passed-кейса не является ошибкой: многие TMS и регулируемые проекты фиксируют фактический результат для всех кейсов."
   },
   {
     "id": "SRK-ART-006",
@@ -153,7 +161,9 @@
       "status",
       "test-run"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-007",
@@ -212,7 +222,7 @@
   {
     "id": "SRK-ART-009",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Предусловие у тест-кейса заполнено всегда",
     "statement": "Поле предусловия не оставляют пустым; как правило, в нём указаны роль авторизованного пользователя и страница/URL, с которой начинается тест.",
     "applies_to": [
@@ -233,7 +243,10 @@
       "test-case",
       "preconditions"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "Кейс может не иметь предусловий; «нет» или N/A — допустимое значение, если состояние системы не важно. Fail оправдан, только когда шаги явно зависят от неуказанного состояния."
   },
   {
     "id": "SRK-ART-010",
@@ -317,7 +330,9 @@
       "test-case",
       "atomicity"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-013",
@@ -345,7 +360,9 @@
       "isolation",
       "test-independence"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-014",
@@ -535,7 +552,9 @@
       "organization",
       "regression"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "author-opinion",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-021",
@@ -766,12 +785,14 @@
       "test-run",
       "traceability"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-029",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Каждый упавший кейс прогона превращён в баг-репорт",
     "statement": "По итогам рана для упавших проверок заводятся баг-репорты; итоговые цифры Passed/Failed/Blocked служат основой решения о релизе.",
     "applies_to": [
@@ -792,7 +813,10 @@
       "bug-report",
       "traceability"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Падение кейса не всегда дефект продукта: причиной может быть ошибка теста или окружения (false positive). Такие падения связывают с задачей на тест/окружение или с уже известным дефектом, а не заводят новый баг."
   },
   {
     "id": "SRK-ART-030",
@@ -817,7 +841,9 @@
       "test-plan",
       "scope"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-031",
@@ -844,7 +870,9 @@
       "scope",
       "out-of-scope"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-032",
@@ -870,7 +898,9 @@
       "strategy",
       "environment"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-033",
@@ -897,7 +927,9 @@
       "entry-criteria",
       "exit-criteria"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-034",
@@ -949,7 +981,9 @@
       "resources",
       "schedule"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-036",
@@ -974,7 +1008,9 @@
       "test-plan",
       "risk-management"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-037",
@@ -1006,7 +1042,7 @@
   {
     "id": "SRK-ART-038",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Отчёт о тестировании содержит явную рекомендацию QA по релизу",
     "statement": "Отчёт заканчивается однозначным вердиктом go/no-go: рекомендуем или не рекомендуем выпуск сборки.",
     "rationale": "Бизнесу нужен ответ на вопрос, можно ли катить, а вердикт защищает QA, если релиз выпустили вопреки ему.",
@@ -1028,7 +1064,10 @@
       "test-report",
       "release-decision"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Решение о релизе принимают стейкхолдеры (whole-team approach, ISTQB v4 §1.5.2); отчёт даёт информацию и рекомендацию. Отсутствие формального вердикта go/no-go — замечание, а не блокирующий дефект."
   },
   {
     "id": "SRK-ART-039",
@@ -1053,7 +1092,9 @@
       "test-report",
       "metrics"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-040",
@@ -1080,7 +1121,9 @@
       "bug-report",
       "traceability"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-041",
@@ -1130,7 +1173,9 @@
       "test-report",
       "environment"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-043",
@@ -1209,7 +1254,9 @@
       "defect-metrics",
       "severity"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-046",
@@ -1240,7 +1287,7 @@
   {
     "id": "SRK-ART-047",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Баг-репорт содержит полный набор атрибутов",
     "statement": "Баг-репорт включает: ID, заголовок, окружение, предусловия, шаги воспроизведения, ожидаемый и фактический результат, воспроизводимость, workaround, вложения, severity и priority.",
     "applies_to": [
@@ -1262,7 +1309,10 @@
       "required-fields",
       "see-SRK-AI-011"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "По ISTQB v4 §5.5 без шагов, окружения, ожидаемого и фактического результата дефект нельзя воспроизвести — это обязательный минимум. Вложение, воспроизводимость и workaround желательны, но их отсутствие не делает репорт негодным."
   },
   {
     "id": "SRK-ART-048",
@@ -1287,7 +1337,9 @@
       "bug-report",
       "title"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-049",
@@ -1342,7 +1394,9 @@
       "web",
       "see-SRK-PROC-006"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-051",
@@ -1395,7 +1449,9 @@
       "test-case",
       "expected-result"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-053",
@@ -1446,7 +1502,9 @@
       "reproducibility",
       "flaky"
     ],
-    "verification": "fixed"
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-055",
@@ -1504,7 +1562,7 @@
   {
     "id": "SRK-ART-057",
     "kind": "rule",
-    "severity": "must",
+    "severity": "should",
     "title": "Severity соответствует шкале по техническому влиянию",
     "statement": "Severity ставит QA: Blocker — приложение падает/работа невозможна; Critical — основная функция не работает без простого обхода; Major — важная функция сломана, но обход есть; Minor/Trivial — косметика, опечатки, отступы.",
     "applies_to": [
@@ -1526,7 +1584,10 @@
       "workaround",
       "see-SRK-GAME-014"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "Шкалы severity задаёт организация (ISTQB glossary, IEEE 1044), и названия и границы уровней в разных трекерах различаются. Сверяйте с принятой в проекте шкалой, а приведённую считайте примером."
   },
   {
     "id": "SRK-ART-058",
@@ -1552,7 +1613,9 @@
       "severity",
       "priority"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-059",
@@ -1631,7 +1694,9 @@
       "bug-report",
       "atomicity"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-062",
@@ -1733,7 +1798,9 @@
       "traceability",
       "figma"
     ],
-    "verification": "ok"
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
   },
   {
     "id": "SRK-ART-066",
