@@ -116,6 +116,46 @@ claiming done.
    - **The primary output** is an agent-executable `-actions.md` list.
    - **Onboard** records the test layers that run in CI and the error plumbing.
 
+   **0.5.0 changes.** Sources: a four-agent colloquium
+   (`docs/superpowers/notes/2026-10-19-spec-audit-colloquium.md`); design in
+   `docs/superpowers/specs/2026-10-19-qa-pilot-0.5-design.md`.
+   - **Entity cards.** Every entity with a lifecycle gets 10 must-check web
+     patterns (`references/web-patterns.md`), and an empty cell blocks the
+     report.
+   - **Web invariants** are valid expected-result sources, so plain bugs stop
+     being routed to product questions.
+   - **Buckets.** Must / Should ≤8 / Highlight. Suppressed-by-filter risks
+     stay visible.
+   - **Depth:** critical / standard / thorough. Critical flows are recorded in
+     the profile.
+   - **`-actions.json`** plus `scripts/score.py` (validate / score /
+     agreement) for evals.
+
+8. **task-qa** (added in 0.5.0) — the QA step of one task. `plan`: AC check,
+   impact map (consumers of the touched modules, with file:line and the
+   expected effect), test delta by bucket. `verify`: reconcile the diff with
+   the plan, "intended?" questions about unplanned behaviour changes, three
+   proofs of coverage, and up to 5 tests under the auto-test guard
+   (`references/test-delta.md`). The orchestrator contract is in
+   `references/orchestrator-integration.md`.
+9. **project-audit** (added in 0.5.0) — the whole picture. Onboard's
+   framework-maturity section, 3–7 critical flows confirmed by the owner,
+   `spec-audit` at depth `critical` per flow, an `audit` sample of the test
+   code around them, then one roadmap: framework blockers first.
+
+**Shared references (0.5.0).** `test-delta.md` holds depth, buckets, the
+gap classes, the three proofs, sourced expected results and the auto-test
+guard. `plan-tests`, `cover`, `task-qa` and `spec-audit` all point to it
+instead of restating it.
+
+**Knowledge base (0.5.0).** Rules carry `authority` and `external_check`.
+The 427 `must` and deterministic book rules were checked against standards
+(`docs/superpowers/notes/2026-10-19-kb-external-check.md`). In packs, a
+`must` from an author opinion or a vendor guideline counts as `should`.
+qa-pilot's own domains are written from open sources and verified rule by
+rule. They live in `knowledge/qa-pilot/rules/`, and drafts wait in
+`drafts/` until verified.
+
 ## Cross-cutting rules (in every skill)
 
 - **Token economy:** phase→model routing (haiku for mechanical, sonnet for authoring,

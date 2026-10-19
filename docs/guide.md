@@ -65,6 +65,59 @@ or a hands-on browser session on a bug report.
 When to re-run `onboard`: after a framework migration, a test-layout
 reorganization, new environments — any time the profile's facts go stale.
 
+## The QA step in every task: `task-qa`
+
+`cover` closes the loop after you ship. `task-qa` is a QA step built into
+each task, run twice. It is cheap enough for daily use: about 80k tokens to
+plan and 100k to verify.
+
+```
+/qa-pilot:task-qa plan <ticket or AC>     # before coding
+/qa-pilot:task-qa verify <ticket>         # after coding and tests
+```
+
+- **`plan`** does three things:
+  - checks each acceptance criterion: is it testable, consistent with the
+    code and decisions, complete for the touched entities;
+  - builds an **impact map**: who else consumes the modules the change
+    touches, each edge with `file:line` and an expected effect (unchanged,
+    intended change, unknown);
+  - sets the **test delta**: tests that must change, and new tests in Must /
+    Should / Highlight.
+- **`verify`** does five things:
+  - reconciles the diff with the plan;
+  - recomputes the impact from the real diff and asks **"intended?"** about
+    behaviour changes nobody planned;
+  - proves coverage with three proofs: the test, an assertion on the exact
+    case, and a layer that runs in CI;
+  - writes up to 5 missing tests, each with a sourced expected result, and
+    makes every bug test fail first. It never fixes code;
+  - prints a `## QA verification` block for the PR.
+
+If your team runs tasks through a feature workflow skill, plug `task-qa` into
+its plan and test phases. `references/orchestrator-integration.md` has the
+contract and a ready snippet.
+
+## The whole picture: `project-audit`
+
+Run it on a new project, for an interim audit, or after a large feature or a
+round of small changes. That is when per-task checks lose the big picture.
+
+```
+/qa-pilot:project-audit
+```
+
+1. **Framework maturity.** It scores the test framework: layers, CI gates,
+   mocking, test data, selectors, flaky handling and linting. Blockers come
+   first, because every test written before they are fixed inherits them.
+2. **Critical flows.** It confirms 3–7 critical flows with you.
+3. **Per-flow audit.** It runs `spec-audit` at depth `critical` on each flow
+   you pick (about 150–250k tokens per flow). It also samples the test code
+   around those flows.
+4. **Roadmap.** It writes one roadmap to `docs/qa/project-audit/<date>.md`
+   (framework fixes → Must tests per flow → questions → highlights), plus an
+   English action list.
+
 ## Auditing requirements and test plans
 
 Before (or instead of) writing tests, check the requirements themselves:
@@ -96,13 +149,37 @@ to decide?". How it works:
   - A test counts as coverage only if it asserts the exact case and its layer
     runs in CI.
   - The main session re-runs those searches before anything reaches the report.
+- **Entity cards: the patterns that must not be missed.** Every entity with
+  a lifecycle gets a card of 10 must-check web patterns. Each cell needs a
+  verdict (OK / BUG / GAP / N/A with evidence / DECISION), and the report is
+  not written while a cell is empty. Examples:
+  - saving or acting on an entity that was deleted meanwhile;
+  - double submit;
+  - a mutation with no error handling;
+  - a modal that closes before its request finishes.
+
+  The patterns live in `references/web-patterns.md`, generated from
+  `knowledge/qa-pilot/rules/web-patterns.json`.
+- **No over-testing.** Results are bucketed:
+  - **Must**: P1, bugs, and P2 on your critical flows. Never cut.
+  - **Should**: at most 8.
+  - **Highlight**: one line each, with no test.
+
+  Anything your scope filters removed is still listed once, under
+  *Suppressed by your filters*. You see the risk without paying for the test.
+  Depth is `critical`, `standard` or `thorough`.
 - **Cost.** One feature by default (~250–450k tokens for a feature with 2 spec docs). A
   whole-project audit is offered only on request, with the estimate first.
+  For the whole picture, use `project-audit`.
 
 Two files land in `docs/qa/spec-audit/`:
-- `<date>-<slug>-actions.md` is a plain list an agent can execute: bugs to fix
-  and then test, tests to add (each with its level and target), questions for
-  product, and what is already covered.
+- `<date>-<slug>-actions.md` is a plain list an agent can execute, bucketed as
+  Must / Should / Highlight. It has bugs to fix and then test, tests to add
+  (each with its level and target), questions for product, suppressed risks,
+  and what is already covered.
+- `<date>-<slug>-actions.json` is the same list, machine-readable
+  (`references/actions-schema.md`). Use it for scoring and run-to-run
+  comparison.
 - `<date>-<slug>.md` is the evidence report: severities, rule ids, code lines.
 
 On request, the action list becomes a `plan-tests` plan that `write-tests` can

@@ -63,6 +63,8 @@ hands-on verification anytime.
 | `/qa-pilot:cover` | The everyday orchestrator: what changed → coverage gaps → plan → write → review | `docs/qa/test-plans/<feature>.md` + test files |
 | `/qa-pilot:plan-tests` | Feature → prioritized test scenarios with an explicit depth/cost tradeoff (smoke / standard / thorough) | `docs/qa/test-plans/<feature>.md` |
 | `/qa-pilot:spec-audit` | Audits requirements & test plans against a 1100+ rule QA catalog (test design, requirements quality, a11y, API, UX…), cross-checked against your code → which test cases are missing, what's ambiguous, what the owner must decide | `docs/qa/spec-audit/<date>-<slug>.md` |
+| `/qa-pilot:task-qa` | The QA step of one task: `plan` (AC check, impact map, test delta) before coding; `verify` (diff vs plan, "intended?" questions, proof of coverage, up to 5 guarded tests) after | `docs/qa/tasks/<ticket>.md` (+ tests in verify) |
+| `/qa-pilot:project-audit` | The whole picture: test-framework maturity, critical flows, spec-audit per flow at depth critical, test-code sample → one roadmap | `docs/qa/project-audit/<date>.md` |
 | `/qa-pilot:write-tests` | Implements tests from a plan per your conventions; proves each test can fail; adversarial review loop | test files + scenario→file map in the plan |
 | `/qa-pilot:test` | Exploratory testing session in a real browser (Playwright MCP); guarded low-risk fixes on request | `docs/qa/test-sessions/<date>-<slug>.md` |
 
@@ -110,7 +112,7 @@ Test a feature hands-on in the browser:
 
 ## What's inside
 
-- **7 skills** (`skills/`) — onboard, audit, cover, plan-tests, spec-audit, write-tests, test.
+- **9 skills** (`skills/`) — onboard, audit, cover, plan-tests, spec-audit, task-qa, project-audit, write-tests, test.
   Each follows the same contract: numbered phases, batched questions when
   context is missing, mandatory self-review of any code it changes, evidence
   before claims.
@@ -128,6 +130,18 @@ Test a feature hands-on in the browser:
   AI-in-QA), each verified against its source and tagged with where it applies
   and how to check it — plus qa-pilot's own rules learned from real audits.
   The book text itself is not included (copyright); rules are in Russian.
+  Book rules carry `authority` (standard / industry practice / vendor
+  guideline / author opinion) after an external check against RFC, W3C,
+  ISTQB, OWASP and NIST. An author opinion is never a hard `must`.
+  qa-pilot's own domains are written from open sources and verified rule by
+  rule:
+  - web failure patterns and invariants;
+  - security (OWASP ASVS 5.0 / API Top 10);
+  - test-code quality;
+  - HTTP APIs (RFC 9110/9457, Zalando);
+  - authentication (NIST 800-63B-4);
+  - test strategy (ISTQB v4);
+  - AI-feature testing (OWASP LLM Top 10).
 - **Playwright MCP** (`.mcp.json`) — the official
   [@playwright/mcp](https://www.npmjs.com/package/@playwright/mcp) server
   (pinned version), giving Claude real browser control for `qa-pilot:test`.
