@@ -1,0 +1,728 @@
+[
+  {
+    "id": "QAP-TC-001",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Асинхронные действия и проверки в тесте ожидаются через await",
+    "statement": "Каждый вызов, возвращающий Promise (действия Playwright, web-first expect, findBy*/waitFor из Testing Library, expect(...).resolves/rejects), ожидается через await или возвращается из теста.",
+    "rationale": "Без await тест завершается раньше проверки: упавшее ожидание либо теряется, либо роняет соседний тест. Это классический false green.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Запустить линтер с правилами playwright/missing-playwright-await, jest/valid-expect, jest/valid-expect-in-promise, testing-library/await-async-queries, testing-library/await-async-utils, а для неожидаемых действий Playwright (click, fill, goto) — @typescript-eslint/no-floating-promises (нужен type-aware режим): missing-playwright-await ловит только матчеры, expect.poll, test.step и waitFor*. Любое срабатывание — находка. Если линтер не настроен, grep'ом искать строки `expect(` с `.resolves`/`.rejects` или вызовы `page.`/`locator.` без `await`/`return` в теле теста."
+    },
+    "source": {
+      "origin": "eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): missing-playwright-await; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): valid-expect, valid-expect-in-promise; eslint-plugin-testing-library (https://github.com/testing-library/eslint-plugin-testing-library): await-async-queries, await-async-utils; Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Lint your tests (рекомендует @typescript-eslint/no-floating-promises)"
+    },
+    "tags": [
+      "false-green",
+      "async",
+      "lint"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-002",
+    "kind": "rule",
+    "severity": "must",
+    "title": "В каждом тесте есть хотя бы одна проверка",
+    "statement": "Тело теста содержит хотя бы один expect/assert (напрямую или в хелпере, который явно помечен как проверяющий). Тест «прошёл без исключений» не считается проверкой, если только это не осознанный smoke с явным комментарием.",
+    "rationale": "Тест без проверки зелёный при любом поведении продукта. tsDetect называет это Empty Test / Unknown Test.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Линтер: playwright/expect-expect, jest/expect-expect (с настройкой assertFunctionNames для собственных хелперов). Пустой тест или тест без expect — находка. Хелпер, внутри которого есть expect, должен быть добавлен в assertFunctionNames, иначе это шум, а не находка."
+    },
+    "source": {
+      "origin": "eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): expect-expect; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): expect-expect; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Empty Test, Unknown Test"
+    },
+    "tags": [
+      "false-green",
+      "assertions",
+      "lint"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-003",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Проверки не спрятаны в условиях и catch",
+    "statement": "expect не вызывается внутри if/else, switch, тернарного оператора или блока catch. Ошибочный путь проверяется явно: expect(fn).toThrow(...), await expect(promise).rejects..., а не try/catch с expect в catch.",
+    "rationale": "Если ветка с expect не выполнилась, тест проходит без единой проверки. Try/catch в тесте ещё и глотает настоящие исключения (tsDetect: Exception Handling).",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Линтер: jest/no-conditional-expect, playwright/no-conditional-expect. Ручная проверка: grep `catch` в файлах тестов; expect внутри catch без `expect.assertions(n)` — находка. Для toThrow проверить, что указан тип или сообщение (jest/require-to-throw-message)."
+    },
+    "source": {
+      "origin": "eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-conditional-expect, require-to-throw-message; eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-conditional-expect, require-to-throw-message; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Exception Handling"
+    },
+    "tags": [
+      "false-green",
+      "assertions",
+      "lint"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-004",
+    "kind": "rule",
+    "severity": "should",
+    "title": "В теле теста нет условной логики и циклов",
+    "statement": "Тест идёт по одному прямому пути: без if/switch/циклов, которые выбирают, что делать или что проверять, в зависимости от состояния приложения. Перебор входных данных выносится в параметризацию (test.each, цикл генерации отдельных test()).",
+    "rationale": "Условная логика делает тест недетерминированным по содержанию: в разных прогонах проверяется разное. Кроме того, в логике теста могут быть свои баги, а тестов на тест нет.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Линтер: jest/no-conditional-in-test, playwright/no-conditional-in-test — ловят условия (if/switch/тернарный оператор/логические операторы); циклы в теле теста линтер не ловит, их искать вручную. Типичная находка в e2e: `if (await locator.isVisible()) { ... }` — тест подстраивается под состояние вместо того, чтобы его задать. Цикл, генерирующий отдельные test() с понятными названиями, не находка."
+    },
+    "source": {
+      "origin": "eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-conditional-in-test; eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-conditional-in-test; Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Conditional Test Logic; Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — Don't put logic in tests"
+    },
+    "tags": [
+      "test-smell",
+      "determinism",
+      "lint"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-005",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Ожидаемое значение не вычисляется тем же кодом, что и результат",
+    "statement": "Ожидаемый результат задан литералом или независимым расчётом. Проверка не сравнивает значение с самим собой, с возвращаемым значением мока или с результатом той же функции продукта (expect(calc(x)).toBe(calc(x)), expect(true).toBe(true), expect(mock()).toBe(mockReturn)).",
+    "rationale": "Тавтологическая проверка не может упасть: если формула неверна, ожидание тоже неверно. Дополняет SRK-AI-034 (ожидаемые числа считать детерминированно) на уровне кода.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для каждой проверки найти источник ожидаемого значения. Находка: ожидание импортировано из модуля продукта или пересчитано той же формулой; сравнивается значение, которое тест сам положил в мок; проверка константы вида expect(true).toBe(true) (tsDetect: Redundant Assertion). Норма: литерал, таблица примеров или независимый оракул."
+    },
+    "source": {
+      "origin": "Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — Don't put logic in tests; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Redundant Assertion; Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 4 «четыре свойства хорошего теста» и гл. 5 «моки и хрупкость тестов», пересказ — защита от регрессий"
+    },
+    "tags": [
+      "false-green",
+      "assertions",
+      "oracle"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-006",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Проверяется то, что отличает правильный результат от ошибочного",
+    "statement": "Каждая ключевая проверка падает при типичной ошибке именно этого поведения. Проверки, которые проходят и при успехе, и при сбое (страница видна, статус не 500, toBeTruthy на объекте, «список не пустой», toBeDefined), сами по себе не доказывают поведение.",
+    "rationale": "Слабая проверка даёт зелёный тест на сломанном продукте. Пример: после сохранения проверяется только видимость формы, хотя форма видна и при ошибке. Уточняет SRK-API-016 и SRK-PRIN-001.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для каждого теста спросить: какой баг этот тест поймает? Мысленно (или мутацией) сломать поведение: вернуть ошибку, пропустить запись, отдать чужие данные. Если все проверки остаются зелёными — находка. Признаки: только toBeVisible на контейнере, toBeTruthy/toBeDefined/not.toBeNull там, где известно точное значение, проверка статуса без тела или тела без статуса, length > 0 вместо конкретного элемента. Детерминированная часть: playwright/no-unnecessary-assertions ловит toBeDefined/toBeTruthy/not.toBeNull на Locator, которые не могут упасть."
+    },
+    "source": {
+      "origin": "Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 4 «четыре свойства хорошего теста» и гл. 5 «моки и хрупкость тестов», пересказ — защита от регрессий; Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Fragile/Obscure Test (обратная сторона — неполная проверка); eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-unnecessary-assertions; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): prefer-strict-equal, prefer-to-be"
+    },
+    "tags": [
+      "false-green",
+      "assertions",
+      "oracle"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-007",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Негативная проверка привязана к состоянию, которое уже наступило",
+    "statement": "Перед not.toBeVisible(), toHaveCount(0), «ошибки нет», «запрос не отправлен» тест сначала дожидается положительного признака того, что действие завершилось (появилось сообщение об успехе, пришёл ответ, сменился URL).",
+    "rationale": "Отрицательная web-first проверка проходит сразу, если элемент ещё не отрисован. Тест проверяет «ещё не случилось», а не «не случится». Источники описывают отрицание матчеров и асинхронность в целом; сама ловушка — вывод из них, поэтому severity should.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти отрицательные проверки (`not.`, toHaveCount(0), toBeHidden, проверки отсутствия вызова мока). Если непосредственно перед ними нет ожидания завершения действия (позитивного expect, waitForResponse, смены URL) — находка. Норма: сначала expect(successToast).toBeVisible(), потом expect(errorBanner).not.toBeVisible()."
+    },
+    "source": {
+      "origin": "Playwright docs, Assertions — auto-retrying vs non-retrying, negating matchers (https://playwright.dev/docs/test-assertions); Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Asynchronous behavior"
+    },
+    "tags": [
+      "false-green",
+      "async",
+      "assertions"
+    ],
+    "authority": "author-opinion",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-009",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Закоммиченный .only и forbidOnly в CI",
+    "statement": "В репозитории нет test.only / describe.only / fit / fdescribe, а конфигурация CI запрещает их (Playwright: forbidOnly: !!process.env.CI).",
+    "rationale": "Один забытый .only тихо отключает весь остальной набор, и CI показывает зелёный прогон из одного теста. references/quality-rules.md §3 упоминает .only как ловушку для автора; здесь — проверка аудитора по репозиторию и конфигу.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Линтер: playwright/no-focused-test, jest/no-focused-tests. Проверить playwright.config: forbidOnly включён для CI. Совпадение или отсутствие forbidOnly — находка."
+    },
+    "source": {
+      "origin": "eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-focused-test; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-focused-tests; Playwright docs, TestConfig.forbidOnly (https://playwright.dev/docs/api/class-testconfig#test-config-forbid-only)"
+    },
+    "tags": [
+      "false-green",
+      "ci",
+      "lint"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-010",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Отключённые тесты имеют причину и ссылку на тикет",
+    "statement": "test.skip / test.fixme / xit / закомментированные тесты сопровождаются причиной и ссылкой на задачу. Закомментированный тест удаляется или превращается в skip с причиной.",
+    "rationale": "Отключённый тест — потерянное покрытие, которое отчёт не показывает. tsDetect: Ignored Test.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Линтер: playwright/no-skipped-test (или require-annotation-reason для аннотаций), jest/no-disabled-tests, jest/no-commented-out-tests, playwright/no-commented-out-tests. Skip без описания и ссылки — находка; skip по условию окружения (браузер, ОС) с объяснением — норма."
+    },
+    "source": {
+      "origin": "eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-skipped-test, no-commented-out-tests, require-annotation-reason; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-disabled-tests, no-commented-out-tests; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Ignored Test"
+    },
+    "tags": [
+      "coverage-loss",
+      "lint"
+    ],
+    "authority": "vendor-guideline",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-011",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Мок не заставляет проверяемую защиту всегда пропускать",
+    "statement": "Если тест заявляет проверку авторизации, прав, валидации, лимита или фича-флага, этот guard в тесте работает по-настоящему или заменён двойником, который в этом тесте настроен на отказ. Глобальный мок вида «isAuthorized → true», «validate → ok», «rateLimit → allow» допустим только в тестах, которые этот guard не проверяют.",
+    "rationale": "Мок, жёстко возвращающий успех, превращает проверку защиты в проверку мока: тест зелёный, даже если guard удалён. Обобщает QAP-AUTH-002 с парных лимитов на любые guard'ы.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти моки/стабы функций с именами auth*, can*, permission*, validate*, rateLimit*, featureFlag*, а также page.route на эндпоинты сессии и прав. Если мок задан в общем setup/фикстуре и всегда возвращает успех, а в наборе есть тест с названием про отказ/запрет/ограничение — находка P1. Проверить: для каждой защиты есть тест, где она реально срабатывает (403/ошибка/блокировка), и он падает, если guard убрать."
+    },
+    "source": {
+      "origin": "Software Engineering at Google (2020), гл. 13 Test Doubles (https://abseil.io/resources/swe-book/html/ch13.html), пересказ — The Dangers of Overusing Stubbing, Prefer realism over isolation; Fowler, Mocks Aren't Stubs (2007) (https://martinfowler.com/articles/mocksArentStubs.html), пересказ; QAP-AUTH-002 (qa-pilot)"
+    },
+    "tags": [
+      "false-green",
+      "mocks",
+      "security",
+      "needs-auth"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-012",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Моки только для внешних неуправляемых зависимостей",
+    "statement": "Двойники подставляются вместо того, что тест не контролирует или что медленно/недетерминированно: внешние HTTP-сервисы, платёжный шлюз, почта, часы, случайность. Собственные классы, функции и модули проекта, а также своя БД в интеграционных тестах используются по-настоящему или через fake. Если создать реальную зависимость дорого, предпочтение: реальная реализация, затем fake, затем stub, и только потом mock с проверкой вызовов.",
+    "rationale": "Избыточные моки привязывают тест к внутренней структуре: рефакторинг ломает тест без изменения поведения, а реальная интеграция остаётся непроверенной. Расходится с SRK-STRAT-031 только в акценте: «изолированность» юнит-теста не означает мокать всё подряд.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Посчитать в тестовом файле jest.mock/vi.mock/sinon.stub на внутренние модули проекта (относительные импорты). Находка: замокан модуль из той же фичи, что и тестируемый код; тест, где моков больше, чем проверок поведения; мок собственного репозитория вместо тестовой БД в тесте с именем integration."
+    },
+    "source": {
+      "origin": "Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 5 «моки и хрупкость тестов» и гл. 8 (управляемые и неуправляемые зависимости), пересказ — моки только для неуправляемых внепроцессных зависимостей; Software Engineering at Google (2020), гл. 13 Test Doubles (https://abseil.io/resources/swe-book/html/ch13.html), пересказ — Prefer realism over isolation, Fakes; Fowler, Mocks Aren't Stubs (2007) (https://martinfowler.com/articles/mocksArentStubs.html), пересказ — classical vs mockist"
+    },
+    "tags": [
+      "mocks",
+      "test-doubles",
+      "fragile-test"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-013",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Проверяется итоговое состояние, а не порядок внутренних вызовов",
+    "statement": "Тест сравнивает наблюдаемый результат (возвращаемое значение, состояние, ответ API, DOM), а не то, какие внутренние функции и в каком порядке вызывались. Проверка вызова (toHaveBeenCalledWith) уместна, когда сам вызов — внешний эффект: отправка письма, запрос в чужой сервис, запись в аналитику.",
+    "rationale": "Interaction-тесты на внутренние вызовы падают при любом рефакторинге и остаются зелёными, если результат неправильный, но вызовы те же.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Найти toHaveBeenCalled*/verify на моках. Если проверяемая функция — внутренний хелпер или запрос на чтение (query, без побочных эффектов), а результата теста никто не проверяет — находка. Норма: проверка вызова только для команд, уходящих за границу системы."
+    },
+    "source": {
+      "origin": "Software Engineering at Google (2020), гл. 13 Test Doubles (https://abseil.io/resources/swe-book/html/ch13.html), пересказ — Prefer state testing over interaction testing; Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 4 «четыре свойства хорошего теста» и гл. 5 «моки и хрупкость тестов», пересказ — наблюдаемое поведение против деталей реализации; Fowler, Mocks Aren't Stubs (2007) (https://martinfowler.com/articles/mocksArentStubs.html), пересказ — state vs behavior verification"
+    },
+    "tags": [
+      "mocks",
+      "test-doubles",
+      "observable-behaviour"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-014",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Тест работает через публичный интерфейс и наблюдаемое поведение",
+    "statement": "Компонент проверяется так, как им пользуется человек или вызывающий код: через отрисованный DOM, публичные функции, HTTP-ответ. Не проверяются приватные методы, внутренний state компонента, имена CSS-классов, структура хуков.",
+    "rationale": "Принцип Testing Library: чем ближе тест к реальному использованию, тем больше уверенности. Тест на детали реализации ломается при рефакторинге (ложная тревога) и не ловит поведенческие ошибки.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Находка: доступ к instance/state компонента, вызовы приватных методов через приведение типов или @ts-ignore, экспорт функции «только для тестов», проверка classList вместо видимого результата. Для Testing Library — линтер testing-library/no-container, testing-library/no-node-access (deterministic часть)."
+    },
+    "source": {
+      "origin": "Testing Library, Guiding Principles (https://testing-library.com/docs/guiding-principles) и Queries/About Queries — Priority (https://testing-library.com/docs/queries/about#priority); eslint-plugin-testing-library (https://github.com/testing-library/eslint-plugin-testing-library): no-container, no-node-access; Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — Test via public APIs; Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 4 «четыре свойства хорошего теста» и гл. 5 «моки и хрупкость тестов», пересказ — устойчивость к рефакторингу"
+    },
+    "tags": [
+      "observable-behaviour",
+      "fragile-test"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-015",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Форма замоканного ответа API выводится из реального контракта",
+    "statement": "Тела, которые подставляют page.route, MSW, nock или фикстуры, типизированы по схеме API (OpenAPI-типы, zod-схема, общий TypeScript-тип) или записаны с реального ответа и регулярно сверяются. Ручной JSON без привязки к контракту допустим только с пометкой и сроком сверки.",
+    "rationale": "Мок, который разошёлся с реальным API, держит набор зелёным, пока продукт падает в проде. Это частая причина ложной уверенности у @ui-contract тестов (references/e2e-patterns.md).",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Открыть моки сетевых ответов. Находка: литеральный JSON без типа/схемы; поле, которого нет в актуальной схеме API или в реальном ответе; мок отдаёт 200 там, где контракт допускает только 201/204. Норма: `satisfies ApiResponse` или парсинг схемой при сборке фикстуры, либо контрактный тест (см. QAP-TS-021)."
+    },
+    "source": {
+      "origin": "Pact docs, Introduction / Consumer tests / can-i-deploy (https://docs.pact.io/); Fowler, ContractTest (https://martinfowler.com/bliki/ContractTest.html), пересказ; Software Engineering at Google (2020), гл. 13 Test Doubles (https://abseil.io/resources/swe-book/html/ch13.html), пересказ — The Fidelity of Fakes"
+    },
+    "tags": [
+      "mocks",
+      "contract",
+      "false-green",
+      "needs-rest"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-017",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Время в тестах управляется, а не берётся из системных часов",
+    "statement": "Логика, зависящая от «сейчас» (сроки, «сегодня», истечение токена, таймеры, debounce), тестируется с фиксированными часами: page.clock в Playwright, fake timers в Jest/Vitest или инъекция clock. Ожидаемые значения не вычисляются через new Date() в момент прогона.",
+    "rationale": "Тесты на системных часах падают у полуночи, на смене месяца, при переходе на летнее время и в другой таймзоне CI. Уточняет на уровне кода QAP-DATE-001.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "grep в тестах `new Date()`, `Date.now()`, `dayjs()`, `moment()` без аргументов в ожидаемых значениях и в моках; отсутствие page.clock/useFakeTimers в тестах на сроки — находка. Date.now() только для уникальности тестовых данных (как в references/e2e-patterns.md) — не находка. Проверить, что TZ в CI задан явно (env TZ или timezoneId в Playwright). Прогон с другим TZ или датой 31-го числа — быстрый способ подтвердить находку."
+    },
+    "source": {
+      "origin": "Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Time; Playwright docs, Clock (https://playwright.dev/docs/clock); Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ"
+    },
+    "tags": [
+      "determinism",
+      "time",
+      "flaky"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-018",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Случайность в тестах либо фиксирована, либо не влияет на ожидания",
+    "statement": "Случайные значения допустимы для уникальности данных (email, slug), но не для того, что определяет ожидаемый результат. Если продукт сам использует случайность (перемешивание, A/B, генерация кодов), тест подменяет источник или фиксирует seed и выводит seed в лог при падении.",
+    "rationale": "Тест, ожидание которого зависит от случайной ветки, падает раз в N прогонов и не воспроизводится.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "grep `Math.random`, `faker`, `crypto.randomUUID` в тестах. Находка: случайное значение попадает в проверяемую логику (граница, сумма, выбор ветки) без seed; продукт использует random, а тест не подменяет его. Уникальные префиксы для данных (как в references/e2e-patterns.md) — норма."
+    },
+    "source": {
+      "origin": "Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — сноска о тестах со случайным seed: держать их отдельно от основного набора"
+    },
+    "tags": [
+      "determinism",
+      "random",
+      "flaky"
+    ],
+    "authority": "author-opinion",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-019",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Тест не зависит от сервисов, которые проект не контролирует",
+    "statement": "Юнит- и компонентные тесты не ходят в сеть. E2E не обращаются к реальным сторонним сервисам (платёжные шлюзы, карты, аналитика, OAuth-провайдеры, внешние API): ответы подменяются на сетевом уровне, а живая интеграция проверяется отдельным, помеченным набором.",
+    "rationale": "Сторонний сервис меняет ответы, ограничивает частоту и падает независимо от проекта; тест становится flaky и ничего не говорит о собственном коде. Пересекается с SRK-STRAT-031 и references/e2e-patterns.md (Network mocking); здесь — как проверяемый пункт аудита.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "grep в тестах внешних доменов (http(s)://, кроме baseURL и localhost). Для e2e проверить, что внешние домены перехвачены page.route или заблокированы. Находка: прямой запрос к стороннему API в обычном PR-наборе без тега отдельной интеграционной линии."
+    },
+    "source": {
+      "origin": "Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Avoid testing third-party dependencies; Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Remote services; Software Engineering at Google (2020), гл. 11 Testing Overview — test sizes (https://abseil.io/resources/swe-book/html/ch11.html), пересказ — test sizes (small: без сети)"
+    },
+    "tags": [
+      "determinism",
+      "network",
+      "flaky"
+    ],
+    "authority": "vendor-guideline",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-020",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Тест не зависит от других тестов и от порядка запуска",
+    "statement": "Каждый тест сам готовит своё состояние (фикстура, beforeEach, API-сетап) и проходит при запуске в одиночку, в случайном порядке и параллельно. Тесты не передают данные через переменные модуля, общую запись в БД или результат предыдущего теста.",
+    "rationale": "Взаимозависимые тесты дают каскад падений по одной причине и ложные зелёные: тест проходит только потому, что предыдущий создал нужные данные. xUnit Test Patterns: Interacting Tests. Для ручных кейсов то же требует SRK-ART-013; механика и починка — в references/flakiness-catalog.md (Shared state, Order dependence).",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Признаки в коде: `let` на уровне модуля, который меняется в тестах; beforeAll с мутируемыми данными; test.describe.serial без объяснения; ожидание на глобальный счётчик. Динамическая проверка: прогнать набор с перемешиванием (jest --randomize, vitest --sequence.shuffle) и с `--repeat-each=3 --workers=4` в Playwright, а выборочные тесты — по одному. Падение только в одном из режимов — находка."
+    },
+    "source": {
+      "origin": "Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Make tests as isolated as possible; Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Erratic Test (причины Interacting Tests, Shared Fixture); Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Lack of isolation"
+    },
+    "tags": [
+      "isolation",
+      "flaky",
+      "order-dependence"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-021",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Глобальные подмены восстанавливаются после теста",
+    "statement": "Моки модулей, spy, fake timers, подменённые env-переменные, глобальные объекты (window, fetch, localStorage), feature-флаги и сетевые обработчики (MSW server.resetHandlers) сбрасываются после каждого теста, предпочтительно на уровне конфигурации (restoreMocks/clearMocks, afterEach).",
+    "rationale": "Неснятая подмена протекает в следующий тест: он проверяет мок, оставленный соседом, и результат зависит от порядка. Fowler: утечка ресурсов и состояния — отдельный источник недетерминизма.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить конфиг тестового раннера (restoreMocks, clearMocks, unstubGlobals/unstubEnvs у Vitest) и setup-файлы (afterEach с resetHandlers, useRealTimers). Находка: jest.spyOn/vi.stubGlobal/process.env = ... в теле теста без восстановления и без глобальной настройки; useFakeTimers без useRealTimers."
+    },
+    "source": {
+      "origin": "Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Lack of isolation, Resource leaks; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): prefer-spy-on; Jest docs, Configuration restoreMocks (https://jestjs.io/docs/configuration#restoremocks-boolean)"
+    },
+    "tags": [
+      "isolation",
+      "mocks",
+      "flaky"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-022",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Один тест — одно поведение",
+    "statement": "Тест проверяет одно поведение (один сценарий с одним действием и его последствиями). Несколько проверок допустимы, если они описывают один результат; цепочка «создать, изменить, удалить, проверить отчёт» разбивается на отдельные тесты.",
+    "rationale": "Если тест проверяет несколько поведений, по названию упавшего теста нельзя понять, что сломалось (Eager Test, Assertion Roulette). Уточняет SRK-ART-012: для кода требование — одно поведение, а не одна проверка; несколько expect на один исход — норма. Совпадает с references/e2e-patterns.md (Test structure).",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Признаки: в тесте несколько блоков act→assert подряд; название с «и»/«and» или перечислением; >1 разных пользовательских действий, каждое со своей проверкой. Линтер max-expects (jest/playwright) даёт сигнал, но не вердикт. Для e2e длинный пользовательский путь допустим, если тест назван как путь и шаги размечены test.step."
+    },
+    "source": {
+      "origin": "Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Assertion Roulette (причина Eager Test); tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Eager Test, Assertion Roulette; Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — Test behaviors, not methods"
+    },
+    "tags": [
+      "test-smell",
+      "structure"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-023",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Причина ожидаемого результата видна в самом тесте",
+    "statement": "Значимые для результата входные данные заданы в тесте или в явно названной фабрике/фикстуре (createUser({ role: 'admin' })), а не спрятаны во внешнем файле или общем сид-наборе. Предпочтение — DAMP (наглядность) перед DRY в теле теста.",
+    "rationale": "Mystery Guest: читатель не видит, почему ожидается именно этот результат, и не может проверить, верна ли проверка. Общие фикстуры с большим набором данных (General Fixture) тянут лишнюю связанность.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Находка: ожидаемое значение зависит от данных из JSON/SQL-сида, которые тест явно не упоминает; магические числа без имени (tsDetect: Magic Number Test); один большой beforeAll на файл, из которого каждый тест использует малую часть."
+    },
+    "source": {
+      "origin": "Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Obscure Test (причины Mystery Guest, General Fixture); tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Mystery Guest, General Fixture, Magic Number Test; Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — DAMP, not DRY"
+    },
+    "tags": [
+      "test-smell",
+      "readability"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-024",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Снапшот не является единственной и непроверенной проверкой",
+    "statement": "Снапшот-тесты небольшие и сфокусированные; поведение фиксируется явными проверками. Обновление снапшотов (-u, --update-snapshots) проходит ревью по диффу и не делается механически, чтобы позеленить прогон.",
+    "rationale": "Большой снапшот обновляют не глядя, и он фиксирует баг как эталон. Для ИИ-агентов это частый способ «починить» красный тест.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Линтер jest/no-large-snapshots (deterministic часть). Находка: тест, в котором единственная проверка — toMatchSnapshot/toHaveScreenshot на всю страницу; PR, где снапшоты изменились вместе с кодом без объяснения; снапшоты с интерполированными динамическими значениями (jest/no-interpolation-in-snapshots)."
+    },
+    "source": {
+      "origin": "eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-large-snapshots, no-interpolation-in-snapshots, prefer-snapshot-hint"
+    },
+    "tags": [
+      "snapshots",
+      "false-green"
+    ],
+    "authority": "vendor-guideline",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-025",
+    "kind": "rule",
+    "severity": "must",
+    "title": "В продакшен-коде нет обходов «для тестов»",
+    "statement": "Продуктовый код не содержит веток, которые меняют поведение под тестами (if NODE_ENV === 'test', проверка заголовка или cookie теста, «магический» пароль, отключение проверки прав или капчи по флагу), если они не исключены из продакшен-сборки и не защищены конфигурацией окружения.",
+    "rationale": "Test Logic in Production: тесты проверяют не тот код, что работает у пользователей, а забытый обход аутентификации или валидации становится уязвимостью. ИИ-агенты часто добавляют такие ветки, чтобы тест прошёл.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "grep в production-коде: NODE_ENV === 'test', process.env.CI, isTest, e2e, playwright, x-test-*, bypass, skipAuth. Каждое совпадение проверить: попадает ли ветка в продакшен-бандл и что она отключает. Обход auth/валидации/rate-limit в продакшен-сборке — находка P0/P1."
+    },
+    "source": {
+      "origin": "Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Test Logic in Production"
+    },
+    "tags": [
+      "security",
+      "test-smell",
+      "ai-agent"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-026",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Без фиксированных пауз и ожидания networkidle",
+    "statement": "В тестах нет page.waitForTimeout, sleep/setTimeout-пауз и waitForLoadState('networkidle'); ожидание идёт на конкретное условие (web-first expect, waitForResponse, смена URL, expect.poll).",
+    "rationale": "Пауза либо слишком короткая (flaky), либо слишком длинная (медленно), и скрывает реальный сигнал. Полностью совпадает с references/e2e-patterns.md (Waiting strategy) и flakiness-catalog.md (Timing waits); здесь закреплено как детерминированное правило аудита с ID линтера.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Линтер: playwright/no-wait-for-timeout, playwright/no-networkidle, playwright/no-wait-for-selector, playwright/no-wait-for-navigation. Для юнит-тестов grep `await new Promise(r => setTimeout` (tsDetect: Sleepy Test). Любое совпадение — находка."
+    },
+    "source": {
+      "origin": "eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-wait-for-timeout, no-networkidle, no-wait-for-selector, no-wait-for-navigation; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Sleepy Test; Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Use web first assertions"
+    },
+    "tags": [
+      "flaky",
+      "waits",
+      "lint",
+      "playwright"
+    ],
+    "authority": "vendor-guideline",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-027",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Состояние UI проверяется web-first проверками",
+    "statement": "Состояние элемента проверяется ретраящимися матчерами expect(locator).toBeVisible()/toHaveText()/toHaveCount(), а не чтением значения и одноразовым сравнением (expect(await locator.isVisible()).toBe(true), expect(await locator.textContent()).toBe(...)).",
+    "rationale": "Одноразовое чтение снимает состояние в случайный момент и падает (или проходит) в зависимости от скорости отрисовки. Внимание: пример в references/e2e-patterns.md (POM-метод getError() возвращает textContent, затем expect(...).toContain) — именно такой неретраящийся паттерн; линтер его не видит, потому что чтение спрятано в метод.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Линтер: playwright/prefer-web-first-assertions, playwright/prefer-to-have-count. Совпадение — находка. Для повторяющейся неэлементной проверки (API, БД) норма — expect.poll или expect(...).toPass с таймаутом."
+    },
+    "source": {
+      "origin": "eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): prefer-web-first-assertions, prefer-to-have-count, require-to-pass-timeout; Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Use web first assertions; Playwright docs, Assertions — auto-retrying vs non-retrying, negating matchers (https://playwright.dev/docs/test-assertions)"
+    },
+    "tags": [
+      "flaky",
+      "assertions",
+      "lint",
+      "playwright"
+    ],
+    "authority": "vendor-guideline",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-028",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Локаторы по роли, подписи или test id, а не по CSS, XPath и позиции",
+    "statement": "Элементы находятся через getByRole/getByLabel/getByTestId (и аналогичные запросы Testing Library), а не через CSS-классы, XPath, nth()/first()/last() или ElementHandle. Порядок предпочтения между ролью и test id задаёт проект: Playwright и Testing Library ставят роль первой, а references/e2e-patterns.md для многоязычных продуктов ставит test id первым. Аудит не считает находкой ни один из этих двух вариантов.",
+    "rationale": "CSS и позиционные локаторы ломаются от рефакторинга вёрстки без изменения поведения. Локатор по роли заодно проверяет, что у элемента есть доступная роль и имя.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Линтер: playwright/no-raw-locators, playwright/no-nth-methods, playwright/no-element-handle, playwright/prefer-native-locators; testing-library/no-container, testing-library/no-node-access. Срабатывание — находка, кроме случаев с комментарием, почему семантического локатора нет (тогда находка на сам компонент — нет роли/подписи)."
+    },
+    "source": {
+      "origin": "Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Use locators; eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-raw-locators, no-nth-methods, no-element-handle; Testing Library, Guiding Principles (https://testing-library.com/docs/guiding-principles) и Queries/About Queries — Priority (https://testing-library.com/docs/queries/about#priority) — query priority; eslint-plugin-testing-library (https://github.com/testing-library/eslint-plugin-testing-library): no-container, no-node-access; references/e2e-patterns.md (Locator strategy, иная приоритизация)"
+    },
+    "tags": [
+      "selectors",
+      "fragile-test",
+      "lint",
+      "playwright"
+    ],
+    "authority": "vendor-guideline",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-029",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Без force: true в действиях",
+    "statement": "Клики и ввод выполняются без опции force: true. Если элемент перекрыт или неактивен, тест дожидается правильного состояния или фиксирует баг, а не обходит проверку.",
+    "rationale": "force отключает проверки actionability: тест кликает по элементу, который пользователь кликнуть не может (под модалкой, disabled), и скрывает реальный дефект.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Линтер: playwright/no-force-option. Каждое совпадение — находка; допустимо только с комментарием о конкретной причине (например, кастомный скрытый input загрузки файла)."
+    },
+    "source": {
+      "origin": "eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-force-option; Playwright docs, Actionability / force option (https://playwright.dev/docs/actionability)"
+    },
+    "tags": [
+      "false-green",
+      "playwright",
+      "lint"
+    ],
+    "authority": "vendor-guideline",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-030",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Тест на том уровне, где живёт логика",
+    "statement": "Логика проверяется там, где она реализована: чистая функция и расчёт — юнит-тестом; правило в серверном обработчике — API/интеграционным тестом; ограничение в БД (constraint, триггер, RLS-политика) — тестом против настоящей БД; UI-тест — только проводка и пользовательский путь. Проверка, реализованная на сервере, не считается покрытой UI-тестом, который упирается в клиентскую валидацию.",
+    "rationale": "Комбинаторика через браузер медленная и flaky, а логика в БД или RLS, «проверенная» на моках, не проверена вовсе. Уточняет SRK-STRAT-030 (самый низкий уровень, который ловит) обратной стороной: уровень не может быть ниже места, где живёт логика. Связано с QAP-INV-001. Пересекается с QAP-TS-014 (симптом «логика только через UI»); здесь — проверка соответствия уровня месту реализации, включая БД/RLS.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для ключевых правил фичи найти, где они реализованы (функция, хендлер, миграция/политика), и где тестируются. Находка: правило в БД/RLS тестируется только с замоканным клиентом БД; серверная валидация проверена только через UI-форму с клиентской валидацией; десятки комбинаций чистой функции перебираются в e2e."
+    },
+    "source": {
+      "origin": "Software Engineering at Google (2020), гл. 11 Testing Overview — test sizes (https://abseil.io/resources/swe-book/html/ch11.html), пересказ — test sizes and scope; Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 8 «Why integration testing?», пересказ — интеграционные тесты для управляемых внепроцессных зависимостей; SRK-STRAT-030"
+    },
+    "tags": [
+      "test-level",
+      "strategy"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  },
+  {
+    "id": "QAP-TC-031",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Flaky-тест помещается в карантин с владельцем и сроком",
+    "statement": "Нестабильный тест не удаляется молча, не отключается inline-skip'ом без следа и не лечится увеличением retries или таймаутов. Он попадает в учитываемый карантин: владелец, тикет, срок; после срока либо починен, либо осознанно продлён. Ретраи в CI допускаются только с отчётом о тестах, прошедших со второй попытки (статус flaky).",
+    "rationale": "Ретраи и тихие skip'ы скрывают и flaky-тест, и иногда реальный баг гонки в продукте. Совпадает с references/flakiness-catalog.md (Managed quarantine) и дополняет SRK-STRAT-040; здесь — проверяемые признаки для аудита.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить: retries в конфиге: >0 вне CI — находка (references/e2e-patterns.md: ретраи только в CI); ретраи в CI без отчёта о тестах со статусом flaky или без failOnFlakyTests — находка; есть ли реестр карантина и у каждой записи владелец и срок; skip/fixme с причиной flaky без тикета; рост числа записей в реестре. Если CI показывает тесты со статусом flaky и никто их не разбирает — находка."
+    },
+    "source": {
+      "origin": "Google Testing Blog, Flaky Tests at Google and How We Mitigate Them (2016) (https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html), пересказ; Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Quarantine; Playwright docs, TestConfig.failOnFlakyTests (https://playwright.dev/docs/api/class-testconfig); references/flakiness-catalog.md, references/e2e-patterns.md (qa-pilot)"
+    },
+    "tags": [
+      "flaky",
+      "quarantine",
+      "ci"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok"
+  }
+]

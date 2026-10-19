@@ -16,15 +16,21 @@ python3 scripts/kb/render_rules.py knowledge/qa-pilot   # валидация + �
 ```
 
 <!-- stats -->
-Всего записей: **34**
+Всего записей: **174**
 
 | Тема | Всего | rule | recommendation | tip | checklist | deterministic |
 |---|---|---|---|---|---|---|
+| [ai-systems](rules/ai-systems.md) | 15 | 14 | 1 | 0 | 0 | 0 |
+| [api-http](rules/api-http.md) | 23 | 20 | 2 | 0 | 1 | 13 |
+| [auth](rules/auth.md) | 14 | 13 | 0 | 0 | 1 | 3 |
 | [pilot](rules/pilot.md) | 10 | 10 | 0 | 0 | 0 | 1 |
+| [security](rules/security.md) | 38 | 37 | 0 | 0 | 1 | 6 |
+| [test-code](rules/test-code.md) | 29 | 29 | 0 | 0 | 0 | 10 |
+| [test-strategy](rules/test-strategy.md) | 21 | 17 | 2 | 1 | 1 | 0 |
 | [web-invariants](rules/web-invariants.md) | 6 | 6 | 0 | 0 | 0 | 0 |
 | [web-patterns](rules/web-patterns.md) | 18 | 10 | 8 | 0 | 0 | 0 |
 
-По severity: must — 12, should — 16, nice — 6
+По severity: must — 69, should — 94, nice — 11
 
-По способу проверки: deterministic — 1, heuristic — 33, manual — 0
+По способу проверки: deterministic — 33, heuristic — 139, manual — 2
 <!-- /stats -->
