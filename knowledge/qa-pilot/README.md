@@ -16,13 +16,15 @@ python3 scripts/kb/render_rules.py knowledge/qa-pilot   # валидация + �
 ```
 
 <!-- stats -->
-Всего записей: **10**
+Всего записей: **34**
 
 | Тема | Всего | rule | recommendation | tip | checklist | deterministic |
 |---|---|---|---|---|---|---|
 | [pilot](rules/pilot.md) | 10 | 10 | 0 | 0 | 0 | 1 |
+| [web-invariants](rules/web-invariants.md) | 6 | 6 | 0 | 0 | 0 | 0 |
+| [web-patterns](rules/web-patterns.md) | 18 | 10 | 8 | 0 | 0 | 0 |
 
-По severity: must — 4, should — 6, nice — 0
+По severity: must — 12, should — 16, nice — 6
 
-По способу проверки: deterministic — 1, heuristic — 9, manual — 0
+По способу проверки: deterministic — 1, heuristic — 33, manual — 0
 <!-- /stats -->
