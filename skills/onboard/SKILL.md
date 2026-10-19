@@ -73,7 +73,7 @@ Batch ALL questions in one message (see quality-rules rule 5). Typical gaps:
   data loss, a blocked core job). Propose them from routes, entities and docs;
   the user confirms. Audits put any P2 on these flows into Must.
 - Team intent: what hurts most today (flaky tests? no coverage? slow suite?) —
-  this seeds priorities for `qa-pilot:audit`.
+  this seeds priorities for `/qa-pilot:audit`.
 - **Product traits** (used by `qa-pilot:spec-audit` to drop rules that cannot
   apply): platforms (web / mobile-web / pwa / ios / android / desktop / game),
   API style (rest / graphql / soap / server-actions / rpc), payments, accounts
@@ -110,7 +110,7 @@ Write `docs/qa/project-profile.md` (create `docs/qa/` if needed). Sections:
 ```
 
 Keep it under ~180 lines: link to the repo's own docs instead of copying them.
-Facts only — no recommendations (those belong to `qa-pilot:audit`).
+Facts only — no recommendations (those belong to `/qa-pilot:audit`).
 
 ## Phase 4 — Verify & hand off
 
@@ -119,5 +119,5 @@ Facts only — no recommendations (those belong to `qa-pilot:audit`).
   check fails, fix before finishing: re-detect from CI config / package
   scripts, or ask the user for the correct command.
 - Show the user a 5-line summary of what was written and where.
-- Suggest the natural next step: `qa-pilot:audit` for an existing test codebase,
-  or `qa-pilot:plan-tests` if they came with a specific feature.
+- Suggest the natural next step: `/qa-pilot:audit` for the big picture of an existing project,
+  or `/qa-pilot:test <feature or ticket>` if they came with a specific task.

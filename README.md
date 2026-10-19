@@ -1,11 +1,13 @@
 # qa-pilot
 
 A QA copilot plugin for [Claude Code](https://code.claude.com). Install it into
-any existing project and Claude becomes a disciplined QA engineer: it audits
-your test codebase, covers new code with tests in one command, designs test
-scenarios, writes Playwright tests, and runs exploratory testing in a real
-browser — with strict quality gates and token economy tuned for subscription
-plans (works fine on Claude Pro).
+any existing project and Claude becomes a disciplined QA engineer, driven by
+three commands. `/qa-pilot:onboard` sets it up. `/qa-pilot:test` does the QA
+of every task: a plan before coding, verification and missing tests after,
+and the browser when you ask. `/qa-pilot:audit` gives you the big picture of
+the project, of a feature's requirements, or of the test code. Quality gates
+are strict and token use is tuned for subscription plans (works fine on
+Claude Pro).
 
 Built for QA engineers who are new to AI agents: every skill asks when it's
 missing context, persists its work to files in your repo, and never claims
@@ -40,79 +42,48 @@ This analyzes your stack and conventions, asks you a few questions, and writes
 `docs/qa/project-profile.md` — the persistent memory all other skills reuse
 (so they don't burn tokens re-scanning your repo every session).
 
-## The everyday command
+## Three commands
 
-Shipped a new feature or changed an existing one? One command closes the
-testing loop — it detects what changed, checks what's already covered, plans
-the missing scenarios, writes the tests, and reviews them:
+You only need to remember three. Add context after a command if you have it,
+for example a ticket, a feature, a URL or "in the browser". Without context the
+agent works it out from your branch, and asks once when it is unsure.
 
-```
-/qa-pilot:cover <feature, ticket, PR — or nothing, to scope from your branch diff>
-```
-
-The natural rhythm: **onboard → audit → refactoring plan** once per project,
-then **cover** for every feature you build after that, with `test` for
-hands-on verification anytime.
-
-## All skills at a glance
-
-| Command | What it does | Writes to your repo |
+| Command | When | What it does |
 |---|---|---|
-| `/qa-pilot:onboard` | One-time setup: profiles your stack, test frameworks, conventions, environments | `docs/qa/project-profile.md` |
-| `/qa-pilot:audit` | Deep health check of the test codebase: flakiness, false-greens, duplication → findings + ordered refactoring plan, executable step by step | `docs/qa/audit-report.md`, `docs/qa/refactoring-plan.md` |
-| `/qa-pilot:cover` | The everyday orchestrator: what changed → coverage gaps → plan → write → review | `docs/qa/test-plans/<feature>.md` + test files |
-| `/qa-pilot:plan-tests` | Feature → prioritized test scenarios with an explicit depth/cost tradeoff (smoke / standard / thorough) | `docs/qa/test-plans/<feature>.md` |
-| `/qa-pilot:spec-audit` | Audits requirements & test plans against a 1100+ rule QA catalog (test design, requirements quality, a11y, API, UX…), cross-checked against your code → which test cases are missing, what's ambiguous, what the owner must decide | `docs/qa/spec-audit/<date>-<slug>.md` |
-| `/qa-pilot:task-qa` | The QA step of one task: `plan` (AC check, impact map, test delta) before coding; `verify` (diff vs plan, "intended?" questions, proof of coverage, up to 5 guarded tests) after | `docs/qa/tasks/<ticket>.md` (+ tests in verify) |
-| `/qa-pilot:project-audit` | The whole picture: test-framework maturity, critical flows, spec-audit per flow at depth critical, test-code sample → one roadmap | `docs/qa/project-audit/<date>.md` |
-| `/qa-pilot:write-tests` | Implements tests from a plan per your conventions; proves each test can fail; adversarial review loop | test files + scenario→file map in the plan |
-| `/qa-pilot:test` | Exploratory testing session in a real browser (Playwright MCP); guarded low-risk fixes on request | `docs/qa/test-sessions/<date>-<slug>.md` |
+| `/qa-pilot:onboard` | Once per project | Profiles the stack, test layers, CI, error handling, test-framework maturity and critical flows → `docs/qa/project-profile.md` |
+| `/qa-pilot:test [context]` | Every task | Picks the mode from context. **Before coding:** a QA plan (AC check, impact map, which tests to change or add). **After coding:** verifies the change (diff vs plan, "intended?" questions, proof of coverage, missing tests under guards). **"In the browser" or a URL:** exploratory testing in a real browser. **A test plan:** writes the tests. |
+| `/qa-pilot:audit [context]` | Big picture | **Nothing:** a whole-project audit (framework maturity, critical flows, per-flow audit, one roadmap). **A feature, spec or ticket:** a requirements audit (missing test cases, bugs, product questions). **"tests" or "flaky":** a test-code audit. |
 
-Every skill except `onboard` reads the project profile — run `onboard` once
-first. If a session hits your plan's usage limit mid-task, nothing is lost:
-every skill writes progress to its document as it works, and the next session
-resumes from the file.
+The natural rhythm:
+1. `onboard` once;
+2. `audit` when you join a project, after a large feature, or after a round of small changes;
+3. `test` on every task.
 
-## Running steps individually
+If your team runs tasks through a feature workflow skill, plug the QA step
+into its plan and test phases (`references/orchestrator-integration.md`).
 
-`cover` chains the middle of the pipeline for you; each step is also a
-standalone command (add your context after it — a feature description,
-ticket ID, or PR link):
+### Under the hood
 
-Health-check the existing tests:
+The commands route to internal skills. They are hidden from the slash menu,
+but the agent invokes them:
 
-```
-/qa-pilot:audit
-```
+| Internal skill | Used by | Writes to your repo |
+|---|---|---|
+| `task-qa` (plan / verify) | `test` | `docs/qa/tasks/<ticket>.md` (+ tests in verify) |
+| `cover` | `test` ("cover what I shipped") | `docs/qa/test-plans/<feature>.md` + test files |
+| `plan-tests`, `write-tests` | `test`, `cover` | test plans, test files |
+| `explore` | `test` (browser) | `docs/qa/test-sessions/<date>-<slug>.md` |
+| `project-audit` | `audit` (no context) | `docs/qa/project-audit/<date>.md` |
+| `spec-audit` | `audit` (feature/spec) | `docs/qa/spec-audit/<date>-<slug>[-actions].md/.json` |
+| `test-code-audit` | `audit` ("tests") | `docs/qa/audit-report.md`, `docs/qa/refactoring-plan.md` |
 
-Design test scenarios for a feature:
-
-```
-/qa-pilot:plan-tests <feature, ticket, or PR>
-```
-
-Audit the requirements / spec of a flow — what test cases are missing, what's
-ambiguous or contradictory (one feature by default; whole project on request):
-
-```
-/qa-pilot:spec-audit <feature, spec files, or ticket>
-```
-
-Write the automated tests from a plan:
-
-```
-/qa-pilot:write-tests
-```
-
-Test a feature hands-on in the browser:
-
-```
-/qa-pilot:test <feature or flow>
-```
+Every skill except `onboard` reads the project profile. If a session hits your
+plan's usage limit mid-task, nothing is lost: every skill writes its progress
+to a file in your repo as it works, and the next session resumes from there.
 
 ## What's inside
 
-- **9 skills** (`skills/`) — onboard, audit, cover, plan-tests, spec-audit, task-qa, project-audit, write-tests, test.
+- **11 skills** (`skills/`). Three are commands: onboard, test, audit. Eight are internal skills the commands route to: task-qa, cover, plan-tests, write-tests, explore, project-audit, spec-audit, test-code-audit.
   Each follows the same contract: numbered phases, batched questions when
   context is missing, mandatory self-review of any code it changes, evidence
   before claims.
@@ -144,7 +115,7 @@ Test a feature hands-on in the browser:
   - AI-feature testing (OWASP LLM Top 10).
 - **Playwright MCP** (`.mcp.json`) — the official
   [@playwright/mcp](https://www.npmjs.com/package/@playwright/mcp) server
-  (pinned version), giving Claude real browser control for `qa-pilot:test`.
+  (pinned version), giving Claude real browser control for browser testing (`explore`).
 
 ## Learn more
 
@@ -192,7 +163,7 @@ qa-pilot is **strongest on frontend/e2e testing, and usable well beyond it**:
 - The plugin bundles one MCP server: the official `@playwright/mcp` at a
   **pinned version** (no `@latest` auto-drift). It launches a local browser;
   it does not send your code anywhere.
-- `qa-pilot:test` refuses to run against environments you haven't marked safe
+- Browser testing (`explore`) refuses to run against environments you haven't marked safe
   in the project profile, and asks before destructive actions on shared
   environments.
 - Skills never read secret values; credential handling goes through the

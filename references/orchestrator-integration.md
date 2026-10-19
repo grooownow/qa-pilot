@@ -1,6 +1,6 @@
 # Plugging qa-pilot into a development orchestrator
 
-Many projects run tasks through a feature workflow skill: ticket → plan → implement → tests → review → PR. qa-pilot adds the QA step at two points, through `qa-pilot:task-qa`. The orchestrator stays in charge; qa-pilot only reads, writes tests under its guard, and reports back.
+Many projects run tasks through a feature workflow skill: ticket → plan → implement → tests → review → PR. qa-pilot adds the QA step at two points, through the internal skill `qa-pilot:task-qa`. A person runs the same thing with `/qa-pilot:test <ticket>`. The orchestrator stays in charge; qa-pilot only reads, writes tests under its guard, and reports back.
 
 ## Contract
 
@@ -13,7 +13,7 @@ Rules:
 - `verify` never fixes product code. A BUG is reported to the owner. Only with the owner's OK does the orchestrator return to its implement phase to fix it. The BUG test stays marked expected-fail until then (test-delta §6).
 - An open "intended?" question blocks the PR the same way a failed acceptance criterion does. The owner answers it, or the orchestrator stops.
 - Cost: plan ≈ 80k and verify ≈ 100k tokens (targets). For a well-understood small fix (the orchestrator's short path), run `verify` only.
-- For a large feature, or after a round of small changes, run `qa-pilot:spec-audit` (one feature) or `qa-pilot:project-audit` (the whole picture) instead of relying on per-task checks.
+- For a large feature, or after a round of small changes, run `/qa-pilot:audit <feature>` (one feature) or `/qa-pilot:audit` (the whole picture) instead of relying on per-task checks.
 
 ## Example: TDK `gov-front-feature`
 
@@ -22,13 +22,13 @@ The owner adds the following to `.claude/skills/gov-front-feature/SKILL.md`. qa-
 **Phase 3 — Plan.** Add before "Get user approval on the plan":
 
 ```markdown
-- **QA plan (qa-pilot).** Run `/qa-pilot:task-qa plan <GOV-N>`. Put its Must tests into the plan's slices, its proposed AC edits and questions into the plan's open questions, and its regression set into the Phase 8 checks. Skip on the short path.
+- **QA plan (qa-pilot).** Invoke the `qa-pilot:task-qa` skill in mode `plan` for <GOV-N> (it is internal: call it with the Skill tool, not as a slash command). Put its Must tests into the plan's slices, its proposed AC edits and questions into the plan's open questions, and its regression set into the Phase 8 checks. Skip on the short path.
 ```
 
 **Phase 6 — Tests.** Add after the `gov-front-testing` line:
 
 ```markdown
-- **QA verify (qa-pilot).** After the tests from this phase are written and green, run `/qa-pilot:task-qa verify <GOV-N>`. It reconciles the diff with the QA plan, asks "intended?" about unplanned behaviour changes, proves coverage (test + distinguishing assertion + layer in CI), and adds up to 5 missing tests under its guard. A BUG is reported to the user; with their OK, go back to Phase 4 to fix it. Paste its `## QA verification` block into the PR body in Phase 10, next to `## AC verification`.
+- **QA verify (qa-pilot).** After the tests from this phase are written and green, invoke the `qa-pilot:task-qa` skill in mode `verify` for <GOV-N>. It reconciles the diff with the QA plan, asks "intended?" about unplanned behaviour changes, proves coverage (test + distinguishing assertion + layer in CI), and adds up to 5 missing tests under its guard. A BUG is reported to the user; with their OK, go back to Phase 4 to fix it. Paste its `## QA verification` block into the PR body in Phase 10, next to `## AC verification`.
 ```
 
 **Phase table (Model routing).** Both calls are judgment work. Run them inline on the session model, or delegate them to a subagent that returns only the task file path and the summary block.

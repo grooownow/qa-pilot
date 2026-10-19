@@ -1,14 +1,16 @@
 {
   "name": "qa-pilot",
-  "owner": { "name": "grooownow" },
+  "owner": {
+    "name": "grooownow"
+  },
   "metadata": {
-    "description": "QA copilot for Claude Code: test-codebase audit, test planning, Playwright test writing, exploratory browser testing."
+    "description": "QA copilot for Claude Code with three commands: onboard, test (per-task QA and browser testing) and audit (project, requirements, test code)."
   },
   "plugins": [
     {
       "name": "qa-pilot",
       "source": "./",
-      "description": "QA copilot: test-codebase audit, one-command test coverage for new code, requirements & test-plan audit against a 1100+ rule QA catalog, test-scenario design, Playwright test writing, exploratory browser testing."
+      "description": "QA copilot with three commands: onboard (project profile), test (QA plan before coding, verification and missing tests after, exploratory browser testing on request) and audit (whole project, a feature's requirements against a verified rule catalog, or the test code)."
     }
   ]
 }

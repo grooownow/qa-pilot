@@ -1,6 +1,7 @@
 ---
 name: project-audit
 description: Whole-project QA audit — the big picture a per-task check cannot give. Assesses the maturity of the project's "test framework" (layers, CI gates, mocking, test data, selectors, flaky handling, linting), confirms the 3–7 critical user flows with the owner, runs spec-audit at depth "critical" on each chosen flow (entity cards of must-check web patterns: modify vs delete, double submit, silent mutations, UI-only permissions…), samples the test code around those flows, and writes one prioritized roadmap — framework fixes, Must tests per flow, questions, highlights — plus an English action list an agent can execute. Use when entering a new project, for an interim audit of a live project, or after a large feature or a round of small changes ("аудит проекта", "общая картина по тестам", "что у нас с тестами в целом", "project QA audit", "health check of QA"). Costs ~250k tokens per flow; the owner picks the flows.
+user-invocable: false
 ---
 
 # Project Audit
@@ -9,7 +10,7 @@ A per-task check sees only the task. This skill re-reads the whole picture:
 - Is the test framework good enough to rely on?
 - Are the flows that matter most protected against the failures web apps typically have?
 
-It **orchestrates**. The heavy lifting lives in `qa-pilot:onboard`, `qa-pilot:spec-audit` and `qa-pilot:audit`. Invoke them as steps; do not duplicate them.
+It **orchestrates**. The heavy lifting lives in `qa-pilot:onboard`, `qa-pilot:spec-audit` and `qa-pilot:test-code-audit`. Invoke them as steps; do not duplicate them.
 
 Read first:
 - `../../references/test-delta.md` (depth and buckets);
@@ -59,7 +60,7 @@ Read first:
 
 ## Phase 4 — Test-code sample
 
-Run `qa-pilot:audit` limited to the test files that exercise the critical flows (from the spec-audit coverage evidence). Look for false greens, flakiness and wrong layers. Only P1/P2 findings go to the roadmap; the rest stays in the audit's report.
+Run `qa-pilot:test-code-audit` limited to the test files that exercise the critical flows (from the spec-audit coverage evidence). Look for false greens, flakiness and wrong layers. Only P1/P2 findings go to the roadmap; the rest stays in the audit's report.
 
 ## Phase 5 — Roadmap
 

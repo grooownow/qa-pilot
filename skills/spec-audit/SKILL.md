@@ -1,6 +1,7 @@
 ---
 name: spec-audit
 description: Audits requirements and test plans (specs, tickets, user stories, acceptance criteria, test-plan docs) against a 1100+ rule QA catalog distilled from Surkov's QA handbook plus qa-pilot's own rules, cross-checks every claim against the code and existing tests, fills an entity card of must-check web patterns (e.g. modify vs delete, modal closing before its request) for every lifecycle entity, and writes a bucketed action list (Must / Should ≤8 / Highlight; bugs to fix then test, tests with level and target, product questions; filtered risks listed, not dropped) as Markdown + JSON plus a calibrated P1/P2/P3 evidence report. Depth: critical | standard | thorough. Use when the user asks "what test cases are we missing for this flow", "review/audit the spec/requirements/AC", "проверь требования", "каких тест-кейсов не хватает", "насколько покрыт флоу", or wants a requirements-quality check before planning tests. Requires docs/qa/project-profile.md (run qa-pilot:onboard first).
+user-invocable: false
 ---
 
 # Spec Audit

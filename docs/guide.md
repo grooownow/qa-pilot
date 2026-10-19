@@ -23,58 +23,63 @@ the less the plugin guesses later.
 
 **2. Audit** — `/qa-pilot:audit`
 
-An honest health check of the tests you already have: flaky patterns, tests
-that can pass while the feature is broken, copy-paste, dead weight. You get
-`docs/qa/audit-report.md` (findings with file:line evidence) and
-`docs/qa/refactoring-plan.md` (ordered fix steps, each small enough for one
-session). Execution is up to you: tell it "do step 1" — or don't.
+The big picture. With nothing after it, it runs a whole-project audit (see
+"The whole picture" below):
+- the maturity of your test framework;
+- your critical flows;
+- an audit of each flow you pick;
+- one roadmap.
 
-Why audit before writing new tests? Because `cover` builds on your existing
-suite. New tests inherit the patterns around them — cleaning the foundation
-first makes everything after cheaper.
+Add `tests` or `flaky` to get an honest health check of the tests you already
+have instead: flaky patterns, tests that can pass while the feature is
+broken, copy-paste, dead weight. You get `docs/qa/audit-report.md` and an
+ordered `docs/qa/refactoring-plan.md`.
 
-## Everyday development (project already onboarded)
+Why audit before writing new tests? New tests inherit the patterns around
+them, so cleaning the foundation first makes everything after it cheaper.
 
-You built a new feature or changed an existing one. One command:
+## Everyday development: `/qa-pilot:test`
+
+One command for every task. Add context if you have it, or nothing at all:
 
 ```
-/qa-pilot:cover <feature, ticket, PR — or nothing, to scope from your branch diff>
+/qa-pilot:test GOV-123          # a ticket: before coding → QA plan; after coding → verify the change
+/qa-pilot:test                  # nothing: it reads your branch and decides
+/qa-pilot:test in the browser   # exploratory testing of the changed flow in a real browser
+/qa-pilot:test cover            # just cover what you shipped with tests
+/qa-pilot:test docs/qa/spec-audit/…-actions.md   # write the tests from an action list or plan
 ```
 
-What happens, in order:
+How it decides:
+- **A ticket with no code changes yet** → a QA plan.
+- **A diff on the branch** → it verifies the change.
+- **"browser" or a URL** → exploratory testing.
+- **A plan or action list** → it writes the tests.
 
-1. **Scope** — it works out what changed: from your description/ticket/PR, or
-   from your branch's diff against the main branch. If the scope is ambiguous,
-   it shows you its understanding and asks before proceeding.
-2. **Gap check** — it finds the tests that relate to the change and reads them:
-   what's genuinely covered, what's partial, what's missing. Tests of behavior
-   you *modified* get special attention — a green test describing the old
-   contract is also a gap.
-3. **Plan** — for the gaps only, it designs scenarios and asks you to pick the
-   depth: smoke / standard / thorough, with the cost stated plainly.
-4. **Write** — it implements the tests in your project's own style, proves each
-   one can fail (a test that can't fail is worse than none), shakes them for
-   flakiness, and runs an adversarial self-review before showing you the result.
-5. **Summary** — covered before / covered now / consciously skipped, plus the
-   updated plan document in `docs/qa/test-plans/`.
+It says its choice in one line and goes. When the signals conflict, for
+example a diff unrelated to the named ticket, it asks you once with options.
+When you give it nothing and don't know what you need, it picks the most
+useful thing itself: verify the work in progress, or the latest change on the
+main branch.
 
-The individual commands (`plan-tests`, `write-tests`, `test`, `audit`) are for
-when you want just one step — e.g. only scenarios for discussion with the team,
-or a hands-on browser session on a bug report.
+Covering what you shipped (`test cover`) runs these steps:
+1. **Scope:** what changed.
+2. **Gap check:** what is really covered. A green test that describes the old
+   contract counts as a gap.
+3. **Plan:** scenarios for the gaps only, at the depth you choose.
+4. **Write:** tests in your project's style, each proven able to fail and
+   shaken for flakiness.
+5. **Summary.**
 
 When to re-run `onboard`: after a framework migration, a test-layout
-reorganization, new environments — any time the profile's facts go stale.
+reorganization, or new environments. In short, any time the profile's facts
+go stale.
 
-## The QA step in every task: `task-qa`
+## What happens before and after coding (the `task-qa` skill)
 
-`cover` closes the loop after you ship. `task-qa` is a QA step built into
-each task, run twice. It is cheap enough for daily use: about 80k tokens to
+`/qa-pilot:test` runs this internal skill on a task twice: once before
+coding and once after. It is cheap enough for daily use: about 80k tokens to
 plan and 100k to verify.
-
-```
-/qa-pilot:task-qa plan <ticket or AC>     # before coding
-/qa-pilot:task-qa verify <ticket>         # after coding and tests
-```
 
 - **`plan`** does three things:
   - checks each acceptance criterion: is it testable, consistent with the
@@ -104,7 +109,7 @@ Run it on a new project, for an interim audit, or after a large feature or a
 round of small changes. That is when per-task checks lose the big picture.
 
 ```
-/qa-pilot:project-audit
+/qa-pilot:audit
 ```
 
 1. **Framework maturity.** It scores the test framework: layers, CI gates,
@@ -123,7 +128,7 @@ round of small changes. That is when per-task checks lose the big picture.
 Before (or instead of) writing tests, check the requirements themselves:
 
 ```
-/qa-pilot:spec-audit <feature, spec files, or ticket>
+/qa-pilot:audit <feature, spec files, or ticket>
 ```
 
 It answers "which test cases are we missing for this flow?", "what in this spec

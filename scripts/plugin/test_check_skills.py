@@ -1,0 +1,51 @@
+import tempfile
+import unittest
+from pathlib import Path
+
+from check_skills import check
+
+
+def skill(root, name, description="Does things.", body="", extra=""):
+    d = root / "skills" / name
+    d.mkdir(parents=True)
+    (d / "SKILL.md").write_text(f"---\nname: {name}\ndescription: {description}\n{extra}---\n\n{body}\n")
+
+
+class CheckSkillsTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name)
+        (self.root / "references").mkdir()
+        (self.root / "references" / "a.md").write_text("x")
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_valid_skills_pass(self):
+        skill(self.root, "test", body="Invoke `qa-pilot:explore`; read `../../references/a.md`.")
+        skill(self.root, "explore", extra="user-invocable: false\n")
+        self.assertEqual(check(self.root), [])
+
+    def test_long_description_and_wrong_name(self):
+        skill(self.root, "task-qa", description="x" * 1025)
+        (self.root / "skills" / "other").mkdir()
+        (self.root / "skills" / "other" / "SKILL.md").write_text("---\nname: renamed\ndescription: d\n---\n")
+        errors = check(self.root)
+        self.assertTrue(any("1025 chars, max 1024" in e for e in errors), errors)
+        self.assertTrue(any("must equal the directory 'other'" in e for e in errors), errors)
+
+    def test_unknown_skill_and_missing_file(self):
+        skill(self.root, "audit", body="Run `qa-pilot:spec-audit` with `../../references/missing.md`.",
+              extra="user-invocable: maybe\n")
+        errors = check(self.root)
+        self.assertTrue(any("unknown skill qa-pilot:spec-audit" in e for e in errors), errors)
+        self.assertTrue(any("missing file references/missing.md" in e for e in errors), errors)
+        self.assertTrue(any("user-invocable must be" in e for e in errors), errors)
+
+    def test_quoted_description_is_unquoted(self):
+        skill(self.root, "test", description='"Says \\"hi\\": fine"')
+        self.assertEqual(check(self.root), [])
+
+
+if __name__ == "__main__":
+    unittest.main()

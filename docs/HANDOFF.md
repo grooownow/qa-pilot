@@ -5,11 +5,19 @@
 
 ## Где мы сейчас
 
-- **Репозиторий:** `qa-pilot`, ветка **`feat/book-knowledge-base`**, версия плагина **0.5.0**. Коммиты локальные: **не запушено, PR не открыт.**
+- **Репозиторий:** `qa-pilot`, ветка **`feat/book-knowledge-base`**, версия плагина **0.6.0** (в `main`, теги `v0.5.0`, `v0.6.0`). Запушено через SSH-хост `github.com-grooownow`; `main` перематывается fast-forward с ветки.
 - **Проверки зелёные:**
   - `python3 -m unittest discover -s scripts/kb`;
   - `python3 -m unittest discover -s skills/spec-audit/scripts`;
   - `render_rules.py --check` для `knowledge/surkov` и для `knowledge/qa-pilot`.
+
+## qa-pilot 0.6.0 (2026-10-19): три команды
+
+Пользователю видны только `/qa-pilot:onboard`, `/qa-pilot:test` и `/qa-pilot:audit`, остальные скиллы скрыты (`user-invocable: false`).
+- **`test` выбирает режим по контексту:** тикет без диффа → план `task-qa`; есть дифф → `task-qa` verify; «покрой» → `cover`; браузер или URL → `explore`; план → `write-tests`. Если сигналы противоречат, задаёт один вопрос. Если информации нет совсем, решает сам.
+- **`audit` выбирает так:** без контекста → `project-audit`; фича или спека → `spec-audit`; «тесты» или «флаки» → `test-code-audit`.
+- **Переименования:** старый `audit` стал `test-code-audit`, старый `test` — `explore`.
+- **Новая проверка `scripts/plugin/check_skills.py`:** имя скилла совпадает с папкой, описание не длиннее 1024 символов, ссылки на скиллы и файлы существуют. В 0.5.0 описание `task-qa` было длиннее и молча отбрасывалось.
 
 ## Сессия 2026-10-19: qa-pilot 0.5
 
