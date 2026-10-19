@@ -1,0 +1,128 @@
+[
+ {
+  "id": "G1",
+  "text": "PDF report download failure",
+  "expect": "BUG: the direct SDK call bypasses the cache, so there is no toast",
+  "guards": "R1"
+ },
+ {
+  "id": "G2",
+  "text": "Delete closes the modal before the request",
+  "expect": "Found, as a BUG or a gap",
+  "guards": "R1"
+ },
+ {
+  "id": "G3",
+  "text": "Error mocks",
+  "expect": "No claim that \"a 500 with a message is silent\". Proposed mocks are a 404 or a 500 with an empty body",
+  "guards": "R1 / plumbing"
+ },
+ {
+  "id": "G4",
+  "text": "Run history poll failure",
+  "expect": "BUG, fixed with `isError && !data`",
+  "guards": "—"
+ },
+ {
+  "id": "G5",
+  "text": "Auto PII scan on create",
+  "expect": "BUG (toast and auto-apply on failure). Flat-file is already excluded, so it is not claimed broken",
+  "guards": "R5"
+ },
+ {
+  "id": "G6",
+  "text": "Template 404 on PUT/DELETE",
+  "expect": "BUG: raw message, the dialog stays open, no refetch",
+  "guards": "—"
+ },
+ {
+  "id": "G7",
+  "text": "Data-source failure shows `—`",
+  "expect": "Low BUG, or omitted",
+  "guards": "—"
+ },
+ {
+  "id": "G8",
+  "text": "Activity logs on on-prem",
+  "expect": "Not a gap: already covered by `onPremiseApp/workflow/workflow-activity-logs.spec.ts`",
+  "guards": "R1"
+ },
+ {
+  "id": "G9",
+  "text": "Landing tab after create",
+  "expect": "A unit test on `getDefaultWorkflowTab`. Not \"already unit-covered\", because the existing test mocks it",
+  "guards": "R3 / R4"
+ },
+ {
+  "id": "G10",
+  "text": "Run modal: Cancel after changing the output",
+  "expect": "Needs product decision, not a test",
+  "guards": "R5"
+ },
+ {
+  "id": "G11",
+  "text": "Run during an active run",
+  "expect": "Test that the active run's modal opens. No invented 409 or \"already running\" expectation",
+  "guards": "R5"
+ },
+ {
+  "id": "G12",
+  "text": "Same input and output",
+  "expect": "The confirmation is on wizard **submit**, not on the Connect step. Existing e2e tests do not assert it",
+  "guards": "R4 (target)"
+ },
+ {
+  "id": "G13",
+  "text": "Configure-step flags",
+  "expect": "Target: the hook plus the component filter. A unit test after extracting a pure function, or e2e with stubbed flags. Not `configureStepHelpers`",
+  "guards": "R4"
+ },
+ {
+  "id": "G14",
+  "text": "Direct URL to a hidden tab",
+  "expect": "Product decision, or omitted. Never a BUG or a redirect test",
+  "guards": "R5"
+ },
+ {
+  "id": "G15",
+  "text": "Template id from another project",
+  "expect": "Backend integration test (`owner: backend`), not Playwright",
+  "guards": "R4"
+ },
+ {
+  "id": "G16",
+  "text": "Save as template UI",
+  "expect": "A gap, ranked at or near the top. The 422 shows as a toast",
+  "guards": "—"
+ },
+ {
+  "id": "G17",
+  "text": "Wrong template kind in the URL",
+  "expect": "A low-priority mocked case",
+  "guards": "—"
+ },
+ {
+  "id": "G18",
+  "text": "Discard on Cancel, × and backdrop",
+  "expect": "e2e. Stories do not count as coverage, because they do not run in CI",
+  "guards": "R2"
+ },
+ {
+  "id": "G19",
+  "text": "409 on \"Save and create workflow\"",
+  "expect": "A gap, not \"covered\"",
+  "guards": "R3"
+ },
+ {
+  "id": "G20",
+  "text": "`file-workflow-run-output-connection.spec.ts`",
+  "expect": "Not cited as covering the result download",
+  "guards": "R3"
+ },
+ {
+  "id": "G21",
+  "text": "Scope filters",
+  "expect": "No cloud-only or role/permission items in the action list",
+  "guards": "R6"
+ }
+]
