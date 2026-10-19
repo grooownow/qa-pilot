@@ -67,8 +67,9 @@ export class CheckoutPage {
     await this.el.payButton().click();
   }
 
-  async getError(): Promise<string> {
-    return (await this.el.errorBanner().textContent()) ?? "";
+  // Return the locator, not its text: the test asserts with a retrying web-first assertion.
+  errorBanner(): Locator {
+    return this.el.errorBanner();
   }
 }
 ```
@@ -118,7 +119,7 @@ import { test, expect } from "../fixtures/page-objects";
 test.describe("Checkout", () => {
   test("declined card shows an error", async ({ pages }) => {
     await pages.checkout.payWithCard("4000000000000002", "12/29");
-    expect(await pages.checkout.getError()).toContain("declined");
+    await expect(pages.checkout.errorBanner()).toContainText("declined");
   });
 });
 ```
