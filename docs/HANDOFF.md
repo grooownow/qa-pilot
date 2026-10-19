@@ -1,16 +1,49 @@
 # HANDOFF — свод знаний по книге Суркова и скилл spec-audit
 
 > **Единая точка продолжения.** Новая сессия на вопрос «на чем мы остановились?» читает этот файл и пересказывает его: где мы, что читать, что открыто, что дальше.
-> Обновлено: 2026-10-19 (конец сессии).
+> Обновлено: 2026-10-19 (qa-pilot 0.5).
 
 ## Где мы сейчас
 
-- **Репозиторий:** `qa-pilot`. Ветка **`feat/book-knowledge-base`**, последний коммит — `339b019` (spec-audit 0.4.0 + eval на TDK). **Не запушено, PR не открыт.**
+- **Репозиторий:** `qa-pilot`, ветка **`feat/book-knowledge-base`**, версия плагина **0.5.0**. Коммиты локальные: **не запушено, PR не открыт.**
 - **Проверки зелёные:**
-  - `python3 -m unittest discover -s scripts/kb` — 24 теста;
-  - `python3 -m unittest discover -s skills/spec-audit/scripts` — 23 теста;
-  - `python3 scripts/kb/render_rules.py knowledge/surkov --check` и `… knowledge/qa-pilot --check`;
-  - `python3 scripts/kb/check_overlap.py knowledge/surkov 10` → 0.
+  - `python3 -m unittest discover -s scripts/kb`;
+  - `python3 -m unittest discover -s skills/spec-audit/scripts`;
+  - `render_rules.py --check` для `knowledge/surkov` и для `knowledge/qa-pilot`.
+
+## Сессия 2026-10-19: qa-pilot 0.5
+
+- **Документы:**
+  - дизайн: `docs/superpowers/specs/2026-10-19-qa-pilot-0.5-design.md` (§8 — ответы на вопросы «строителя»);
+  - план: `docs/superpowers/plans/2026-10-19-qa-pilot-0.5.md`.
+- **Входы:**
+  - коллоквиум из 4 агентов: `docs/superpowers/notes/2026-10-19-spec-audit-colloquium.md`;
+  - независимое ревью книги: `docs/superpowers/notes/2026-10-19-surkov-book-independent-review.md`.
+- **Два сценария владельца:**
+  1. `qa-pilot:task-qa`: QA-шаг в каждой задаче. `plan` проверяет AC, строит карту влияния и дельту тестов; `verify` сверяет дифф с планом, задаёт вопросы «так задумано?», доказывает покрытие и дописывает до 5 тестов под защитой правил. Фрагмент для TDK `gov-front-feature` (Phase 3 и Phase 6) лежит в `references/orchestrator-integration.md`. Сам TDK не трогали.
+  2. `qa-pilot:project-audit`: зрелость тестовой обвязки, критичные флоу, spec-audit по каждому флоу на глубине `critical`, дорожная карта.
+- **spec-audit 0.5:**
+  - карточки сущностей по 10 обязательным веб-паттернам (`references/web-patterns.md`) и 6 веб-инвариантов;
+  - корзины Must / Should ≤8 / Highlight / Question и секция Suppressed;
+  - глубина critical / standard / thorough, критичные флоу в профиле;
+  - `-actions.json` и `score.py`;
+  - общий справочник `references/test-delta.md`.
+- **Прогон на TDK** (`docs/superpowers/notes/2026-10-19-spec-audit-0.5-eval.md`): **не прошёл.**
+  - Оба прогона набрали 14/21: G2 и G4 теперь находятся, но G10, G12, G17 и G18 потеряны. Совпадение клеток 80%, ложных утверждений 1–2 на прогон.
+  - Найдены новые настоящие баги: параллельный запуск, двойной DELETE, «Cancel run» без подтверждения, гонка выбора output.
+  - После прогона внесены правки (`5020305`): обязательный обход спеки, «мок решения ≠ покрытие», корзина Question, клетка под фильтром = DECISION. **Эффект не перемерен.**
+- **База знаний:**
+  - **Свод книги.** Исправлены 3 ложных правила. Помечены «мифы». 427 правил (`must` и детерминированные) классифицированы по `authority` и `external_check`: 17 конфликтов со стандартами, отчёт `2026-10-19-kb-external-check.md`. В пакетах `must` с `author-opinion`/`vendor-guideline` показывается как `should`.
+  - **Свои домены** (`knowledge/qa-pilot/rules/`), 140 правил, каждое сверено с источником (`2026-10-19-kb-own-domains.md`): security, test-code, api-http, test-strategy, auth, ai-systems. Плюс web-patterns и web-invariants (24 записи).
+- **Результаты прогона в TDK** (не коммитятся): `frontend/docs/qa/spec-audit/.work/workflows-templates-v3a|v3b/`.
+
+### Что дальше (по приоритету)
+1. Перемерить spec-audit после правок `5020305`: 2 прогона, около 1.5M токенов вместе с триажем. Лучше собрать тестовое приложение с посаженными багами (фаза 2 коллоквиума): тогда новые настоящие находки засчитываются.
+2. Пробный прогон `task-qa` на недавнем тикете TDK (только чтение) и замер токенов.
+3. Владельцу TDK: вставить фрагмент `task-qa` в `gov-front-feature`; подтвердить критичные флоу.
+4. Классифицировать оставшиеся ~700 правил книги (`unclassified`).
+5. Push и PR, только по просьбе владельца.
+
 - **Цель задачи** (как её поставила пользователь): взять книгу Р. Суркова «Качество решает всё» (819 стр.) и превратить её в базу для агентов. Из неё нужно:
   - справочник;
   - жёсткие правила, рекомендации и лайфхаки;
