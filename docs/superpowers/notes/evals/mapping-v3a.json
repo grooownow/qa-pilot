@@ -1,0 +1,41 @@
+{
+  "G1": {"verdict": "pass", "actions": ["A3"], "note": "BUG; direct SDK call bypasses plumbing; hook test with 404 reject"},
+  "G2": {"verdict": "pass", "actions": ["A10"], "note": "BUG: onClose() before DELETE in useWorkflowDelete; e2e @ui-contract with empty-body 500"},
+  "G3": {"verdict": "pass", "actions": ["A3", "A4", "A6", "A9", "A10", "A12"], "note": "Header states 400/500 toasted only with non-empty message; mocks are 404/409/422 or empty-body 500"},
+  "G4": {"verdict": "pass", "actions": ["A9"], "note": "BUG; fix 'stub only when there is no data' (= isError && !data)"},
+  "G5": {"verdict": "pass", "actions": ["A6"], "note": "BUG: 'scanning' toast + auto-apply before scan settles, .catch(noop); flat-file not claimed broken"},
+  "G6": {"verdict": "pass", "actions": ["A11", "A19"], "note": "BUG with raw UUID text, stale row, no refetch; close/refetch follow-up split off as question A19"},
+  "G7": {"verdict": "pass", "actions": ["A12"], "note": "Vendor '—' on data-source failure folded into A12 (but A12's main 'No templates yet' claim is false, see _extra)"},
+  "G8": {"verdict": "pass", "actions": [], "note": "Activity logs not claimed uncovered; A2 is a different (stale-data) bug; spec drift on-prem+platform noted in A32"},
+  "G9": {"verdict": "fail", "actions": ["A13"], "note": "Routed to spec question and claims 'a unit test pins it' (useCreateWorkflow.test.tsx:89) though that test mocks getDefaultWorkflowTab; no unit test proposed"},
+  "G10": {"verdict": "fail", "actions": [], "note": "Run-modal Cancel after changing output not found anywhere"},
+  "G11": {"verdict": "partial", "actions": ["A8", "A14"], "note": "Parallel runs found; question A14 recommends a 409 'already running' option; no 'active run modal opens' test"},
+  "G12": {"verdict": "fail", "actions": [], "note": "Same input/output confirmation on submit not found"},
+  "G13": {"verdict": "fail", "actions": [], "note": "Configure-step flag filtering not raised; templates WEB-010 card calls flag handling OK"},
+  "G14": {"verdict": "pass", "actions": [], "note": "Omitted; not treated as BUG or redirect test"},
+  "G15": {"verdict": "pass", "actions": ["A25"], "note": "Backend integration test, owner: backend; repository only mocked (highlight)"},
+  "G16": {"verdict": "pass", "actions": ["A15", "A24"], "note": "Gap at Should #1 (409 field error); 422 toast untested in highlight A24"},
+  "G17": {"verdict": "fail", "actions": [], "note": "Wrong template kind (workflow_type mismatch) not raised"},
+  "G18": {"verdict": "fail", "actions": [], "note": "Discard on ×/backdrop not raised; only Esc (covered) and Cancel (via :89-126) mentioned. A26 is a different item (delete modal closable while pending)"},
+  "G19": {"verdict": "pass", "actions": ["A16"], "note": "Save-and-create failure is a gap (component test on TemplateDetailsFooter), not 'covered'"},
+  "G20": {"verdict": "pass", "actions": [], "note": "file-workflow-run-output-connection.spec.ts not cited as covering result download (triage notes single clicks only)"},
+  "G21": {"verdict": "pass", "actions": ["A32"], "note": "No cloud/role items to test; A32 spec-wording bundle includes 'mark by-AI/by-DB-schema routes cloud-only' (doc fix, borderline)"},
+  "_extra": {
+    "false_claims": [
+      "A12 (Must BUG) 'templates page says No templates yet when the list fails to load' is false at 0f7f4d3f99: ProjectWorkflowTemplatesPage wraps the manager in QueryErrorBoundary criticalQueries=['getProjectWorkflowTemplates'], so an initial-load failure shows the error stub, not the zero state. Findings card WEB-005 'OK, rows survive refetch failure' is also false (no tolerateStaleData -> stub). Only the vendor '—' half of A12 holds.",
+      "A13 / F9: 'The unit test pins this (useCreateWorkflow.test.tsx:89-98)' - the test mocks getDefaultWorkflowTab: () => 'dbView' (line ~19), so the landing tab is not unit-covered (false covered claim, G9)."
+    ],
+    "new_findings": [
+      "A1: template delete confirm stays clickable while pending (Button loading is visual only) -> double DELETE, second 404 toasts raw UUIDs",
+      "A2: activity logs and workflow page (ProjectLayoutPage findWorkflowById, SSE-refreshed) swap to the error stub on one failed refetch (no tolerateStaleData)",
+      "A4: YAML save silent for 404/409/422/5xx-empty/network",
+      "A5: standard wizard create has no catch",
+      "A7: workflow rename 409 swallowed (already known from v2)",
+      "A8: Confirm run double-click starts two runs; Stop cancels only the first",
+      "A18: rename uniqueness check is global across projects and discloses names in other projects",
+      "A28: 500 with message reported twice on template rename/delete/apply",
+      "A30: SAP wizard v1 route has no feature-flag guard",
+      "A31: SAP v1 workflows offered Save as template that always 422s with numeric id"
+    ]
+  }
+}

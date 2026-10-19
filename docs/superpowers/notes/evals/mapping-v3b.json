@@ -1,0 +1,40 @@
+{
+  "G1": {"verdict": "pass", "actions": ["A1"], "note": "BUG; direct SDK call, no catch; hook test rejecting {status:404}"},
+  "G2": {"verdict": "pass", "actions": ["A10"], "note": "BUG: dialog closes before DELETE; hook test with 404 and network error"},
+  "G3": {"verdict": "pass", "actions": ["A1", "A4", "A5", "A8", "A9", "A10"], "note": "Header states 400/500 toasted only with message; mocks are 404/409/network; no 'silent 500 with message' claim"},
+  "G4": {"verdict": "pass", "actions": ["A2"], "note": "BUG; 'show the stub only when there is no data'"},
+  "G5": {"verdict": "pass", "actions": ["A5"], "note": "BUG: toast + auto-apply before runScan settles; flat-file not claimed broken"},
+  "G6": {"verdict": "pass", "actions": ["A11", "A34"], "note": "BUG: raw UUIDs, dialog stays open, stale row; close/refresh follow-up as question A34"},
+  "G7": {"verdict": "pass", "actions": ["A24"], "note": "Vendor '—' on data-source failure, highlight"},
+  "G8": {"verdict": "pass", "actions": [], "note": "Activity logs not claimed uncovered; A3 is the stale-data bug; on-prem+platform wording in A29"},
+  "G9": {"verdict": "pass", "actions": ["A16"], "note": "Fix spec then unit-test getDefaultWorkflowTab; explicitly notes it is mocked in both existing tests"},
+  "G10": {"verdict": "fail", "actions": [], "note": "Not raised. Adjacent: A6 notes output picker PUTs immediately (race with Confirm), but Cancel-after-change semantics never questioned"},
+  "G11": {"verdict": "partial", "actions": ["A6", "A30"], "note": "Parallel runs found; question A30 offers 409 as option (a), no recommendation; no 'active run modal opens' test"},
+  "G12": {"verdict": "fail", "actions": [], "note": "Same input/output confirmation on submit not found"},
+  "G13": {"verdict": "partial", "actions": ["A20"], "note": "Findings propose flag-off unit test on useWorkflowTemplateOptions (hook) + e2e, but only the templates flag; the action list keeps only the ?templateId= fetch highlight"},
+  "G14": {"verdict": "pass", "actions": ["A32"], "note": "Product decision (redirect vs not-found), not a BUG"},
+  "G15": {"verdict": "fail", "actions": [], "note": "Not a gap; 'Already covered' lists 'backend template 404/409/422 and project scoping' by WorkflowTemplateServiceTest, whose repository is a mockk stub"},
+  "G16": {"verdict": "pass", "actions": ["A13"], "note": "Should #1: no frontend test at all; 409 on field, 422/network visible error (findings: toast), success path"},
+  "G17": {"verdict": "fail", "actions": [], "note": "Wrong template kind not raised; findings even say 'a bad ?templateId= is handled and tested (:298,:317)', which covers only an unreadable id"},
+  "G18": {"verdict": "fail", "actions": [], "note": "Discard on ×/backdrop not raised; covered list cites Cancel discard (:89-126) and Esc (:150) only"},
+  "G19": {"verdict": "pass", "actions": ["A15"], "note": "Gap, component test; notes the story does not run in CI"},
+  "G20": {"verdict": "pass", "actions": [], "note": "Spec cited only for the run-modal output branch by input category, not result download"},
+  "G21": {"verdict": "pass", "actions": ["A29"], "note": "No cloud/role items to test; A29 spec-wording bundle includes 'by-AI/by-DB-schema routes are cloud-only' (doc fix, borderline)"},
+  "_extra": {
+    "false_claims": [
+      "Already covered: 'Backend template 404/409/422 and project scoping: WorkflowTemplateServiceTest.kt' - project scoping of PUT/DELETE is only exercised with a mocked repository (every { repository.fetchByProjectIdAndId(...) } returns null); the scoped SQL is untested (overstated covered claim, G15).",
+      "Findings (templates) WEB-016: 'a bad ?templateId= is handled and tested (create-workflow.spec.ts:298,317)' - :298 is an unreadable id, :317 is an untemplated close; the workflow_type-mismatch branch in useWizardTemplate.ts is untested (soft overclaim, not in the action list)."
+    ],
+    "new_findings": [
+      "A7: 'Cancel run' in the run progress modal stops with no confirmation, unlike the header Stop (verified: WorkflowRunProcessModal.tsx onStopWorkflow = stopWorkflow directly vs WorkflowRun.tsx useConfirmDialog); stop failures silent for 404/409/network",
+      "A6: output picker in the run modal PUTs immediately and Confirm is not blocked during that PUT, so a run can start against the previous output (verified SelectOutputDatasource.tsx handleOutputChange)",
+      "A3: templates settings page boundary (criticalQueries getProjectWorkflowTemplates) has no tolerateStaleData; refetch failure swaps the table for the stub (verified)",
+      "A33: run-details URL with another workflow's run: its Cancel run stops the URL's workflow, not the run shown (triage)",
+      "A27: YAML editor version ignored by backend for internal configs (last-write-wins)",
+      "A36: SAP data-source list for template prefill is project-scoped, spec says global",
+      "A19: getTabsConfig never tested with the real XML combo (flat-file AND XML)",
+      "A23: /workflow-runs/abc -> NaN -> empty run modal",
+      "Triage dropped a false gap: backend rename-409 is covered by WorkflowResourceIT.kt:531-560 (integration, CI)"
+    ]
+  }
+}
