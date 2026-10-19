@@ -11,7 +11,7 @@ Check it with `python3 skills/spec-audit/scripts/score.py validate <file>`.
   "actions": [
     {
       "id": "A1",
-      "bucket": "must | should | highlight",
+      "bucket": "must | should | highlight | question",
       "kind": "bug | test | question",
       "title": "Rename to a taken name fails silently",
       "expected": "A visible conflict error; the dialog stays open",
@@ -34,6 +34,7 @@ Check it with `python3 skills/spec-audit/scripts/score.py validate <file>`.
 ## Fields
 
 - **Required on every action:** `id`, `bucket`, `kind`, `title`.
+- **`kind: question` always takes `bucket: "question"`.** Questions are counted on their own and never count toward the Must/Should caps.
 - **Required on `test` and `bug` actions:** `expected`, `source`, `level`, `target`. On a `question`, these are optional.
 - **`pattern`:** optional. Fill it in when the action came from an entity-card cell.
 - **`owner_verdict`:** filled in later by the owner, or by `task-qa`/`cover` when a test lands. It is the cheap, permanent quality signal: acceptance rate and tokens per accepted item.
@@ -47,6 +48,7 @@ Check it with `python3 skills/spec-audit/scripts/score.py validate <file>`.
 | **Must** | P1, any BUG, P2 on a confirmed critical flow | none; above 10 the run warns: narrow the scope |
 | **Should** | other P2 | ≤8 |
 | **Highlight** | P3, one line each | none; no tests are prescribed |
+| **Question** | every product question | none; separate from the caps |
 
 ## Scoring an eval
 

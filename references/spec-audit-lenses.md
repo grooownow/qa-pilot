@@ -33,6 +33,15 @@ Read `references/web-patterns.md` (absolute path in your brief). For every entit
 
 Run the pattern's trigger searches from `web-patterns.md`; do not decide a cell from memory. An empty cell is a defect of the run, not a pass. Highlight-only patterns get a one-line mention only when you see them, with no card row.
 
+A cell whose whole behaviour is removed by an owner scope filter gets **DECISION** with the filter cited, never N/A. A cell only partly touched by a filter is judged on the behaviour that remains.
+
+**Then walk the spec (mandatory; do not skip because the cards are full).** The cards cover known failure classes, not the specific feature. Go through the spec once, top to bottom. Every control, step, mode and state it names gets one line:
+- defined;
+- tested (cite the test);
+- or a gap.
+
+This covers the run modal's Cancel, confirmations on submit, a wrong kind in a URL, and discard on ×/backdrop. In the 0.5 eval exactly these items dropped out when the agents worked only from the cards. A gap with no pattern behind it still becomes at least a Highlight.
+
 With `depth: critical`, do only the entity cards plus lens 4 (contradictions), and only for entities on the critical flows in your brief.
 
 ## 1. Lenses: apply them in this order to every spec
@@ -92,6 +101,12 @@ A spec-only audit produced about one third false "missing" items in the pilot, a
 3. **The layer runs in CI.** Check the profile's test-layers table. A layer that CI does not run, or that is being phased out, does not count. Write `covered but not in CI: <path>` and treat the scenario as a gap.
 
 If any of the three is missing, the scenario is a **gap**.
+
+**Mocks of the decision do not count.** A test that mocks the function, hook or repository that *decides* the behaviour does not cover that behaviour. Examples:
+- a unit test of `useCreateWorkflow` that mocks `getDefaultWorkflowTab` does not cover the landing tab;
+- a service test with a mocked repository does not prove the repository's query scoping.
+
+Name the mock in your evidence. In the 0.5 eval both false "covered" claims were of this kind.
 
 ### 2c. Other checks
 

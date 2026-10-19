@@ -21,6 +21,7 @@ The main rule: **cover what is critical, highlight the rest.** Products change f
 | **Must** | P1, any BUG, or P2 on a critical flow (`## Critical flows` in the profile) | None. Above 10, tell the owner to narrow the scope. |
 | **Should** | Other P2 | ≤8 per feature, ≤5 per task. Keep the ones with the highest risk on the most-used flows. |
 | **Highlight** | P3, and P2 items that did not fit the cap | One line each; no test is prescribed |
+| **Question** | Product questions: the expected result is undecided | Separate; never counts toward the caps |
 
 Severity comes from `severity-calibration.md`. Owner scope filters remove the test but not the visibility: the item goes to **Suppressed by your filters** as one line.
 

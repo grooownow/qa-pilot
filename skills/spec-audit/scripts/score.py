@@ -14,7 +14,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-BUCKETS = ("must", "should", "highlight")
+BUCKETS = ("must", "should", "highlight", "question")
 KINDS = ("bug", "test", "question")
 VERDICTS = ("OK", "BUG", "GAP", "N/A", "DECISION")
 REQUIRED = ("id", "bucket", "kind", "title")
@@ -39,6 +39,8 @@ def validate_actions(doc):
             errors.append(f"{aid}: bucket must be one of {BUCKETS}")
         if a.get("kind") and a["kind"] not in KINDS:
             errors.append(f"{aid}: kind must be one of {KINDS}")
+        if (a.get("kind") == "question") != (a.get("bucket") == "question") and a.get("kind") and a.get("bucket"):
+            errors.append(f"{aid}: a question takes bucket 'question', and only questions do")
     for key in ("suppressed", "cells"):
         if not isinstance(doc.get(key, []), list):
             errors.append(f"{key} must be a list")

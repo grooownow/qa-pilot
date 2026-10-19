@@ -28,6 +28,12 @@ class ValidateTest(unittest.TestCase):
         errors, _ = validate_actions(doc([bad]))
         self.assertTrue(any("A1: bucket" in e for e in errors), errors)
 
+    def test_question_bucket_matches_kind(self):
+        errors, _ = validate_actions(doc([action("Q1", "should", "question")]))
+        self.assertTrue(any("bucket 'question'" in e for e in errors), errors)
+        errors, _ = validate_actions(doc([action("A1", "question", "test")]))
+        self.assertTrue(any("bucket 'question'" in e for e in errors), errors)
+
     def test_bad_verdict_and_not_a_list(self):
         errors, _ = validate_actions(doc(cells=[{"entity": "wf", "pattern": "QAP-WEB-001", "verdict": "MAYBE"}]))
         self.assertTrue(any("verdict" in e for e in errors), errors)
@@ -50,12 +56,12 @@ class ValidateTest(unittest.TestCase):
 class ScoreTest(unittest.TestCase):
     def test_score_counts(self):
         actions = doc([action("A1", "must", "bug"), action("A2"), action("A3", "highlight"),
-                       action("Q1", "should", "question")])
+                       action("Q1", "question", "question")])
         rubric = [{"id": "G1"}, {"id": "G2"}, {"id": "G3"}]
         mapping = {"G1": {"verdict": "pass"}, "G2": {"verdict": "partial"}}
         result = score(actions, mapping, rubric)
         self.assertEqual((result["pass"], result["partial"], result["fail"]), (1, 1, 1))
-        self.assertEqual(result["buckets"], {"must": 1, "should": 2, "highlight": 1})
+        self.assertEqual(result["buckets"], {"must": 1, "should": 1, "highlight": 1, "question": 1})
         self.assertEqual(result["questions"], 1)
         self.assertAlmostEqual(result["question_share"], 0.25)
         self.assertIn("G3: not mapped, counted as fail", result["warnings"])

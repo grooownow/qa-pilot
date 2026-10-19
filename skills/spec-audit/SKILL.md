@@ -171,7 +171,10 @@ Collect the agents' `## Lens notes`. A real finding that no catalog rule covers 
 9. **Buckets** (`../../references/test-delta.md`):
    - Must = P1, any BUG, or P2 on a critical flow (uncapped; above 10, tell the user to narrow the scope);
    - Should = other P2, at most 8 — keep the 8 with the highest risk on the most-used flows, demote the rest to Highlight;
-   - Highlight = P3 and demoted items, one line each, no test prescribed.
+   - Highlight = P3 and demoted items, one line each, no test prescribed;
+   - Question = every product question, kept apart from the caps.
+
+   In the 0.5 eval a delegated triage let two false "covered" claims through. Do this phase yourself.
 10. **Suppressed, not dropped.** A finding or cell removed by an owner scope filter goes to *Suppressed by your filters* as one line (what, which pattern, which filter). The filter removes the test; the owner still sees the risk.
 
 ## Phase 6 — Report and hand-off
