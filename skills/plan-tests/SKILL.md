@@ -10,7 +10,9 @@ plan a human can review and `qa-pilot:write-tests` can execute. Planning is
 judgment: it stays in the main session, no delegation of scenario design.
 
 Create a todo per phase. Prerequisite: `docs/qa/project-profile.md`
-(else run `qa-pilot:onboard`). Read `../../references/quality-rules.md`.
+(else run `qa-pilot:onboard`). Read `../../references/quality-rules.md` and
+`../../references/test-delta.md` (depth, buckets, the three proofs, sourced
+expected results — shared with `cover`, `task-qa` and `spec-audit`).
 
 ## Phase 1 — Understand the feature
 
@@ -39,7 +41,10 @@ irreversibility push up; cosmetic and internal push down):
   cases, data-boundary sweep. For auth, payments, destructive operations.
 
 State the cost side plainly: each level up roughly doubles authoring and
-maintenance cost. The user picks; the plan records the choice.
+maintenance cost. The user picks; the plan records the choice. Whatever the
+depth, the must-check web patterns (`../../references/web-patterns.md`) for
+entities on critical flows are always checked; volatility lowers depth
+(test-delta §1).
 
 ## Phase 3 — Design scenarios
 
@@ -63,6 +68,9 @@ For EACH scenario decide and record:
 - **Tier** (for e2e): mocked backend vs real backend vs realistic-data — per the
   project's tagging contract in the profile (see `../../references/e2e-patterns.md`).
 - **Data needs:** fixtures, seeded accounts, cleanup requirements.
+- **Expected result with a source** (test-delta §5): spec/AC line, decision,
+  web invariant `QAP-WINV-…`, or an in-code convention. No source → it goes
+  to Assumptions as a question, not to Scenarios.
 
 ## Phase 4 — Write the plan
 

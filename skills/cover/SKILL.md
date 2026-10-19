@@ -37,7 +37,8 @@ a full audit: existing tests by path proximity, feature tags, and names related
 to the touched code; the project's coverage tooling for the touched files if
 the profile lists any.
 
-Classify each behavior:
+Classify each behavior (definitions and the three proofs of "covered":
+`../../references/test-delta.md` §3–4):
 
 - **Covered** — existing tests genuinely exercise the new behavior (read them;
   a test that touches the file is not automatically a test of the behavior).
@@ -65,7 +66,8 @@ shortcut. Don't invoke the full skill ceremonially.
 ## Phase 4 — Write the tests
 
 Invoke `qa-pilot:write-tests` on the plan. All its rules apply unchanged
-(conventions, failure proof, flakiness shake, review loop).
+(conventions, failure proof, flakiness shake, review loop). Writing without a
+fresh approval of the batch follows the auto-test guard in test-delta §6.
 
 ## Phase 5 — Close the loop
 

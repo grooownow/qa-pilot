@@ -21,6 +21,20 @@ The work is **read-only.** Never edit the project. You write only your findings 
 
    Full records are in the catalog JSON (`<catalog path from your brief>/*/rules/*.json`); look a record up with `jq` by id when a one-line summary is not enough.
 
+## 1a. Entity cards (before the lenses)
+
+Read `references/web-patterns.md` (absolute path in your brief). For every entity with a lifecycle in your specs (workflows, templates, runs, documents, accounts…), fill one **entity card**: one row per must-check pattern, with a verdict and evidence.
+
+- **OK**: the code handles it (cite the line) and a test that runs in CI proves it (2b), or the handling is trivially correct.
+- **BUG**: the code mishandles it (cite the line). A scenario with a BUG mark follows.
+- **GAP**: the code may be fine but nothing in CI proves it. A scenario follows.
+- **N/A**: the pattern cannot occur for this entity. Evidence is mandatory (e.g. "no delete endpoint: searched `git grep -n 'delete' -- src/api/workflow*` → 0").
+- **DECISION**: the right behaviour is a product choice. It goes to *Needs product decision*.
+
+Run the pattern's trigger searches from `web-patterns.md`; do not decide a cell from memory. An empty cell is a defect of the run, not a pass. Highlight-only patterns get a one-line mention only when you see them, with no card row.
+
+With `depth: critical`, do only the entity cards plus lens 4 (contradictions), and only for entities on the critical flows in your brief.
+
 ## 1. Lenses: apply them in this order to every spec
 
 The order matters. The first lenses find real defects; the later ones mostly find gaps.
@@ -109,6 +123,7 @@ A finding is half the work. The scenario you propose will be implemented by anot
 - **One expected result, with a source.** Every scenario states a single expected result and cites where it comes from:
   - a spec line;
   - a project decision;
+  - a web invariant `QAP-WINV-…` from `web-patterns.md`, when the spec is silent (e.g. "every write has a visible failure reaction");
   - an existing convention elsewhere in the code (path:line).
 - **Do not over-correct.** When the current behaviour is plainly wrong, it is a **BUG**, not a product question. Examples: success shown after a failure, raw ids shown to the user, a retry that can never succeed. Cite the nearest in-code convention as the source, e.g. another flow that notifies on failure. Use Needs product decision only when there are genuinely different acceptable behaviours.
 - **Otherwise it is a question, not a test.** If the expected result is undecided, would be invented by you, or would pin behaviour you suspect is a bug, the item goes to **Needs product decision**, never to the scenarios.
@@ -122,6 +137,9 @@ A finding is half the work. The scenario you propose will be implemented by anot
 If your Write tool is blocked, append with a shell command (`cat >> <file> <<'EOF'`). If that is blocked too, put the full findings in your final reply, and say that you did.
 
 ```
+## Entity cards
+| Entity | Pattern | Verdict | Evidence (file:line or search → count) |
+
 ## <spec file>
 ### Findings
 | # | Rule | Sev | Where (file:line) | Code (file:line) | Finding | Fix (concrete) |

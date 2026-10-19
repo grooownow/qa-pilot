@@ -1,6 +1,6 @@
 ---
 name: spec-audit
-description: Audits requirements and test plans (specs, tickets, user stories, acceptance criteria, test-plan docs) against a 1100+ rule QA catalog distilled from Surkov's QA handbook plus qa-pilot's own rules, cross-checks every claim against the code and existing tests, and writes an agent-executable action list (bugs to fix then test, tests to add with level and target, product questions) plus a calibrated P1/P2/P3 evidence report. Use when the user asks "what test cases are we missing for this flow", "review/audit the spec/requirements/AC", "проверь требования", "каких тест-кейсов не хватает", "насколько покрыт флоу", or wants a requirements-quality check before planning tests. Requires docs/qa/project-profile.md (run qa-pilot:onboard first).
+description: Audits requirements and test plans (specs, tickets, user stories, acceptance criteria, test-plan docs) against a 1100+ rule QA catalog distilled from Surkov's QA handbook plus qa-pilot's own rules, cross-checks every claim against the code and existing tests, fills an entity card of must-check web patterns (e.g. modify vs delete, modal closing before its request) for every lifecycle entity, and writes a bucketed action list (Must / Should ≤8 / Highlight; bugs to fix then test, tests with level and target, product questions; filtered risks listed, not dropped) as Markdown + JSON plus a calibrated P1/P2/P3 evidence report. Depth: critical | standard | thorough. Use when the user asks "what test cases are we missing for this flow", "review/audit the spec/requirements/AC", "проверь требования", "каких тест-кейсов не хватает", "насколько покрыт флоу", or wants a requirements-quality check before planning tests. Requires docs/qa/project-profile.md (run qa-pilot:onboard first).
 ---
 
 # Spec Audit
@@ -18,6 +18,9 @@ Create a todo per phase (if a todo tool is available). Before dispatching anythi
 - `../../references/model-routing.md`
 - `../../references/spec-audit-lenses.md`, the agents' brief (you need to know it too)
 - `../../references/severity-calibration.md`
+- `../../references/web-patterns.md`: the entity card, must-check patterns and web invariants
+- `../../references/test-delta.md`: buckets, the three proofs, the auto-test guard
+- `../../references/actions-schema.md`: the `-actions.json` format
 
 Paths below are relative to this skill's base directory. The catalog is `../../knowledge/` and the scripts are in `scripts/`.
 
@@ -41,7 +44,10 @@ mkdir -p "$SCRATCH"
      - which areas are on hold (e.g. "the role model is being redesigned; no permission tests");
      - which kinds of tests are not wanted.
 
-     On TDK these arrived after the report and cost two extra rounds. Offer to save them in `rule-overrides.json` → `scope` as `{"exclude": …, "reason": …, "source": …}`, and write them only after the user agrees.
+   - **In the same message, ask for critical flows** if the profile has no `## Critical flows` section: the 3–7 user flows whose failure hurts most (money, data loss, a blocked core job). Offer to add them to the real profile; write after the user agrees. A P2 on a critical flow goes to Must.
+   - **Depth.** Default `standard`. `critical` = entity cards + contradictions (lens 4) on critical flows only, for a quick or project-level pass. `thorough` = everything, Should uncapped, Highlight items drilled into scenarios. Use `thorough` only when the user asks.
+
+     On TDK the scope filters arrived after the report and cost two extra rounds. Offer to save them in `rule-overrides.json` → `scope` as `{"exclude": …, "reason": …, "source": …}`, and write them only after the user agrees.
 
    ```yaml
    platform: [web]          # web | mobile-web | pwa | ios | android | desktop | game
@@ -114,7 +120,8 @@ Both scripts accept a missing overrides file, so pass the flag every time.
   - the pack dir `$SCRATCH/packs` and the decisions digest `$SCRATCH/decisions.md`;
   - the lint candidates for those files;
   - the audit profile `$SCRATCH/project-profile.md` (it has the test layers and the error plumbing). Do not describe test locations or layers in the brief by hand: the agent reads the profile's test-layers table. On TDK, a hand-written "tests live in `*.stories.tsx`" led agents to count stories that never run in CI.
-  - the findings file `$SCRATCH/findings-<cluster>.md`.
+  - the findings file `$SCRATCH/findings-<cluster>.md`;
+  - the depth, the critical flows, and the absolute path to `$SKILL_DIR/../../references/web-patterns.md` (the agent fills one entity card per lifecycle entity).
 - **Some environments forbid subagents from writing files.** The lenses tell the agent to append with a shell command when Write is blocked. If both are blocked, the agent returns the full findings in its reply, and you must save them to `$SCRATCH` immediately.
 - The lenses already include the **code reality check**: grep tests before calling a scenario missing, check invariants in every write path, anti-false-green for security AC, and the drift verdict. Tell the agent that the code is available, or that it isn't (a spec-only project or a ticket); without code it must label every scenario "unverified".
 - Wait for every cluster agent's completion notification. Do not poll the findings files while the agents are still running.
@@ -160,6 +167,12 @@ Collect the agents' `## Lens notes`. A real finding that no catalog rule covers 
    - You may add findings the agents missed. Mark them `(triage)`, and apply the same evidence standard: a spec line and a code line.
 6. **Respect decisions.** Overridden rules go to "Skipped as project decision". When the user says during triage "that's deliberate", offer to record it in `docs/qa/rule-overrides.json` under `decisions`. Write it only after the user agrees.
 7. **Lint candidates:** decide each one (finding or false positive). A true one is usually P2 if it sits in an AC, otherwise P3.
+8. **Entity-card gate.** Merge the agents' entity cards. Every (entity, must-check pattern) cell needs a verdict: OK / BUG / GAP / N/A / DECISION. N/A needs evidence (why the pattern cannot occur here, with a file:line or a search). An empty cell or an unevidenced N/A sends the card back to its agent (or you fill it with a search). **Do not write the action list while a card has an empty cell.**
+9. **Buckets** (`../../references/test-delta.md`):
+   - Must = P1, any BUG, or P2 on a critical flow (uncapped; above 10, tell the user to narrow the scope);
+   - Should = other P2, at most 8 — keep the 8 with the highest risk on the most-used flows, demote the rest to Highlight;
+   - Highlight = P3 and demoted items, one line each, no test prescribed.
+10. **Suppressed, not dropped.** A finding or cell removed by an owner scope filter goes to *Suppressed by your filters* as one line (what, which pattern, which filter). The filter removes the test; the owner still sees the risk.
 
 ## Phase 6 — Report and hand-off
 
@@ -179,12 +192,25 @@ Source: spec audit of <specs> at <sha>, <date>.
 - Error mocks: <what the global error plumbing already covers, so tests mock what it does not>
 - Scope: <owner scope filters>
 
-## Suggested order        — highest value first (no tests at all > BUG with a small fix > the rest)
-## Bugs to fix, then test — each: what to do · expected (with source) · where to fix (path) · test level + target
-## Tests to add           — each: what to do · expected (with source) · test level + target (owner: backend where it applies)
+## Must                   — bugs to fix then test, and must-have tests; order: no tests at all > BUG with a small fix > the rest
+## Should (≤8)            — tests worth adding; each: what to do · expected (with source) · level + target (owner: backend where it applies)
+## Highlighted, not drilled — one line each: the risk and where; no test unless the owner promotes it
 ## Needs product decision — do not implement; each with the question and options
+## Suppressed by your filters — one line each: the risk, the pattern, the filter that removed it
 ## Already covered        — do not duplicate; each with test path (only tests that run in CI)
 ```
+
+Each Must/Should item: what to do · BUG mark if the code fails it (fix first, confirm the test fails without the fix) · expected (with source) · where to fix · test level + target.
+
+### 6a'. The same list as JSON: `docs/qa/spec-audit/<date>-<slug>-actions.json`
+
+Schema: `../../references/actions-schema.md` (actions with bucket/kind, suppressed, and the entity-card cells). Validate before handing over:
+
+```bash
+python3 "$SKILL_DIR/scripts/score.py" validate docs/qa/spec-audit/<date>-<slug>-actions.json
+```
+
+Errors must be zero. Warnings (`should>8`, `must>10`, `empty cell`) must be explained to the user or fixed.
 
 Only verified items go in. An item whose absence claim you did not re-run in Phase 5 is not ready.
 
@@ -201,6 +227,7 @@ Only verified items go in. An item whose absence claim you did not re-run in Pha
 ## Decisions needed   — questions only the owner can answer, each with options; the agents' "Needs product decision" items merge here and into 6a's section of the same name
 ## Non-functional     — Phase 3 results (if run)
 ## Catalog gaps       — real issues no rule covered
+## Entity cards      — merged cards: entity × must-check pattern → verdict + evidence
 ## Findings by spec   — full tables + missing scenarios (from the cluster files)
 ## Appendix           — dropped and re-graded findings (with reasons), absence claims re-run (command → result), lint false positives
 ```

@@ -38,3 +38,15 @@ If you cannot point to the code or config that makes the harm reachable, it is n
 - **A project decision that consciously accepts a risk** is not a finding. If the decision's own premise is broken (e.g. it relies on a safeguard that does not exist or fails open), report *that* as **P2**, quote the decision, and add it to **Decisions needed**. It becomes P1 only when you can show concrete harm that is already reachable. The owner decides; the audit does not overrule a decision on its own.
 - **A written process instruction is not a gate.** "Run the gates before pushing" in AGENTS.md is not enforcement. Only an automated check that blocks a merge or deploy counts. An explicit decision to *rely* on local checks is a decision (see above).
 - **"Real users?"** Release-gating and data-loss severity depend on it. Count it as yes if the product is publicly reachable with sign-up, or the docs mention beta or production users. If you cannot tell, say which assumption you made.
+- **Authority caps severity.** A rule tagged `author-opinion` or `vendor-guideline` (packs show it in the rule line) cannot carry a finding to P1 on its own. P1 needs harm you can show in code, whatever the rule says.
+- **Pattern defaults.** A must-check web pattern (`references/web-patterns.md`) gives the default severity of its cell: data loss or a security bypass is P1, a silent failure or a dead end on a user-visible path is P2. Raise or lower it only with a cited code line.
+
+## From severity to buckets (action lists)
+
+| Bucket | What goes in |
+|---|---|
+| **Must** | P1, any BUG, P2 on a confirmed critical flow |
+| **Should** (≤8) | other P2 |
+| **Highlight** | P3 and the P2s that did not fit the Should cap; one line, no test |
+
+Details and the auto-test guard: `references/test-delta.md`.
