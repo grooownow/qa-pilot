@@ -19,10 +19,15 @@ SEVERITIES = ("must", "should", "nice")
 MODES = ("deterministic", "heuristic", "manual")
 TARGETS = ("requirements", "test-plan", "test-code", "live-product", "test-cases")
 VERIFICATION = ("ok", "fixed", "doubtful")
+AUTHORITY = ("normative", "industry-practice", "vendor-guideline", "author-opinion", "unclassified")
+EXTERNAL_CHECK = ("aligned", "conflict", "unchecked")
+PATTERN_TIERS = ("must-check", "highlight")
+PATTERN_LEVELS = ("unit", "component", "backend-integration", "e2e")
 ID_RE = re.compile(r"^(SRK|QAP|PRJ)-[A-Z0-9]+(-[A-Z0-9]+)*-\d{3}$")
 REQUIRED_TEXT = ("id", "kind", "severity", "title", "statement")
 OPTIONAL_TEXT = ("rationale", "modern_note", "decision")
-ALLOWED = set(REQUIRED_TEXT + OPTIONAL_TEXT + ("applies_to", "check", "source", "tags", "verification"))
+ALLOWED = set(REQUIRED_TEXT + OPTIONAL_TEXT + ("applies_to", "check", "source", "tags", "verification",
+                                               "authority", "external_check", "pattern"))
 
 KIND_RU = {"rule": "Жёсткие правила", "recommendation": "Рекомендации",
            "tip": "Практические советы", "checklist": "Чек-лист"}
@@ -72,6 +77,12 @@ def validate_record(r, chunks):
         errors.append(f"{rid}: tags must be a list of strings")
     if "verification" in r and r["verification"] not in VERIFICATION:
         errors.append(f"{rid}: verification must be one of {VERIFICATION}")
+    if "authority" in r and r["authority"] not in AUTHORITY:
+        errors.append(f"{rid}: authority must be one of {AUTHORITY}")
+    if "external_check" in r and r["external_check"] not in EXTERNAL_CHECK:
+        errors.append(f"{rid}: external_check must be one of {EXTERNAL_CHECK}")
+    if "pattern" in r:
+        errors.extend(validate_pattern(rid, r["pattern"]))
     source = r.get("source")
     from_book = str(r.get("id", "")).startswith("SRK-")
     if not from_book:
@@ -91,6 +102,26 @@ def validate_record(r, chunks):
                 lo, hi = chunk["printed_pages"]
                 if any(p < lo - 1 or p > hi + 1 for p in pages):
                     errors.append(f"{rid}: printed_pages {pages} outside chunk {source['chunk_id']} [{lo}, {hi}]")
+    return errors
+
+
+def validate_pattern(rid, pattern):
+    """The `pattern` object of a web-pattern record (QAP-WEB-…)."""
+    if not str(rid).startswith("QAP-WEB-"):
+        return [f"{rid}: pattern is only allowed on QAP-WEB-… records"]
+    if not isinstance(pattern, dict):
+        return [f"{rid}: pattern must be an object"]
+    errors = []
+    if pattern.get("tier") not in PATTERN_TIERS:
+        errors.append(f"{rid}: pattern.tier must be one of {PATTERN_TIERS}")
+    if pattern.get("level") not in PATTERN_LEVELS:
+        errors.append(f"{rid}: pattern.level must be one of {PATTERN_LEVELS}")
+    for key in ("triggers", "book_refs"):
+        value = pattern.get(key, [])
+        if not isinstance(value, list) or not all(isinstance(v, str) for v in value):
+            errors.append(f"{rid}: pattern.{key} must be a list of strings")
+    if not pattern.get("triggers"):
+        errors.append(f"{rid}: pattern.triggers must not be empty")
     return errors
 
 
@@ -130,10 +161,13 @@ def render_topic(topic, records):
             else:
                 where = src["origin"]
             flag = " ⚠️ сомнительно" if r.get("verification") == "doubtful" else ""
-            out += [f"### {r['id']} · {r['title']}{flag}", "",
-                    f"`{r['severity']}` · проверка: {MODE_RU[r['check']['mode']]} · "
-                    f"для: {', '.join(r['applies_to'])} · источник: {where}", "",
-                    r["statement"], ""]
+            meta = (f"`{r['severity']}` · проверка: {MODE_RU[r['check']['mode']]} · "
+                    f"для: {', '.join(r['applies_to'])} · источник: {where}")
+            if r.get("authority", "unclassified") != "unclassified":
+                meta += f" · авторитет: {r['authority']}"
+            if r.get("external_check"):
+                meta += f" · сверка со стандартом: {r['external_check']}"
+            out += [f"### {r['id']} · {r['title']}{flag}", "", meta, "", r["statement"], ""]
             if r.get("rationale"):
                 out += [f"**Почему:** {r['rationale']}", ""]
             out += [f"**Как проверить:** {r['check']['how']}", ""]

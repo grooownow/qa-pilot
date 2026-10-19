@@ -52,6 +52,7 @@ mkdir -p "$SCRATCH"
    i18n: false              # more than one locale
    rtl: false
    regulated: []            # free list, e.g. gdpr | hipaa | pci | eaa | 152-fz
+   has_ai_features: false   # the product itself has LLM/AI features
    ```
 
 2. **What overrides the book.**

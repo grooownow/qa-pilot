@@ -4,6 +4,11 @@
 - id имеет вид `QAP-<TOPIC>-NNN`;
 - вместо `source.chunk_id` указывается `source.origin`: откуда взялось правило.
 
+Дополнительно:
+- `authority` обязателен по смыслу: каждое собственное правило указывает, на чём держится (см. `../surkov/README.md`);
+- записи `QAP-WEB-…` (веб-паттерны) несут объект `pattern`: `{tier: must-check | highlight, triggers: [...], level: unit | component | backend-integration | e2e, book_refs: [...]}`. Паттерны и инварианты (`QAP-WINV-…`) не попадают в пакеты правил: агенты получают их из `references/web-patterns.md` (генерируется `scripts/kb/render_web_patterns.py`);
+- `drafts/` — черновики новых доменов до проверки; `rules_pack.py` и `render_rules.py` их не читают.
+
 Правила конкретного проекта (`PRJ-…`) живут не здесь, а в `docs/qa/rule-overrides.json` самого проекта.
 
 ```bash

@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from rules_pack import build, parse_traits, rule_line
+from rules_pack import build, effective_severity, parse_traits, rule_line
 
 
 def record(rid, tags=(), applies=("requirements",), how="Проверить."):
@@ -130,6 +130,61 @@ class BuildTest(unittest.TestCase):
         _, manifest = build(self.kb, PROFILE, {"scope": {"exclude": "cloud", "reason": "frozen"}}, ["requirements"])
         self.assertEqual(manifest["scope"], [])
         self.assertEqual(sum("scope skipped" in w for w in manifest["warnings"]), 1)
+
+
+class AuthorityAndTopicsTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        kb = Path(self.tmp.name)
+        (kb / "surkov" / "rules").mkdir(parents=True)
+        (kb / "qa-pilot" / "rules").mkdir(parents=True)
+        (kb / "qa-pilot" / "drafts").mkdir(parents=True)
+        (kb / "surkov" / "rules" / "requirements.json").write_text(json.dumps([
+            {**record("SRK-REQ-001"), "authority": "author-opinion"},
+            {**record("SRK-REQ-002"), "authority": "normative"},
+            record("SRK-REQ-003"),
+            {**record("SRK-REQ-004"), "authority": "vendor-guideline"},
+        ]))
+        (kb / "qa-pilot" / "rules" / "web-patterns.json").write_text(json.dumps([record("QAP-WEB-001")]))
+        (kb / "qa-pilot" / "rules" / "security.json").write_text(json.dumps([record("QAP-SEC-001")]))
+        (kb / "qa-pilot" / "rules" / "ai-systems.json").write_text(json.dumps([record("QAP-AI-001", ["needs-ai"])]))
+        (kb / "qa-pilot" / "drafts" / "auth.json").write_text(json.dumps([record("QAP-AUTHN-001")]))
+        self.kb = kb
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def build(self, profile=PROFILE):
+        packs, manifest = build(self.kb, profile, {}, ["requirements"])
+        return {r["id"]: (name, r) for name, rs in packs.items() for r in rs}, manifest
+
+    def test_author_opinion_must_shown_as_should(self):
+        rules, _ = self.build()
+        self.assertEqual(effective_severity(rules["SRK-REQ-001"][1]), "should")
+        self.assertEqual(effective_severity(rules["SRK-REQ-004"][1]), "should")
+        self.assertIn("[should/heuristic/author-opinion]", rule_line(rules["SRK-REQ-001"][1]))
+        self.assertIn("[must/heuristic/normative]", rule_line(rules["SRK-REQ-002"][1]))
+
+    def test_unclassified_must_stays_must(self):
+        rules, _ = self.build()
+        self.assertEqual(effective_severity(rules["SRK-REQ-003"][1]), "must")
+        self.assertIn("[must/heuristic]", rule_line(rules["SRK-REQ-003"][1]))
+
+    def test_web_patterns_not_in_packs_and_qap_topics_mapped(self):
+        rules, _ = self.build()
+        self.assertNotIn("QAP-WEB-001", rules)
+        self.assertEqual(rules["QAP-SEC-001"][0], "api-data")
+
+    def test_drafts_ignored(self):
+        rules, _ = self.build()
+        self.assertNotIn("QAP-AUTHN-001", rules)
+
+    def test_needs_ai_trait(self):
+        rules, manifest = self.build()
+        self.assertNotIn("QAP-AI-001", rules)
+        self.assertIn("needs-ai", manifest["excluded"]["QAP-AI-001"])
+        rules, _ = self.build(PROFILE.replace("i18n: yes", "i18n: yes\nhas_ai_features: true"))
+        self.assertIn("QAP-AI-001", rules)
 
 
 class RuleLineTest(unittest.TestCase):

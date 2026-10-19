@@ -58,9 +58,13 @@ jq '.[] | select((.applies_to|index("test-plan")) and .check.mode=="deterministi
   "source": { "chunk_id": "s1-c07-01", "printed_pages": [43] },
   "tags": ["forms"],
   "verification": "ok | fixed | doubtful",
-  "decision": "Решение команды, приоритетнее книги (опц.)"
+  "decision": "Решение команды, приоритетнее книги (опц.)",
+  "authority": "normative | industry-practice | vendor-guideline | author-opinion | unclassified (опц.)",
+  "external_check": "aligned | conflict | unchecked (опц.)"
 }
 ```
+
+`authority` — на чём держится правило: стандарт (`normative`: RFC, W3C, ISO, NIST, закон), отраслевая практика (`industry-practice`: ISTQB, OWASP), гайдлайн вендора (`vendor-guideline`: HIG, Material, документация инструмента) или мнение автора (`author-opinion`). Нет поля — `unclassified`. В пакетах для аудита `must` с `author-opinion` или `vendor-guideline` показывается как `should`. `external_check` — итог сверки с внешним стандартом, независимый от `verification` (тот проверяет только верность пересказа книге).
 
 `decision` — решение команды для случаев, где книга противоречит сама себе или команда сознательно отходит от рекомендации. Аудит руководствуется `decision`, если оно есть. `statement` при этом остаётся пересказом книги.
 

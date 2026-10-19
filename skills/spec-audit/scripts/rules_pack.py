@@ -5,9 +5,11 @@ Usage:
   python3 rules_pack.py --kb <plugin>/knowledge --profile docs/qa/project-profile.md \
       [--overrides docs/qa/rule-overrides.json] [--targets requirements,test-plan] --out <dir>
 
-Reads every rules/*.json under <kb>/surkov and <kb>/qa-pilot, plus project
+Reads every rules/*.json under <kb>/surkov and <kb>/qa-pilot (never drafts/), plus project
 rules (PRJ-…) and owner scope filters from the overrides file. Keeps rules whose applies_to meets the
-targets and whose needs-* tags are all satisfied by the product traits.
+targets and whose needs-* tags are all satisfied by the product traits. A `must` rule
+classified as author-opinion or vendor-guideline is shown as `should`. Web patterns and
+invariants are not packed: agents get them from references/web-patterns.md.
 Writes <out>/packs/<pack>.md (one line per rule) and <out>/manifest.json.
 """
 import argparse
@@ -17,7 +19,8 @@ import sys
 from pathlib import Path
 
 DEFAULT_TRAITS = {"platform": ["web"], "api_style": [], "has_payments": False, "has_auth": False,
-                  "has_user_uploads": False, "i18n": False, "rtl": False, "regulated": []}
+                  "has_user_uploads": False, "i18n": False, "rtl": False, "regulated": [],
+                  "has_ai_features": False}
 
 MOBILE_PLATFORMS = {"ios", "android", "pwa", "mobile-web"}
 
@@ -37,6 +40,7 @@ NEEDS = {
     "needs-uploads": lambda t: t["has_user_uploads"],
     "needs-i18n": lambda t: t["i18n"],
     "needs-rtl": lambda t: t["rtl"],
+    "needs-ai": lambda t: t["has_ai_features"],
 }
 
 PACKS = {
@@ -46,6 +50,11 @@ PACKS = {
     "a11y-l10n": ["accessibility", "localization"],
     "platform": ["mobile", "mobile-hig", "mobile-material", "games", "install-config", "process"],
 }
+# qa-pilot rule files (by stem) -> pack; unknown stems go to core
+QAP_PACKS = {"pilot": "core", "security": "api-data", "auth": "api-data", "api-http": "api-data",
+             "test-strategy": "core", "test-code": "core", "ai-systems": "core"}
+SKIP_TOPICS = {"web-patterns", "web-invariants"}
+CAPPED_AUTHORITY = {"author-opinion", "vendor-guideline"}
 HOW_LIMIT = 260
 
 
@@ -109,7 +118,7 @@ def load_rules(kb, overrides):
     for source in ("surkov", "qa-pilot"):
         for path in sorted((kb / source / "rules").glob("*.json")):
             for r in json.loads(path.read_text(encoding="utf-8")):
-                rules.append((path.stem if source == "surkov" else "qa-pilot", r))
+                rules.append((path.stem if source == "surkov" else f"qa-pilot:{path.stem}", r))
     rules += [("project", r) for r in overrides.get("rules", [])]
     return rules
 
@@ -123,17 +132,29 @@ def malformed(r):
 
 
 def pack_of(topic):
+    if topic.startswith("qa-pilot:"):
+        return QAP_PACKS.get(topic.split(":", 1)[1], "core")
     for name, topics in PACKS.items():
         if topic in topics:
             return name
     return "core"
 
 
+def effective_severity(r):
+    """`must` from a classified author opinion or vendor guideline counts as `should`."""
+    if r["severity"] == "must" and r.get("authority") in CAPPED_AUTHORITY:
+        return "should"
+    return r["severity"]
+
+
 def rule_line(r):
     how = re.sub(r"\s+", " ", r["check"]["how"])
     if len(how) > HOW_LIMIT:
         how = how[:HOW_LIMIT - 1] + "…"
-    line = f"- {r['id']} [{r['severity']}/{r['check']['mode']}] {r['title']} — проверка: {how}"
+    tag = f"{effective_severity(r)}/{r['check']['mode']}"
+    if r.get("authority", "unclassified") != "unclassified":
+        tag += f"/{r['authority']}"
+    line = f"- {r['id']} [{tag}] {r['title']} — проверка: {how}"
     if r.get("decision"):
         line += f" ⚖️ РЕШЕНИЕ ПРОЕКТА (приоритетнее): {r['decision']}"
     return line
@@ -161,6 +182,8 @@ def build(kb, profile_text, overrides, targets):
     packs = {name: [] for name in PACKS}
     excluded, unknown_tags, applied = {}, set(), []
     for topic, r in load_rules(kb, overrides):
+        if topic.split(":", 1)[-1] in SKIP_TOPICS:
+            continue
         missing = malformed(r)
         if missing:
             warnings.append(f"rule {r.get('id', '<no id>')} skipped: missing {', '.join(missing)}")

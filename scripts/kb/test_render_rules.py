@@ -79,6 +79,39 @@ class NonBookRulesTest(unittest.TestCase):
         self.assertTrue(any("source.chunk_id is required" in e for e in validate_all({"forms": [bad]}, CHUNKS)))
 
 
+class AuthorityAndPatternTest(unittest.TestCase):
+    WEB = {**copy.deepcopy(VALID), "id": "QAP-WEB-001", "source": {"origin": "RFC 9110 §15.5.10"},
+           "pattern": {"tier": "must-check", "triggers": ["useMutation("], "level": "e2e", "book_refs": ["SRK-API-001"]}}
+
+    def test_authority_values_validated(self):
+        self.assertEqual(validate_all({"forms": [with_change(authority="normative", external_check="aligned")]}, CHUNKS), [])
+        errors = validate_all({"forms": [with_change(authority="gospel")]}, CHUNKS)
+        self.assertTrue(any("authority must be one of" in e for e in errors), errors)
+        errors = validate_all({"forms": [with_change(external_check="maybe")]}, CHUNKS)
+        self.assertTrue(any("external_check must be one of" in e for e in errors), errors)
+
+    def test_pattern_only_on_web_ids(self):
+        self.assertEqual(validate_all({"web-patterns": [self.WEB]}, CHUNKS), [])
+        errors = validate_all({"forms": [with_change(pattern=self.WEB["pattern"])]}, CHUNKS)
+        self.assertTrue(any("pattern is only allowed on QAP-WEB" in e for e in errors), errors)
+
+    def test_pattern_shape(self):
+        bad = copy.deepcopy(self.WEB)
+        del bad["pattern"]["tier"]
+        errors = validate_all({"web-patterns": [bad]}, CHUNKS)
+        self.assertTrue(any("pattern.tier" in e for e in errors), errors)
+        bad = copy.deepcopy(self.WEB)
+        bad["pattern"]["level"] = "smoke"
+        errors = validate_all({"web-patterns": [bad]}, CHUNKS)
+        self.assertTrue(any("pattern.level" in e for e in errors), errors)
+
+    def test_render_shows_authority(self):
+        md = render_topic("forms", [with_change(authority="author-opinion", external_check="conflict")])
+        self.assertIn("авторитет: author-opinion", md)
+        self.assertIn("сверка со стандартом: conflict", md)
+        self.assertNotIn("авторитет:", render_topic("forms", [VALID]))
+
+
 class RenderTest(unittest.TestCase):
     def test_groups_by_kind_and_shows_check(self):
         tip = with_change(id="SRK-FORM-002", kind="tip", verification="doubtful")

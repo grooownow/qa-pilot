@@ -84,7 +84,7 @@ Write `docs/qa/project-profile.md` (create `docs/qa/` if needed). Sections:
 ## Conventions      — locator policy, fixtures/POM approach, tagging, naming, imports; LINK to repo's own docs rather than duplicating them
 ## Environments     — safe-to-test URLs, forbidden environments, credential mechanism
 ## Tracker & access — tracker of record, connected MCPs/CLIs, missing access
-## Product traits   — fenced yaml: platform, api_style, has_payments, has_auth, has_user_uploads, i18n, rtl, regulated (format: skills/spec-audit/SKILL.md)
+## Product traits   — fenced yaml: platform, api_style, has_payments, has_auth, has_user_uploads, i18n, rtl, regulated, has_ai_features (format: skills/spec-audit/SKILL.md)
 ## Priorities       — what the team wants improved first
 ## Open gaps        — unanswered questions, marked blocking or non-blocking
 ```
