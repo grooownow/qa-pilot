@@ -70,4 +70,6 @@ No source means it is a **question**, not a test.
 - at most **5 new tests per task**, and at most **1 new e2e**;
 - no code fix is applied. BUG fixes, spec or AC edits, and deleting or weakening an existing test always go to the owner first.
 
+**A BUG test is never made green by the agent.** Record its failure output. Then either leave it uncommitted for the owner, or commit it with the framework's expected-failure marker (`test.fail()` in Playwright, `it.failing` in Jest/Vitest) and the BUG reference in the title. The "all new tests green" and gate checks of `write-tests` exclude these tests. The owner, or the orchestrator with the owner's OK, fixes the code and removes the marker.
+
 Anything beyond that goes to the owner as a list. Silence is not approval.

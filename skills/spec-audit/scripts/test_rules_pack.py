@@ -165,6 +165,11 @@ class AuthorityAndTopicsTest(unittest.TestCase):
         self.assertIn("[should/heuristic/author-opinion]", rule_line(rules["SRK-REQ-001"][1]))
         self.assertIn("[must/heuristic/normative]", rule_line(rules["SRK-REQ-002"][1]))
 
+    def test_conflict_rule_line_carries_the_correction(self):
+        r = {**record("SRK-REQ-009"), "external_check": "conflict", "modern_note": "RFC 9110 §12.5.1 разрешает иное."}
+        self.assertIn("РАСХОДИТСЯ СО СТАНДАРТОМ (приоритетнее проверки выше): RFC 9110", rule_line(r))
+        self.assertNotIn("РАСХОДИТСЯ", rule_line(record("SRK-REQ-010")))
+
     def test_unclassified_must_stays_must(self):
         rules, _ = self.build()
         self.assertEqual(effective_severity(rules["SRK-REQ-003"][1]), "must")

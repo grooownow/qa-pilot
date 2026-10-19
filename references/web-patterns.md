@@ -6,7 +6,7 @@ Used by `spec-audit` (entity cards), `task-qa` (touched entities), `project-audi
 
 ## Entity card
 
-One card per entity. Verdicts: OK · BUG · GAP · N/A (with evidence) · DECISION. Evidence: file:line, or the search command with its match count (untruncated).
+One card per entity. Verdicts: OK · BUG · GAP · N/A (with evidence) · DECISION · SUPPRESSED (owner filter). Evidence: file:line, or the search command with its match count (untruncated).
 
 | Pattern | Question | Verdict | Evidence |
 |---|---|---|---|
@@ -25,7 +25,7 @@ One card per entity. Verdicts: OK · BUG · GAP · N/A (with evidence) · DECISI
 
 ### QAP-WEB-001 · Сохранение или действие над сущностью, которую уже удалили
 
-Default severity `must` · test level: backend-integration · authority: industry-practice
+Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibration.md`) · test level: backend-integration · authority: industry-practice
 
 Для каждой сущности с правкой и удалением определено и проверено, что происходит, когда пользователь сохраняет форму, запускает действие или открывает редактор, а сущность уже удалена (в другой вкладке, другим пользователем, фоновым процессом). Сервер отвечает 404 или 410, а не 500 и не воскрешает запись; UI показывает понятное сообщение, закрывает редактор или предлагает сохранить ввод и обновляет список.
 
@@ -41,7 +41,7 @@ _Source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc
 
 ### QAP-WEB-002 · Двойная отправка и параллельный запуск одного действия
 
-Default severity `must` · test level: backend-integration · authority: industry-practice
+Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibration.md`) · test level: backend-integration · authority: industry-practice
 
 Каждое создающее или запускающее действие (create, run, pay, send, import) защищено от повтора на двух уровнях: UI блокирует повторный клик на время запроса, а сервер не создаёт дубль и не запускает вторую копию процесса (уникальный ключ, Idempotency-Key, проверка «уже запущено»).
 
@@ -57,7 +57,7 @@ _Source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc
 
 ### QAP-WEB-003 · Мутация без обработки ошибки
 
-Default severity `must` · test level: component · authority: industry-practice
+Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibration.md`) · test level: component · authority: industry-practice
 
 Каждая операция записи имеет путь обработки сбоя: локальный onError/catch или глобальный обработчик, который реально покрывает статусы, возвращаемые этим эндпоинтом. Сбой записи не проглатывается молча и не оставляет пользователя в уверенности, что данные сохранены.
 
@@ -73,7 +73,7 @@ _Source: TanStack Query v5 docs, Guides: Mutations (onError; глобальны�
 
 ### QAP-WEB-004 · Модальное окно закрывается раньше, чем завершится запрос
 
-Default severity `should` · test level: component · authority: industry-practice
+Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-calibration.md`) · test level: component · authority: industry-practice
 
 Диалог, который отправляет данные, закрывается только после успешного ответа. При ошибке он остаётся открытым, показывает причину и сохраняет введённое; на время запроса кнопки подтверждения заблокированы.
 
@@ -89,7 +89,7 @@ _Source: qa-pilot TDK audit 2026-10 (G2); TanStack Query v5 docs, https://tansta
 
 ### QAP-WEB-005 · Сбой фонового рефетча стирает уже показанные данные
 
-Default severity `should` · test level: component · authority: industry-practice
+Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-calibration.md`) · test level: component · authority: industry-practice
 
 Если данные уже загружены, а повторный запрос (поллинг, фокус окна, инвалидация) упал, экран продолжает показывать последние данные и рядом сообщает о сбое или пометке «устарело». Ошибка не заменяет весь контент.
 
@@ -105,7 +105,7 @@ _Source: TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framewor
 
 ### QAP-WEB-006 · Конфликт уникальности (409) не доведён до пользователя
 
-Default severity `should` · test level: backend-integration · authority: industry-practice
+Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-calibration.md`) · test level: backend-integration · authority: industry-practice
 
 Для каждого поля с ограничением уникальности (имя, slug, email) конфликт обрабатывается во всех путях записи — создание, переименование, импорт, копирование. Сервер отвечает 409 (или 422 с указанием поля), UI показывает ошибку у поля и не теряет ввод.
 
@@ -121,7 +121,7 @@ _Source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc
 
 ### QAP-WEB-007 · Права проверены только в UI
 
-Default severity `must` · test level: backend-integration · authority: industry-practice
+Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibration.md`) · test level: backend-integration · authority: industry-practice
 
 Каждое действие, которое UI скрывает или блокирует по роли или праву, защищено тем же правилом на сервере. Прямой вызов эндпоинта пользователем без права даёт 403 (или 404) и не меняет данные.
 
@@ -137,7 +137,7 @@ _Source: OWASP API Security Top 10 2023 (CC BY-SA 4.0), https://owasp.org/API-Se
 
 ### QAP-WEB-008 · Вложенный id не сверяется с родителем или владельцем
 
-Default severity `must` · test level: backend-integration · authority: industry-practice
+Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibration.md`) · test level: backend-integration · authority: industry-practice
 
 Для вложенных ресурсов (/projects/{pid}/items/{id}) и любых запросов по id сервер выбирает запись с учётом родителя и владельца или тенанта. Подставленный чужой id даёт 404 (или 403) и не раскрывает и не меняет чужие данные.
 
@@ -153,7 +153,7 @@ _Source: OWASP API Security Top 10 2023 (CC BY-SA 4.0), https://owasp.org/API-Se
 
 ### QAP-WEB-009 · Сессия истекает посреди действия
 
-Default severity `should` · test level: e2e · authority: industry-practice
+Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-calibration.md`) · test level: e2e · authority: industry-practice
 
 Определено и проверено, что происходит, когда токен или сессия истекают во время заполнения формы или в момент записи: либо прозрачное обновление токена и повтор запроса, либо повторный вход без потери введённого. Несколько одновременных 401 дают один refresh, а не гонку.
 
@@ -169,7 +169,7 @@ _Source: OWASP Session Management Cheat Sheet (CC BY-SA 4.0), https://cheatsheet
 
 ### QAP-WEB-010 · Маршруты и вкладки зависят от режима, флага или роли
 
-Default severity `should` · test level: unit · authority: industry-practice
+Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-calibration.md`) · test level: unit · authority: industry-practice
 
 Если видимость маршрута, вкладки или действия зависит от режима, feature flag, тарифа или роли, решение принимает одна функция, и она же используется для навигации, прямого URL и сервера. Прямой переход на скрытый маршрут ведёт себя предсказуемо (404, редирект или сообщение), а не показывает полу-рабочий экран.
 

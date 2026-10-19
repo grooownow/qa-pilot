@@ -1,8 +1,8 @@
 # `-actions.json`: machine-readable action list
 
-Every spec-audit (and project-audit) run writes `<date>-<slug>-actions.json` next to `-actions.md`. The Markdown file is for people. This file feeds scoring, run-to-run comparison and the owner's verdicts.
+Every spec-audit run, and every project-audit run, writes `<date>-<slug>-actions.json` next to `-actions.md`. The Markdown file is for people. This file feeds scoring, run-to-run comparison and the owner's verdicts.
 
-Check it with `python3 skills/spec-audit/scripts/score.py validate <file>`.
+Check it with `python3 <plugin>/skills/spec-audit/scripts/score.py validate <file>`, where `<plugin>` is the qa-pilot plugin root.
 
 ```json
 {
@@ -26,7 +26,7 @@ Check it with `python3 skills/spec-audit/scripts/score.py validate <file>`.
     {"title": "Delete during an active run", "pattern": "QAP-WEB-001", "filter": "owner 2026-10-15: no delete-during-run tests"}
   ],
   "cells": [
-    {"entity": "workflow", "pattern": "QAP-WEB-001", "verdict": "OK | BUG | GAP | N/A | DECISION", "evidence": "file:line or search"}
+    {"entity": "workflow", "pattern": "QAP-WEB-001", "verdict": "OK | BUG | GAP | N/A | DECISION | SUPPRESSED", "evidence": "file:line or search"}
   ]
 }
 ```
@@ -39,7 +39,8 @@ Check it with `python3 skills/spec-audit/scripts/score.py validate <file>`.
 - **`pattern`:** optional. Fill it in when the action came from an entity-card cell.
 - **`owner_verdict`:** filled in later by the owner, or by `task-qa`/`cover` when a test lands. It is the cheap, permanent quality signal: acceptance rate and tokens per accepted item.
 - **`suppressed`:** items removed by owner scope filters. They are **not** actions. They do not count toward bucket caps, and they are not scored as action-list items.
-- **`cells`:** one entry per (entity, must-check pattern). An empty `verdict` means the card is incomplete, and the Phase 5 gate does not pass it.
+- **`cells`:** one entry per (entity, must-check pattern). An empty `verdict` means the card is incomplete, and the Phase 5 gate does not pass it. An `N/A` cell needs `evidence`. A `SUPPRESSED` cell names the filter in `evidence`, and its risk also appears in `suppressed`.
+- **Checked by `validate` as errors:** a `test` or `bug` action missing `expected`, `source`, `level` or `target`; an `N/A` cell without `evidence`; a bucket that does not fit the kind. A `bug` outside Must is a warning.
 
 ## Buckets
 
@@ -47,7 +48,7 @@ Check it with `python3 skills/spec-audit/scripts/score.py validate <file>`.
 |---|---|---|
 | **Must** | P1, any BUG, P2 on a confirmed critical flow | none; above 10 the run warns: narrow the scope |
 | **Should** | other P2 | ≤8 |
-| **Highlight** | P3, one line each | none; no tests are prescribed |
+| **Highlight** | P3, and P2s that did not fit the Should cap; one line each | none; no tests are prescribed |
 | **Question** | every product question | none; separate from the caps |
 
 ## Scoring an eval

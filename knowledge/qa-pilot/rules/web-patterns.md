@@ -7,7 +7,7 @@
 
 ### QAP-WEB-001 · Сохранение или действие над сущностью, которую уже удалили
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.5 (404), §15.5.11 (410); qa-pilot TDK audit 2026-10 · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.5 (404), §15.5.11 (410); qa-pilot TDK audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Для каждой сущности с правкой и удалением определено и проверено, что происходит, когда пользователь сохраняет форму, запускает действие или открывает редактор, а сущность уже удалена (в другой вкладке, другим пользователем, фоновым процессом). Сервер отвечает 404 или 410, а не 500 и не воскрешает запись; UI показывает понятное сообщение, закрывает редактор или предлагает сохранить ввод и обновляет список.
 
@@ -17,7 +17,7 @@
 
 ### QAP-WEB-002 · Двойная отправка и параллельный запуск одного действия
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §9.2.2 (идемпотентные методы); IETF Internet-Draft draft-ietf-httpapi-idempotency-key-header, https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/; qa-pilot TDK audit 2026-10 · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §9.2.2 (идемпотентные методы); IETF Internet-Draft draft-ietf-httpapi-idempotency-key-header, https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/; qa-pilot TDK audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Каждое создающее или запускающее действие (create, run, pay, send, import) защищено от повтора на двух уровнях: UI блокирует повторный клик на время запроса, а сервер не создаёт дубль и не запускает вторую копию процесса (уникальный ключ, Idempotency-Key, проверка «уже запущено»).
 
@@ -27,7 +27,7 @@
 
 ### QAP-WEB-003 · Мутация без обработки ошибки
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, Guides: Mutations (onError; глобальные колбэки через MutationCache), https://tanstack.com/query/latest/docs/framework/react/guides/mutations; Nielsen Norman Group, 10 Usability Heuristics #1 и #9, https://www.nngroup.com/articles/ten-usability-heuristics/; qa-pilot TDK audit 2026-10 · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, Guides: Mutations (onError; глобальные колбэки через MutationCache), https://tanstack.com/query/latest/docs/framework/react/guides/mutations; Nielsen Norman Group, 10 Usability Heuristics #1 и #9, https://www.nngroup.com/articles/ten-usability-heuristics/; qa-pilot TDK audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Каждая операция записи имеет путь обработки сбоя: локальный onError/catch или глобальный обработчик, который реально покрывает статусы, возвращаемые этим эндпоинтом. Сбой записи не проглатывается молча и не оставляет пользователя в уверенности, что данные сохранены.
 
@@ -37,7 +37,7 @@
 
 ### QAP-WEB-004 · Модальное окно закрывается раньше, чем завершится запрос
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: qa-pilot TDK audit 2026-10 (G2); TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview (Mutations: mutate vs mutateAsync, onSuccess); Nielsen Norman Group, 10 Usability Heuristics #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/ · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: qa-pilot TDK audit 2026-10 (G2); TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview (Mutations: mutate vs mutateAsync, onSuccess); Nielsen Norman Group, 10 Usability Heuristics #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/ · авторитет: industry-practice · сверка со стандартом: aligned
 
 Диалог, который отправляет данные, закрывается только после успешного ответа. При ошибке он остаётся открытым, показывает причину и сохраняет введённое; на время запроса кнопки подтверждения заблокированы.
 
@@ -47,7 +47,7 @@
 
 ### QAP-WEB-005 · Сбой фонового рефетча стирает уже показанные данные
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; TanStack Query query-core types.ts (QueryObserverRefetchErrorResult: data сохраняется, isRefetchError), https://github.com/TanStack/query/blob/main/packages/query-core/src/types.ts; qa-pilot TDK audit 2026-10 (G4) · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; TanStack Query query-core types.ts (QueryObserverRefetchErrorResult: data сохраняется, isRefetchError), https://github.com/TanStack/query/blob/main/packages/query-core/src/types.ts; qa-pilot TDK audit 2026-10 (G4) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если данные уже загружены, а повторный запрос (поллинг, фокус окна, инвалидация) упал, экран продолжает показывать последние данные и рядом сообщает о сбое или пометке «устарело». Ошибка не заменяет весь контент.
 
@@ -57,7 +57,7 @@
 
 ### QAP-WEB-006 · Конфликт уникальности (409) не доведён до пользователя
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.10 (409 Conflict); qa-pilot TDK audit 2026-10 · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.10 (409 Conflict); qa-pilot TDK audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Для каждого поля с ограничением уникальности (имя, slug, email) конфликт обрабатывается во всех путях записи — создание, переименование, импорт, копирование. Сервер отвечает 409 (или 422 с указанием поля), UI показывает ошибку у поля и не теряет ввод.
 
@@ -67,7 +67,7 @@
 
 ### QAP-WEB-007 · Права проверены только в UI
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0), https://owasp.org/API-Security/editions/2023/en/0x11-t10/ API5:2023 Broken Function Level Authorization; OWASP Authorization Cheat Sheet (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0), https://owasp.org/API-Security/editions/2023/en/0x11-t10/ API5:2023 Broken Function Level Authorization; OWASP Authorization Cheat Sheet (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html · авторитет: industry-practice · сверка со стандартом: aligned
 
 Каждое действие, которое UI скрывает или блокирует по роли или праву, защищено тем же правилом на сервере. Прямой вызов эндпоинта пользователем без права даёт 403 (или 404) и не меняет данные.
 
@@ -77,7 +77,7 @@
 
 ### QAP-WEB-008 · Вложенный id не сверяется с родителем или владельцем
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0), https://owasp.org/API-Security/editions/2023/en/0x11-t10/ API1:2023 Broken Object Level Authorization; OWASP Insecure Direct Object Reference Prevention Cheat Sheet (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0), https://owasp.org/API-Security/editions/2023/en/0x11-t10/ API1:2023 Broken Object Level Authorization; OWASP Insecure Direct Object Reference Prevention Cheat Sheet (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html · авторитет: industry-practice · сверка со стандартом: aligned
 
 Для вложенных ресурсов (/projects/{pid}/items/{id}) и любых запросов по id сервер выбирает запись с учётом родителя и владельца или тенанта. Подставленный чужой id даёт 404 (или 403) и не раскрывает и не меняет чужие данные.
 
@@ -87,7 +87,7 @@
 
 ### QAP-WEB-009 · Сессия истекает посреди действия
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP Session Management Cheat Sheet (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html; IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.2 (401); W3C WCAG 2.2 SC 2.2.5 Re-authenticating (AAA), https://www.w3.org/WAI/WCAG22/Understanding/re-authenticating · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP Session Management Cheat Sheet (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html; IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.2 (401); W3C WCAG 2.2 SC 2.2.5 Re-authenticating (AAA), https://www.w3.org/WAI/WCAG22/Understanding/re-authenticating · авторитет: industry-practice · сверка со стандартом: aligned
 
 Определено и проверено, что происходит, когда токен или сессия истекают во время заполнения формы или в момент записи: либо прозрачное обновление токена и повтор запроса, либо повторный вход без потери введённого. Несколько одновременных 401 дают один refresh, а не гонку.
 
@@ -97,7 +97,7 @@
 
 ### QAP-WEB-010 · Маршруты и вкладки зависят от режима, флага или роли
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 API5 Broken Function Level Authorization, https://owasp.org/API-Security/editions/2023/en/0x11-t10/; Pete Hodgson, Feature Toggles (aka Feature Flags), martinfowler.com, https://martinfowler.com/articles/feature-toggles.html; qa-pilot TDK audit 2026-10 · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 API5 Broken Function Level Authorization, https://owasp.org/API-Security/editions/2023/en/0x11-t10/; Pete Hodgson, Feature Toggles (aka Feature Flags), martinfowler.com, https://martinfowler.com/articles/feature-toggles.html; qa-pilot TDK audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если видимость маршрута, вкладки или действия зависит от режима, feature flag, тарифа или роли, решение принимает одна функция, и она же используется для навигации, прямого URL и сервера. Прямой переход на скрытый маршрут ведёт себя предсказуемо (404, редирект или сообщение), а не показывает полу-рабочий экран.
 
@@ -109,7 +109,7 @@
 
 ### QAP-WEB-011 · Потерянное обновление при одновременной правке
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §13.1.1 (If-Match), §15.5.13 (412 Precondition Failed), §15.5.10 (409) · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §13.1.1 (If-Match), §15.5.13 (412 Precondition Failed), §15.5.10 (409) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Для сущностей, которые правят несколько человек, либо есть оптимистическая блокировка (version, ETag/If-Match → 412 или 409), сверяемая во всех путях записи, либо last-write-wins явно принят в спеке.
 
@@ -119,7 +119,7 @@
 
 ### QAP-WEB-012 · Оптимистичное обновление без отката
 
-`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, Guides: Optimistic Updates, https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates · авторитет: industry-practice
+`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, Guides: Optimistic Updates, https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если UI меняет кэш до ответа сервера, при ошибке он восстанавливает прежнее состояние и затем синхронизируется с сервером.
 
@@ -129,7 +129,7 @@
 
 ### QAP-WEB-013 · Успех показан до ответа или при сбое второго шага
 
-`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: qa-pilot TDK audit 2026-10; Nielsen Norman Group, 10 Usability Heuristics #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/ · авторитет: industry-practice
+`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: qa-pilot TDK audit 2026-10; Nielsen Norman Group, 10 Usability Heuristics #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/ · авторитет: industry-practice · сверка со стандартом: aligned
 
 Сообщение об успехе и переход дальше происходят только после успешного завершения всех шагов операции. Сбой второго шага многошагового действия (создать, затем привязать или загрузить) виден пользователю.
 
@@ -139,7 +139,7 @@
 
 ### QAP-WEB-014 · Ошибка загрузки выглядит как пустой список
 
-`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, Guides: Queries (status 'error' отдельно от данных), https://tanstack.com/query/latest/docs/framework/react/guides/queries; Nielsen Norman Group, heuristic #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/ · авторитет: industry-practice
+`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, Guides: Queries (status 'error' отдельно от данных), https://tanstack.com/query/latest/docs/framework/react/guides/queries; Nielsen Norman Group, heuristic #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/ · авторитет: industry-practice · сверка со стандартом: aligned
 
 Состояние ошибки чтения отличимо от пустого состояния: пользователь не видит «здесь пока ничего нет», когда данные просто не загрузились.
 
@@ -149,7 +149,7 @@
 
 ### QAP-WEB-015 · После мутации связанные данные не обновились
 
-`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, Guides: Invalidations from Mutations, https://tanstack.com/query/latest/docs/framework/react/guides/invalidations-from-mutations · авторитет: industry-practice
+`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, Guides: Invalidations from Mutations, https://tanstack.com/query/latest/docs/framework/react/guides/invalidations-from-mutations · авторитет: industry-practice · сверка со стандартом: aligned
 
 После записи все экраны, показывающие затронутые данные (список, деталь, счётчики), обновляются без перезагрузки страницы.
 
@@ -159,7 +159,7 @@
 
 ### QAP-WEB-016 · Прямой URL на несуществующую или чужую сущность
 
-`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.5 (404), §15.5.4 (403) · авторитет: industry-practice
+`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.5 (404), §15.5.4 (403) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Открытие по прямой ссылке удалённой, несуществующей или недоступной сущности даёт понятную страницу «не найдено», без бесконечного лоадера, сырого id и стектрейса.
 
@@ -169,7 +169,7 @@
 
 ### QAP-WEB-017 · Несохранённые изменения теряются при уходе
 
-`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: MDN Web Docs, Window: beforeunload event, https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event · авторитет: vendor-guideline
+`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: MDN Web Docs, Window: beforeunload event, https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 При закрытии формы с изменениями (крестик, Cancel, клик по фону, смена маршрута, закрытие вкладки) пользователь предупреждён или черновик сохранён.
 
@@ -179,7 +179,7 @@
 
 ### QAP-WEB-018 · Действие над сущностью во время долгой операции
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: qa-pilot TDK audit 2026-10; IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.10 (409 Conflict: конфликт с текущим состоянием ресурса) · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: qa-pilot TDK audit 2026-10; IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.10 (409 Conflict: конфликт с текущим состоянием ресурса) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Для сущностей со статусами выполнения (run, import, job) определено, что происходит с правкой, удалением и повторным запуском, пока операция идёт; поллинг останавливается на финальном статусе.
 

@@ -45,7 +45,7 @@ mkdir -p "$SCRATCH"
      - which kinds of tests are not wanted.
 
    - **In the same message, ask for critical flows** if the profile has no `## Critical flows` section: the 3–7 user flows whose failure hurts most (money, data loss, a blocked core job). Offer to add them to the real profile; write after the user agrees. A P2 on a critical flow goes to Must.
-   - **Depth.** Default `standard`. `critical` = entity cards + contradictions (lens 4) on critical flows only, for a quick or project-level pass. `thorough` = everything, Should uncapped, Highlight items drilled into scenarios. Use `thorough` only when the user asks.
+   - **Depth.** Default `standard`. `critical` = entity cards + contradictions (lens 4) on critical flows only, for a quick or project-level pass. `thorough` = everything, with Highlight items drilled into scenarios. Those scenarios stay in Highlight: the Should cap of 8 holds at every depth. Use `thorough` only when the user asks.
 
      On TDK the scope filters arrived after the report and cost two extra rounds. Offer to save them in `rule-overrides.json` → `scope` as `{"exclude": …, "reason": …, "source": …}`, and write them only after the user agrees.
 
@@ -167,7 +167,7 @@ Collect the agents' `## Lens notes`. A real finding that no catalog rule covers 
    - You may add findings the agents missed. Mark them `(triage)`, and apply the same evidence standard: a spec line and a code line.
 6. **Respect decisions.** Overridden rules go to "Skipped as project decision". When the user says during triage "that's deliberate", offer to record it in `docs/qa/rule-overrides.json` under `decisions`. Write it only after the user agrees.
 7. **Lint candidates:** decide each one (finding or false positive). A true one is usually P2 if it sits in an AC, otherwise P3.
-8. **Entity-card gate.** Merge the agents' entity cards. Every (entity, must-check pattern) cell needs a verdict: OK / BUG / GAP / N/A / DECISION. N/A needs evidence (why the pattern cannot occur here, with a file:line or a search). An empty cell or an unevidenced N/A sends the card back to its agent (or you fill it with a search). **Do not write the action list while a card has an empty cell.**
+8. **Entity-card gate.** Merge the agents' entity cards. Every (entity, must-check pattern) cell needs a verdict: OK / BUG / GAP / N/A / DECISION / SUPPRESSED. N/A needs evidence (why the pattern cannot occur here, with a file:line or a search). An empty cell or an unevidenced N/A sends the card back to its agent (or you fill it with a search). **Do not write the action list while a card has an empty cell.**
 9. **Buckets** (`../../references/test-delta.md`):
    - Must = P1, any BUG, or P2 on a critical flow (uncapped; above 10, tell the user to narrow the scope);
    - Should = other P2, at most 8 — keep the 8 with the highest risk on the most-used flows, demote the rest to Highlight;

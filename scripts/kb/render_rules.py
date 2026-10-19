@@ -142,6 +142,32 @@ def validate_all(rule_sets, chunks):
     return errors
 
 
+REF_RE = re.compile(r"\b(?:SRK|QAP|PRJ)-[A-Z0-9]+(?:-[A-Z0-9]+)*-\d{3}\b")
+REF_FIELDS = ("statement", "rationale", "modern_note", "decision", "title")
+
+
+def dangling_refs(rule_sets, known_ids):
+    """Rule ids mentioned in text fields or pattern.book_refs that no catalog defines."""
+    errors = []
+    for records in rule_sets.values():
+        for r in records:
+            text = " ".join(str(r.get(k, "")) for k in REF_FIELDS) + " " + str(r.get("check", {}).get("how", ""))
+            refs = set(REF_RE.findall(text)) | set((r.get("pattern") or {}).get("book_refs", []))
+            errors.extend(f"{r['id']}: refers to unknown {ref}" for ref in sorted(refs - known_ids - {r["id"]}))
+    return errors
+
+
+def known_catalog_ids(kb_dir):
+    """Every id in the sibling catalogs (knowledge/*/rules/*.json), so cross-catalog refs resolve."""
+    ids = set()
+    for path in kb_dir.resolve().parent.glob("*/rules/*.json"):
+        try:
+            ids.update(r.get("id") for r in json.loads(path.read_text(encoding="utf-8")) if isinstance(r, dict))
+        except json.JSONDecodeError:
+            pass
+    return ids
+
+
 def render_topic(topic, records):
     from_book = all(r["id"].startswith("SRK-") for r in records)
     provenance = ("Формулировки — пересказ книги Р. Суркова «Качество решает всё»; страницы — печатные номера книги."
@@ -218,6 +244,8 @@ def main(argv):
             print(f"{path.name}: invalid JSON: {e}", file=sys.stderr)
             return 1
     errors = validate_all(rule_sets, load_chunks(kb_dir))
+    if not errors:
+        errors = dangling_refs(rule_sets, known_catalog_ids(kb_dir))
     if errors:
         print("\n".join(errors), file=sys.stderr)
         print(f"\n{len(errors)} error(s)", file=sys.stderr)

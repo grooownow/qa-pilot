@@ -157,6 +157,11 @@ def rule_line(r):
     line = f"- {r['id']} [{tag}] {r['title']} — проверка: {how}"
     if r.get("decision"):
         line += f" ⚖️ РЕШЕНИЕ ПРОЕКТА (приоритетнее): {r['decision']}"
+    if r.get("external_check") == "conflict" and r.get("modern_note"):
+        note = re.sub(r"\s+", " ", r["modern_note"])
+        if len(note) > HOW_LIMIT:
+            note = note[:HOW_LIMIT - 1] + "…"
+        line += f" ⚠️ РАСХОДИТСЯ СО СТАНДАРТОМ (приоритетнее проверки выше): {note}"
     return line
 
 

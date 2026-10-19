@@ -7,7 +7,7 @@
 
 ### QAP-TC-001 · Асинхронные действия и проверки в тесте ожидаются через await
 
-`must` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): missing-playwright-await; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): valid-expect, valid-expect-in-promise; eslint-plugin-testing-library (https://github.com/testing-library/eslint-plugin-testing-library): await-async-queries, await-async-utils; Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Lint your tests (рекомендует @typescript-eslint/no-floating-promises) · авторитет: industry-practice
+`must` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): missing-playwright-await; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): valid-expect, valid-expect-in-promise; eslint-plugin-testing-library (https://github.com/testing-library/eslint-plugin-testing-library): await-async-queries, await-async-utils; Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Lint your tests (рекомендует @typescript-eslint/no-floating-promises) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Каждый вызов, возвращающий Promise (действия Playwright, web-first expect, findBy*/waitFor из Testing Library, expect(...).resolves/rejects), ожидается через await или возвращается из теста.
 
@@ -17,7 +17,7 @@
 
 ### QAP-TC-002 · В каждом тесте есть хотя бы одна проверка
 
-`must` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): expect-expect; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): expect-expect; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Empty Test, Unknown Test · авторитет: industry-practice
+`must` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): expect-expect; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): expect-expect; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Empty Test, Unknown Test · авторитет: industry-practice · сверка со стандартом: aligned
 
 Тело теста содержит хотя бы один expect/assert (напрямую или в хелпере, который явно помечен как проверяющий). Тест «прошёл без исключений» не считается проверкой, если только это не осознанный smoke с явным комментарием.
 
@@ -27,7 +27,7 @@
 
 ### QAP-TC-003 · Проверки не спрятаны в условиях и catch
 
-`must` · проверка: детерминированно · для: test-code · источник: eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-conditional-expect, require-to-throw-message; eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-conditional-expect, require-to-throw-message; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Exception Handling · авторитет: industry-practice
+`must` · проверка: детерминированно · для: test-code · источник: eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-conditional-expect, require-to-throw-message; eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-conditional-expect, require-to-throw-message; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Exception Handling · авторитет: industry-practice · сверка со стандартом: aligned
 
 expect не вызывается внутри if/else, switch, тернарного оператора или блока catch. Ошибочный путь проверяется явно: expect(fn).toThrow(...), await expect(promise).rejects..., а не try/catch с expect в catch.
 
@@ -37,7 +37,7 @@ expect не вызывается внутри if/else, switch, тернарно�
 
 ### QAP-TC-004 · В теле теста нет условной логики и циклов
 
-`should` · проверка: детерминированно · для: test-code · источник: eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-conditional-in-test; eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-conditional-in-test; Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Conditional Test Logic; Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — Don't put logic in tests · авторитет: industry-practice
+`should` · проверка: детерминированно · для: test-code · источник: eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-conditional-in-test; eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-conditional-in-test; Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Conditional Test Logic; Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — Don't put logic in tests · авторитет: industry-practice · сверка со стандартом: aligned
 
 Тест идёт по одному прямому пути: без if/switch/циклов, которые выбирают, что делать или что проверять, в зависимости от состояния приложения. Перебор входных данных выносится в параметризацию (test.each, цикл генерации отдельных test()).
 
@@ -47,7 +47,7 @@ expect не вызывается внутри if/else, switch, тернарно�
 
 ### QAP-TC-005 · Ожидаемое значение не вычисляется тем же кодом, что и результат
 
-`must` · проверка: эвристика агента · для: test-code · источник: Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — Don't put logic in tests; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Redundant Assertion; Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 4 «четыре свойства хорошего теста» и гл. 5 «моки и хрупкость тестов», пересказ — защита от регрессий · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: test-code · источник: Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — Don't put logic in tests; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Redundant Assertion; Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 4 «четыре свойства хорошего теста» и гл. 5 «моки и хрупкость тестов», пересказ — защита от регрессий · авторитет: industry-practice · сверка со стандартом: aligned
 
 Ожидаемый результат задан литералом или независимым расчётом. Проверка не сравнивает значение с самим собой, с возвращаемым значением мока или с результатом той же функции продукта (expect(calc(x)).toBe(calc(x)), expect(true).toBe(true), expect(mock()).toBe(mockReturn)).
 
@@ -57,7 +57,7 @@ expect не вызывается внутри if/else, switch, тернарно�
 
 ### QAP-TC-006 · Проверяется то, что отличает правильный результат от ошибочного
 
-`must` · проверка: эвристика агента · для: test-code · источник: Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 4 «четыре свойства хорошего теста» и гл. 5 «моки и хрупкость тестов», пересказ — защита от регрессий; Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Fragile/Obscure Test (обратная сторона — неполная проверка); eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-unnecessary-assertions; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): prefer-strict-equal, prefer-to-be · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: test-code · источник: Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 4 «четыре свойства хорошего теста» и гл. 5 «моки и хрупкость тестов», пересказ — защита от регрессий; Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Fragile/Obscure Test (обратная сторона — неполная проверка); eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-unnecessary-assertions; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): prefer-strict-equal, prefer-to-be · авторитет: industry-practice · сверка со стандартом: aligned
 
 Каждая ключевая проверка падает при типичной ошибке именно этого поведения. Проверки, которые проходят и при успехе, и при сбое (страница видна, статус не 500, toBeTruthy на объекте, «список не пустой», toBeDefined), сами по себе не доказывают поведение.
 
@@ -67,7 +67,7 @@ expect не вызывается внутри if/else, switch, тернарно�
 
 ### QAP-TC-007 · Негативная проверка привязана к состоянию, которое уже наступило
 
-`should` · проверка: эвристика агента · для: test-code · источник: Playwright docs, Assertions — auto-retrying vs non-retrying, negating matchers (https://playwright.dev/docs/test-assertions); Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Asynchronous behavior · авторитет: author-opinion
+`should` · проверка: эвристика агента · для: test-code · источник: Playwright docs, Assertions — auto-retrying vs non-retrying, negating matchers (https://playwright.dev/docs/test-assertions); Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Asynchronous behavior · авторитет: author-opinion · сверка со стандартом: aligned
 
 Перед not.toBeVisible(), toHaveCount(0), «ошибки нет», «запрос не отправлен» тест сначала дожидается положительного признака того, что действие завершилось (появилось сообщение об успехе, пришёл ответ, сменился URL).
 
@@ -77,7 +77,7 @@ expect не вызывается внутри if/else, switch, тернарно�
 
 ### QAP-TC-009 · Закоммиченный .only и forbidOnly в CI
 
-`must` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-focused-test; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-focused-tests; Playwright docs, TestConfig.forbidOnly (https://playwright.dev/docs/api/class-testconfig#test-config-forbid-only) · авторитет: industry-practice
+`must` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-focused-test; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-focused-tests; Playwright docs, TestConfig.forbidOnly (https://playwright.dev/docs/api/class-testconfig#test-config-forbid-only) · авторитет: industry-practice · сверка со стандартом: aligned
 
 В репозитории нет test.only / describe.only / fit / fdescribe, а конфигурация CI запрещает их (Playwright: forbidOnly: !!process.env.CI).
 
@@ -87,7 +87,7 @@ expect не вызывается внутри if/else, switch, тернарно�
 
 ### QAP-TC-010 · Отключённые тесты имеют причину и ссылку на тикет
 
-`should` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-skipped-test, no-commented-out-tests, require-annotation-reason; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-disabled-tests, no-commented-out-tests; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Ignored Test · авторитет: vendor-guideline
+`should` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-skipped-test, no-commented-out-tests, require-annotation-reason; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-disabled-tests, no-commented-out-tests; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Ignored Test · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 test.skip / test.fixme / xit / закомментированные тесты сопровождаются причиной и ссылкой на задачу. Закомментированный тест удаляется или превращается в skip с причиной.
 
@@ -97,7 +97,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-011 · Мок не заставляет проверяемую защиту всегда пропускать
 
-`must` · проверка: эвристика агента · для: test-code · источник: Software Engineering at Google (2020), гл. 13 Test Doubles (https://abseil.io/resources/swe-book/html/ch13.html), пересказ — The Dangers of Overusing Stubbing, Prefer realism over isolation; Fowler, Mocks Aren't Stubs (2007) (https://martinfowler.com/articles/mocksArentStubs.html), пересказ; QAP-AUTH-002 (qa-pilot) · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: test-code · источник: Software Engineering at Google (2020), гл. 13 Test Doubles (https://abseil.io/resources/swe-book/html/ch13.html), пересказ — The Dangers of Overusing Stubbing, Prefer realism over isolation; Fowler, Mocks Aren't Stubs (2007) (https://martinfowler.com/articles/mocksArentStubs.html), пересказ; QAP-AUTH-002 (qa-pilot) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если тест заявляет проверку авторизации, прав, валидации, лимита или фича-флага, этот guard в тесте работает по-настоящему или заменён двойником, который в этом тесте настроен на отказ. Глобальный мок вида «isAuthorized → true», «validate → ok», «rateLimit → allow» допустим только в тестах, которые этот guard не проверяют.
 
@@ -107,7 +107,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-012 · Моки только для внешних неуправляемых зависимостей
 
-`should` · проверка: эвристика агента · для: test-code · источник: Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 5 «моки и хрупкость тестов» и гл. 8 (управляемые и неуправляемые зависимости), пересказ — моки только для неуправляемых внепроцессных зависимостей; Software Engineering at Google (2020), гл. 13 Test Doubles (https://abseil.io/resources/swe-book/html/ch13.html), пересказ — Prefer realism over isolation, Fakes; Fowler, Mocks Aren't Stubs (2007) (https://martinfowler.com/articles/mocksArentStubs.html), пересказ — classical vs mockist · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code · источник: Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 5 «моки и хрупкость тестов» и гл. 8 (управляемые и неуправляемые зависимости), пересказ — моки только для неуправляемых внепроцессных зависимостей; Software Engineering at Google (2020), гл. 13 Test Doubles (https://abseil.io/resources/swe-book/html/ch13.html), пересказ — Prefer realism over isolation, Fakes; Fowler, Mocks Aren't Stubs (2007) (https://martinfowler.com/articles/mocksArentStubs.html), пересказ — classical vs mockist · авторитет: industry-practice · сверка со стандартом: aligned
 
 Двойники подставляются вместо того, что тест не контролирует или что медленно/недетерминированно: внешние HTTP-сервисы, платёжный шлюз, почта, часы, случайность. Собственные классы, функции и модули проекта, а также своя БД в интеграционных тестах используются по-настоящему или через fake. Если создать реальную зависимость дорого, предпочтение: реальная реализация, затем fake, затем stub, и только потом mock с проверкой вызовов.
 
@@ -117,7 +117,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-013 · Проверяется итоговое состояние, а не порядок внутренних вызовов
 
-`should` · проверка: эвристика агента · для: test-code · источник: Software Engineering at Google (2020), гл. 13 Test Doubles (https://abseil.io/resources/swe-book/html/ch13.html), пересказ — Prefer state testing over interaction testing; Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 4 «четыре свойства хорошего теста» и гл. 5 «моки и хрупкость тестов», пересказ — наблюдаемое поведение против деталей реализации; Fowler, Mocks Aren't Stubs (2007) (https://martinfowler.com/articles/mocksArentStubs.html), пересказ — state vs behavior verification · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code · источник: Software Engineering at Google (2020), гл. 13 Test Doubles (https://abseil.io/resources/swe-book/html/ch13.html), пересказ — Prefer state testing over interaction testing; Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 4 «четыре свойства хорошего теста» и гл. 5 «моки и хрупкость тестов», пересказ — наблюдаемое поведение против деталей реализации; Fowler, Mocks Aren't Stubs (2007) (https://martinfowler.com/articles/mocksArentStubs.html), пересказ — state vs behavior verification · авторитет: industry-practice · сверка со стандартом: aligned
 
 Тест сравнивает наблюдаемый результат (возвращаемое значение, состояние, ответ API, DOM), а не то, какие внутренние функции и в каком порядке вызывались. Проверка вызова (toHaveBeenCalledWith) уместна, когда сам вызов — внешний эффект: отправка письма, запрос в чужой сервис, запись в аналитику.
 
@@ -127,7 +127,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-014 · Тест работает через публичный интерфейс и наблюдаемое поведение
 
-`should` · проверка: эвристика агента · для: test-code · источник: Testing Library, Guiding Principles (https://testing-library.com/docs/guiding-principles) и Queries/About Queries — Priority (https://testing-library.com/docs/queries/about#priority); eslint-plugin-testing-library (https://github.com/testing-library/eslint-plugin-testing-library): no-container, no-node-access; Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — Test via public APIs; Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 4 «четыре свойства хорошего теста» и гл. 5 «моки и хрупкость тестов», пересказ — устойчивость к рефакторингу · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code · источник: Testing Library, Guiding Principles (https://testing-library.com/docs/guiding-principles) и Queries/About Queries — Priority (https://testing-library.com/docs/queries/about#priority); eslint-plugin-testing-library (https://github.com/testing-library/eslint-plugin-testing-library): no-container, no-node-access; Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — Test via public APIs; Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 4 «четыре свойства хорошего теста» и гл. 5 «моки и хрупкость тестов», пересказ — устойчивость к рефакторингу · авторитет: industry-practice · сверка со стандартом: aligned
 
 Компонент проверяется так, как им пользуется человек или вызывающий код: через отрисованный DOM, публичные функции, HTTP-ответ. Не проверяются приватные методы, внутренний state компонента, имена CSS-классов, структура хуков.
 
@@ -137,7 +137,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-015 · Форма замоканного ответа API выводится из реального контракта
 
-`should` · проверка: эвристика агента · для: test-code · источник: Pact docs, Introduction / Consumer tests / can-i-deploy (https://docs.pact.io/); Fowler, ContractTest (https://martinfowler.com/bliki/ContractTest.html), пересказ; Software Engineering at Google (2020), гл. 13 Test Doubles (https://abseil.io/resources/swe-book/html/ch13.html), пересказ — The Fidelity of Fakes · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code · источник: Pact docs, Introduction / Consumer tests / can-i-deploy (https://docs.pact.io/); Fowler, ContractTest (https://martinfowler.com/bliki/ContractTest.html), пересказ; Software Engineering at Google (2020), гл. 13 Test Doubles (https://abseil.io/resources/swe-book/html/ch13.html), пересказ — The Fidelity of Fakes · авторитет: industry-practice · сверка со стандартом: aligned
 
 Тела, которые подставляют page.route, MSW, nock или фикстуры, типизированы по схеме API (OpenAPI-типы, zod-схема, общий TypeScript-тип) или записаны с реального ответа и регулярно сверяются. Ручной JSON без привязки к контракту допустим только с пометкой и сроком сверки.
 
@@ -147,7 +147,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-017 · Время в тестах управляется, а не берётся из системных часов
 
-`should` · проверка: эвристика агента · для: test-code · источник: Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Time; Playwright docs, Clock (https://playwright.dev/docs/clock); Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code · источник: Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Time; Playwright docs, Clock (https://playwright.dev/docs/clock); Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ · авторитет: industry-practice · сверка со стандартом: aligned
 
 Логика, зависящая от «сейчас» (сроки, «сегодня», истечение токена, таймеры, debounce), тестируется с фиксированными часами: page.clock в Playwright, fake timers в Jest/Vitest или инъекция clock. Ожидаемые значения не вычисляются через new Date() в момент прогона.
 
@@ -157,7 +157,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-018 · Случайность в тестах либо фиксирована, либо не влияет на ожидания
 
-`should` · проверка: эвристика агента · для: test-code · источник: Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — сноска о тестах со случайным seed: держать их отдельно от основного набора · авторитет: author-opinion
+`should` · проверка: эвристика агента · для: test-code · источник: Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — сноска о тестах со случайным seed: держать их отдельно от основного набора · авторитет: author-opinion · сверка со стандартом: aligned
 
 Случайные значения допустимы для уникальности данных (email, slug), но не для того, что определяет ожидаемый результат. Если продукт сам использует случайность (перемешивание, A/B, генерация кодов), тест подменяет источник или фиксирует seed и выводит seed в лог при падении.
 
@@ -167,7 +167,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-019 · Тест не зависит от сервисов, которые проект не контролирует
 
-`should` · проверка: эвристика агента · для: test-code · источник: Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Avoid testing third-party dependencies; Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Remote services; Software Engineering at Google (2020), гл. 11 Testing Overview — test sizes (https://abseil.io/resources/swe-book/html/ch11.html), пересказ — test sizes (small: без сети) · авторитет: vendor-guideline
+`should` · проверка: эвристика агента · для: test-code · источник: Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Avoid testing third-party dependencies; Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Remote services; Software Engineering at Google (2020), гл. 11 Testing Overview — test sizes (https://abseil.io/resources/swe-book/html/ch11.html), пересказ — test sizes (small: без сети) · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 Юнит- и компонентные тесты не ходят в сеть. E2E не обращаются к реальным сторонним сервисам (платёжные шлюзы, карты, аналитика, OAuth-провайдеры, внешние API): ответы подменяются на сетевом уровне, а живая интеграция проверяется отдельным, помеченным набором.
 
@@ -177,7 +177,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-020 · Тест не зависит от других тестов и от порядка запуска
 
-`should` · проверка: эвристика агента · для: test-code · источник: Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Make tests as isolated as possible; Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Erratic Test (причины Interacting Tests, Shared Fixture); Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Lack of isolation · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code · источник: Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Make tests as isolated as possible; Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Erratic Test (причины Interacting Tests, Shared Fixture); Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Lack of isolation · авторитет: industry-practice · сверка со стандартом: aligned
 
 Каждый тест сам готовит своё состояние (фикстура, beforeEach, API-сетап) и проходит при запуске в одиночку, в случайном порядке и параллельно. Тесты не передают данные через переменные модуля, общую запись в БД или результат предыдущего теста.
 
@@ -187,7 +187,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-021 · Глобальные подмены восстанавливаются после теста
 
-`should` · проверка: эвристика агента · для: test-code · источник: Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Lack of isolation, Resource leaks; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): prefer-spy-on; Jest docs, Configuration restoreMocks (https://jestjs.io/docs/configuration#restoremocks-boolean) · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code · источник: Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Lack of isolation, Resource leaks; eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): prefer-spy-on; Jest docs, Configuration restoreMocks (https://jestjs.io/docs/configuration#restoremocks-boolean) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Моки модулей, spy, fake timers, подменённые env-переменные, глобальные объекты (window, fetch, localStorage), feature-флаги и сетевые обработчики (MSW server.resetHandlers) сбрасываются после каждого теста, предпочтительно на уровне конфигурации (restoreMocks/clearMocks, afterEach).
 
@@ -197,7 +197,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-022 · Один тест — одно поведение
 
-`should` · проверка: эвристика агента · для: test-code · источник: Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Assertion Roulette (причина Eager Test); tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Eager Test, Assertion Roulette; Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — Test behaviors, not methods · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code · источник: Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Assertion Roulette (причина Eager Test); tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Eager Test, Assertion Roulette; Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — Test behaviors, not methods · авторитет: industry-practice · сверка со стандартом: aligned
 
 Тест проверяет одно поведение (один сценарий с одним действием и его последствиями). Несколько проверок допустимы, если они описывают один результат; цепочка «создать, изменить, удалить, проверить отчёт» разбивается на отдельные тесты.
 
@@ -207,7 +207,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-023 · Причина ожидаемого результата видна в самом тесте
 
-`should` · проверка: эвристика агента · для: test-code · источник: Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Obscure Test (причины Mystery Guest, General Fixture); tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Mystery Guest, General Fixture, Magic Number Test; Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — DAMP, not DRY · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code · источник: Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Obscure Test (причины Mystery Guest, General Fixture); tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Mystery Guest, General Fixture, Magic Number Test; Software Engineering at Google (2020), гл. 12 Unit Testing (https://abseil.io/resources/swe-book/html/ch12.html), пересказ — DAMP, not DRY · авторитет: industry-practice · сверка со стандартом: aligned
 
 Значимые для результата входные данные заданы в тесте или в явно названной фабрике/фикстуре (createUser({ role: 'admin' })), а не спрятаны во внешнем файле или общем сид-наборе. Предпочтение — DAMP (наглядность) перед DRY в теле теста.
 
@@ -217,7 +217,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-024 · Снапшот не является единственной и непроверенной проверкой
 
-`should` · проверка: эвристика агента · для: test-code · источник: eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-large-snapshots, no-interpolation-in-snapshots, prefer-snapshot-hint · авторитет: vendor-guideline
+`should` · проверка: эвристика агента · для: test-code · источник: eslint-plugin-jest (https://github.com/jest-community/eslint-plugin-jest): no-large-snapshots, no-interpolation-in-snapshots, prefer-snapshot-hint · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 Снапшот-тесты небольшие и сфокусированные; поведение фиксируется явными проверками. Обновление снапшотов (-u, --update-snapshots) проходит ревью по диффу и не делается механически, чтобы позеленить прогон.
 
@@ -227,7 +227,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-025 · В продакшен-коде нет обходов «для тестов»
 
-`must` · проверка: эвристика агента · для: test-code · источник: Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Test Logic in Production · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: test-code · источник: Meszaros, xUnit Test Patterns, каталог test smells (http://xunitpatterns.com/Test%20Smells.html), пересказ: Test Logic in Production · авторитет: industry-practice · сверка со стандартом: aligned
 
 Продуктовый код не содержит веток, которые меняют поведение под тестами (if NODE_ENV === 'test', проверка заголовка или cookie теста, «магический» пароль, отключение проверки прав или капчи по флагу), если они не исключены из продакшен-сборки и не защищены конфигурацией окружения.
 
@@ -237,7 +237,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-026 · Без фиксированных пауз и ожидания networkidle
 
-`should` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-wait-for-timeout, no-networkidle, no-wait-for-selector, no-wait-for-navigation; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Sleepy Test; Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Use web first assertions · авторитет: vendor-guideline
+`should` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-wait-for-timeout, no-networkidle, no-wait-for-selector, no-wait-for-navigation; tsDetect, Test Smell Detector — каталог smells (https://testsmells.org/pages/testsmells.html), пересказ: Sleepy Test; Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Use web first assertions · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 В тестах нет page.waitForTimeout, sleep/setTimeout-пауз и waitForLoadState('networkidle'); ожидание идёт на конкретное условие (web-first expect, waitForResponse, смена URL, expect.poll).
 
@@ -247,7 +247,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-027 · Состояние UI проверяется web-first проверками
 
-`should` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): prefer-web-first-assertions, prefer-to-have-count, require-to-pass-timeout; Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Use web first assertions; Playwright docs, Assertions — auto-retrying vs non-retrying, negating matchers (https://playwright.dev/docs/test-assertions) · авторитет: vendor-guideline
+`should` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): prefer-web-first-assertions, prefer-to-have-count, require-to-pass-timeout; Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Use web first assertions; Playwright docs, Assertions — auto-retrying vs non-retrying, negating matchers (https://playwright.dev/docs/test-assertions) · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 Состояние элемента проверяется ретраящимися матчерами expect(locator).toBeVisible()/toHaveText()/toHaveCount(), а не чтением значения и одноразовым сравнением (expect(await locator.isVisible()).toBe(true), expect(await locator.textContent()).toBe(...)).
 
@@ -257,7 +257,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-028 · Локаторы по роли, подписи или test id, а не по CSS, XPath и позиции
 
-`should` · проверка: детерминированно · для: test-code · источник: Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Use locators; eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-raw-locators, no-nth-methods, no-element-handle; Testing Library, Guiding Principles (https://testing-library.com/docs/guiding-principles) и Queries/About Queries — Priority (https://testing-library.com/docs/queries/about#priority) — query priority; eslint-plugin-testing-library (https://github.com/testing-library/eslint-plugin-testing-library): no-container, no-node-access; references/e2e-patterns.md (Locator strategy, иная приоритизация) · авторитет: vendor-guideline
+`should` · проверка: детерминированно · для: test-code · источник: Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Use locators; eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-raw-locators, no-nth-methods, no-element-handle; Testing Library, Guiding Principles (https://testing-library.com/docs/guiding-principles) и Queries/About Queries — Priority (https://testing-library.com/docs/queries/about#priority) — query priority; eslint-plugin-testing-library (https://github.com/testing-library/eslint-plugin-testing-library): no-container, no-node-access; references/e2e-patterns.md (Locator strategy, иная приоритизация) · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 Элементы находятся через getByRole/getByLabel/getByTestId (и аналогичные запросы Testing Library), а не через CSS-классы, XPath, nth()/first()/last() или ElementHandle. Порядок предпочтения между ролью и test id задаёт проект: Playwright и Testing Library ставят роль первой, а references/e2e-patterns.md для многоязычных продуктов ставит test id первым. Аудит не считает находкой ни один из этих двух вариантов.
 
@@ -267,7 +267,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-029 · Без force: true в действиях
 
-`should` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-force-option; Playwright docs, Actionability / force option (https://playwright.dev/docs/actionability) · авторитет: vendor-guideline
+`should` · проверка: детерминированно · для: test-code · источник: eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-force-option; Playwright docs, Actionability / force option (https://playwright.dev/docs/actionability) · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 Клики и ввод выполняются без опции force: true. Если элемент перекрыт или неактивен, тест дожидается правильного состояния или фиксирует баг, а не обходит проверку.
 
@@ -277,7 +277,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-030 · Тест на том уровне, где живёт логика
 
-`should` · проверка: эвристика агента · для: test-code, test-plan · источник: Software Engineering at Google (2020), гл. 11 Testing Overview — test sizes (https://abseil.io/resources/swe-book/html/ch11.html), пересказ — test sizes and scope; Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 8 «Why integration testing?», пересказ — интеграционные тесты для управляемых внепроцессных зависимостей; SRK-STRAT-030 · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code, test-plan · источник: Software Engineering at Google (2020), гл. 11 Testing Overview — test sizes (https://abseil.io/resources/swe-book/html/ch11.html), пересказ — test sizes and scope; Khorikov, Unit Testing Principles, Practices, and Patterns (2020), гл. 8 «Why integration testing?», пересказ — интеграционные тесты для управляемых внепроцессных зависимостей; SRK-STRAT-030 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Логика проверяется там, где она реализована: чистая функция и расчёт — юнит-тестом; правило в серверном обработчике — API/интеграционным тестом; ограничение в БД (constraint, триггер, RLS-политика) — тестом против настоящей БД; UI-тест — только проводка и пользовательский путь. Проверка, реализованная на сервере, не считается покрытой UI-тестом, который упирается в клиентскую валидацию.
 
@@ -287,7 +287,7 @@ test.skip / test.fixme / xit / закомментированные тесты �
 
 ### QAP-TC-031 · Flaky-тест помещается в карантин с владельцем и сроком
 
-`should` · проверка: эвристика агента · для: test-code, test-plan · источник: Google Testing Blog, Flaky Tests at Google and How We Mitigate Them (2016) (https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html), пересказ; Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Quarantine; Playwright docs, TestConfig.failOnFlakyTests (https://playwright.dev/docs/api/class-testconfig); references/flakiness-catalog.md, references/e2e-patterns.md (qa-pilot) · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code, test-plan · источник: Google Testing Blog, Flaky Tests at Google and How We Mitigate Them (2016) (https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html), пересказ; Fowler, Eradicating Non-Determinism in Tests (2011) (https://martinfowler.com/articles/nonDeterminism.html), пересказ — Quarantine; Playwright docs, TestConfig.failOnFlakyTests (https://playwright.dev/docs/api/class-testconfig); references/flakiness-catalog.md, references/e2e-patterns.md (qa-pilot) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Нестабильный тест не удаляется молча, не отключается inline-skip'ом без следа и не лечится увеличением retries или таймаутов. Он попадает в учитываемый карантин: владелец, тикет, срок; после срока либо починен, либо осознанно продлён. Ретраи в CI допускаются только с отчётом о тестах, прошедших со второй попытки (статус flaky).
 

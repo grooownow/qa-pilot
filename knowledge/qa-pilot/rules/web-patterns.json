@@ -41,7 +41,8 @@
         "SRK-API-118",
         "SRK-API-025"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-002",
@@ -88,7 +89,8 @@
         "SRK-UX-031",
         "SRK-DB-024"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-003",
@@ -132,7 +134,8 @@
         "SRK-A11Y-060",
         "SRK-MOB-016"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-004",
@@ -174,7 +177,8 @@
         "SRK-FORM-056",
         "SRK-API-118"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-005",
@@ -216,7 +220,8 @@
         "SRK-API-118",
         "SRK-API-123"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-006",
@@ -259,7 +264,8 @@
         "SRK-API-025",
         "SRK-DB-024"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-007",
@@ -304,7 +310,8 @@
         "SRK-API-022",
         "SRK-API-089"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-008",
@@ -349,7 +356,8 @@
         "SRK-API-128",
         "SRK-DB-029"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-009",
@@ -393,7 +401,8 @@
         "SRK-TD-061",
         "SRK-A11Y-066"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-010",
@@ -435,7 +444,8 @@
         "SRK-INST-024",
         "SRK-API-089"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-011",
@@ -474,7 +484,8 @@
         "SRK-DB-024",
         "SRK-API-025"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-012",
@@ -511,7 +522,8 @@
       ],
       "level": "component",
       "book_refs": []
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-013",
@@ -548,7 +560,8 @@
       ],
       "level": "component",
       "book_refs": []
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-014",
@@ -587,7 +600,8 @@
       "book_refs": [
         "SRK-API-123"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-015",
@@ -625,7 +639,8 @@
       "book_refs": [
         "SRK-API-102"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-016",
@@ -665,7 +680,8 @@
       "book_refs": [
         "SRK-API-118"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-017",
@@ -703,7 +719,8 @@
       "book_refs": [
         "SRK-FORM-012"
       ]
-    }
+    },
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WEB-018",
@@ -744,6 +761,7 @@
         "SRK-TD-040",
         "SRK-TD-042"
       ]
-    }
+    },
+    "external_check": "aligned"
   }
 ]

@@ -7,7 +7,7 @@
 
 ### QAP-API-001 · Все ошибки API отдаются в едином формате (Problem Details)
 
-`should` · проверка: эвристика агента · для: requirements, test-code, live-product · источник: RFC 9457 §3, §3.1.1, §3.1.2 (https://www.rfc-editor.org/rfc/rfc9457); Zalando RESTful API Guidelines #176 «MUST support problem JSON», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#176) · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-code, live-product · источник: RFC 9457 §3, §3.1.1, §3.1.2 (https://www.rfc-editor.org/rfc/rfc9457); Zalando RESTful API Guidelines #176 «MUST support problem JSON», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#176) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Любой ответ 4xx и 5xx имеет одну и ту же машиночитаемую структуру тела. Это касается ошибок бизнес-логики и ошибок фреймворка, роутера, авторизации и лимитов (404 маршрута, 405, 413, 401). Предпочтительный формат — Problem Details: Content-Type application/problem+json, поля type, title, status, detail, instance. Если в теле есть status, он совпадает с HTTP-кодом ответа. Клиент ветвится по type (стабильный идентификатор), а не по тексту title или detail.
 
@@ -17,17 +17,17 @@
 
 ### QAP-API-002 · В ответах об ошибке нет стек-трейсов и внутренностей реализации
 
-`must` · проверка: эвристика агента · для: test-code, live-product, requirements · источник: RFC 9457 §4, §5 (https://www.rfc-editor.org/rfc/rfc9457#section-5); Zalando RESTful API Guidelines #177 «MUST not expose stack traces», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#177) · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: test-code, live-product, requirements · источник: RFC 9457 §4, §5 (https://www.rfc-editor.org/rfc/rfc9457#section-5); Zalando RESTful API Guidelines #177 «MUST not expose stack traces», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#177) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Тело ошибки, в том числе 500, не содержит стек-трейсов, текста SQL, имён таблиц и классов, путей на сервере, версий библиотек или исходного исключения. Детали для отладки уходят в логи, а клиент получает идентификатор случая (instance или trace id), по которому их можно найти.
 
-**Почему:** Стек-трейс раскрывает устройство системы и облегчает атаку. Ещё он становится неявной частью контракта: клиенты начинают на него опираться. Дополняет SRK-API-091 (лишние служебные поля в успешных ответах) и SRK-AI-019 (trace ID в баг-репорте). Заменяет черновой QAP-SEC-038 (тот же риск со стороны безопасности, CWE-209).
+**Почему:** Стек-трейс раскрывает устройство системы и облегчает атаку. Ещё он становится неявной частью контракта: клиенты начинают на него опираться. Дополняет SRK-API-091 (лишние служебные поля в успешных ответах) и SRK-AI-019 (trace ID в баг-репорте). Покрывает и сторону безопасности (CWE-209).
 
 **Как проверить:** Спровоцировать 4xx и 5xx (битый JSON, неверный тип поля, сверхдлинное значение, нарушение уникальности) и поискать в теле признаки внутренностей: «at com.», «Traceback», «.java:», «.py", line», «SQLSTATE», «ORA-», «duplicate key value violates», абсолютные пути. Fail — найден хотя бы один признак. Pass — только код, тип, человекочитаемое описание и идентификатор случая.
 
 ### QAP-API-004 · Спека задаёт код для каждого класса отказа: 400/422, 404/410, 409, 412
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code · источник: RFC 9110 §15.5.1, §15.5.5, §15.5.10, §15.5.11, §15.5.13, §15.5.21 (https://www.rfc-editor.org/rfc/rfc9110#section-15.5); Zalando RESTful API Guidelines #220 «MUST use most specific HTTP status codes», #151 «MUST specify success and error responses», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#220) · авторитет: normative
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code · источник: RFC 9110 §15.5.1, §15.5.5, §15.5.10, §15.5.11, §15.5.13, §15.5.21 (https://www.rfc-editor.org/rfc/rfc9110#section-15.5); Zalando RESTful API Guidelines #220 «MUST use most specific HTTP status codes», #151 «MUST specify success and error responses», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#220) · авторитет: normative · сверка со стандартом: aligned
 
 В спецификации API зафиксировано, какой статус соответствует какому классу отказа, и это соблюдается во всех эндпоинтах. Невалидный запрос — 400 или 422 (выбран один вариант на весь API). Конфликт с текущим состоянием ресурса (занятый уникальный ключ, недопустимый переход статуса, повторная отмена) — 409. Устаревшая версия при условном запросе (If-Match) — 412. Нет ресурса — 404, а 410 — если известно, что ресурс удалён навсегда. Используется самый точный код, а не общий 400 или 500 на всё.
 
@@ -37,7 +37,7 @@
 
 ### QAP-API-005 · Нарушение уникальности при параллельных запросах — 409, а не 500 и не дубль
 
-`must` · проверка: детерминированно · для: test-plan, test-code, live-product · источник: RFC 9110 §15.5.10 409 Conflict (https://www.rfc-editor.org/rfc/rfc9110#section-15.5.10); Zalando RESTful API Guidelines #231 «SHOULD use secondary key for idempotent POST design», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#231) · авторитет: normative
+`must` · проверка: детерминированно · для: test-plan, test-code, live-product · источник: RFC 9110 §15.5.10 409 Conflict (https://www.rfc-editor.org/rfc/rfc9110#section-15.5.10); Zalando RESTful API Guidelines #231 «SHOULD use secondary key for idempotent POST design», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#231) · авторитет: normative · сверка со стандартом: aligned
 
 Когда два запроса одновременно создают сущность с одним уникальным значением (email, slug, номер заказа), ровно один завершается успехом, второй получает 409 с понятной ошибкой. В хранилище не появляется дубля, а исключение базы данных не превращается в 500. Проверка «сначала SELECT, потом INSERT» без ограничения в БД этому требованию не соответствует.
 
@@ -47,7 +47,7 @@
 
 ### QAP-API-006 · Одновременное редактирование: устаревшее обновление отклоняется с 412
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: RFC 9110 §8.8.3 ETag, §13.1.1 If-Match, §15.5.13 412 (https://www.rfc-editor.org/rfc/rfc9110#section-13.1.1); RFC 6585 §3 428 Precondition Required (https://www.rfc-editor.org/rfc/rfc6585#section-3); Zalando RESTful API Guidelines #182 «MAY consider to support ETag together with If-Match/If-None-Match header», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#182) · авторитет: normative
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: RFC 9110 §8.8.3 ETag, §13.1.1 If-Match, §15.5.13 412 (https://www.rfc-editor.org/rfc/rfc9110#section-13.1.1); RFC 6585 §3 428 Precondition Required (https://www.rfc-editor.org/rfc/rfc6585#section-3); Zalando RESTful API Guidelines #182 «MAY consider to support ETag together with If-Match/If-None-Match header», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#182) · авторитет: normative · сверка со стандартом: aligned
 
 Ресурсы, которые могут одновременно редактировать несколько пользователей или вкладок (карточки в админке, профили, документы, настройки), защищены от потерянного обновления, либо спека явно принимает last-write-wins для этого ресурса. Чтение отдаёт ETag или номер версии. PUT и PATCH принимают его в If-Match, а при несовпадении получают 412 Precondition Failed и не меняют данные. Если сервер требует условный запрос, а If-Match не прислан, он отвечает 428, а не молча перезаписывает.
 
@@ -57,7 +57,7 @@
 
 ### QAP-API-008 · Удалённый ресурс недоступен по прямой ссылке и исчезает из всех списков
 
-`should` · проверка: детерминированно · для: requirements, test-plan, test-code · источник: RFC 9110 §15.5.5 404, §15.5.11 410 Gone (https://www.rfc-editor.org/rfc/rfc9110#section-15.5.11); Zalando RESTful API Guidelines #148 «MUST use HTTP methods correctly», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#148) · авторитет: normative
+`should` · проверка: детерминированно · для: requirements, test-plan, test-code · источник: RFC 9110 §15.5.5 404, §15.5.11 410 Gone (https://www.rfc-editor.org/rfc/rfc9110#section-15.5.11); Zalando RESTful API Guidelines #148 «MUST use HTTP methods correctly», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#148) · авторитет: normative · сверка со стандартом: aligned
 
 После удаления (в том числе мягкого) GET, PUT, PATCH и DELETE по id ресурса возвращают 404, или 410, если сервер знает, что ресурс удалён навсегда. Спека фиксирует, какой из двух кодов используется. Ресурс пропадает из списков, поиска, счётчиков и связанных сущностей. Мягко удалённая запись не отдаётся с 200 по прямому id и не редактируется.
 
@@ -67,7 +67,7 @@
 
 ### QAP-API-009 · Тест на ожидаемый 404 проверяет, что ответил сам API, а не роутер
 
-`must` · проверка: эвристика агента · для: test-code · источник: Zalando RESTful API Guidelines #257 «SHOULD be careful with interpreting 404 status code», #256 «MUST preserve end-to-end semantics of HTTP status codes», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#257) · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: test-code · источник: Zalando RESTful API Guidelines #257 «SHOULD be careful with interpreting 404 status code», #256 «MUST preserve end-to-end semantics of HTTP status codes», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#257) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Негативный тест, который ждёт 404 (несуществующий id, удалённый ресурс, чужой ресурс), проверяет не только статус, но и признак того, что ответ сформировало приложение: Content-Type и тип ошибки из контракта (например, problem type «not-found» конкретной сущности). Иначе опечатка в пути, неверная версия API или отсутствующий маршрут дают такой же 404, и тест зеленеет, ничего не проверив.
 
@@ -77,7 +77,7 @@
 
 ### QAP-API-010 · Чужой ресурс: 403 или 404 — выбор зафиксирован, ответ не раскрывает существование
 
-`should` · проверка: эвристика агента · для: requirements, test-code, live-product · источник: RFC 9110 §15.5.4 403 Forbidden (разрешение отвечать 404 для сокрытия), §15.5.5 (https://www.rfc-editor.org/rfc/rfc9110#section-15.5.4) · авторитет: normative
+`should` · проверка: эвристика агента · для: requirements, test-code, live-product · источник: RFC 9110 §15.5.4 403 Forbidden (разрешение отвечать 404 для сокрытия), §15.5.5 (https://www.rfc-editor.org/rfc/rfc9110#section-15.5.4) · авторитет: normative · сверка со стандартом: aligned
 
 На запрос к существующему ресурсу, на который у пользователя нет прав, API отвечает 403 или 404. RFC разрешает 404, чтобы скрыть сам факт существования. Спека фиксирует один вариант. Если выбран 404, ответы для «чужой» и «несуществующий» неотличимы по коду, телу и заметно по времени. В обоих случаях действие не выполняется.
 
@@ -87,7 +87,7 @@
 
 ### QAP-API-011 · 401 и 403 не путаются ни на сервере, ни во фронтенде
 
-`should` · проверка: детерминированно · для: test-code, live-product · источник: RFC 9110 §15.5.2 401 Unauthorized, §11.6.1 WWW-Authenticate, §15.5.4 403 (https://www.rfc-editor.org/rfc/rfc9110#section-15.5.2) · авторитет: normative
+`should` · проверка: детерминированно · для: test-code, live-product · источник: RFC 9110 §15.5.2 401 Unauthorized, §11.6.1 WWW-Authenticate, §15.5.4 403 (https://www.rfc-editor.org/rfc/rfc9110#section-15.5.2) · авторитет: normative · сверка со стандартом: aligned
 
 401 означает, что учётные данные отсутствуют, истекли или невалидны; такой ответ содержит заголовок WWW-Authenticate. 403 означает, что пользователь известен, но прав не хватает. Фронтенд на 401 пробует обновить токен или ведёт на вход. На 403 он показывает «нет доступа» и не разлогинивает пользователя.
 
@@ -97,7 +97,7 @@
 
 ### QAP-API-012 · Операции с необратимым эффектом безопасны для повтора (Idempotency-Key или вторичный ключ)
 
-`must` · проверка: детерминированно · для: requirements, test-plan, test-code · источник: IETF draft-ietf-httpapi-idempotency-key-header-07 §2.6, §2.7 (истёкший черновик, последняя ревизия -07 от 2025-10-15, не RFC; https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/); Zalando RESTful API Guidelines #229, #230 «MAY consider to support Idempotency-Key header», #231, CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#230) · авторитет: industry-practice
+`must` · проверка: детерминированно · для: requirements, test-plan, test-code · источник: IETF draft-ietf-httpapi-idempotency-key-header-07 §2.6, §2.7 (истёкший черновик, последняя ревизия -07 от 2025-10-15, не RFC; https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/); Zalando RESTful API Guidelines #229, #230 «MAY consider to support Idempotency-Key header», #231, CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#230) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Операции, повтор которых причиняет вред (оплата, оформление заказа, перевод, отправка сообщения, создание платной сущности), защищены от дублей при повторе после таймаута или обрыва сети. Варианты защиты: заголовок Idempotency-Key (повтор с тем же ключом не выполняет операцию заново и возвращает исходный результат) или уникальный вторичный ключ в теле (например, id корзины в заказе). Повтор того же ключа с другим телом отклоняется (по черновику IETF — 422). Параллельный запрос с ключом, который ещё обрабатывается, отклоняется (409).
 
@@ -107,7 +107,7 @@
 
 ### QAP-API-013 · Автоматические повторы — только для идемпотентных запросов
 
-`should` · проверка: эвристика агента · для: test-code, live-product · источник: RFC 9110 §9.2.2 Idempotent Methods (автоматический повтор), §10.2.3 Retry-After (https://www.rfc-editor.org/rfc/rfc9110#section-9.2.2); Zalando RESTful API Guidelines #149 «MUST fulfill common method properties», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#149) · авторитет: normative
+`should` · проверка: эвристика агента · для: test-code, live-product · источник: RFC 9110 §9.2.2 Idempotent Methods (автоматический повтор), §10.2.3 Retry-After (https://www.rfc-editor.org/rfc/rfc9110#section-9.2.2); Zalando RESTful API Guidelines #149 «MUST fulfill common method properties», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#149) · авторитет: normative · сверка со стандартом: aligned
 
 HTTP-клиент фронтенда, SDK и тестовый код автоматически повторяют только безопасные и идемпотентные запросы (GET, HEAD, PUT, DELETE) или запросы с Idempotency-Key. POST и PATCH без ключа идемпотентности по таймауту не повторяются молча. Повторы идут с экспоненциальной паузой и учитывают Retry-After на 429 и 503.
 
@@ -117,7 +117,7 @@ HTTP-клиент фронтенда, SDK и тестовый код автом�
 
 ### QAP-API-014 · Пагинация: полный проход по страницам без дублей и пропусков
 
-`should` · проверка: детерминированно · для: requirements, test-plan, test-code · источник: Zalando RESTful API Guidelines #159 «MUST support pagination», #160 «SHOULD prefer cursor-based pagination, avoid offset-based pagination», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#160) · авторитет: industry-practice
+`should` · проверка: детерминированно · для: requirements, test-plan, test-code · источник: Zalando RESTful API Guidelines #159 «MUST support pagination», #160 «SHOULD prefer cursor-based pagination, avoid offset-based pagination», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#160) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Контракт пагинации задаёт детерминированный порядок с уникальным добивающим ключом (например, created_at, затем id). Последовательный проход по всем страницам возвращает каждый элемент ровно один раз, в том числе когда много элементов имеют одинаковое значение сортировки. Контракт описывает поведение при вставке и удалении элементов во время прохода. Для больших или часто меняющихся коллекций предпочтителен курсор, а не offset. Курсор непрозрачен, клиент его не собирает.
 
@@ -127,7 +127,7 @@ HTTP-клиент фронтенда, SDK и тестовый код автом�
 
 ### QAP-API-016 · PATCH: формат и смысл null и отсутствующего поля описаны и проверены
 
-`should` · проверка: детерминированно · для: requirements, test-plan, test-code · источник: RFC 5789 §2 (PATCH не обязательно идемпотентен), RFC 7396 §2 (null удаляет поле), RFC 6902 (https://www.rfc-editor.org/rfc/rfc7396); Zalando RESTful API Guidelines #123 «MUST use same semantics for null and absent properties» (исключение — JSON Merge Patch), #148, CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#123) · авторитет: normative
+`should` · проверка: детерминированно · для: requirements, test-plan, test-code · источник: RFC 5789 §2 (PATCH не обязательно идемпотентен), RFC 7396 §2 (null удаляет поле), RFC 6902 (https://www.rfc-editor.org/rfc/rfc7396); Zalando RESTful API Guidelines #123 «MUST use same semantics for null and absent properties» (исключение — JSON Merge Patch), #148, CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#123) · авторитет: normative · сверка со стандартом: aligned
 
 Спека PATCH указывает формат тела: JSON Merge Patch (application/merge-patch+json) или JSON Patch (application/json-patch+json). Она описывает, что значит null (очистить поле или ошибка) и что значит отсутствующее поле (не менять). Тесты покрывают оба случая. Различать null и отсутствие поля допустимо только в JSON Merge Patch; в остальных телах запросов и ответов они должны значить одно и то же. Если PATCH не должен быть идемпотентным (например, JSON Patch с add в массив), об этом сказано, и повтор такого запроса проверяется отдельно.
 
@@ -137,7 +137,7 @@ HTTP-клиент фронтенда, SDK и тестовый код автом�
 
 ### QAP-API-017 · Изменение API проверяется на обратную совместимость по правилам ввода и вывода
 
-`must` · проверка: детерминированно · для: requirements, test-code · источник: Zalando RESTful API Guidelines #106 «MUST not break backward compatibility», #107 «SHOULD prefer compatible extensions», #112, CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#107) · авторитет: industry-practice
+`must` · проверка: детерминированно · для: requirements, test-code · источник: Zalando RESTful API Guidelines #106 «MUST not break backward compatibility», #107 «SHOULD prefer compatible extensions», #112, CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#107) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Каждое изменение контракта сравнивается с предыдущей версией автоматическим diff-инструментом. Несовместимо (если не выпускается новая версия и клиенты не согласовали переход): в ответах — удалить или переименовать поле, сменить его тип или смысл, сделать обязательное поле необязательным, добавить новое значение в enum без открытого списка; в запросах — добавить обязательное поле, ужесточить валидацию, удалить принимаемое значение enum. Совместимо: добавить поле в ответ, добавить необязательный параметр, ослабить валидацию входа.
 
@@ -147,7 +147,7 @@ HTTP-клиент фронтенда, SDK и тестовый код автом�
 
 ### QAP-API-018 · Клиент и контрактные тесты терпимы к новым полям и значениям enum
 
-`should` · проверка: эвристика агента · для: test-code, live-product · источник: Zalando RESTful API Guidelines #108 «MUST prepare clients to accept compatible API extensions», #111 «MUST treat OpenAPI specification as open for extension by default», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#108) · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code, live-product · источник: Zalando RESTful API Guidelines #108 «MUST prepare clients to accept compatible API extensions», #111 «MUST treat OpenAPI specification as open for extension by default», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#108) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Фронтенд и тесты не ломаются от совместимых расширений: неизвестные поля в ответе игнорируются, новое значение enum обрабатывается веткой по умолчанию, а не исключением или пустым экраном. Схемы ответов в спеке и в тестах не объявляют additionalProperties: false, а тестовые проверки не сравнивают тело ответа целиком на точное равенство там, где важен только набор полей.
 
@@ -157,7 +157,7 @@ HTTP-клиент фронтенда, SDK и тестовый код автом�
 
 ### QAP-API-019 · Ответы API в тестах валидируются по схеме OpenAPI, включая ошибки
 
-`should` · проверка: детерминированно · для: test-code, test-plan · источник: Zalando RESTful API Guidelines #101 «MUST provide API specifications using OpenAPI», #151 «MUST specify success and error responses», #192 «MUST publish OpenAPI specification», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#101) · авторитет: industry-practice
+`should` · проверка: детерминированно · для: test-code, test-plan · источник: Zalando RESTful API Guidelines #101 «MUST provide API specifications using OpenAPI», #151 «MUST specify success and error responses», #192 «MUST publish OpenAPI specification», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#101) · авторитет: industry-practice · сверка со стандартом: aligned
 
 OpenAPI-спека — исполняемый контракт. API- и e2e-тесты проверяют фактический ответ на соответствие операции из спеки: статус описан в responses, тело проходит схему, обязательные заголовки (Location у 201, ETag, Content-Type) присутствуют. Это касается и ответов об ошибках. Недокументированный статус или отсутствие обязательного поля считается провалом теста. Лишние поля в ответе провалом не считаются (см. QAP-API-018).
 
@@ -167,7 +167,7 @@ OpenAPI-спека — исполняемый контракт. API- и e2e-те
 
 ### QAP-API-020 · OpenAPI-спека проходит линтер в CI
 
-`should` · проверка: детерминированно · для: requirements, test-code · источник: Stoplight Spectral, OpenAPI ruleset spectral:oas — правила operation-success-response, oas3-valid-media-example, oas3-valid-schema-example, path-params, operation-operationId-unique, oas3-schema, Apache 2.0 (https://github.com/stoplightio/spectral/blob/develop/docs/reference/openapi-rules.md) · авторитет: vendor-guideline
+`should` · проверка: детерминированно · для: requirements, test-code · источник: Stoplight Spectral, OpenAPI ruleset spectral:oas — правила operation-success-response, oas3-valid-media-example, oas3-valid-schema-example, path-params, operation-operationId-unique, oas3-schema, Apache 2.0 (https://github.com/stoplightio/spectral/blob/develop/docs/reference/openapi-rules.md) · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 Спека проверяется линтером (например, Spectral с набором spectral:oas) в CI, и ошибки блокируют слияние. Минимум: у каждой операции есть успешный ответ (operation-success-response), примеры соответствуют схемам (oas3-valid-media-example, oas3-valid-schema-example), параметры пути объявлены и используются (path-params), operationId уникальны (operation-operationId-unique), документ валиден по схеме OpenAPI (oas3-schema). Командные правила (формат ошибок, пагинация, If-Match) по возможности оформлены как собственные правила линтера.
 
@@ -177,7 +177,7 @@ OpenAPI-спека — исполняемый контракт. API- и e2e-те
 
 ### QAP-API-021 · 64-битные идентификаторы и точные суммы не передаются JSON-числом
 
-`must` · проверка: детерминированно · для: requirements, test-code, live-product · источник: RFC 8259 §6 Numbers (диапазон совместимости IEEE 754 double) (https://www.rfc-editor.org/rfc/rfc8259#section-6); Zalando RESTful API Guidelines #171 «MUST define a format for number and integer types», #173 «MUST use the common money object» (amount — number с format: decimal плюс currency), #174 «MUST use common field names and semantics» (id — непрозрачная строка), CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#171) · авторитет: normative
+`must` · проверка: детерминированно · для: requirements, test-code, live-product · источник: RFC 8259 §6 Numbers (диапазон совместимости IEEE 754 double) (https://www.rfc-editor.org/rfc/rfc8259#section-6); Zalando RESTful API Guidelines #171 «MUST define a format for number and integer types», #173 «MUST use the common money object» (amount — number с format: decimal плюс currency), #174 «MUST use common field names and semantics» (id — непрозрачная строка), CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#171) · авторитет: normative · сверка со стандартом: aligned
 
 Значения, которые не помещаются в точный диапазон double (целые больше 2^53−1: 64-битные id, snowflake id), передаются в JSON строкой. Денежные суммы передаются вместе с кодом валюты и так, чтобы клиент не считал их в float: строкой с десятичным числом, целым числом минимальных единиц или number с format: decimal, который клиент разбирает в десятичный тип, а не в double. Почтовые индексы, телефоны и номера документов с ведущими нулями — строки.
 
@@ -187,7 +187,7 @@ OpenAPI-спека — исполняемый контракт. API- и e2e-те
 
 ### QAP-API-022 · Content negotiation: допустимы и 406, и представление по умолчанию
 
-`should` · проверка: эвристика агента · для: requirements, test-code, live-product · источник: RFC 9110 §12.5.1 Accept, §15.5.7 406 (https://www.rfc-editor.org/rfc/rfc9110#section-12.5.1); Zalando RESTful API Guidelines #244 «SHOULD use content negotiation, if clients may choose from different resource representations», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#244) · авторитет: normative
+`should` · проверка: эвристика агента · для: requirements, test-code, live-product · источник: RFC 9110 §12.5.1 Accept, §15.5.7 406 (https://www.rfc-editor.org/rfc/rfc9110#section-12.5.1); Zalando RESTful API Guidelines #244 «SHOULD use content negotiation, if clients may choose from different resource representations», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#244) · авторитет: normative · сверка со стандартом: aligned
 
 Если клиент запросил в Accept формат, который сервер не поддерживает, сервер может вернуть 406 или проигнорировать Accept и отдать представление по умолчанию. Оба поведения соответствуют RFC. Дефект — только расхождение с задокументированной политикой или Content-Type ответа, который не соответствует телу.
 
@@ -197,7 +197,7 @@ OpenAPI-спека — исполняемый контракт. API- и e2e-те
 
 ### QAP-API-023 · Ответ 405 содержит заголовок Allow
 
-`should` · проверка: детерминированно · для: test-code, live-product · источник: RFC 9110 §15.5.6 405 Method Not Allowed, §10.2.1 Allow (https://www.rfc-editor.org/rfc/rfc9110#section-15.5.6) · авторитет: normative
+`should` · проверка: детерминированно · для: test-code, live-product · источник: RFC 9110 §15.5.6 405 Method Not Allowed, §10.2.1 Allow (https://www.rfc-editor.org/rfc/rfc9110#section-15.5.6) · авторитет: normative · сверка со стандартом: aligned
 
 Ответ 405 Method Not Allowed обязан содержать заголовок Allow со списком поддерживаемых методов ресурса. Пояснение в теле желательно, но не обязательно.
 
@@ -209,7 +209,7 @@ OpenAPI-спека — исполняемый контракт. API- и e2e-те
 
 ### QAP-API-003 · Ошибка валидации перечисляет все поля с машиночитаемым указателем
 
-`should` · проверка: эвристика агента · для: requirements, test-code, live-product · источник: RFC 9457 §3 (пример расширения errors с detail и pointer), §3.2 (https://www.rfc-editor.org/rfc/rfc9457#section-3) · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-code, live-product · источник: RFC 9457 §3 (пример расширения errors с detail и pointer), §3.2 (https://www.rfc-editor.org/rfc/rfc9457#section-3) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Ответ на невалидный запрос содержит список всех нарушений сразу, а не только первого. Каждое нарушение указывает на поле в теле запроса (например, JSON Pointer «#/address/zip») и имеет стабильный код причины. Фронтенд по этому указателю подсвечивает нужное поле формы, не разбирая текст сообщения.
 
@@ -219,7 +219,7 @@ OpenAPI-спека — исполняемый контракт. API- и e2e-те
 
 ### QAP-API-024 · Ответ коллекции — объект с массивом внутри, а не голый массив
 
-`nice` · проверка: детерминированно · для: requirements, live-product · источник: RFC 8259 §2 (JSON-текст — любое значение), §4 (имена ключей SHOULD быть уникальны) (https://www.rfc-editor.org/rfc/rfc8259#section-4); Zalando RESTful API Guidelines #110 «MUST always return JSON objects as top-level data structures», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#110) · авторитет: industry-practice
+`nice` · проверка: детерминированно · для: requirements, live-product · источник: RFC 8259 §2 (JSON-текст — любое значение), §4 (имена ключей SHOULD быть уникальны) (https://www.rfc-editor.org/rfc/rfc8259#section-4); Zalando RESTful API Guidelines #110 «MUST always return JSON objects as top-level data structures», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#110) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Верхний уровень JSON-ответа — объект (например, {"items": [...], "next": ...}), а не массив, чтобы позже можно было добавить метаданные пагинации без ломающего изменения. Сам по себе голый массив — валидный JSON, и аудит не должен называть его синтаксической ошибкой. Дублирующиеся имена ключей в объекте — находка: поведение парсеров в этом случае непредсказуемо.
 
@@ -231,7 +231,7 @@ OpenAPI-спека — исполняемый контракт. API- и e2e-те
 
 ### QAP-API-015 · Пагинация: границы limit и курсора, признак последней страницы
 
-`should` · проверка: детерминированно · для: requirements, test-plan, test-code · источник: Zalando RESTful API Guidelines #159, #161 «SHOULD use pagination links», #254 «SHOULD avoid a total result count», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#161) · авторитет: industry-practice
+`should` · проверка: детерминированно · для: requirements, test-plan, test-code · источник: Zalando RESTful API Guidelines #159, #161 «SHOULD use pagination links», #254 «SHOULD avoid a total result count», CC BY 4.0 (https://opensource.zalando.com/restful-api-guidelines/#161) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Контракт пагинации задаёт максимальный limit и поведение при его превышении (ограничение или 400). limit=0, отрицательный или нечисловой limit, а также испорченный или просроченный курсор дают 4xx, а не 500. Последняя страница явно обозначена: нет ссылки или курсора на следующую. Пустая коллекция — 200 с пустым списком элементов. Общий счётчик необязателен: если его нет, клиент не должен на него опираться.
 

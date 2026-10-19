@@ -30,7 +30,7 @@ Read first:
 ## Phase 1 — Profile and framework maturity
 
 1. If `docs/qa/project-profile.md` is missing, or has no `## Framework maturity` / `## Test layers` / `## Error plumbing` sections, run `qa-pilot:onboard`, or just its missing parts.
-2. Score each maturity area as present / partial / missing, with evidence. The areas are listed in onboard Phase 1. Back each gap with a rule from `knowledge/qa-pilot/rules/test-code.json` or `test-strategy.json` where one fits (cite the id).
+2. Score each maturity area as present / partial / missing, with evidence. The areas are listed in onboard Phase 1. Back each gap with a rule from `../../knowledge/qa-pilot/rules/test-code.json` or `test-strategy.json` where one fits (cite the id).
 3. **Framework blockers come first.** These are gaps that make tests untrustworthy or unrunnable:
    - no CI gate on the main layer;
    - a layer counted as coverage that CI never runs;
@@ -82,7 +82,7 @@ Run `qa-pilot:audit` limited to the test files that exercise the critical flows 
 ## Per-flow reports    — links to spec-audit reports
 ```
 
-Also write `docs/qa/project-audit/<date>-actions.md`, one English list in the spec-audit 6a format: framework fixes first, then the Must items of every flow, then Should.
+Also write `docs/qa/project-audit/<date>-actions.md` and `<date>-actions.json` (`../../references/actions-schema.md`), one English list in the spec-audit 6a format: framework fixes first, then the Must items of every flow, then Should.
 
 ## Phase 6 — Hand-off
 

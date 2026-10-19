@@ -10,7 +10,7 @@ Many projects run tasks through a feature workflow skill: ticket → plan → im
 | After implementation and the project's own test phase, **before review/finalize** | `qa-pilot:task-qa verify` | the task file `docs/qa/tasks/<ticket>.md`; the branch diff | Reconcile table; "intended?" questions; proof of coverage; tests added under the guard; the `## QA verification` block for the PR body |
 
 Rules:
-- `verify` never fixes product code. A BUG goes back to the orchestrator's implement phase.
+- `verify` never fixes product code. A BUG is reported to the owner. Only with the owner's OK does the orchestrator return to its implement phase to fix it. The BUG test stays marked expected-fail until then (test-delta §6).
 - An open "intended?" question blocks the PR the same way a failed acceptance criterion does. The owner answers it, or the orchestrator stops.
 - Cost: plan ≈ 80k and verify ≈ 100k tokens (targets). For a well-understood small fix (the orchestrator's short path), run `verify` only.
 - For a large feature, or after a round of small changes, run `qa-pilot:spec-audit` (one feature) or `qa-pilot:project-audit` (the whole picture) instead of relying on per-task checks.
@@ -28,7 +28,7 @@ The owner adds the following to `.claude/skills/gov-front-feature/SKILL.md`. qa-
 **Phase 6 — Tests.** Add after the `gov-front-testing` line:
 
 ```markdown
-- **QA verify (qa-pilot).** After the tests from this phase are written and green, run `/qa-pilot:task-qa verify <GOV-N>`. It reconciles the diff with the QA plan, asks "intended?" about unplanned behaviour changes, proves coverage (test + distinguishing assertion + layer in CI), and adds up to 5 missing tests under its guard. A BUG goes back to Phase 4. Paste its `## QA verification` block into the PR body in Phase 10, next to `## AC verification`.
+- **QA verify (qa-pilot).** After the tests from this phase are written and green, run `/qa-pilot:task-qa verify <GOV-N>`. It reconciles the diff with the QA plan, asks "intended?" about unplanned behaviour changes, proves coverage (test + distinguishing assertion + layer in CI), and adds up to 5 missing tests under its guard. A BUG is reported to the user; with their OK, go back to Phase 4 to fix it. Paste its `## QA verification` block into the PR body in Phase 10, next to `## AC verification`.
 ```
 
 **Phase table (Model routing).** Both calls are judgment work. Run them inline on the session model, or delegate them to a subagent that returns only the task file path and the summary block.

@@ -34,6 +34,20 @@ class ValidateTest(unittest.TestCase):
         errors, _ = validate_actions(doc([action("A1", "question", "test")]))
         self.assertTrue(any("bucket 'question'" in e for e in errors), errors)
 
+    def test_test_and_bug_need_prescription_fields(self):
+        bad = action("A1", "must", "bug")
+        del bad["source"]
+        errors, _ = validate_actions(doc([bad]))
+        self.assertTrue(any("A1: source is required" in e for e in errors), errors)
+        question = {"id": "Q1", "bucket": "question", "kind": "question", "title": "Which?"}
+        self.assertEqual(validate_actions(doc([question]))[0], [])
+
+    def test_na_cell_needs_evidence_and_bug_outside_must_warns(self):
+        errors, _ = validate_actions(doc(cells=[{"entity": "wf", "pattern": "QAP-WEB-001", "verdict": "N/A"}]))
+        self.assertTrue(any("N/A needs evidence" in e for e in errors), errors)
+        _, warnings = validate_actions(doc([action("B1", "should", "bug")]))
+        self.assertIn("B1: a bug belongs in must", warnings)
+
     def test_bad_verdict_and_not_a_list(self):
         errors, _ = validate_actions(doc(cells=[{"entity": "wf", "pattern": "QAP-WEB-001", "verdict": "MAYBE"}]))
         self.assertTrue(any("verdict" in e for e in errors), errors)
@@ -75,6 +89,10 @@ class AgreementTest(unittest.TestCase):
         self.assertEqual((result["cells_union"], result["agree"]), (3, 1))
         self.assertAlmostEqual(result["ratio"], 0.333, places=3)
 
+    def test_agreement_ignores_cells_without_keys(self):
+        a = doc(cells=[{"verdict": "OK"}, {"entity": "e", "pattern": "a", "verdict": "OK"}])
+        self.assertEqual(agreement(a, a)["cells_union"], 1)
+
     def test_agreement_no_cells(self):
         self.assertEqual(agreement(doc(), doc())["ratio"], 0.0)
 
@@ -88,6 +106,7 @@ class CliTest(unittest.TestCase):
             self.assertEqual(main(["score.py", "validate", str(path)]), 1)
             path.write_text(json.dumps(doc([action("A1")])))
             self.assertEqual(main(["score.py", "validate", str(path)]), 0)
+            self.assertEqual(main(["score.py", "agreement", str(path)]), 2)
 
 
 if __name__ == "__main__":

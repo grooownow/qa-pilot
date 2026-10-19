@@ -30,10 +30,11 @@ Read `references/web-patterns.md` (absolute path in your brief). For every entit
 - **GAP**: the code may be fine but nothing in CI proves it. A scenario follows.
 - **N/A**: the pattern cannot occur for this entity. Evidence is mandatory (e.g. "no delete endpoint: searched `git grep -n 'delete' -- src/api/workflow*` → 0").
 - **DECISION**: the right behaviour is a product choice. It goes to *Needs product decision*.
+- **SUPPRESSED**: an owner scope filter removes the whole behaviour of this cell. Cite the filter. The cell goes to *Suppressed by your filters* as one line, never to *Needs product decision*.
 
 Run the pattern's trigger searches from `web-patterns.md`; do not decide a cell from memory. An empty cell is a defect of the run, not a pass. Highlight-only patterns get a one-line mention only when you see them, with no card row.
 
-A cell whose whole behaviour is removed by an owner scope filter gets **DECISION** with the filter cited, never N/A. A cell only partly touched by a filter is judged on the behaviour that remains.
+A cell whose whole behaviour is removed by an owner scope filter gets **SUPPRESSED** with the filter cited, never N/A or DECISION. A cell only partly touched by a filter is judged on the behaviour that remains.
 
 **Then walk the spec (mandatory; do not skip because the cards are full).** The cards cover known failure classes, not the specific feature. Go through the spec once, top to bottom. Every control, step, mode and state it names gets one line:
 - defined;
@@ -42,7 +43,7 @@ A cell whose whole behaviour is removed by an owner scope filter gets **DECISION
 
 This covers the run modal's Cancel, confirmations on submit, a wrong kind in a URL, and discard on ×/backdrop. In the 0.5 eval exactly these items dropped out when the agents worked only from the cards. A gap with no pattern behind it still becomes at least a Highlight.
 
-With `depth: critical`, do only the entity cards plus lens 4 (contradictions), and only for entities on the critical flows in your brief.
+With `depth: critical`, do only the entity cards, the spec walk and lens 4 (contradictions). All three are limited to the entities and steps of the critical flows in your brief.
 
 ## 1. Lenses: apply them in this order to every spec
 
@@ -145,7 +146,7 @@ A finding is half the work. The scenario you propose will be implemented by anot
   - "Documented, or fixed" is not an expected result.
   - "Redirect to the default tab" with no source is invented.
 - **Mocked tests must not be masked.** For a `@ui-contract`-style test, name the mocked response and why the global plumbing (2a) will not already satisfy the assertion. Example: "mock a 500 with an empty body; the global toast fires only when `message` is present".
-- **Respect scope filters.** Scope filters from the brief (areas not developed, on hold, or not to be tested) remove scenarios and findings. List what they removed under *Skipped as project decision*.
+- **Respect scope filters.** Scope filters from the brief (areas not developed, on hold, or not to be tested) remove scenarios and findings, but not the visibility of the risk. List every removed risk under *Suppressed by your filters* (what · pattern or rule · which filter). *Skipped as project decision* is only for catalog rules overridden by a recorded decision.
 
 ## 3. Findings file format (append after EACH spec, so progress survives a dead session)
 
@@ -163,6 +164,8 @@ If your Write tool is blocked, append with a shell command (`cat >> <file> <<'EO
 - Mark a scenario **BUG** when the current code fails it (cite the line). The implementing agent fixes the code first, then writes the test.
 ### Needs product decision
 - <question> — why it is not a test yet (undecided / no source / would pin a suspected bug) — options
+### Suppressed by your filters
+- <risk> — <pattern / rule id> — <filter that removed it>
 ### Skipped as project decision
 - <rule id> — <decision source>
 ```

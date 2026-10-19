@@ -128,7 +128,7 @@ claiming done.
      stay visible.
    - **Depth:** critical / standard / thorough. Critical flows are recorded in
      the profile.
-   - **`-actions.json`** plus `scripts/score.py` (validate / score /
+   - **`-actions.json`** plus `skills/spec-audit/scripts/score.py` (validate / score /
      agreement) for evals.
 
 8. **task-qa** (added in 0.5.0) — the QA step of one task. `plan`: AC check,

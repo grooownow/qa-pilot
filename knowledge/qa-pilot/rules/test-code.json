@@ -22,7 +22,8 @@
       "lint"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-002",
@@ -47,7 +48,8 @@
       "lint"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-003",
@@ -72,7 +74,8 @@
       "lint"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-004",
@@ -97,7 +100,8 @@
       "lint"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-005",
@@ -122,7 +126,8 @@
       "oracle"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-006",
@@ -147,7 +152,8 @@
       "oracle"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-007",
@@ -172,7 +178,8 @@
       "assertions"
     ],
     "authority": "author-opinion",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-009",
@@ -197,7 +204,8 @@
       "lint"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-010",
@@ -221,7 +229,8 @@
       "lint"
     ],
     "authority": "vendor-guideline",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-011",
@@ -247,7 +256,8 @@
       "needs-auth"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-012",
@@ -272,7 +282,8 @@
       "fragile-test"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-013",
@@ -297,7 +308,8 @@
       "observable-behaviour"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-014",
@@ -321,7 +333,8 @@
       "fragile-test"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-015",
@@ -347,7 +360,8 @@
       "needs-rest"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-017",
@@ -372,7 +386,8 @@
       "flaky"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-018",
@@ -397,7 +412,8 @@
       "flaky"
     ],
     "authority": "author-opinion",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-019",
@@ -422,7 +438,8 @@
       "flaky"
     ],
     "authority": "vendor-guideline",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-020",
@@ -447,7 +464,8 @@
       "order-dependence"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-021",
@@ -472,7 +490,8 @@
       "flaky"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-022",
@@ -496,7 +515,8 @@
       "structure"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-023",
@@ -520,7 +540,8 @@
       "readability"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-024",
@@ -544,7 +565,8 @@
       "false-green"
     ],
     "authority": "vendor-guideline",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-025",
@@ -569,7 +591,8 @@
       "ai-agent"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-026",
@@ -595,7 +618,8 @@
       "playwright"
     ],
     "authority": "vendor-guideline",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-027",
@@ -621,7 +645,8 @@
       "playwright"
     ],
     "authority": "vendor-guideline",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-028",
@@ -647,7 +672,8 @@
       "playwright"
     ],
     "authority": "vendor-guideline",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-029",
@@ -672,7 +698,8 @@
       "lint"
     ],
     "authority": "vendor-guideline",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-030",
@@ -697,7 +724,8 @@
       "strategy"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TC-031",
@@ -723,6 +751,7 @@
       "ci"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   }
 ]

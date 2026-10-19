@@ -151,7 +151,7 @@ to decide?". How it works:
   - The main session re-runs those searches before anything reaches the report.
 - **Entity cards: the patterns that must not be missed.** Every entity with
   a lifecycle gets a card of 10 must-check web patterns. Each cell needs a
-  verdict (OK / BUG / GAP / N/A with evidence / DECISION), and the report is
+  verdict (OK / BUG / GAP / N/A with evidence / DECISION / SUPPRESSED by your filter), and the report is
   not written while a cell is empty. Examples:
   - saving or acting on an entity that was deleted meanwhile;
   - double submit;

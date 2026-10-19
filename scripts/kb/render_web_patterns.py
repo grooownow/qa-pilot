@@ -11,7 +11,7 @@ import json
 import sys
 from pathlib import Path
 
-VERDICTS = "OK · BUG · GAP · N/A (with evidence) · DECISION"
+VERDICTS = "OK · BUG · GAP · N/A (with evidence) · DECISION · SUPPRESSED (owner filter)"
 
 
 def render(patterns, invariants):
@@ -46,7 +46,8 @@ def render(patterns, invariants):
 def pattern_block(r):
     p = r["pattern"]
     lines = [f"### {r['id']} · {r['title']}", "",
-             f"Default severity `{r['severity']}` · test level: {p['level']} · authority: "
+             f"Catalog severity `{r['severity']}` (not a bucket: the cell's P1/P2 follows "
+             f"`severity-calibration.md`) · test level: {p['level']} · authority: "
              f"{r.get('authority', 'unclassified')}", "", r["statement"], "",
              f"**Check per entity:** {r['check']['how']}", "",
              "**Triggers (where to look):** " + ", ".join(f"`{t}`" for t in p["triggers"]), ""]

@@ -24,7 +24,8 @@
       "needs-ai"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-002",
@@ -51,7 +52,8 @@
       "needs-ai"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-003",
@@ -79,7 +81,8 @@
       "needs-ai"
     ],
     "authority": "vendor-guideline",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-004",
@@ -106,7 +109,8 @@
       "needs-ai"
     ],
     "authority": "vendor-guideline",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-005",
@@ -134,7 +138,8 @@
       "needs-ai"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-006",
@@ -164,7 +169,8 @@
       "needs-uploads"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-007",
@@ -192,7 +198,8 @@
       "needs-ai"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-008",
@@ -222,7 +229,8 @@
       "needs-auth"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-009",
@@ -253,7 +261,8 @@
       "needs-auth"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-010",
@@ -281,7 +290,8 @@
       "needs-ai"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-011",
@@ -310,7 +320,8 @@
       "needs-ai"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-012",
@@ -339,7 +350,8 @@
       "needs-ai"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-013",
@@ -366,7 +378,8 @@
       "needs-ai"
     ],
     "authority": "vendor-guideline",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-014",
@@ -393,7 +406,8 @@
       "needs-ai"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-AI-015",
@@ -422,6 +436,7 @@
       "needs-ai"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   }
 ]

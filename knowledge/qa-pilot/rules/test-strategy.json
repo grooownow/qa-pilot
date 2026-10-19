@@ -22,7 +22,8 @@
       "prioritization"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-002",
@@ -47,7 +48,8 @@
       "over-testing"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-003",
@@ -72,7 +74,8 @@
       "over-testing"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-004",
@@ -99,7 +102,8 @@
       "false-green"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-005",
@@ -125,7 +129,8 @@
       "false-green"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-006",
@@ -150,7 +155,8 @@
       "over-testing"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-007",
@@ -176,7 +182,8 @@
       "false-green"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-009",
@@ -200,7 +207,8 @@
       "coverage-criteria"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-010",
@@ -225,7 +233,8 @@
       "state-transition"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-011",
@@ -250,7 +259,8 @@
       "risk-acceptance"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-012",
@@ -275,7 +285,8 @@
       "reporting"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-013",
@@ -300,7 +311,8 @@
       "regression"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-014",
@@ -326,7 +338,8 @@
       "auditor-noise"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-016",
@@ -350,7 +363,8 @@
       "agile"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-017",
@@ -374,7 +388,8 @@
       "charters"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-018",
@@ -399,7 +414,8 @@
       "sbtm"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-019",
@@ -425,7 +441,8 @@
       "requirements-completeness"
     ],
     "authority": "author-opinion",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-020",
@@ -452,7 +469,34 @@
       "auditor-noise"
     ],
     "authority": "author-opinion",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAP-TS-021",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "При раздельном деплое потребителя и провайдера API их контракт проверяется автоматически",
+    "statement": "Если фронтенд и бэкенд (или два сервиса) выкатываются независимо, тест-стратегия включает автоматическую проверку контракта между ними: consumer-driven контракты (Pact и аналоги) с верификацией на стороне провайдера, либо проверку ответов по общей OpenAPI-схеме в CI обеих сторон. Перед выкаткой проверяется совместимость версий (например, can-i-deploy).",
+    "rationale": "E2E-тесты на моках держат фронтенд зелёным, даже когда реальный API уже изменился; полные E2E против живого бэкенда медленные и ловят расхождение поздно. Контрактные тесты закрывают этот промежуток дёшево. Содержимое контрактов — QAP-TS-022; форма моков — QAP-TC-015; совместимость изменений API — QAP-API-017.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "По профилю проекта и CI: деплоятся ли потребитель и провайдер раздельно. Если да — pass, когда в CI есть верификация контрактов провайдером или проверка по общей OpenAPI-схеме на обеих сторонах и проверка совместимости перед деплоем; fail — интеграция подтверждается только моками на стороне потребителя."
+    },
+    "source": {
+      "origin": "Martin Fowler, ContractTest (2011) и Ian Robinson, Consumer-Driven Contracts (martinfowler.com) — https://martinfowler.com/bliki/ContractTest.html; Pact docs, «Can I Deploy» — https://docs.pact.io/pact_broker/can_i_deploy"
+    },
+    "tags": [
+      "test-strategy",
+      "contract-testing"
+    ],
+    "authority": "industry-practice",
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-022",
@@ -460,7 +504,7 @@
     "severity": "should",
     "title": "Контрактные тесты проверяют форму взаимодействия, а не бизнес-логику провайдера",
     "statement": "Контрактный тест фиксирует только то, что нужно потребителю: запрос, обязательные поля ответа, типы, коды для используемых сценариев. Бизнес-правила провайдера (расчёты, валидации, побочные эффекты) проверяются функциональными тестами самого провайдера, а не контрактом.",
-    "rationale": "Контракт, перегруженный логикой и точными значениями, становится хрупким, ломается при допустимых изменениях провайдера и дублирует его функциональные тесты. Наличие контрактных тестов при раздельном деплое требует QAP-TC-016; это правило — об их содержимом.",
+    "rationale": "Контракт, перегруженный логикой и точными значениями, становится хрупким, ломается при допустимых изменениях провайдера и дублирует его функциональные тесты. Наличие контрактных тестов при раздельном деплое требует QAP-TS-021; это правило — об их содержимом.",
     "applies_to": [
       "test-code"
     ],
@@ -477,7 +521,8 @@
       "over-testing"
     ],
     "authority": "vendor-guideline",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-023",
@@ -503,7 +548,8 @@
       "observability"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-TS-024",
@@ -531,6 +577,7 @@
       "observability"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   }
 ]

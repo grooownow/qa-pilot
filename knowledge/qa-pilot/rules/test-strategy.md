@@ -7,7 +7,7 @@
 
 ### QAP-TS-001 · Продуктовые риски выявлены и оценены по вероятности и влиянию
 
-`should` · проверка: эвристика агента · для: test-plan, requirements · источник: ISTQB CTFL v4.0.1 (2024-09-15) §5.2.1, §5.2.3 Product Risk Analysis — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative
+`should` · проверка: эвристика агента · для: test-plan, requirements · источник: ISTQB CTFL v4.0.1 (2024-09-15) §5.2.1, §5.2.3 Product Risk Analysis — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative · сверка со стандартом: aligned
 
 План (или QA-раздел задачи) перечисляет продуктовые риски изменения: что может пойти не так для пользователя или бизнеса. Для каждого риска оценены вероятность и влияние, а итоговый уровень (произведение или ячейка матрицы рисков) определяет порядок и глубину проверок.
 
@@ -17,7 +17,7 @@
 
 ### QAP-TS-002 · Глубина проверок пропорциональна риску и изменчивости, а не одинакова
 
-`should` · проверка: эвристика агента · для: test-plan · источник: ISTQB CTFL v4.0.1 §2.3 Maintenance Testing (scope depends on risk of change, size of system, size of change), §5.2.3 — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative
+`should` · проверка: эвристика агента · для: test-plan · источник: ISTQB CTFL v4.0.1 §2.3 Maintenance Testing (scope depends on risk of change, size of system, size of change), §5.2.3 — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative · сверка со стандартом: aligned
 
 Глубина тестирования задачи зависит от уровня риска затронутой области и размера изменения; частота правок и история дефектов в этом коде служат практической оценкой вероятности риска. Высокий риск требует строгих техник, полного покрытия по ним и автоматизированного регресса. Низкий риск при малом, локальном изменении обходится точечной проверкой изменённого поведения. Одинаковый набор проверок для любой задачи — находка.
 
@@ -27,7 +27,7 @@
 
 ### QAP-TS-003 · У каждого запланированного теста есть причина: AC, риск или регресс
 
-`should` · проверка: эвристика агента · для: test-plan, test-cases · источник: ISTQB CTFL v4.0.1 §1.4.4 Traceability between the Test Basis and Testware; §5.1.6 Test Pyramid — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-plan, test-cases · источник: ISTQB CTFL v4.0.1 §1.4.4 Traceability between the Test Basis and Testware; §5.1.6 Test Pyramid — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: industry-practice · сверка со стандартом: aligned
 
 Каждый сценарий в плане ссылается хотя бы на одно из трёх: критерий приёмки, идентифицированный риск или регрессионную зону изменения. Сценарий без такой ссылки, а также повтор одной и той же проверки на нескольких уровнях без отдельной цели, считается лишним и удаляется или обосновывается.
 
@@ -37,7 +37,7 @@
 
 ### QAP-TS-004 · Каждый критерий приёмки покрыт хотя бы одним тестом
 
-`must` · проверка: эвристика агента · для: test-plan, test-cases, test-code · источник: ISTQB CTFL v4.0.1 §1.4.4 (traceability of test cases to requirements verifies coverage), §5.3 (coverage of acceptance criteria as exit target) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-cases, test-code · источник: ISTQB CTFL v4.0.1 §1.4.4 (traceability of test cases to requirements verifies coverage), §5.3 (coverage of acceptance criteria as exit target) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative · сверка со стандартом: aligned
 
 Прямая трассируемость AC → тесты: у каждого критерия приёмки задачи есть хотя бы один тест или проверка с явной ссылкой на него (ID критерия, номер пункта или цитата). Непокрытый критерий явно помечен как вне объёма с причиной и владельцем решения.
 
@@ -47,7 +47,7 @@
 
 ### QAP-TS-005 · Намеренное изменение поведения закреплено обновлённым ожиданием
 
-`should` · проверка: эвристика агента · для: test-plan, test-code · источник: M. Feathers, Working Effectively with Legacy Code (2004), ch. 13 characterization tests (пересказ); ISTQB CTFL v4.0.1 §2.2.3 Regression Testing (общий контекст) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-plan, test-code · источник: M. Feathers, Working Effectively with Legacy Code (2004), ch. 13 characterization tests (пересказ); ISTQB CTFL v4.0.1 §2.2.3 Regression Testing (общий контекст) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если задача намеренно меняет существующее поведение, старые тесты, проверявшие прежнее поведение, переписываются на новое ожидание, а не удаляются, пропускаются (skip) или ослабляются. Удаление теста допустимо, только если сама функция удалена. В плане явно перечислено, какое старое поведение отменяется и каким тестом закреплено новое.
 
@@ -57,7 +57,7 @@
 
 ### QAP-TS-006 · Регресс выбран по анализу влияния изменения
 
-`should` · проверка: эвристика агента · для: test-plan · источник: ISTQB CTFL v4.0.1 §2.2.3 (impact analysis to recognize the extent of regression testing) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf; P. Hammant, The Rise of Test Impact Analysis (martinfowler.com, 2017) — https://martinfowler.com/articles/rise-test-impact-analysis.html · авторитет: normative
+`should` · проверка: эвристика агента · для: test-plan · источник: ISTQB CTFL v4.0.1 §2.2.3 (impact analysis to recognize the extent of regression testing) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf; P. Hammant, The Rise of Test Impact Analysis (martinfowler.com, 2017) — https://martinfowler.com/articles/rise-test-impact-analysis.html · авторитет: normative · сверка со стандартом: aligned
 
 Перед выбором регрессионных проверок проводится анализ влияния: какие модули изменены, кто их вызывает, какие общие компоненты, данные, конфигурация и внешние потребители от них зависят. В регресс входят тесты этих зон. Нет ни «прогоняем всё вручную на всякий случай», ни «проверяем только новый тест».
 
@@ -67,7 +67,7 @@
 
 ### QAP-TS-007 · Исправление дефекта закреплено тестом, который падал до фикса
 
-`should` · проверка: эвристика агента · для: test-plan, test-code · источник: ISTQB CTFL v4.0.1 §2.2.3 Confirmation Testing (повторный прогон упавших тестов, новые тесты на изменения фикса) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-plan, test-code · источник: ISTQB CTFL v4.0.1 §2.2.3 Confirmation Testing (повторный прогон упавших тестов, новые тесты на изменения фикса) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: industry-practice · сверка со стандартом: aligned
 
 Для исправленного дефекта есть автоматизированный тест, который воспроизводит исходный сбой: на коде до исправления он падает, после исправления проходит. Тест размещается на самом низком уровне, на котором дефект наблюдаем, и остаётся в регрессионном наборе. Если автоматизация дефекта нецелесообразна (чисто визуальный дефект, инфраструктура), в задаче указано, как выполнена повторная проверка и почему теста нет.
 
@@ -77,7 +77,7 @@
 
 ### QAP-TS-009 · Для каждой техники заявлен измеримый критерий покрытия
 
-`should` · проверка: эвристика агента · для: test-plan · источник: ISTQB CTFL v4.0.1 §1.4.4, §4.2.1–4.2.4 (coverage items and coverage measurement per technique) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative
+`should` · проверка: эвристика агента · для: test-plan · источник: ISTQB CTFL v4.0.1 §1.4.4, §4.2.1–4.2.4 (coverage items and coverage measurement per technique) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative · сверка со стандартом: aligned
 
 Если план применяет технику тест-дизайна, он называет её элементы покрытия и целевой процент. Для EP элементы — все классы, включая невалидные; при нескольких параметрах минимум — Each Choice. Для BVA — граничные значения выбранного варианта. Для таблицы решений — все выполнимые столбцы. Для модели состояний — выбранный критерий (все состояния, все допустимые переходы или все переходы).
 
@@ -87,7 +87,7 @@
 
 ### QAP-TS-010 · Модель состояний: критерий по риску, по одному недопустимому переходу на тест
 
-`should` · проверка: эвристика агента · для: test-plan, test-cases · источник: ISTQB CTFL v4.0.1 §4.2.4 State Transition Testing (all states / valid transitions (0-switch) / all transitions; defect masking) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative
+`should` · проверка: эвристика агента · для: test-plan, test-cases · источник: ISTQB CTFL v4.0.1 §4.2.4 State Transition Testing (all states / valid transitions (0-switch) / all transitions; defect masking) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative · сверка со стандартом: aligned
 
 Для сущностей с жизненным циклом критерий покрытия выбирается по риску: обычно все допустимые переходы, а для критичных потоков (оплата, доступ, удаление данных) — все переходы, то есть плюс попытки каждого недопустимого перехода из таблицы состояний. Каждый тест пытается выполнить не больше одного недопустимого перехода.
 
@@ -97,7 +97,7 @@
 
 ### QAP-TS-011 · Выпуск при невыполненных критериях выхода — только с явным принятием риска
 
-`should` · проверка: эвристика агента · для: test-plan · источник: ISTQB CTFL v4.0.1 §5.1.3 Entry Criteria and Exit Criteria — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative
+`should` · проверка: эвристика агента · для: test-plan · источник: ISTQB CTFL v4.0.1 §5.1.3 Entry Criteria and Exit Criteria — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative · сверка со стандартом: aligned
 
 Если тестирование останавливается до выполнения критериев выхода (кончилось время или бюджет), план или отчёт фиксирует, какие критерии не выполнены, какой риск остаётся и кто из заинтересованных лиц его рассмотрел и принял. В Agile критерии выхода — это Definition of Done; невыполненный пункт DoD требует того же решения.
 
@@ -107,7 +107,7 @@
 
 ### QAP-TS-012 · Отчёт называет непроверенное и остаточный риск
 
-`should` · проверка: эвристика агента · для: test-plan · источник: ISTQB CTFL v4.0.1 §1.4.4 (traceability of test results to risks evaluates residual risk), §5.2.4 Product Risk Control (risk acceptance) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative
+`should` · проверка: эвристика агента · для: test-plan · источник: ISTQB CTFL v4.0.1 §1.4.4 (traceability of test results to risks evaluates residual risk), §5.2.4 Product Risk Control (risk acceptance) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative · сверка со стандартом: aligned
 
 План и итоговый отчёт по задаче явно перечисляют, что не проверялось и почему: вне объёма, нет окружения или данных, низкий риск. Для каждого непокрытого риска указан остаточный уровень и кто его принял.
 
@@ -117,7 +117,7 @@
 
 ### QAP-TS-013 · Миграции и смена окружения тестируются отдельно от изменённого кода
 
-`should` · проверка: эвристика агента · для: test-plan · источник: ISTQB CTFL v4.0.1 §2.3 Maintenance Testing (upgrades/migrations, data conversion tests) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative
+`should` · проверка: эвристика агента · для: test-plan · источник: ISTQB CTFL v4.0.1 §2.3 Maintenance Testing (upgrades/migrations, data conversion tests) — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf · авторитет: normative · сверка со стандартом: aligned
 
 Если изменение включает миграцию схемы или данных, смену платформы, версии рантайма или зависимости, план включает проверки самого перехода. Для данных — корректность конвертации на реалистичных объёмах и граничных записях, а также откат или повторный запуск. Для окружения — работа существующих функций в новом окружении.
 
@@ -127,7 +127,7 @@
 
 ### QAP-TS-017 · Исследовательское тестирование задано чартерами с целью
 
-`should` · проверка: эвристика агента · для: test-plan · источник: E. Hendrickson, Explore It! (2013), ch. 2 charters (шаблон target / resources / information, пересказ); ISTQB CTFL v4.0.1 §4.4.2 Exploratory Testing (session-based, test charter) · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-plan · источник: E. Hendrickson, Explore It! (2013), ch. 2 charters (шаблон target / resources / information, пересказ); ISTQB CTFL v4.0.1 §4.4.2 Exploratory Testing (session-based, test charter) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если план включает исследовательское тестирование, оно оформлено чартерами. В каждом чартере есть цель (какую область или функцию исследуем), ресурсы или приёмы (данные, инструменты, роли, эвристики) и искомая информация (какой риск или вопрос проясняем). Объём задан ограниченными по времени сессиями, а не фразой «потестировать руками».
 
@@ -137,7 +137,7 @@
 
 ### QAP-TS-020 · При молчании спецификации находка ссылается на конкретный оракул
 
-`should` · проверка: эвристика агента · для: test-cases, live-product, requirements · источник: M. Bolton, FEW HICCUPPS (DevelopSense, пересказ) — https://developsense.com/blog/2012/07/few-hiccupps; J. Bach, HTSM v6.3 Quality Criteria/Oracles, © Satisfice (пересказ) · авторитет: author-opinion
+`should` · проверка: эвристика агента · для: test-cases, live-product, requirements · источник: M. Bolton, FEW HICCUPPS (DevelopSense, пересказ) — https://developsense.com/blog/2012/07/few-hiccupps; J. Bach, HTSM v6.3 Quality Criteria/Oracles, © Satisfice (пересказ) · авторитет: author-opinion · сверка со стандартом: aligned
 
 Если спецификация не определяет ожидаемое поведение, находка аудита или теста называет оракул, по которому поведение признано проблемой. Варианты: несогласованность с собственной историей продукта, с его образом или брендом, с сопоставимыми продуктами, с заявлениями (документация, маркетинг, UI-тексты), с ожиданиями пользователей, с назначением функции, с другими частями самого продукта, с законами и стандартами, с известными фактами о мире. Сюда же относятся объяснимость поведения и сходство с известными типами проблем.
 
@@ -147,17 +147,17 @@
 
 ### QAP-TS-022 · Контрактные тесты проверяют форму взаимодействия, а не бизнес-логику провайдера
 
-`should` · проверка: эвристика агента · для: test-code · источник: Pact docs, Contract tests vs functional tests — https://docs.pact.io/consumer/contract_tests_not_functional_tests · авторитет: vendor-guideline
+`should` · проверка: эвристика агента · для: test-code · источник: Pact docs, Contract tests vs functional tests — https://docs.pact.io/consumer/contract_tests_not_functional_tests · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 Контрактный тест фиксирует только то, что нужно потребителю: запрос, обязательные поля ответа, типы, коды для используемых сценариев. Бизнес-правила провайдера (расчёты, валидации, побочные эффекты) проверяются функциональными тестами самого провайдера, а не контрактом.
 
-**Почему:** Контракт, перегруженный логикой и точными значениями, становится хрупким, ломается при допустимых изменениях провайдера и дублирует его функциональные тесты. Наличие контрактных тестов при раздельном деплое требует QAP-TC-016; это правило — об их содержимом.
+**Почему:** Контракт, перегруженный логикой и точными значениями, становится хрупким, ломается при допустимых изменениях провайдера и дублирует его функциональные тесты. Наличие контрактных тестов при раздельном деплое требует QAP-TS-021; это правило — об их содержимом.
 
 **Как проверить:** Просмотреть контрактные тесты. Не проходит: проверяются точные вычисленные значения вместо типов и матчеров; контракт перечисляет все поля ответа, хотя потребитель использует несколько; один контракт описывает множество вариантов бизнес-правила.
 
 ### QAP-TS-023 · Нефункциональные требования к надёжности выражены через SLI/SLO
 
-`should` · проверка: эвристика агента · для: requirements, test-plan · источник: Google, Site Reliability Engineering (2016), ch. 4 Service Level Objectives; ch. 3 Embracing Risk (error budgets) (CC BY-NC-ND 4.0, пересказ) — https://sre.google/sre-book/service-level-objectives/ · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan · источник: Google, Site Reliability Engineering (2016), ch. 4 Service Level Objectives; ch. 3 Embracing Risk (error budgets) (CC BY-NC-ND 4.0, пересказ) — https://sre.google/sre-book/service-level-objectives/ · авторитет: industry-practice · сверка со стандартом: aligned
 
 Требования к доступности и скорости пользовательского сервиса задают показатель (SLI: например, доля успешных запросов или задержка), способ и место измерения, целевое значение для перцентиля, а не среднего, и окно измерения. Целевое значение ниже 100%, а остаток (бюджет ошибок) явно используется для решений о релизах.
 
@@ -167,7 +167,7 @@
 
 ### QAP-TS-024 · Рискованный выпуск: флаг или канарейка с критериями отката, тесты для обоих состояний флага
 
-`should` · проверка: эвристика агента · для: test-plan, test-code, requirements · источник: Google, The Site Reliability Workbook (2018), ch. 16 Canarying Releases (пересказ) — https://sre.google/workbook/canarying-releases/; P. Hodgson, Feature Toggles (aka Feature Flags), martinfowler.com — https://martinfowler.com/articles/feature-toggles.html · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-plan, test-code, requirements · источник: Google, The Site Reliability Workbook (2018), ch. 16 Canarying Releases (пересказ) — https://sre.google/workbook/canarying-releases/; P. Hodgson, Feature Toggles (aka Feature Flags), martinfowler.com — https://martinfowler.com/articles/feature-toggles.html · авторитет: industry-practice · сверка со стандартом: aligned
 
 Изменение высокого риска выкатывается постепенно: за флагом функции или канареечным релизом на часть трафика. Заранее заданы метрики (SLI, ошибки, бизнес-показатели), по которым канарейку сравнивают с контролем, и пороги автоматического или ручного отката. Тесты покрывают оба состояния флага: включён и выключен. После снятия флага мёртвая ветка и её тесты удаляются.
 
@@ -175,11 +175,11 @@
 
 **Как проверить:** Для изменения высокого риска (по QAP-TS-001) найти в плане стратегию выкатки. Проходит: указаны флаг или доля канарейки, метрики сравнения, пороги отката; в тестах есть сценарии для включённого и выключенного флага. Не проходит: флаг есть, но тестируется только включённое состояние; канарейка без заранее заданных метрик и порогов.
 
-## Рекомендации (2)
+## Рекомендации (3)
 
 ### QAP-TS-016 · Квадранты как проверка пробелов: есть не только подтверждающие тесты
 
-`nice` · проверка: эвристика агента · для: test-plan · источник: L. Crispin, J. Gregory, Agile Testing (2009), ch. 6 Agile Testing Quadrants, по модели B. Marick (пересказ); ISTQB CTFL v4.0.1 §5.1.7 Testing Quadrants · авторитет: industry-practice
+`nice` · проверка: эвристика агента · для: test-plan · источник: L. Crispin, J. Gregory, Agile Testing (2009), ch. 6 Agile Testing Quadrants, по модели B. Marick (пересказ); ISTQB CTFL v4.0.1 §5.1.7 Testing Quadrants · авторитет: industry-practice · сверка со стандартом: aligned
 
 План сверяется с четырьмя квадрантами тестирования. Q1 — технические тесты, поддерживающие команду (unit, компонентные). Q2 — бизнес-тесты, поддерживающие команду (функциональные, по примерам). Q3 — бизнес-критика продукта (исследовательское, юзабилити, приёмочное). Q4 — техническая критика продукта (производительность, безопасность и прочие нефункциональные). Пустой квадрант допустим, только если это решение, а не упущение.
 
@@ -189,7 +189,7 @@
 
 ### QAP-TS-018 · Сессия исследовательского тестирования завершается отчётом и разбором
 
-`nice` · проверка: вручную · для: test-plan, test-cases · источник: J. Bach, Session-Based Test Management (2000), Satisfice (пересказ) — https://www.satisfice.com/download/session-based-test-management · авторитет: industry-practice
+`nice` · проверка: вручную · для: test-plan, test-cases · источник: J. Bach, Session-Based Test Management (2000), Satisfice (пересказ) — https://www.satisfice.com/download/session-based-test-management · авторитет: industry-practice · сверка со стандартом: aligned
 
 По каждой сессии фиксируется: чартер, длительность, найденные баги, проблемы (вопросы, блокеры, замечания по тестируемости), покрытые области и примерная доля времени на чартер против отвлечений. После сессии проводится короткий разбор, по которому решают, нужны ли новые чартеры.
 
@@ -197,11 +197,21 @@
 
 **Как проверить:** Проверить артефакты сессий. Проходит: есть session sheet с перечисленными полями и итог разбора. Не проходит: от сессий остались только баг-репорты, без покрытого и непокрытого.
 
+### QAP-TS-021 · При раздельном деплое потребителя и провайдера API их контракт проверяется автоматически
+
+`should` · проверка: эвристика агента · для: test-plan, test-code · источник: Martin Fowler, ContractTest (2011) и Ian Robinson, Consumer-Driven Contracts (martinfowler.com) — https://martinfowler.com/bliki/ContractTest.html; Pact docs, «Can I Deploy» — https://docs.pact.io/pact_broker/can_i_deploy · авторитет: industry-practice · сверка со стандартом: aligned
+
+Если фронтенд и бэкенд (или два сервиса) выкатываются независимо, тест-стратегия включает автоматическую проверку контракта между ними: consumer-driven контракты (Pact и аналоги) с верификацией на стороне провайдера, либо проверку ответов по общей OpenAPI-схеме в CI обеих сторон. Перед выкаткой проверяется совместимость версий (например, can-i-deploy).
+
+**Почему:** E2E-тесты на моках держат фронтенд зелёным, даже когда реальный API уже изменился; полные E2E против живого бэкенда медленные и ловят расхождение поздно. Контрактные тесты закрывают этот промежуток дёшево. Содержимое контрактов — QAP-TS-022; форма моков — QAP-TC-015; совместимость изменений API — QAP-API-017.
+
+**Как проверить:** По профилю проекта и CI: деплоятся ли потребитель и провайдер раздельно. Если да — pass, когда в CI есть верификация контрактов провайдером или проверка по общей OpenAPI-схеме на обеих сторонах и проверка совместимости перед деплоем; fail — интеграция подтверждается только моками на стороне потребителя.
+
 ## Практические советы (1)
 
 ### QAP-TS-014 · Пирамида тестов — эвристика распределения, а не норма пропорций
 
-`nice` · проверка: эвристика агента · для: test-plan, test-code · источник: ISTQB CTFL v4.0.1 §5.1.6 Test Pyramid — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf; H. Vocke, The Practical Test Pyramid, martinfowler.com, 2018 (пересказ) — https://martinfowler.com/articles/practical-test-pyramid.html · авторитет: industry-practice
+`nice` · проверка: эвристика агента · для: test-plan, test-code · источник: ISTQB CTFL v4.0.1 §5.1.6 Test Pyramid — https://www.istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf; H. Vocke, The Practical Test Pyramid, martinfowler.com, 2018 (пересказ) — https://martinfowler.com/articles/practical-test-pyramid.html · авторитет: industry-practice · сверка со стандартом: aligned
 
 Пирамида показывает, что тесты нижних слоёв мельче, изолированнее и быстрее, поэтому их обычно больше, а сквозных — немного. Число и названия слоёв варьируются. Аудитор не ставит находку только по соотношению количества тестов на уровнях. Находка возникает при конкретном симптоме: логика, проверяемая на нижнем уровне, проверяется только через UI; сквозные тесты медленные или нестабильные; обратная связь занимает часы.
 
@@ -213,7 +223,7 @@
 
 ### QAP-TS-019 · Полнота требований и чартеров по элементам продукта (SFDIPOT)
 
-`nice` · проверка: эвристика агента · для: requirements, test-plan · источник: J. Bach, Heuristic Test Strategy Model v6.3, Product Elements (SFDIPOT), © Satisfice (пересказ) — https://www.satisfice.com/download/heuristic-test-strategy-model · авторитет: author-opinion
+`nice` · проверка: эвристика агента · для: requirements, test-plan · источник: J. Bach, Heuristic Test Strategy Model v6.3, Product Elements (SFDIPOT), © Satisfice (пересказ) — https://www.satisfice.com/download/heuristic-test-strategy-model · авторитет: author-opinion · сверка со стандартом: aligned
 
 Требования и набор чартеров проверяются на пробелы по элементам продукта. Структура: из чего состоит продукт. Функции: что он делает. Данные: что вводится, хранится и выводится. Интерфейсы: UI, API, импорт и экспорт. Платформа: от чего зависит (браузеры, ОС, сторонние сервисы). Операции: как его реально используют. Время: таймауты, конкурентность, даты, порядок событий.
 

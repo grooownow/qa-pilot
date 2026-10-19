@@ -16,8 +16,9 @@ from pathlib import Path
 
 BUCKETS = ("must", "should", "highlight", "question")
 KINDS = ("bug", "test", "question")
-VERDICTS = ("OK", "BUG", "GAP", "N/A", "DECISION")
+VERDICTS = ("OK", "BUG", "GAP", "N/A", "DECISION", "SUPPRESSED")
 REQUIRED = ("id", "bucket", "kind", "title")
+PRESCRIPTION = ("expected", "source", "level", "target")
 SHOULD_CAP, MUST_WARN = 8, 10
 
 
@@ -41,6 +42,10 @@ def validate_actions(doc):
             errors.append(f"{aid}: kind must be one of {KINDS}")
         if (a.get("kind") == "question") != (a.get("bucket") == "question") and a.get("kind") and a.get("bucket"):
             errors.append(f"{aid}: a question takes bucket 'question', and only questions do")
+        if a.get("kind") in ("test", "bug"):
+            errors.extend(f"{aid}: {key} is required on a {a['kind']}" for key in PRESCRIPTION if not a.get(key))
+        if a.get("kind") == "bug" and a.get("bucket") not in (None, "must"):
+            warnings.append(f"{aid}: a bug belongs in must")
     for key in ("suppressed", "cells"):
         if not isinstance(doc.get(key, []), list):
             errors.append(f"{key} must be a list")
@@ -51,6 +56,8 @@ def validate_actions(doc):
             warnings.append(f"empty cell: {where}")
         elif verdict not in VERDICTS:
             errors.append(f"{where}: verdict must be one of {VERDICTS}")
+        elif verdict == "N/A" and not c.get("evidence"):
+            errors.append(f"{where}: N/A needs evidence")
     buckets = Counter(a.get("bucket") for a in actions if isinstance(a, dict))
     if buckets["should"] > SHOULD_CAP:
         warnings.append(f"should>{SHOULD_CAP}")
@@ -84,7 +91,7 @@ def agreement(doc_a, doc_b):
     """Cell-verdict agreement over the union of (entity, pattern); a cell missing in one run disagrees."""
     def cells(doc):
         return {(c.get("entity"), c.get("pattern")): c.get("verdict") for c in doc.get("cells", [])
-                if isinstance(c, dict)}
+                if isinstance(c, dict) and c.get("entity") and c.get("pattern")}
     a, b = cells(doc_a), cells(doc_b)
     union = set(a) | set(b)
     agree = sum(1 for key in union if key in a and key in b and a[key] == b[key])
@@ -101,6 +108,9 @@ def main(argv):
         print(__doc__, file=sys.stderr)
         return 2
     command, args = argv[1], argv[2:]
+    if command == "agreement" and len(args) != 2:
+        print("agreement needs two actions files", file=sys.stderr)
+        return 2
     if command == "validate":
         errors, warnings = validate_actions(load(args[0]))
         print(json.dumps({"errors": errors, "warnings": warnings}, ensure_ascii=False, indent=1))

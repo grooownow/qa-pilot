@@ -7,7 +7,7 @@
 
 ### QAP-AUTHN-001 · Политика паролей: длина и blocklist вместо правил состава и ротации
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-cases, live-product · источник: NIST SP 800-63B-4, Sec. 3.1.1.1 (Password Authenticators) и Sec. 3.1.1.2 (Password Verifiers), https://pages.nist.gov/800-63-4/sp800-63b.html; OWASP ASVS 5.0.0 V6.2.4, V6.2.5, V6.2.10, V6.2.12, V6.4.2 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V6-Authentication.md · авторитет: normative
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-cases, live-product · источник: NIST SP 800-63B-4, Sec. 3.1.1.1 (Password Authenticators) и Sec. 3.1.1.2 (Password Verifiers), https://pages.nist.gov/800-63-4/sp800-63b.html; OWASP ASVS 5.0.0 V6.2.4, V6.2.5, V6.2.10, V6.2.12, V6.4.2 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V6-Authentication.md · авторитет: normative · сверка со стандартом: aligned
 
 Единственные допустимые ограничения на содержимое пароля — минимальная длина и отказ при совпадении со списком запрещённых значений (утёкшие пароли, частые и словарные, контекстные слова: название сервиса, логин, email и их производные). Требования «заглавная + цифра + спецсимвол», принудительная периодическая смена пароля, подсказки к паролю и секретные вопросы недопустимы. Смена пароля принудительна только при признаках компрометации. При отказе по blocklist пользователь видит причину и подсказку, как выбрать сильный пароль.
 
@@ -17,7 +17,7 @@
 
 ### QAP-AUTHN-002 · Длинные пароли с пробелами и Unicode принимаются и проверяются без искажений
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-cases, test-code, live-product · источник: NIST SP 800-63B-4, Sec. 3.1.1.2 (Password Verifiers), https://pages.nist.gov/800-63-4/sp800-63b.html; OWASP ASVS 5.0.0 V6.2.1, V6.2.8, V6.2.9 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V6-Authentication.md · авторитет: normative
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-cases, test-code, live-product · источник: NIST SP 800-63B-4, Sec. 3.1.1.2 (Password Verifiers), https://pages.nist.gov/800-63-4/sp800-63b.html; OWASP ASVS 5.0.0 V6.2.1, V6.2.8, V6.2.9 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V6-Authentication.md · авторитет: normative · сверка со стандартом: aligned
 
 Минимальная длина пароля — не меньше 8 символов, а если пароль единственный фактор, NIST требует не меньше 15. Максимум — не меньше 64 символов. Пробелы, печатные ASCII и Unicode допустимы, каждая кодовая точка считается одним символом. Пароль проверяется целиком, без усечения и смены регистра; допустима только Unicode-нормализация NFC, одинаковая при установке и проверке. Обрезку пробелов ASVS не допускает вовсе. Обработка одинакова на всех путях: регистрация, вход, смена, сброс, мобильный клиент, API.
 
@@ -27,7 +27,7 @@
 
 ### QAP-AUTHN-003 · Ограничение попыток считается по аккаунту и не даёт заблокировать чужой аккаунт
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: NIST SP 800-63B-4, Sec. 3.2.2 (Rate Limiting (Throttling)), https://pages.nist.gov/800-63-4/sp800-63b.html; OWASP ASVS 5.0.0 V6.1.1, V6.3.1 (CC BY-SA 4.0); OWASP Authentication Cheat Sheet, «Account Lockout» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html · авторитет: normative
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: NIST SP 800-63B-4, Sec. 3.2.2 (Rate Limiting (Throttling)), https://pages.nist.gov/800-63-4/sp800-63b.html; OWASP ASVS 5.0.0 V6.1.1, V6.3.1 (CC BY-SA 4.0); OWASP Authentication Cheat Sheet, «Account Lockout» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html · авторитет: normative · сверка со стандартом: aligned
 
 Спека описывает защиту от перебора паролей и credential stuffing для каждого пути аутентификации (пароль, OTP, код из письма, код восстановления): где ведётся счётчик неудач, порог, задержки или CAPTCHA, что происходит на пороге и как владелец восстанавливает доступ. Счётчик привязан к аккаунту, а не только к IP: смена IP не обнуляет его. Порог не превышает 100 последовательных неудач. Блокировка не должна превращаться в инструмент отказа в обслуживании: злоумышленник не может навсегда запереть чужой аккаунт.
 
@@ -37,7 +37,7 @@
 
 ### QAP-AUTHN-004 · Вход, сброс пароля и регистрация не раскрывают, существует ли аккаунт
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, live-product · источник: OWASP ASVS 5.0.0 V6.3.8 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V6-Authentication.md; OWASP Authentication Cheat Sheet, «Authentication and Error Messages»; OWASP Forgot Password Cheat Sheet, «Forgot Password Request» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan, live-product · источник: OWASP ASVS 5.0.0 V6.3.8 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V6-Authentication.md; OWASP Authentication Cheat Sheet, «Authentication and Error Messages»; OWASP Forgot Password Cheat Sheet, «Forgot Password Request» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html · авторитет: industry-practice · сверка со стандартом: aligned
 
 Для существующего и несуществующего логина или email ответы входа, запроса сброса пароля и регистрации неотличимы: одинаковый текст, HTTP-статус, редирект, набор заголовков и cookie, сопоставимое время ответа. Заблокированный или неактивированный аккаунт тоже не выдаёт себя отдельным сообщением. Для сброса — нейтральная формулировка вида «если такой адрес зарегистрирован, мы отправили письмо». Если продукт сознательно раскрывает существование аккаунта ради UX, это решение записано в спеке, а перебор ограничен лимитами или CAPTCHA.
 
@@ -47,7 +47,7 @@
 
 ### QAP-AUTHN-006 · Выход из системы уничтожает сессию на сервере
 
-`must` · проверка: детерминированно · для: requirements, test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 V7.4.1, V7.4.4 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md; OWASP Session Management Cheat Sheet, «Session Expiration», «Logout Button», «Web Content Caching and Clear-Site-Data» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html; NIST SP 800-63B-4, Sec. 5.1 (Session Bindings) · авторитет: normative
+`must` · проверка: детерминированно · для: requirements, test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 V7.4.1, V7.4.4 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md; OWASP Session Management Cheat Sheet, «Session Expiration», «Logout Button», «Web Content Caching and Clear-Site-Data» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html; NIST SP 800-63B-4, Sec. 5.1 (Session Bindings) · авторитет: normative · сверка со стандартом: aligned
 
 Logout завершает сессию на сервере, а не только удаляет cookie или токен в браузере. Старый идентификатор сессии или refresh-токен, сохранённый до выхода, после выхода отклоняется. Ответы со страниц с личными данными не кешируются (Cache-Control: no-store), поэтому кнопка «Назад» после выхода не показывает приватную страницу. Кнопка выхода доступна с каждой страницы, требующей входа.
 
@@ -57,7 +57,7 @@ Logout завершает сессию на сервере, а не только
 
 ### QAP-AUTHN-007 · При входе выдаётся новый идентификатор сессии
 
-`must` · проверка: детерминированно · для: test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 V7.2.4 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md; OWASP Session Management Cheat Sheet, «Renew the Session ID After Any Privilege Level Change», «Session ID Generation and Verification» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html · авторитет: normative
+`must` · проверка: детерминированно · для: test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 V7.2.4 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md; OWASP Session Management Cheat Sheet, «Renew the Session ID After Any Privilege Level Change», «Session ID Generation and Verification» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html · авторитет: normative · сверка со стандартом: aligned
 
 При успешной аутентификации, повторной аутентификации и смене уровня привилегий (вход в админ-режим, смена пароля) сервер выдаёт новый идентификатор сессии, а прежний становится недействительным. Сервер не принимает идентификатор сессии, который сам не выдавал.
 
@@ -67,7 +67,7 @@ Logout завершает сессию на сервере, а не только
 
 ### QAP-AUTHN-008 · Тайм-ауты сессии заданы в спеке и применяются на сервере
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, live-product · источник: OWASP ASVS 5.0.0 V7.1.1, V7.1.2, V7.3.1, V7.3.2 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md; NIST SP 800-63B-4, Sec. 2.2.3 (AAL2 Reauthentication), Sec. 5.2 (Reauthentication), https://pages.nist.gov/800-63-4/sp800-63b.html; OWASP Session Management Cheat Sheet, «Idle Timeout», «Absolute Timeout» (CC BY-SA 4.0) · авторитет: normative
+`should` · проверка: эвристика агента · для: requirements, test-plan, live-product · источник: OWASP ASVS 5.0.0 V7.1.1, V7.1.2, V7.3.1, V7.3.2 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md; NIST SP 800-63B-4, Sec. 2.2.3 (AAL2 Reauthentication), Sec. 5.2 (Reauthentication), https://pages.nist.gov/800-63-4/sp800-63b.html; OWASP Session Management Cheat Sheet, «Idle Timeout», «Absolute Timeout» (CC BY-SA 4.0) · авторитет: normative · сверка со стандартом: aligned
 
 Спека задаёт оба тайм-аута сессии с конкретными значениями: по бездействию и абсолютный (максимальная длительность с момента входа), с обоснованием отклонений. Ориентир NIST для уровня AAL2: бездействие не больше часа, абсолютный — не больше 24 часов. Активность продлевает только тайм-аут бездействия; абсолютный обнуляется лишь повторной аутентификацией. Оба тайм-аута проверяет сервер; клиентский таймер — только подсказка для пользователя. Описано и число параллельных сессий на аккаунт и поведение при превышении.
 
@@ -77,7 +77,7 @@ Logout завершает сессию на сервере, а не только
 
 ### QAP-AUTHN-010 · «Запомнить меня» имеет конечный срок и отзывается вместе с сессиями
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, live-product · источник: NIST SP 800-63B-4, Sec. 5.1 (Session Bindings), Sec. 2.2.3 (AAL2 Reauthentication), https://pages.nist.gov/800-63-4/sp800-63b.html; OWASP ASVS 5.0.0 V7.4.3, V7.5.1 (CC BY-SA 4.0); OWASP Authentication Cheat Sheet, «Adaptive or Risk Based Authentication» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan, live-product · источник: NIST SP 800-63B-4, Sec. 5.1 (Session Bindings), Sec. 2.2.3 (AAL2 Reauthentication), https://pages.nist.gov/800-63-4/sp800-63b.html; OWASP ASVS 5.0.0 V7.4.3, V7.5.1 (CC BY-SA 4.0); OWASP Authentication Cheat Sheet, «Adaptive or Risk Based Authentication» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если есть «Запомнить меня», спека задаёт срок жизни постоянного токена и условия его отзыва: logout, «выйти на всех устройствах», смена или сброс пароля, блокировка аккаунта. Токен — случайное непрозрачное значение в HttpOnly-cookie, а не логин, пароль или его хеш на клиенте. Запомненное устройство не заменяет повторную аутентификацию для чувствительных действий (смена email, пароля, MFA, платёжных данных). Без флажка сессионный токен не переживает перезапуск браузера.
 
@@ -87,7 +87,7 @@ Logout завершает сессию на сервере, а не только
 
 ### QAP-AUTHN-011 · Смена пароля, email и MFA требует повторной аутентификации и сопровождается уведомлением
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-cases, live-product · источник: OWASP ASVS 5.0.0 V6.2.3, V6.3.7 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V6-Authentication.md; OWASP ASVS 5.0.0 V7.4.3, V7.5.1 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md; OWASP Authentication Cheat Sheet, «Change Password Feature», «Changing A User's Registered Email Address» (CC BY-SA 4.0); NIST SP 800-63B-4, Sec. 4.6 (Account Notifications), https://pages.nist.gov/800-63-4/sp800-63b.html · авторитет: normative
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-cases, live-product · источник: OWASP ASVS 5.0.0 V6.2.3, V6.3.7 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V6-Authentication.md; OWASP ASVS 5.0.0 V7.4.3, V7.5.1 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x16-V7-Session-Management.md; OWASP Authentication Cheat Sheet, «Change Password Feature», «Changing A User's Registered Email Address» (CC BY-SA 4.0); NIST SP 800-63B-4, Sec. 4.6 (Account Notifications), https://pages.nist.gov/800-63-4/sp800-63b.html · авторитет: normative · сверка со стандартом: aligned
 
 Для смены пароля требуется текущий пароль. Смена email, телефона, настроек MFA и других данных для восстановления требует повторной аутентификации. После таких изменений пользователь получает уведомление по прежнему каналу (на старый email). После смены пароля или фактора пользователь может завершить все остальные сессии, либо они завершаются автоматически.
 
@@ -97,7 +97,7 @@ Logout завершает сессию на сервере, а не только
 
 ### QAP-AUTHN-012 · Одноразовые коды MFA и входа: одно использование, короткий срок, лимит попыток
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 V6.5.1, V6.5.5, V6.6.1, V6.6.2, V6.6.3 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V6-Authentication.md; NIST SP 800-63B-4, Sec. 3.1.3.2 (Out-of-Band Verifiers), Sec. 3.2.2 (Rate Limiting), https://pages.nist.gov/800-63-4/sp800-63b.html · авторитет: normative
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 V6.5.1, V6.5.5, V6.6.1, V6.6.2, V6.6.3 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V6-Authentication.md; NIST SP 800-63B-4, Sec. 3.1.3.2 (Out-of-Band Verifiers), Sec. 3.2.2 (Rate Limiting), https://pages.nist.gov/800-63-4/sp800-63b.html · авторитет: normative · сверка со стандартом: aligned
 
 Код подтверждения входа (TOTP, код из SMS, email или push) срабатывает только один раз, имеет ограниченный срок жизни (для кодов вне основного канала — до 10 минут, для TOTP — окно около 30 секунд) и привязан к той попытке входа, для которой выпущен. Неверные вводы ограничены по числу, и запрос нового кода не обнуляет счётчик неудач. Код из SMS отправляется только на ранее подтверждённый номер.
 
@@ -107,7 +107,7 @@ Logout завершает сессию на сервере, а не только
 
 ### QAP-AUTHN-013 · Cookie сессии: Secure, HttpOnly, SameSite, минимальная область
 
-`must` · проверка: детерминированно · для: test-code, live-product · источник: NIST SP 800-63B-4, Sec. 5.1 (Session Bindings), Sec. 5.1.1 (Browser Cookies), https://pages.nist.gov/800-63-4/sp800-63b.html; OWASP ASVS 5.0.0 V3.3.1, V3.3.2, V3.3.3, V3.3.4 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x12-V3-Web-Frontend-Security.md; OWASP Session Management Cheat Sheet, «Cookies» (CC BY-SA 4.0) · авторитет: normative
+`must` · проверка: детерминированно · для: test-code, live-product · источник: NIST SP 800-63B-4, Sec. 5.1 (Session Bindings), Sec. 5.1.1 (Browser Cookies), https://pages.nist.gov/800-63-4/sp800-63b.html; OWASP ASVS 5.0.0 V3.3.1, V3.3.2, V3.3.3, V3.3.4 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x12-V3-Web-Frontend-Security.md; OWASP Session Management Cheat Sheet, «Cookies» (CC BY-SA 4.0) · авторитет: normative · сверка со стандартом: aligned
 
 Cookie, которая несёт сессию или refresh-токен, имеет атрибуты Secure и HttpOnly, явный SameSite (Lax или Strict, если нет обоснованной кросс-сайтовой потребности), по возможности префикс __Host- с Path=/ и без Domain. Значение — непрозрачный идентификатор без персональных данных в открытом виде. Токены сессии не хранятся в localStorage.
 
@@ -117,7 +117,7 @@ Cookie, которая несёт сессию или refresh-токен, име
 
 ### QAP-AUTHN-014 · Адрес возврата после входа и выхода не превращается в open redirect
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 V3.7.2, V10.4.1 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x19-V10-OAuth-and-OIDC.md; RFC 9700 (OAuth 2.0 Security Best Current Practice), §4.1 (Insufficient Redirection URI Validation), §4.11 (Open Redirection), https://www.rfc-editor.org/rfc/rfc9700 · авторитет: normative
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 V3.7.2, V10.4.1 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x19-V10-OAuth-and-OIDC.md; RFC 9700 (OAuth 2.0 Security Best Current Practice), §4.1 (Insufficient Redirection URI Validation), §4.11 (Open Redirection), https://www.rfc-editor.org/rfc/rfc9700 · авторитет: normative · сверка со стандартом: aligned
 
 Параметр возврата после входа, выхода или OAuth-колбэка (next, returnTo, redirect, callbackUrl, post_logout_redirect_uri) принимает только относительный путь своего приложения или адрес из явного allowlist. Внешний домен, protocol-relative адрес (//evil.example), javascript: и похожие на свой домен адреса (example.com.evil.example) отклоняются или заменяются стартовой страницей. Сервер авторизации сверяет redirect_uri с заранее зарегистрированным списком точным сравнением строк.
 
@@ -127,7 +127,7 @@ Cookie, которая несёт сессию или refresh-токен, име
 
 ### QAP-AUTHN-015 · Вход через OAuth/OIDC: проверка state или PKCE и nonce, привязка аккаунта по iss+sub
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 V6.8.1, V6.8.2 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V6-Authentication.md; OWASP ASVS 5.0.0 V10.1.2, V10.2.1, V10.4.2, V10.4.4, V10.5.1, V10.5.2, V10.5.4, V10.6.1 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x19-V10-OAuth-and-OIDC.md; OWASP Authentication Cheat Sheet, «OpenID Connect (OIDC)», «Secure Federated Account Linking» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html; RFC 9700 §2.1.2 (Implicit Grant), §4.7 (Cross-Site Request Forgery), https://www.rfc-editor.org/rfc/rfc9700 · авторитет: normative
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 V6.8.1, V6.8.2 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x15-V6-Authentication.md; OWASP ASVS 5.0.0 V10.1.2, V10.2.1, V10.4.2, V10.4.4, V10.5.1, V10.5.2, V10.5.4, V10.6.1 (CC BY-SA 4.0), https://github.com/OWASP/ASVS/blob/master/5.0/en/0x19-V10-OAuth-and-OIDC.md; OWASP Authentication Cheat Sheet, «OpenID Connect (OIDC)», «Secure Federated Account Linking» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html; RFC 9700 §2.1.2 (Implicit Grant), §4.7 (Cross-Site Request Forgery), https://www.rfc-editor.org/rfc/rfc9700 · авторитет: normative · сверка со стандартом: aligned
 
 Клиент принимает код авторизации и ID Token только из потока, начатого в этой же сессии браузера: state или PKCE проверяются в колбэке, nonce в ID Token сверяется с отправленным. Подпись, iss, aud и exp ID Token проверяются. Внешний аккаунт привязывается к локальному по паре iss+sub, а не по совпадению email: вход через нового провайдера с тем же email не должен автоматически открывать существующий аккаунт без подтверждения владельцем. Implicit flow (response_type=token) не используется.
 
@@ -139,7 +139,7 @@ Cookie, которая несёт сессию или refresh-токен, име
 
 ### QAP-AUTHN-005 · Ссылка сброса пароля: одноразовая, короткоживущая, не утекает и не обходит MFA
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-cases, live-product · источник: OWASP Forgot Password Cheat Sheet, «Forgot Password Request», «User Resets Password», «Account Recovery After Suspected Compromise», «URL Tokens» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html; OWASP ASVS 5.0.0 V6.4.3, V7.4.3 (CC BY-SA 4.0); NIST SP 800-63B-4, Sec. 4.2.1.2 (Issued Recovery Codes), https://pages.nist.gov/800-63-4/sp800-63b.html · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-cases, live-product · источник: OWASP Forgot Password Cheat Sheet, «Forgot Password Request», «User Resets Password», «Account Recovery After Suspected Compromise», «URL Tokens» (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html; OWASP ASVS 5.0.0 V6.4.3, V7.4.3 (CC BY-SA 4.0); NIST SP 800-63B-4, Sec. 4.2.1.2 (Issued Recovery Codes), https://pages.nist.gov/800-63-4/sp800-63b.html · авторитет: industry-practice · сверка со стандартом: aligned
 
 Тест-план сброса пароля покрывает: (1) повторный переход по использованной ссылке отклоняется; (2) просроченная ссылка отклоняется, срок жизни указан в спеке (для кода по email NIST допускает не больше 24 часов); (3) после успешного сброса все прочие выданные ранее ссылки недействительны; (4) домен в ссылке не берётся из заголовка Host запроса; (5) на странице сброса стоит Referrer-Policy: no-referrer, а токен не уходит сторонним скриптам и аналитике; (6) сброс не обходит включённую MFA; (7) после сброса пользователь входит обычным способом (без автологина), получает уведомление, а другие сессии завершаются или пользователю предлагается их завершить; (8) запросы сброса ограничены по частоте.
 

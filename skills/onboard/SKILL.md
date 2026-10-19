@@ -54,7 +54,7 @@ ONE Explore-type subagent with this checklist instead of scanning inline:
   - test-code linting (eslint-plugin-playwright/jest/testing-library).
 
   `qa-pilot:project-audit` turns the gaps into a roadmap. Rules that back
-  each area: `knowledge/qa-pilot/rules/test-code.json` and
+  each area: `../../knowledge/qa-pilot/rules/test-code.json` and
   `test-strategy.json`.
 - **Trackers & environments:** references to issue trackers, deployment URLs,
   env files (never read secret VALUES — note only which env vars exist).

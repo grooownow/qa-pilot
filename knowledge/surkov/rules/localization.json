@@ -215,7 +215,7 @@
     ],
     "check": {
       "mode": "heuristic",
-      "how": "Проверить цены в разных локалях. В коде искать склейку строк вида '$' + amount или amount + ' ₽' вместо форматирования по локали (Intl.NumberFormat style:'currency')."
+      "how": "Проверить цены в нескольких локалях одного рынка (например en-CA и fr-CA): положение знака соответствует локали по CLDR. В коде искать склейку '$' + amount или amount + ' ₽' вместо Intl.NumberFormat(locale, {style:'currency'}). Fail — ручная склейка или фиксированное положение знака для всех локалей."
     },
     "source": {
       "chunk_id": "s4-c05-02",
@@ -230,9 +230,9 @@
       "needs-i18n",
       "needs-payments"
     ],
-    "verification": "ok",
+    "verification": "fixed",
     "authority": "industry-practice",
-    "external_check": "conflict",
+    "external_check": "aligned",
     "modern_note": "Положение знака валюты зависит от локали, а не страны: en-CA «$100.00», fr-CA «100,00 $» (Unicode CLDR). Проверять через Intl.NumberFormat."
   },
   {

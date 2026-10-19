@@ -24,7 +24,8 @@
       "error-handling"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WINV-002",
@@ -52,7 +53,8 @@
       "accessibility"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WINV-003",
@@ -80,7 +82,8 @@
       "security"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WINV-004",
@@ -108,7 +111,8 @@
       "polling"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WINV-005",
@@ -136,7 +140,8 @@
       "accessibility"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-WINV-006",
@@ -164,6 +169,7 @@
       "retry"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   }
 ]

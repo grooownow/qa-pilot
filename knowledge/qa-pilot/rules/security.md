@@ -7,7 +7,7 @@
 
 ### QAP-SEC-001 · Спека задаёт матрицу доступа: функции, объекты и поля
 
-`should` · проверка: эвристика агента · для: requirements, test-plan · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V8.1.1, V8.1.2; OWASP Top 10 2025 A01. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/ · авторитет: normative
+`should` · проверка: эвристика агента · для: requirements, test-plan · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V8.1.1, V8.1.2; OWASP Top 10 2025 A01. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/ · авторитет: normative · сверка со стандартом: aligned
 
 Требования описывают, кто (роль, владелец, участник команды или тенанта) может выполнять каждое действие, над какими объектами и какие поля объекта может читать и менять. Правила для полей учитывают состояние объекта (например, после публикации нельзя менять цену).
 
@@ -17,7 +17,7 @@
 
 ### QAP-SEC-002 · BOLA: каждый эндпоинт с ID объекта проверен под вторым пользователем
 
-`must` · проверка: эвристика агента · для: test-plan, test-code, test-cases, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API1 (How To Prevent); OWASP ASVS 5.0.0 (CC BY-SA 4.0) V8.2.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-APIT-02, WSTG-ATHZ-04. https://owasp.org/API-Security/editions/2023/en/0x11-t10/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-code, test-cases, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API1 (How To Prevent); OWASP ASVS 5.0.0 (CC BY-SA 4.0) V8.2.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-APIT-02, WSTG-ATHZ-04. https://owasp.org/API-Security/editions/2023/en/0x11-t10/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative · сверка со стандартом: aligned
 
 Для каждой операции, принимающей идентификатор объекта (чтение, изменение, удаление, экспорт, вложенные действия вроде /orders/{id}/cancel), есть негативный тест: пользователь B той же роли обращается к объекту пользователя A и получает отказ (403 или 404 по решению спеки), а объект не меняется и его данные не попадают в ответ. Случайные UUID в качестве ID не заменяют эту проверку: идентификаторы утекают через ссылки, логи и списки. Для вложенных путей (/parents/{p}/children/{c}) план содержит комбинации «свой родитель + чужой дочерний объект», «чужой родитель + свой дочерний» и плоский эндпоинт дочернего объекта, если он есть.
 
@@ -27,7 +27,7 @@
 
 ### QAP-SEC-004 · BFLA: привилегированные эндпоинты вызваны напрямую токеном низкой роли
 
-`must` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API5; OWASP ASVS 5.0.0 (CC BY-SA 4.0) V8.2.1; OWASP WSTG latest (CC BY-SA 4.0) WSTG-APIT-04, WSTG-ATHZ-02, WSTG-ATHZ-03. https://owasp.org/API-Security/editions/2023/en/0xa5-broken-function-level-authorization/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API5; OWASP ASVS 5.0.0 (CC BY-SA 4.0) V8.2.1; OWASP WSTG latest (CC BY-SA 4.0) WSTG-APIT-04, WSTG-ATHZ-02, WSTG-ATHZ-03. https://owasp.org/API-Security/editions/2023/en/0xa5-broken-function-level-authorization/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Каждый административный или привилегированный эндпоинт (включая другой HTTP-метод на том же пути, например DELETE рядом с разрешённым GET, и маршруты /admin, /internal, /api/v1/users/{id}/role) проверен прямым запросом с токеном обычного пользователя. Ожидается отказ, действие не выполнено.
 
@@ -37,7 +37,7 @@
 
 ### QAP-SEC-005 · Ограничение «только в UI» не считается проверкой прав
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V8.3.1; OWASP Top 10 2025 A01 (CWE-602 в A06). https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/ · авторитет: normative
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V8.3.1; OWASP Top 10 2025 A01 (CWE-602 в A06). https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/ · авторитет: normative · сверка со стандартом: aligned
 
 Если спека описывает ограничение доступа через интерфейс («кнопка скрыта», «пункт меню недоступен», «поле read-only»), рядом должно быть требование к серверу. Тест, проверяющий права только видимостью элемента, не засчитывается как покрытие авторизации.
 
@@ -47,7 +47,7 @@
 
 ### QAP-SEC-006 · Мультитенантность: данные одного тенанта не видны другому ни в каких выборках
 
-`must` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V8.4.1; OWASP Top 10 2025 A01. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V8.4.1; OWASP Top 10 2025 A01. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative · сверка со стандартом: aligned
 
 В мультитенантном продукте тесты используют минимум два тенанта и проверяют не только доступ по ID, но и списки, поиск, автодополнение, экспорт, агрегаты и счётчики, вебхуки и уведомления: ни одна запись или цифра другого тенанта не попадает в ответ.
 
@@ -57,7 +57,7 @@
 
 ### QAP-SEC-007 · BOPLA на чтение: тест сверяет точный набор полей ответа
 
-`must` · проверка: эвристика агента · для: test-code, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API3; OWASP ASVS 5.0.0 (CC BY-SA 4.0) V15.3.1, V8.2.3, V14.2.6; OWASP WSTG latest (CC BY-SA 4.0) WSTG-APIT-03. https://owasp.org/API-Security/editions/2023/en/0x11-t10/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative
+`must` · проверка: эвристика агента · для: test-code, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API3; OWASP ASVS 5.0.0 (CC BY-SA 4.0) V15.3.1, V8.2.3, V14.2.6; OWASP WSTG latest (CC BY-SA 4.0) WSTG-APIT-03. https://owasp.org/API-Security/editions/2023/en/0x11-t10/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative · сверка со стандартом: aligned
 
 Тесты API для чувствительных сущностей (пользователь, заказ, профиль) проверяют ответ по строгой схеме или списку разрешённых полей для текущей роли, а не только наличие нужных полей. Лишние поля (email или телефон чужого пользователя, password_hash, внутренние флаги, токены) — дефект.
 
@@ -67,7 +67,7 @@
 
 ### QAP-SEC-008 · Mass assignment: лишние поля в теле запроса игнорируются или отклоняются
 
-`must` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API3 (включает mass assignment); OWASP ASVS 5.0.0 (CC BY-SA 4.0) V15.3.3, V8.2.3; OWASP WSTG latest (CC BY-SA 4.0) WSTG-INJT-20. https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API3 (включает mass assignment); OWASP ASVS 5.0.0 (CC BY-SA 4.0) V15.3.3, V8.2.3; OWASP WSTG latest (CC BY-SA 4.0) WSTG-INJT-20. https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Для каждой операции создания и изменения есть тест, добавляющий в тело поля, которые клиент менять не должен: роль, owner_id или user_id, tenant_id, статус, цену или скидку, флаги верификации, created_at. Затем тест перечитывает объект и проверяет, что значения не изменились (или запрос отклонён).
 
@@ -77,7 +77,7 @@
 
 ### QAP-SEC-009 · Негативный тест безопасности проверяет отсутствие побочного эффекта
 
-`must` · проверка: эвристика агента · для: test-code · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API1 (How To Prevent: тесты на механизм авторизации); OWASP ASVS 5.0.0 (CC BY-SA 4.0) V8.2.1, V8.2.2. https://owasp.org/API-Security/editions/2023/en/0x11-t10/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: test-code · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API1 (How To Prevent: тесты на механизм авторизации); OWASP ASVS 5.0.0 (CC BY-SA 4.0) V8.2.1, V8.2.2. https://owasp.org/API-Security/editions/2023/en/0x11-t10/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: industry-practice · сверка со стандартом: aligned
 
 Тест на отказ в доступе (BOLA, BFLA, mass assignment, CSRF) проверяет не только код ответа, но и что состояние не изменилось: повторное чтение привилегированным клиентом или запрос в БД. Проверка «статус не 200» без конкретного ожидаемого кода тоже недостаточна.
 
@@ -87,7 +87,7 @@
 
 ### QAP-SEC-010 · Валидация на сервере проверена в обход клиента
 
-`must` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V2.2.2, V2.2.1; OWASP Top 10 2025 A06 (CWE-602 Client-Side Enforcement of Server-Side Security). https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A06_2025-Insecure_Design/ · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V2.2.2, V2.2.1; OWASP Top 10 2025 A06 (CWE-602 Client-Side Enforcement of Server-Side Security). https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A06_2025-Insecure_Design/ · авторитет: normative · сверка со стандартом: aligned
 
 Каждое ограничение ввода, важное для безопасности или бизнеса (длина, диапазон, формат, перечисление, связка полей), проверено прямым запросом к API в обход фронтенда. Тест, проверяющий только сообщение об ошибке в форме, не покрывает серверную валидацию.
 
@@ -97,7 +97,7 @@
 
 ### QAP-SEC-011 · Запрет «спецсимволов» не считается защитой от инъекций
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V1.2.4, V1.2.1, V2.2.1; OWASP Top 10 2025 A05. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A05_2025-Injection/ · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V1.2.4, V1.2.1, V2.2.1; OWASP Top 10 2025 A05. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A05_2025-Injection/ · авторитет: industry-practice · сверка со стандартом: aligned
 
 Спека не требует запрещать апострофы, кавычки, угловые скобки или нелатинские буквы ради безопасности. Защита от инъекций — параметризованные запросы и контекстное кодирование при выводе. Валидация по allowlist допустима, если обоснована форматом данных (номер заказа, код страны), а не страхом перед инъекцией.
 
@@ -107,7 +107,7 @@
 
 ### QAP-SEC-012 · XSS проверяется во всех местах вывода, а не в поле ввода
 
-`must` · проверка: эвристика агента · для: test-plan, test-cases, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V1.2.1, V1.2.3, V3.2.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-INJT-01, WSTG-INJT-02, WSTG-CLNT-01; OWASP Top 10 2025 A05. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-cases, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V1.2.1, V1.2.3, V3.2.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-INJT-01, WSTG-INJT-02, WSTG-CLNT-01; OWASP Top 10 2025 A05. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Тест-план на хранимый XSS сохраняет payload через поле или API и затем проверяет каждое место, где значение отображается: страница сущности, списки, уведомления, письма, админка, экспорт в HTML или PDF, title и атрибуты, href. Для каждого контекста (HTML-текст, атрибут, URL, JS или JSON внутри страницы) свой payload.
 
@@ -117,7 +117,7 @@
 
 ### QAP-SEC-013 · Опасные HTML-синки получают только санитизированные данные
 
-`must` · проверка: эвристика агента · для: live-product, test-plan · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V1.3.1, V1.3.2, V1.3.5, V3.2.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-CLNT-01, WSTG-CLNT-03. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: live-product, test-plan · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V1.3.1, V1.3.2, V1.3.5, V3.2.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-CLNT-01, WSTG-CLNT-03. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 В коде фронтенда пользовательские данные не попадают в dangerouslySetInnerHTML, v-html, innerHTML, outerHTML, insertAdjacentHTML, document.write, eval, new Function без санитайзера (например, DOMPurify). Markdown и rich-text пользователей рендерятся через санитайзер с запретом скриптов и обработчиков событий.
 
@@ -127,7 +127,7 @@
 
 ### QAP-SEC-014 · Пользовательские URL ограничены схемами http и https
 
-`must` · проверка: эвристика агента · для: test-plan, test-cases, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V1.2.2, V3.7.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-CLNT-04. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-cases, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V1.2.2, V3.7.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-CLNT-04. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Везде, где пользователь задаёт ссылку, которая потом показывается другим или используется для перехода (сайт в профиле, ссылка в комментарии или описании, параметры redirect/next/url вне входа), допускаются только схемы http(s), а автоматический редирект на чужой домен выполняется только по allowlist. Ссылки javascript:, data:, vbscript: не становятся кликабельными.
 
@@ -137,7 +137,7 @@
 
 ### QAP-SEC-015 · Изменяющие операции не выполняются через GET
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.5.3; OWASP Top 10 2025 A01. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative
+`must` · проверка: эвристика агента · для: requirements, test-plan, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.5.3; OWASP Top 10 2025 A01. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative · сверка со стандартом: aligned
 
 Действия, меняющие состояние (удаление, подписка и отписка, смена настроек, подтверждение), не доступны методами GET или HEAD, либо сервер строго проверяет заголовки Sec-Fetch-* и отклоняет кросс-сайтовую навигацию и загрузку ресурсов. Ссылки из писем ведут на страницу подтверждения, а не выполняют действие сразу.
 
@@ -147,7 +147,7 @@
 
 ### QAP-SEC-016 · CSRF для cookie-аутентификации проверен запросом без preflight
 
-`must` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.5.1, V3.5.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-SESS-05; OWASP Top 10 2025 A01 (CWE-352). https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.5.1, V3.5.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-SESS-05; OWASP Top 10 2025 A01 (CWE-352). https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Если API аутентифицирует по cookie, тест отправляет изменяющий запрос с чужого origin в форме «простого» запроса (form-urlencoded, multipart или text/plain без нестандартных заголовков, то есть без CORS-preflight) и ожидает отказ: CSRF-токен, проверка Origin/Sec-Fetch-Site или отказ от неподдерживаемого Content-Type. Для API с Bearer-токеном в заголовке Authorization CSRF-находку не заводить.
 
@@ -157,7 +157,7 @@
 
 ### QAP-SEC-017 · CORS не отражает произвольный Origin вместе с credentials
 
-`must` · проверка: детерминированно · для: live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.4.2; OWASP Top 10 2025 A01 (CORS misconfiguration); OWASP WSTG latest (CC BY-SA 4.0) WSTG-CLNT-07. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/ https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: детерминированно · для: live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.4.2; OWASP Top 10 2025 A01 (CORS misconfiguration); OWASP WSTG latest (CC BY-SA 4.0) WSTG-CLNT-07. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/ https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Access-Control-Allow-Origin либо фиксирован, либо сверяется с allowlist. Ответ не возвращает присланный Origin как есть (и значение null) при Access-Control-Allow-Credentials: true. Wildcard * допустим только для ответов без чувствительных данных.
 
@@ -167,7 +167,7 @@ Access-Control-Allow-Origin либо фиксирован, либо сверяе
 
 ### QAP-SEC-018 · В клиентском бандле нет секретов
 
-`must` · проверка: эвристика агента · для: live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V13.3.1; OWASP WSTG latest (CC BY-SA 4.0) WSTG-INFO-05; OWASP Top 10 2025 A02. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V13.3.1; OWASP WSTG latest (CC BY-SA 4.0) WSTG-INFO-05; OWASP Top 10 2025 A02. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Собранный JS, source maps и HTML не содержат серверных секретов: приватных API-ключей (платёжных, LLM-провайдеров, почтовых), service-role ключей БД (например, Supabase service_role), приватных ключей и токенов CI. Публичными могут быть только ключи, предназначенные для браузера (publishable, anon с RLS).
 
@@ -177,7 +177,7 @@ Access-Control-Allow-Origin либо фиксирован, либо сверяе
 
 ### QAP-SEC-019 · Секреты не попадают в тестовый код и фикстуры
 
-`must` · проверка: детерминированно · для: test-code · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V13.3.1, V13.2.3. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative
+`must` · проверка: детерминированно · для: test-code · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V13.3.1, V13.2.3. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative · сверка со стандартом: aligned
 
 Тесты получают токены, пароли и ключи из переменных окружения или секретов CI. В репозитории нет реальных учётных данных стендов и прода, а записанные HAR и снапшоты ответов не содержат живых токенов.
 
@@ -187,7 +187,7 @@ Access-Control-Allow-Origin либо фиксирован, либо сверяе
 
 ### QAP-SEC-020 · Служебные артефакты и отладка не доступны в проде
 
-`must` · проверка: эвристика агента · для: live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V13.4.1, V13.4.2, V13.4.3, V13.4.5, V15.2.3; OWASP WSTG latest (CC BY-SA 4.0) WSTG-CONF-04, WSTG-CONF-05, WSTG-INFO-05; OWASP Top 10 2025 A02. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V13.4.1, V13.4.2, V13.4.3, V13.4.5, V15.2.3; OWASP WSTG latest (CC BY-SA 4.0) WSTG-CONF-04, WSTG-CONF-05, WSTG-INFO-05; OWASP Top 10 2025 A02. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 На проде недоступны: каталог .git, файлы .env, публичные source maps (если это не решение команды), отладочные режимы фреймворка, страницы документации и мониторинга внутренних API (swagger, actuator, /debug), листинг каталогов, тестовые и демо-эндпоинты.
 
@@ -197,7 +197,7 @@ Access-Control-Allow-Origin либо фиксирован, либо сверяе
 
 ### QAP-SEC-021 · Чувствительные данные не передаются в URL и сторонним трекерам
 
-`should` · проверка: эвристика агента · для: requirements, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V14.2.1, V14.2.3, V3.4.5; OWASP Top 10 2025 A06 (CWE-598). https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A06_2025-Insecure_Design/ · авторитет: normative
+`should` · проверка: эвристика агента · для: requirements, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V14.2.1, V14.2.3, V3.4.5; OWASP Top 10 2025 A06 (CWE-598). https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A06_2025-Insecure_Design/ · авторитет: normative · сверка со стандартом: aligned
 
 Токены, ключи, коды сброса пароля после первого перехода, email и другие персональные данные не передаются в query string и не уходят в аналитику, session replay, сторонние виджеты. Поля паролей и платёжных данных замаскированы в записи сессий.
 
@@ -207,7 +207,7 @@ Access-Control-Allow-Origin либо фиксирован, либо сверяе
 
 ### QAP-SEC-022 · HSTS на всех ответах со сроком не меньше года
 
-`should` · проверка: детерминированно · для: live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.4.1; OWASP WSTG latest (CC BY-SA 4.0) WSTG-CONF-07. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`should` · проверка: детерминированно · для: live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.4.1; OWASP WSTG latest (CC BY-SA 4.0) WSTG-CONF-07. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Все HTTPS-ответы содержат Strict-Transport-Security с max-age не меньше 31536000. Для приложений уровня L2 и выше политика включает includeSubDomains.
 
@@ -217,7 +217,7 @@ Access-Control-Allow-Origin либо фиксирован, либо сверяе
 
 ### QAP-SEC-023 · Content-Security-Policy задана и не сводится к пустой формальности
 
-`should` · проверка: детерминированно · для: requirements, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.4.3, V3.4.6; OWASP WSTG latest (CC BY-SA 4.0) WSTG-CONF-12, WSTG-CLNT-09. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`should` · проверка: детерминированно · для: requirements, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.4.3, V3.4.6; OWASP WSTG latest (CC BY-SA 4.0) WSTG-CONF-12, WSTG-CLNT-09. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Ответы с HTML содержат заголовок Content-Security-Policy. Минимум: object-src 'none', base-uri 'none' и ограничение источников скриптов через allowlist, nonce или hash. Политика с 'unsafe-inline' в script-src без nonce или hash, или с источником * для скриптов, защиты от XSS не даёт. Встраивание страницы ограничено директивой frame-ancestors.
 
@@ -227,7 +227,7 @@ Access-Control-Allow-Origin либо фиксирован, либо сверяе
 
 ### QAP-SEC-025 · Спека задаёт лимиты для дорогих и злоупотребляемых операций
 
-`should` · проверка: эвристика агента · для: requirements, test-plan · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API4, API6; OWASP ASVS 5.0.0 (CC BY-SA 4.0) V2.1.3, V2.4.1, V6.1.1, V15.1.3. https://owasp.org/API-Security/editions/2023/en/0x11-t10/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative
+`should` · проверка: эвристика агента · для: requirements, test-plan · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API4, API6; OWASP ASVS 5.0.0 (CC BY-SA 4.0) V2.1.3, V2.4.1, V6.1.1, V15.1.3. https://owasp.org/API-Security/editions/2023/en/0x11-t10/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative · сверка со стандартом: aligned
 
 Требования перечисляют операции, которые нужно ограничивать по частоте и объёму: вход, OTP и сброс пароля, отправка SMS и писем, регистрация, поиск, экспорт, загрузка файлов, вызовы LLM и других платных API. Для каждой указан лимит (на пользователя, IP или аккаунт и глобально), реакция при превышении и лимит расходов у внешних провайдеров.
 
@@ -237,7 +237,7 @@ Access-Control-Allow-Origin либо фиксирован, либо сверяе
 
 ### QAP-SEC-026 · Лимит частоты нельзя обойти сменой X-Forwarded-For или ключа
 
-`should` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V15.3.4, V4.1.3; OWASP API Security Top 10 2023 (CC BY-SA 4.0) API4; OWASP WSTG latest (CC BY-SA 4.0) WSTG-BUSL-05. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/API-Security/editions/2023/en/0x11-t10/ · авторитет: normative
+`should` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V15.3.4, V4.1.3; OWASP API Security Top 10 2023 (CC BY-SA 4.0) API4; OWASP WSTG latest (CC BY-SA 4.0) WSTG-BUSL-05. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/API-Security/editions/2023/en/0x11-t10/ · авторитет: normative · сверка со стандартом: aligned
 
 Тест rate limiting проверяет обход: смена заголовков X-Forwarded-For, X-Real-IP, регистра и пробелов в идентификаторе (User@X.com, " user@x.com"), параллельная отправка пачкой. Лимит считается по IP, который выставил доверенный прокси, и по нормализованному идентификатору.
 
@@ -247,7 +247,7 @@ Access-Control-Allow-Origin либо фиксирован, либо сверяе
 
 ### QAP-SEC-027 · Размер выборки и полезной нагрузки ограничен на сервере
 
-`should` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API4; OWASP ASVS 5.0.0 (CC BY-SA 4.0) V4.3.1, V4.3.2, V15.2.2. https://owasp.org/API-Security/editions/2023/en/0x11-t10/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative
+`should` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API4; OWASP ASVS 5.0.0 (CC BY-SA 4.0) V4.3.1, V4.3.2, V15.2.2. https://owasp.org/API-Security/editions/2023/en/0x11-t10/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative · сверка со стандартом: aligned
 
 API ограничивает page size (limit=100000 урезается или отклоняется), длину строк, число элементов в массивах, размер тела запроса. Для GraphQL заданы лимиты глубины, сложности и batching, а интроспекция в проде выключена, если API не публичный.
 
@@ -257,7 +257,7 @@ API ограничивает page size (limit=100000 урезается или �
 
 ### QAP-SEC-028 · Одноразовые лимиты устойчивы к параллельным запросам
 
-`must` · проверка: эвристика агента · для: test-plan, test-code · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V2.3.4, V15.4.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-BUSL-05. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-code · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V2.3.4, V15.4.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-BUSL-05. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Ограничения «один раз на пользователя» или «пока есть остаток» (промокод, бонус, голосование, последний товар, слот брони, вывод средств) проверены параллельной отправкой одинаковых запросов. Срабатывает ровно один, остальные отклонены.
 
@@ -267,7 +267,7 @@ API ограничивает page size (limit=100000 урезается или �
 
 ### QAP-SEC-029 · Шаги бизнес-флоу нельзя пропустить прямым вызовом
 
-`must` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V2.3.1; OWASP WSTG latest (CC BY-SA 4.0) WSTG-BUSL-06; OWASP Top 10 2025 A06. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-code, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V2.3.1; OWASP WSTG latest (CC BY-SA 4.0) WSTG-BUSL-06; OWASP Top 10 2025 A06. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Многошаговые флоу (оформление заказа, оплата, онбординг, верификация) проверяют на сервере, что предыдущие шаги выполнены: вызов финального шага напрямую без оплаты или подтверждения отклоняется.
 
@@ -277,7 +277,7 @@ API ограничивает page size (limit=100000 урезается или �
 
 ### QAP-SEC-030 · Логи не содержат паролей, токенов и лишних персональных данных
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V16.2.5, V14.1.2; OWASP Top 10 2025 A09. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A09_2025-Security_Logging_and_Alerting_Failures/ · авторитет: normative
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V16.2.5, V14.1.2; OWASP Top 10 2025 A09. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A09_2025-Security_Logging_and_Alerting_Failures/ · авторитет: normative · сверка со стандартом: aligned
 
 Логи приложения, ошибок и APM не содержат паролей, OTP, токенов сессий и API-ключей, полных номеров карт, тел запросов авторизации. Персональные данные логируются маскированными или по решению, записанному в спеке. Тест-план включает проверку логов для флоу входа, сброса пароля и оплаты.
 
@@ -287,7 +287,7 @@ API ограничивает page size (limit=100000 урезается или �
 
 ### QAP-SEC-031 · Спека требует журналировать события безопасности
 
-`should` · проверка: эвристика агента · для: requirements, test-plan · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V16.1.1, V16.2.1, V16.3.1, V16.3.2, V16.3.3; OWASP Top 10 2025 A09. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative
+`should` · проверка: эвристика агента · для: requirements, test-plan · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V16.1.1, V16.2.1, V16.3.1, V16.3.2, V16.3.3; OWASP Top 10 2025 A09. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative · сверка со стандартом: aligned
 
 Требования перечисляют события безопасности, которые пишутся в журнал с метаданными «кто, когда, откуда, что»: успешные и неуспешные входы, отказы авторизации, смена пароля, ролей и email, срабатывание лимитов, ошибки валидации на критичных операциях. Указаны хранение и доступ к журналу.
 
@@ -297,7 +297,7 @@ API ограничивает page size (limit=100000 урезается или �
 
 ### QAP-SEC-032 · Спека загрузки задаёт типы, размеры и безопасную отдачу файлов
 
-`should` · проверка: эвристика агента · для: requirements, test-plan · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V5.1.1, V5.2.1, V5.2.3, V5.2.4, V5.2.6. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative
+`should` · проверка: эвристика агента · для: requirements, test-plan · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V5.1.1, V5.2.1, V5.2.3, V5.2.4, V5.2.6. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en · авторитет: normative · сверка со стандартом: aligned
 
 Для каждой функции загрузки требования задают: разрешённые типы и расширения, максимальный размер (и размер после распаковки для архивов, и пиксели для изображений), квоту на пользователя, с какого домена и с какими заголовками файл отдаётся, что происходит при обнаружении вредоносного файла.
 
@@ -307,7 +307,7 @@ API ограничивает page size (limit=100000 урезается или �
 
 ### QAP-SEC-033 · Загруженные файлы не исполняются и не рендерятся на домене приложения
 
-`must` · проверка: эвристика агента · для: test-plan, test-cases, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.2.1, V5.3.1, V5.4.1, V1.3.4; OWASP WSTG latest (CC BY-SA 4.0) WSTG-BUSL-09. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-cases, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.2.1, V5.3.1, V5.4.1, V1.3.4; OWASP WSTG latest (CC BY-SA 4.0) WSTG-BUSL-09. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Пользовательские файлы отдаются с Content-Disposition: attachment или с отдельного домена (CDN или хранилища без cookie приложения), с корректным Content-Type и nosniff. Загруженные HTML, SVG и XML не открываются как страница на основном origin, а файлы в публичной папке не выполняются как серверный код.
 
@@ -317,7 +317,7 @@ API ограничивает page size (limit=100000 урезается или �
 
 ### QAP-SEC-034 · Имя загруженного файла не управляет путём на сервере
 
-`must` · проверка: эвристика агента · для: test-plan, test-cases, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V5.3.2, V5.3.3, V5.4.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-ATHZ-01. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: test-plan, test-cases, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V5.3.2, V5.3.3, V5.4.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-ATHZ-01. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Сервер сохраняет файлы под сгенерированными именами или строго очищает пользовательское имя. Имена с ../, абсолютными путями, нулевым байтом и управляющими символами не позволяют записать или прочитать файл вне каталога загрузок, а при распаковке архивов пути из архива игнорируются (zip slip).
 
@@ -325,7 +325,7 @@ API ограничивает page size (limit=100000 урезается или �
 
 ### QAP-SEC-035 · Функции, принимающие URL от пользователя, защищены от SSRF
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-cases, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API7; OWASP ASVS 5.0.0 (CC BY-SA 4.0) V1.3.6, V13.1.1, V13.2.4, V15.3.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-INJT-19; OWASP Top 10 2025 A01. https://owasp.org/API-Security/editions/2023/en/0x11-t10/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-cases, live-product · источник: OWASP API Security Top 10 2023 (CC BY-SA 4.0) API7; OWASP ASVS 5.0.0 (CC BY-SA 4.0) V1.3.6, V13.1.1, V13.2.4, V15.3.2; OWASP WSTG latest (CC BY-SA 4.0) WSTG-INJT-19; OWASP Top 10 2025 A01. https://owasp.org/API-Security/editions/2023/en/0x11-t10/ https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Спека перечисляет функции, где сервер обращается к URL, заданному пользователем (вебхуки, импорт по ссылке, превью ссылок, аватар по URL, генерация PDF из страницы, интеграции), и требует allowlist схем, хостов и портов. Тесты проверяют отказ для 127.0.0.1, localhost, 169.254.169.254, приватных сетей, IPv6 и десятичной записи IP, file:// и gopher://, а также редиректа с внешнего URL на внутренний.
 
@@ -335,7 +335,7 @@ API ограничивает page size (limit=100000 урезается или �
 
 ### QAP-SEC-036 · Уязвимые зависимости ловит CI, у исправления есть срок
 
-`should` · проверка: детерминированно · для: test-plan, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V15.1.1, V15.2.1, V15.1.2; OWASP Top 10 2025 A03. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A03_2025-Software_Supply_Chain_Failures/ · авторитет: normative
+`should` · проверка: детерминированно · для: test-plan, live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V15.1.1, V15.2.1, V15.1.2; OWASP Top 10 2025 A03. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A03_2025-Software_Supply_Chain_Failures/ · авторитет: normative · сверка со стандартом: aligned
 
 Lock-файл закоммичен, в CI работает проверка зависимостей на известные уязвимости (npm audit, OSV-Scanner, Dependabot, Snyk) с порогом, блокирующим сборку. Политика задаёт сроки обновления по критичности.
 
@@ -345,7 +345,7 @@ Lock-файл закоммичен, в CI работает проверка за
 
 ### QAP-SEC-037 · Новые зависимости проверены на существование и происхождение
 
-`should` · проверка: эвристика агента · для: live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V15.2.4, V15.1.2; OWASP Top 10 2025 A03. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A03_2025-Software_Supply_Chain_Failures/ · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V15.2.4, V15.1.2; OWASP Top 10 2025 A03. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A03_2025-Software_Supply_Chain_Failures/ · авторитет: industry-practice · сверка со стандартом: aligned
 
 Каждый добавленный пакет существует в ожидаемом реестре, имеет историю и сопровождение, а имя не похоже на опечатку популярного пакета. Внутренние пакеты берутся только из внутреннего реестра (scope или настройка реестра), чтобы исключить dependency confusion.
 
@@ -355,7 +355,7 @@ Lock-файл закоммичен, в CI работает проверка за
 
 ### QAP-SEC-039 · Ошибка в проверке безопасности закрывает доступ, а не открывает
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V16.5.3, V16.5.2; OWASP Top 10 2025 A10. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A10_2025-Mishandling_of_Exceptional_Conditions/ · авторитет: normative
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V16.5.3, V16.5.2; OWASP Top 10 2025 A10. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/Top10/2025/A10_2025-Mishandling_of_Exceptional_Conditions/ · авторитет: normative · сверка со стандартом: aligned
 
 Если сервис прав, проверка подписи, валидатор или внешний антифрод недоступен или выбросил исключение, операция отклоняется (fail closed). Спека описывает это поведение, тест-план проверяет его внедрением сбоя.
 
@@ -365,7 +365,7 @@ Lock-файл закоммичен, в CI работает проверка за
 
 ### QAP-SEC-040 · Тест-план явно задаёт объём проверок безопасности
 
-`should` · проверка: эвристика агента · для: test-plan · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) «What is the ASVS» → Application Security Verification Levels (L1–L3); OWASP Top 10 2025. https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x03-What-is-the-ASVS.md https://owasp.org/Top10/2025/ · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-plan · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) «What is the ASVS» → Application Security Verification Levels (L1–L3); OWASP Top 10 2025. https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x03-What-is-the-ASVS.md https://owasp.org/Top10/2025/ · авторитет: industry-practice · сверка со стандартом: aligned
 
 Тест-план содержит раздел безопасности: целевой уровень ASVS (L1 как минимум для продукта с аккаунтами), список применимых категорий (авторизация, ввод и вывод, загрузки, SSRF, заголовки, секреты, логи) и что из них проверяется автотестами, вручную или сканером, а что вне объёма и почему.
 
@@ -377,7 +377,7 @@ Lock-файл закоммичен, в CI работает проверка за
 
 ### QAP-SEC-024 · Базовые заголовки безопасности: nosniff и Referrer-Policy
 
-`should` · проверка: детерминированно · для: live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.4.4, V3.4.5; OWASP WSTG latest (CC BY-SA 4.0) WSTG-CONF-14; OWASP Top 10 2025 A02. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative
+`should` · проверка: детерминированно · для: live-product · источник: OWASP ASVS 5.0.0 (CC BY-SA 4.0) V3.4.4, V3.4.5; OWASP WSTG latest (CC BY-SA 4.0) WSTG-CONF-14; OWASP Top 10 2025 A02. https://github.com/OWASP/ASVS/tree/v5.0.0_release/5.0/en https://owasp.org/www-project-web-security-testing-guide/latest/ · авторитет: normative · сверка со стандартом: aligned
 
 Все ответы содержат X-Content-Type-Options: nosniff, а приложение задаёт Referrer-Policy (strict-origin-when-cross-origin или строже), чтобы пути и параметры не утекали на сторонние сайты.
 

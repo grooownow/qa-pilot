@@ -26,7 +26,8 @@
       "needs-rest"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-002",
@@ -34,7 +35,7 @@
     "severity": "must",
     "title": "В ответах об ошибке нет стек-трейсов и внутренностей реализации",
     "statement": "Тело ошибки, в том числе 500, не содержит стек-трейсов, текста SQL, имён таблиц и классов, путей на сервере, версий библиотек или исходного исключения. Детали для отладки уходят в логи, а клиент получает идентификатор случая (instance или trace id), по которому их можно найти.",
-    "rationale": "Стек-трейс раскрывает устройство системы и облегчает атаку. Ещё он становится неявной частью контракта: клиенты начинают на него опираться. Дополняет SRK-API-091 (лишние служебные поля в успешных ответах) и SRK-AI-019 (trace ID в баг-репорте). Заменяет черновой QAP-SEC-038 (тот же риск со стороны безопасности, CWE-209).",
+    "rationale": "Стек-трейс раскрывает устройство системы и облегчает атаку. Ещё он становится неявной частью контракта: клиенты начинают на него опираться. Дополняет SRK-API-091 (лишние служебные поля в успешных ответах) и SRK-AI-019 (trace ID в баг-репорте). Покрывает и сторону безопасности (CWE-209).",
     "applies_to": [
       "test-code",
       "live-product",
@@ -54,7 +55,8 @@
       "information-disclosure"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-003",
@@ -83,7 +85,8 @@
       "problem-details"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-004",
@@ -111,7 +114,8 @@
       "needs-rest"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-005",
@@ -140,7 +144,8 @@
       "data-integrity"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-006",
@@ -172,7 +177,8 @@
       "needs-rest"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-008",
@@ -202,7 +208,8 @@
       "needs-rest"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-009",
@@ -228,7 +235,8 @@
       "404"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-010",
@@ -258,7 +266,8 @@
       "needs-auth"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-011",
@@ -287,7 +296,8 @@
       "needs-auth"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-012",
@@ -316,7 +326,8 @@
       "needs-payments"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-013",
@@ -343,7 +354,8 @@
       "frontend"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-014",
@@ -371,7 +383,8 @@
       "needs-rest"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-015",
@@ -399,7 +412,8 @@
       "needs-rest"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-016",
@@ -428,7 +442,8 @@
       "needs-rest"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-017",
@@ -456,7 +471,8 @@
       "contract"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-018",
@@ -484,7 +500,8 @@
       "test-code"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-019",
@@ -511,7 +528,8 @@
       "test-code"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-020",
@@ -538,7 +556,8 @@
       "ci"
     ],
     "authority": "vendor-guideline",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-021",
@@ -567,7 +586,8 @@
       "money"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-022",
@@ -595,7 +615,8 @@
       "needs-rest"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-023",
@@ -622,7 +643,8 @@
       "correction"
     ],
     "authority": "normative",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   },
   {
     "id": "QAP-API-024",
@@ -649,6 +671,7 @@
       "correction"
     ],
     "authority": "industry-practice",
-    "verification": "ok"
+    "verification": "ok",
+    "external_check": "aligned"
   }
 ]

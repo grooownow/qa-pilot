@@ -1,7 +1,7 @@
 import copy
 import unittest
 
-from render_rules import render_topic, validate_all
+from render_rules import dangling_refs, render_topic, validate_all
 
 VALID = {
     "id": "SRK-FORM-001",
@@ -110,6 +110,16 @@ class AuthorityAndPatternTest(unittest.TestCase):
         self.assertIn("авторитет: author-opinion", md)
         self.assertIn("сверка со стандартом: conflict", md)
         self.assertNotIn("авторитет:", render_topic("forms", [VALID]))
+
+
+class DanglingRefsTest(unittest.TestCase):
+    def test_unknown_ids_in_text_and_book_refs_are_reported(self):
+        r = with_change(rationale="Уточняет SRK-FORM-001 и QAP-TC-016.")
+        web = {**copy.deepcopy(AuthorityAndPatternTest.WEB), "pattern": {**AuthorityAndPatternTest.WEB["pattern"],
+                                                                          "book_refs": ["SRK-API-404"]}}
+        errors = dangling_refs({"forms": [r], "web-patterns": [web]}, {"SRK-FORM-001", "QAP-WEB-001"})
+        self.assertEqual(sorted(errors), ["QAP-WEB-001: refers to unknown SRK-API-404",
+                                          "SRK-FORM-001: refers to unknown QAP-TC-016"])
 
 
 class RenderTest(unittest.TestCase):

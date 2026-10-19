@@ -7,7 +7,7 @@
 
 ### QAP-AI-001 · У ИИ-фичи есть измеримые критерии качества с порогом
 
-`should` · проверка: эвристика агента · для: requirements, test-plan · источник: NIST AI 600-1 (2024) MS-2.5-001, https://doi.org/10.6028/NIST.AI.600-1; Anthropic, Define success criteria / Create strong empirical evaluations, https://platform.claude.com/docs/en/test-and-evaluate/develop-tests (пересказ); OpenAI, Evaluation best practices, https://developers.openai.com/api/docs/guides/evaluation-best-practices (пересказ) · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan · источник: NIST AI 600-1 (2024) MS-2.5-001, https://doi.org/10.6028/NIST.AI.600-1; Anthropic, Define success criteria / Create strong empirical evaluations, https://platform.claude.com/docs/en/test-and-evaluate/develop-tests (пересказ); OpenAI, Evaluation best practices, https://developers.openai.com/api/docs/guides/evaluation-best-practices (пересказ) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Спецификация функции на LLM задаёт проверяемые критерии качества ответа: метрику, набор данных, на котором её считают, и порог приёмки (например, доля корректных ответов на eval-наборе не ниже N%, доля ответов с утечкой PII не выше M%). Формулировки вида «отвечает адекватно» или «ИИ хорошо понимает запрос» критерием не считаются.
 
@@ -17,7 +17,7 @@
 
 ### QAP-AI-002 · Свободный текст LLM не проверяется точным сравнением строк
 
-`should` · проверка: эвристика агента · для: test-code, test-plan · источник: ISTQB CT-GenAI v1.0 §3.1.4 (недетерминизм LLM), §2.3.1 (метрики), пересказ; OpenAI, Evaluation best practices, https://developers.openai.com/api/docs/guides/evaluation-best-practices (пересказ); Anthropic, Create strong empirical evaluations, https://platform.claude.com/docs/en/test-and-evaluate/develop-tests (пересказ) · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-code, test-plan · источник: ISTQB CT-GenAI v1.0 §3.1.4 (недетерминизм LLM), §2.3.1 (метрики), пересказ; OpenAI, Evaluation best practices, https://developers.openai.com/api/docs/guides/evaluation-best-practices (пересказ); Anthropic, Create strong empirical evaluations, https://platform.claude.com/docs/en/test-and-evaluate/develop-tests (пересказ) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Автотесты не сравнивают свободный текст ответа модели с эталонной строкой целиком. Детерминированные части ответа (JSON-схема, обязательные поля, enum-значения, вызванный инструмент и его аргументы) проверяются строго, а смысловое качество — оценкой на eval-наборе с порогом (доля прошедших, метрика сходства, рубрика). Тесты UI и бизнес-логики в CI не ходят в живую модель: ответ LLM подменяется записанным или заглушкой, а реальные вызовы вынесены в отдельный eval-прогон.
 
@@ -27,7 +27,7 @@
 
 ### QAP-AI-003 · Eval-набор версионируется и прогоняется при смене модели, промпта или инструментов
 
-`should` · проверка: эвристика агента · для: test-plan, test-code · источник: OpenAI, Evaluation best practices, https://developers.openai.com/api/docs/guides/evaluation-best-practices — «run evals on every change», typical/edge/adversarial cases (пересказ); Anthropic, Create strong empirical evaluations, https://platform.claude.com/docs/en/test-and-evaluate/develop-tests (пересказ) · авторитет: vendor-guideline
+`should` · проверка: эвристика агента · для: test-plan, test-code · источник: OpenAI, Evaluation best practices, https://developers.openai.com/api/docs/guides/evaluation-best-practices — «run evals on every change», typical/edge/adversarial cases (пересказ); Anthropic, Create strong empirical evaluations, https://platform.claude.com/docs/en/test-and-evaluate/develop-tests (пересказ) · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 Для ИИ-функции есть версионируемый eval-набор: типовые запросы, граничные (пустой, очень длинный, на другом языке, с опечатками, противоречивый) и враждебные случаи, а также реальные сбои из прода. Он прогоняется как регрессия при любом изменении модели или её версии, системного промпта, шаблона промпта, параметров генерации, RAG-источников или набора инструментов. Результат сравнивается с базовой линией предыдущей версии, ухудшение ниже порога блокирует релиз.
 
@@ -37,7 +37,7 @@
 
 ### QAP-AI-004 · LLM-судья откалиброван по человеческой разметке
 
-`should` · проверка: эвристика агента · для: test-plan, test-code · источник: OpenAI, Evaluation best practices — LLM-as-judge, https://developers.openai.com/api/docs/guides/evaluation-best-practices (пересказ); Anthropic, Create strong empirical evaluations — LLM-based grading, https://platform.claude.com/docs/en/test-and-evaluate/develop-tests (пересказ) · авторитет: vendor-guideline
+`should` · проверка: эвристика агента · для: test-plan, test-code · источник: OpenAI, Evaluation best practices — LLM-as-judge, https://developers.openai.com/api/docs/guides/evaluation-best-practices (пересказ); Anthropic, Create strong empirical evaluations — LLM-based grading, https://platform.claude.com/docs/en/test-and-evaluate/develop-tests (пересказ) · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 Если оценку ответов делает другая LLM (LLM-as-judge), то: у неё есть рубрика с описанием каждого балла или бинарный pass/fail; её вердикты сверены с человеческой разметкой на выборке и согласие измерено; учтены известные смещения (длина ответа, порядок вариантов при попарном сравнении). При смене модели судьи или рубрики калибровка повторяется.
 
@@ -47,7 +47,7 @@
 
 ### QAP-AI-005 · Тест-план покрывает прямую prompt injection
 
-`must` · проверка: эвристика агента · для: test-plan, live-product, test-cases · источник: OWASP Top 10 for LLM Applications 2025, LLM01:2025 Prompt Injection, https://genai.owasp.org/llmrisk/llm01-prompt-injection/ (CC BY-SA 4.0, пересказ); OWASP LLM07:2025 System Prompt Leakage (защита не на промпте); NIST AI 600-1 MS-2.7-007 · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: test-plan, live-product, test-cases · источник: OWASP Top 10 for LLM Applications 2025, LLM01:2025 Prompt Injection, https://genai.owasp.org/llmrisk/llm01-prompt-injection/ (CC BY-SA 4.0, пересказ); OWASP LLM07:2025 System Prompt Leakage (защита не на промпте); NIST AI 600-1 MS-2.7-007 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Для каждого поля, через которое пользователь передаёт текст в LLM, тест-план содержит попытки переопределить инструкции: «игнорируй предыдущие указания», ролевые обходы, инструкции в другой кодировке или на другом языке, разбиение атаки на несколько сообщений. Ожидаемый результат формулируется через последствия: модель не выполняет запрещённое действие, не выходит за роль и не раскрывает чужие данные. Защита не должна держаться только на тексте системного промпта.
 
@@ -57,7 +57,7 @@
 
 ### QAP-AI-006 · Тест-план покрывает косвенную prompt injection через внешний контент
 
-`must` · проверка: эвристика агента · для: test-plan, live-product, requirements · источник: OWASP Top 10 for LLM Applications 2025, LLM01:2025 Prompt Injection (indirect), https://genai.owasp.org/llmrisk/llm01-prompt-injection/ (CC BY-SA 4.0, пересказ); NIST AI 600-1 MS-2.7-007 · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: test-plan, live-product, requirements · источник: OWASP Top 10 for LLM Applications 2025, LLM01:2025 Prompt Injection (indirect), https://genai.owasp.org/llmrisk/llm01-prompt-injection/ (CC BY-SA 4.0, пересказ); NIST AI 600-1 MS-2.7-007 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если LLM читает контент, который не пишет сам пользователь (документы из RAG, веб-страницы, письма, загруженные файлы, ответы инструментов и API, комментарии других пользователей), тест-план содержит кейсы с внедрёнными в этот контент инструкциями, включая скрытый текст (белым по белому, в метаданных, в alt, в HTML-комментариях). Проверяется, что такие инструкции не приводят к вызову инструментов, отправке данных наружу или изменению ответа другим пользователям.
 
@@ -67,7 +67,7 @@
 
 ### QAP-AI-007 · Вывод LLM экранируется перед рендерингом как HTML/Markdown
 
-`must` · проверка: эвристика агента · для: live-product, test-code, test-plan · источник: OWASP Top 10 for LLM Applications 2025, LLM05:2025 Improper Output Handling, https://genai.owasp.org/llmrisk/llm052025-improper-output-handling/ (CC BY-SA 4.0, пересказ) · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: live-product, test-code, test-plan · источник: OWASP Top 10 for LLM Applications 2025, LLM05:2025 Improper Output Handling, https://genai.owasp.org/llmrisk/llm052025-improper-output-handling/ (CC BY-SA 4.0, пересказ) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Ответ модели считается недоверенным вводом. Перед вставкой в HTML он санитизируется или экранируется под контекст; Markdown рендерится без сырого HTML; внешние изображения и ссылки в ответе не загружаются автоматически или проходят allowlist. Если вывод LLM попадает в SQL, shell, URL или eval, применяются те же защиты, что и для пользовательского ввода.
 
@@ -77,7 +77,7 @@
 
 ### QAP-AI-008 · Инструменты агента ограничены правами пользователя, опасные действия подтверждаются
 
-`must` · проверка: эвристика агента · для: requirements, live-product, test-plan · источник: OWASP Top 10 for LLM Applications 2025, LLM06:2025 Excessive Agency, https://genai.owasp.org/llmrisk/llm062025-excessive-agency/ (CC BY-SA 4.0, пересказ) · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: requirements, live-product, test-plan · источник: OWASP Top 10 for LLM Applications 2025, LLM06:2025 Excessive Agency, https://genai.owasp.org/llmrisk/llm062025-excessive-agency/ (CC BY-SA 4.0, пересказ) · авторитет: industry-practice · сверка со стандартом: aligned
 
 У LLM-агента только те инструменты и права, которые нужны для задачи. Инструменты действуют от имени и в пределах прав текущего пользователя, а не через общий сервисный аккаунт. Необратимые или чувствительные действия (удаление, оплата, отправка писем, изменение прав, публикация) требуют явного подтверждения человеком. Авторизацию проверяет вызываемый сервис, а не модель.
 
@@ -87,7 +87,7 @@
 
 ### QAP-AI-009 · Модель и RAG не отдают пользователю чужие данные
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, live-product · источник: OWASP Top 10 for LLM Applications 2025, LLM02:2025 Sensitive Information Disclosure, https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/ и LLM08:2025 Vector and Embedding Weaknesses, https://genai.owasp.org/llmrisk/llm082025-vector-and-embedding-weaknesses/ (CC BY-SA 4.0, пересказ) · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: requirements, test-plan, live-product · источник: OWASP Top 10 for LLM Applications 2025, LLM02:2025 Sensitive Information Disclosure, https://genai.owasp.org/llmrisk/llm022025-sensitive-information-disclosure/ и LLM08:2025 Vector and Embedding Weaknesses, https://genai.owasp.org/llmrisk/llm082025-vector-and-embedding-weaknesses/ (CC BY-SA 4.0, пересказ) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Данные, попадающие в контекст модели (результаты поиска по векторной базе, история, профили, документы), отфильтрованы по правам текущего пользователя и арендатора до передачи в модель. Тест-план содержит кейсы на межпользовательскую и межтенантную утечку: пользователь A прямо или обходным вопросом просит содержимое, доступное только B. PII и секреты не должны попадать в ответы, логи промптов и eval-наборы без маскирования.
 
@@ -97,7 +97,7 @@
 
 ### QAP-AI-010 · В системном промпте нет секретов, и безопасность на нём не держится
 
-`must` · проверка: эвристика агента · для: test-code, live-product, requirements · источник: OWASP Top 10 for LLM Applications 2025, LLM07:2025 System Prompt Leakage, https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/ (CC BY-SA 4.0, пересказ) · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: test-code, live-product, requirements · источник: OWASP Top 10 for LLM Applications 2025, LLM07:2025 System Prompt Leakage, https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/ (CC BY-SA 4.0, пересказ) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Системный промпт и шаблоны промптов не содержат ключей API, паролей, строк подключения и внутренних URL, раскрытие которых опасно. Правила доступа и бизнес-ограничения (лимиты, роли, цены) проверяются кодом приложения, а не только инструкцией модели. Исходят из того, что системный промпт рано или поздно будет извлечён.
 
@@ -107,7 +107,7 @@
 
 ### QAP-AI-011 · Потребление модели ограничено: размер ввода, токены, частота, бюджет
 
-`must` · проверка: эвристика агента · для: requirements, live-product, test-plan · источник: OWASP Top 10 for LLM Applications 2025, LLM10:2025 Unbounded Consumption, https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/ (CC BY-SA 4.0, пересказ) · авторитет: industry-practice
+`must` · проверка: эвристика агента · для: requirements, live-product, test-plan · источник: OWASP Top 10 for LLM Applications 2025, LLM10:2025 Unbounded Consumption, https://genai.owasp.org/llmrisk/llm102025-unbounded-consumption/ (CC BY-SA 4.0, пересказ) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Для LLM-эндпоинтов заданы и проверены: максимальная длина пользовательского ввода и загружаемых файлов, max_tokens на ответ, ограничение числа шагов агента и вызовов инструментов, rate limit на пользователя или ключ, таймаут запроса и предел расходов с алертом. Превышение лимита даёт понятную ошибку, а не зависание или счёт.
 
@@ -117,7 +117,7 @@
 
 ### QAP-AI-012 · Отказ, таймаут и невалидный ответ модели обрабатываются и покрыты тестами
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: NIST AI 600-1 GV-6.2-006 (тестирование резервных механизмов GenAI, включая ручную обработку), https://doi.org/10.6028/NIST.AI.600-1; OWASP Top 10 for LLM Applications 2025, LLM05:2025 и LLM10:2025 (CC BY-SA 4.0, пересказ) · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: NIST AI 600-1 GV-6.2-006 (тестирование резервных механизмов GenAI, включая ручную обработку), https://doi.org/10.6028/NIST.AI.600-1; OWASP Top 10 for LLM Applications 2025, LLM05:2025 и LLM10:2025 (CC BY-SA 4.0, пересказ) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Требования и тесты описывают поведение продукта, когда API модели недоступен, отвечает 429/5xx или перегрузкой, превышает таймаут, обрывает стрим посередине или возвращает ответ, не проходящий схему (битый JSON, неизвестный инструмент). Ожидаемое: понятное сообщение пользователю, сохранённый ввод, повтор с backoff там, где это безопасно, без двойного выполнения действий; при наличии — резервная модель или ручной путь. Основная (не-ИИ) функциональность страницы продолжает работать.
 
@@ -127,7 +127,7 @@
 
 ### QAP-AI-014 · Пользователь знает, что общается с ИИ или видит ИИ-контент, где это требуется
 
-`should` · проверка: вручную · для: requirements, live-product · источник: NIST AI 600-1 MP-5.1-003 (раскрытие использования GAI конечным пользователям), https://doi.org/10.6028/NIST.AI.600-1; Regulation (EU) 2024/1689 (AI Act), Art. 50, https://eur-lex.europa.eu/eli/reg/2024/1689/oj · авторитет: normative
+`should` · проверка: вручную · для: requirements, live-product · источник: NIST AI 600-1 MP-5.1-003 (раскрытие использования GAI конечным пользователям), https://doi.org/10.6028/NIST.AI.600-1; Regulation (EU) 2024/1689 (AI Act), Art. 50, https://eur-lex.europa.eu/eli/reg/2024/1689/oj · авторитет: normative · сверка со стандартом: aligned
 
 Если продукт предлагает диалог с ИИ или публикует сгенерированный контент, спецификация определяет, как и где пользователю сообщается об участии ИИ (метка в чате, подпись у сгенерированного текста или изображения, машиночитаемая маркировка медиа), и на какие юрисдикции это рассчитано. Для ЕС ориентир — ст. 50 EU AI Act о прозрачности (применяется с 2 августа 2026): уведомление о взаимодействии с ИИ, машиночитаемая маркировка синтетического контента, раскрытие дипфейков и сгенерированного текста, публикуемого для информирования общества о значимых вопросах.
 
@@ -137,7 +137,7 @@
 
 ### QAP-AI-015 · Ссылки и факты в ответе ИИ проверяются на существование и соответствие
 
-`should` · проверка: эвристика агента · для: test-plan, live-product, test-code · источник: OWASP Top 10 for LLM Applications 2025, LLM09:2025 Misinformation, https://genai.owasp.org/llmrisk/llm092025-misinformation/ (CC BY-SA 4.0, пересказ); NIST AI 600-1 MS-2.5-003 (проверка источников и цитат в выводе GAI); ISTQB CT-GenAI v1.0 §3.1 (галлюцинации), пересказ · авторитет: industry-practice
+`should` · проверка: эвристика агента · для: test-plan, live-product, test-code · источник: OWASP Top 10 for LLM Applications 2025, LLM09:2025 Misinformation, https://genai.owasp.org/llmrisk/llm092025-misinformation/ (CC BY-SA 4.0, пересказ); NIST AI 600-1 MS-2.5-003 (проверка источников и цитат в выводе GAI); ISTQB CT-GenAI v1.0 §3.1 (галлюцинации), пересказ · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если продукт выдаёт фактические утверждения, цитаты или ссылки на источники (RAG, ассистент поддержки, справочная информация), eval проверяет, что цитируемый источник существует, доступен пользователю и действительно подтверждает утверждение. Для вопросов вне базы знаний ожидаемое поведение — признать отсутствие ответа, а не выдумать. Интерфейс сообщает об ограничениях ИИ там, где ошибка может навредить (деньги, здоровье, право).
 
@@ -149,7 +149,7 @@
 
 ### QAP-AI-013 · Задержка ИИ-ответа задана в перцентилях, пользователь видит прогресс
 
-`should` · проверка: эвристика агента · для: requirements, live-product · источник: OWASP Top 10 for LLM Applications 2025, LLM10:2025 Unbounded Consumption — только в части таймаутов и прерывания генерации на сервере (CC BY-SA 4.0, пересказ); Anthropic, Reducing latency, https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-latency (пересказ) · авторитет: vendor-guideline
+`should` · проверка: эвристика агента · для: requirements, live-product · источник: OWASP Top 10 for LLM Applications 2025, LLM10:2025 Unbounded Consumption — только в части таймаутов и прерывания генерации на сервере (CC BY-SA 4.0, пересказ); Anthropic, Reducing latency, https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-latency (пересказ) · авторитет: vendor-guideline · сверка со стандартом: aligned
 
 Для ИИ-функции задана целевая задержка в перцентилях (например, p95 времени до первого токена и до полного ответа) на типовом размере запроса. Пока ответ генерируется, интерфейс показывает прогресс или стримит текст и даёт отменить запрос. Отмена действительно прерывает генерацию на сервере.
 

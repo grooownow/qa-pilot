@@ -61,7 +61,9 @@ axes that don't apply — don't pad):
 
 For EACH scenario decide and record:
 
-- **Priority:** P1 (must have) / P2 (should) / P3 (nice)
+- **Priority → bucket** (test-delta §2): P1, a BUG, or P2 on a critical flow →
+  **Must**; other P2 → **Should** (≤8 per feature); P3 → **Highlight**: listed
+  in the plan, **not** passed to `write-tests` unless the user promotes it.
 - **Level:** unit / component / e2e — push checks DOWN the pyramid; an e2e test
   is justified only by genuinely cross-layer behavior. Flag scenarios that the
   feature's own unit tests should cover instead.
