@@ -28,7 +28,7 @@ Inside Claude Code, run:
 Restart Claude Code when prompted. That's it — the skills, subagents, and
 browser tools are now available in every project.
 
-To update later: `/plugin marketplace update qa-pilot`.
+To update later: `/plugin marketplace update qa-pilot`. What changed in each version: [CHANGELOG.md](CHANGELOG.md).
 
 ## Quickstart
 
