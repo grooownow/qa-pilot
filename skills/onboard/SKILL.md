@@ -41,6 +41,21 @@ ONE Explore-type subagent with this checklist instead of scanning inline:
 
   Record which statuses and response bodies produce a message and which stay
   silent. Audits need this before they can call anything "silent".
+- **Framework maturity** (the "test framework" in the broad sense): for each
+  area record present / partial / missing with one line of evidence:
+  - test layers and runners (unit, component, API/contract, e2e, visual);
+  - CI gates: which layers block a merge or deploy; smoke/regression sets;
+  - mocking strategy: a network mock layer, fixtures, factories;
+  - test data and isolation: seeding, cleanup, per-test accounts;
+  - selector convention: testids, roles, shared constants;
+  - auth in tests: storageState, API login;
+  - flaky handling: retries, quarantine, tracking;
+  - coverage or reporting tooling;
+  - test-code linting (eslint-plugin-playwright/jest/testing-library).
+
+  `qa-pilot:project-audit` turns the gaps into a roadmap. Rules that back
+  each area: `knowledge/qa-pilot/rules/test-code.json` and
+  `test-strategy.json`.
 - **Trackers & environments:** references to issue trackers, deployment URLs,
   env files (never read secret VALUES — note only which env vars exist).
 
@@ -54,6 +69,9 @@ Batch ALL questions in one message (see quality-rules rule 5). Typical gaps:
 - Tracker of record (GitHub Issues / Linear / Jira) and whether an MCP or CLI for
   it is connected. If access is needed but absent, name the exact missing piece
   and how to connect it.
+- **Critical flows:** the 3–7 user flows whose failure hurts most (money,
+  data loss, a blocked core job). Propose them from routes, entities and docs;
+  the user confirms. Audits put any P2 on these flows into Must.
 - Team intent: what hurts most today (flaky tests? no coverage? slow suite?) —
   this seeds priorities for `qa-pilot:audit`.
 - **Product traits** (used by `qa-pilot:spec-audit` to drop rules that cannot
@@ -84,12 +102,14 @@ Write `docs/qa/project-profile.md` (create `docs/qa/` if needed). Sections:
 ## Conventions      — locator policy, fixtures/POM approach, tagging, naming, imports; LINK to repo's own docs rather than duplicating them
 ## Environments     — safe-to-test URLs, forbidden environments, credential mechanism
 ## Tracker & access — tracker of record, connected MCPs/CLIs, missing access
+## Framework maturity — table: area · present / partial / missing · evidence (path or "searched: … → 0")
+## Critical flows   — 3–7 flows, one line each: name · entry route/screen · why it is critical (confirmed by the user)
 ## Product traits   — fenced yaml: platform, api_style, has_payments, has_auth, has_user_uploads, i18n, rtl, regulated, has_ai_features (format: skills/spec-audit/SKILL.md)
 ## Priorities       — what the team wants improved first
 ## Open gaps        — unanswered questions, marked blocking or non-blocking
 ```
 
-Keep it under ~150 lines: link to the repo's own docs instead of copying them.
+Keep it under ~180 lines: link to the repo's own docs instead of copying them.
 Facts only — no recommendations (those belong to `qa-pilot:audit`).
 
 ## Phase 4 — Verify & hand off
