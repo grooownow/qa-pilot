@@ -40,7 +40,10 @@ The order matters. The first lenses find real defects; the later ones mostly fin
    - a spec and the architecture/overview docs.
 
    This is the highest-volume lens.
-5. **Error / empty / loading states and error guessing.** Every read needs a defined failure presentation; "error looks like no data" is a finding.
+5. **Error / empty / loading states and error guessing.** Every read needs a defined failure presentation; "error looks like no data" is a finding. Check these cases, which are easy to miss:
+   - a polled or refetched read that fails **after** data was already shown. Does the loaded data survive?
+   - a modal write that closes the modal **before** the request settles. Where does a failure go?
+   - a direct client call that bypasses the shared query/mutation layer, and with it the global error plumbing.
 6. **Domain packs.** Apply the remaining pack rules that fit your specs: security and privacy (QAP-PRIV-001, IDOR), a11y, i18n, forms. Skip rules that obviously do not fit the product. Rules that cannot fit were already removed by traits.
 
 ## 2. Reality check against code (mandatory when code exists)
@@ -107,6 +110,7 @@ A finding is half the work. The scenario you propose will be implemented by anot
   - a spec line;
   - a project decision;
   - an existing convention elsewhere in the code (path:line).
+- **Do not over-correct.** When the current behaviour is plainly wrong, it is a **BUG**, not a product question. Examples: success shown after a failure, raw ids shown to the user, a retry that can never succeed. Cite the nearest in-code convention as the source, e.g. another flow that notifies on failure. Use Needs product decision only when there are genuinely different acceptable behaviours.
 - **Otherwise it is a question, not a test.** If the expected result is undecided, would be invented by you, or would pin behaviour you suspect is a bug, the item goes to **Needs product decision**, never to the scenarios.
   - "Documented, or fixed" is not an expected result.
   - "Redirect to the default tab" with no source is invented.
