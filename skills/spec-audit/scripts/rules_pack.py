@@ -6,7 +6,7 @@ Usage:
       [--overrides docs/qa/rule-overrides.json] [--targets requirements,test-plan] --out <dir>
 
 Reads every rules/*.json under <kb>/surkov and <kb>/qa-pilot, plus project
-rules (PRJ-…) from the overrides file. Keeps rules whose applies_to meets the
+rules (PRJ-…) and owner scope filters from the overrides file. Keeps rules whose applies_to meets the
 targets and whose needs-* tags are all satisfied by the product traits.
 Writes <out>/packs/<pack>.md (one line per rule) and <out>/manifest.json.
 """
@@ -139,8 +139,23 @@ def rule_line(r):
     return line
 
 
+def scope_entries(overrides, warnings):
+    """Owner scope filters (areas not developed, on hold, or not to be tested), passed to the agents."""
+    kept, raw = [], overrides.get("scope") or []
+    if not isinstance(raw, list):
+        warnings.append("scope skipped: must be a list of {exclude, reason, source} objects")
+        raw = []
+    for entry in raw:
+        if isinstance(entry, dict) and entry.get("exclude") and entry.get("reason"):
+            kept.append(entry)
+        else:
+            warnings.append(f"scope entry skipped: needs 'exclude' and 'reason': {json.dumps(entry, ensure_ascii=False)}")
+    return kept
+
+
 def build(kb, profile_text, overrides, targets):
     traits, has_section, warnings = parse_traits(profile_text)
+    scope = scope_entries(overrides, warnings)
     disabled = set(overrides.get("disabled", []))
     decisions = overrides.get("decisions", {})
     packs = {name: [] for name in PACKS}
@@ -171,6 +186,7 @@ def build(kb, profile_text, overrides, targets):
         "excluded": dict(sorted(excluded.items())),
         "decisions_applied": sorted(applied),
         "unknown_needs_tags": sorted(unknown_tags),
+        "scope": scope,
         "warnings": warnings,
     }
     return packs, manifest

@@ -32,6 +32,7 @@ If you cannot point to the code or config that makes the harm reachable, it is n
 ## Rules of thumb
 
 - **Drift:** ask "what breaks if someone makes the code match the spec?" If the answer is real harm, it is P2. If it is nothing, P3.
+- **Absence claims** ("no guard", "no test", "silent") need the proving search: the command and its match count, untruncated. Without it, the finding cannot be P1 or P2, and its BUG or gap mark is not confirmed.
 - **"Covered in code"** is not a finding at all. Report it in the scenario list so the reader sees it was checked.
 - **Never inflate drift to P1**, and never deflate a proven data or security issue because it is "only" in a test.
 - **A project decision that consciously accepts a risk** is not a finding. If the decision's own premise is broken (e.g. it relies on a safeguard that does not exist or fails open), report *that* as **P2**, quote the decision, and add it to **Decisions needed**. It becomes P1 only when you can show concrete harm that is already reachable. The owner decides; the audit does not overrule a decision on its own.

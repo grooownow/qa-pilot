@@ -86,15 +86,27 @@ to decide?". How it works:
 - **Your decisions win.** Records in `docs/decisions/`, CLAUDE.md and
   `docs/qa/rule-overrides.json` override the book. When you say "that's
   deliberate" during triage, it offers to record the decision so it never
-  nags again.
+  nags again. At the start it also asks for **scope filters**: modes or areas
+  you don't develop, areas on hold, kinds of tests you don't want. They can be
+  saved under `scope` in the same file.
 - **Checked against the code.** A "missing scenario" is only reported after
   grepping your tests; spec claims are compared with what the code actually
   does. In the pilot this was where every critical finding came from.
-- **Cost.** One feature by default (~250k tokens for a feature with 2 spec docs). A
+  - Every "not covered" or "silent" claim must show the search that proves it.
+  - A test counts as coverage only if it asserts the exact case and its layer
+    runs in CI.
+  - The main session re-runs those searches before anything reaches the report.
+- **Cost.** One feature by default (~250–450k tokens for a feature with 2 spec docs). A
   whole-project audit is offered only on request, with the estimate first.
 
-The report lands in `docs/qa/spec-audit/`; on request the missing scenarios
-of a feature become a `plan-tests` plan that `write-tests` can implement.
+Two files land in `docs/qa/spec-audit/`:
+- `<date>-<slug>-actions.md` is a plain list an agent can execute: bugs to fix
+  and then test, tests to add (each with its level and target), questions for
+  product, and what is already covered.
+- `<date>-<slug>.md` is the evidence report: severities, rule ids, code lines.
+
+On request, the action list becomes a `plan-tests` plan that `write-tests` can
+implement.
 
 ## How coverage analysis actually works
 

@@ -112,6 +112,25 @@ class BuildTest(unittest.TestCase):
         line = rule_line(packs["platform"][0])
         self.assertIn("РЕШЕНИЕ ПРОЕКТА (приоритетнее): У нас иначе.", line)
 
+    def test_scope_filters_pass_through_and_bad_entries_warn(self):
+        scope = [{"exclude": "cloud runtime mode", "reason": "not developed or tested", "source": "owner 2026-10-15"},
+                 {"exclude": "role and permission tests"},
+                 "no-dict"]
+        _, manifest = build(self.kb, PROFILE, {"scope": scope}, ["requirements"])
+        self.assertEqual(manifest["scope"], [scope[0]])
+        self.assertEqual(sum("scope entry" in w for w in manifest["warnings"]), 2)
+
+    def test_scope_absent_gives_empty_list(self):
+        _, manifest = build(self.kb, PROFILE, {}, ["requirements"])
+        self.assertEqual(manifest["scope"], [])
+
+    def test_scope_null_or_not_a_list(self):
+        _, manifest = build(self.kb, PROFILE, {"scope": None}, ["requirements"])
+        self.assertEqual((manifest["scope"], manifest["warnings"]), ([], []))
+        _, manifest = build(self.kb, PROFILE, {"scope": {"exclude": "cloud", "reason": "frozen"}}, ["requirements"])
+        self.assertEqual(manifest["scope"], [])
+        self.assertEqual(sum("scope skipped" in w for w in manifest["warnings"]), 1)
+
 
 class RuleLineTest(unittest.TestCase):
     def test_truncates_long_check(self):

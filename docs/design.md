@@ -102,6 +102,20 @@ claiming done.
    `docs/qa/spec-audit/<date>-<slug>.md`. Design:
    `docs/superpowers/specs/2026-10-12-spec-audit-skill-design.md`.
 
+   **0.4.0 changes**, after a project reviewer graded the TDK run; see
+   `docs/superpowers/notes/2026-10-19-spec-audit-tdk-review-analysis.md`:
+   - **Absence claims** ("not covered", "silent", "no guard") must cite an
+     untruncated proving search.
+   - **"Covered"** requires the matching assertion, and a layer that runs in CI.
+   - **Triage** re-runs the proving searches itself.
+   - **Each prescribed test** has a level, a target, and a sourced expected
+     result. Anything undecided goes to "Needs product decision".
+   - **Owner scope filters** are asked up front and can be saved as `scope` in
+     `rule-overrides.json`.
+   - **The decisions digest** never quotes the specs under audit.
+   - **The primary output** is an agent-executable `-actions.md` list.
+   - **Onboard** records the test layers that run in CI and the error plumbing.
+
 ## Cross-cutting rules (in every skill)
 
 - **Token economy:** phase→model routing (haiku for mechanical, sonnet for authoring,

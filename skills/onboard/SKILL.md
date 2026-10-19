@@ -29,6 +29,18 @@ ONE Explore-type subagent with this checklist instead of scanning inline:
   constrain tests, PR/commit policy.
 - **Gates:** the exact commands for tests, typecheck, lint — and whether CI runs
   more.
+- **Which test layers CI actually runs:** read the CI workflow files. For each
+  layer (unit, component, Storybook/interaction, e2e projects, visual, backend
+  suites), record whether a CI job runs it, and on which trigger. A layer that
+  exists locally but not in CI does not count as coverage.
+- **Error plumbing:** how API failures reach the user. Look for:
+  - global query/mutation error subscribers;
+  - interceptors;
+  - toast/notification modules;
+  - error boundaries.
+
+  Record which statuses and response bodies produce a message and which stay
+  silent. Audits need this before they can call anything "silent".
 - **Trackers & environments:** references to issue trackers, deployment URLs,
   env files (never read secret VALUES — note only which env vars exist).
 
@@ -66,6 +78,8 @@ Write `docs/qa/project-profile.md` (create `docs/qa/` if needed). Sections:
 
 ## Stack            — language, PM, layout, app type, how to run the app locally
 ## Test landscape   — frameworks, locations, counts, suites/lanes
+## Test layers      — table: layer · path(s) · command · runs in CI (job + trigger) or not · being phased out?
+## Error plumbing   — global error/notification handling: file, which statuses/bodies toast, which stay silent
 ## Commands         — exact commands: run tests (all/one file), typecheck, lint, start dev server (+port)
 ## Conventions      — locator policy, fixtures/POM approach, tagging, naming, imports; LINK to repo's own docs rather than duplicating them
 ## Environments     — safe-to-test URLs, forbidden environments, credential mechanism

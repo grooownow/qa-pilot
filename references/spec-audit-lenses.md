@@ -47,7 +47,38 @@ The order matters. The first lenses find real defects; the later ones mostly fin
 
 A spec-only audit produced about one third false "missing" items in the pilot, and it missed every P1. For each candidate:
 
-- **Missing scenario:** grep the test files (`*.test.*`, `*.spec.*`, integration and e2e dirs) for the function, action, route or error code. If you find a test, write `covered in code: <path>` instead of listing the scenario as missing.
+### 2a. Absence claims need a proving search
+
+"X does not exist" is the weakest claim you make. "Not covered", "no handler", "no guard", "no global toast" and "nobody calls it" are all absence claims. On TDK every wrong claim was an absence claim, and two of them came from a search piped through `head` that cut off the file that would have refuted it.
+
+- **Cite the search.** Each absence claim carries the exact command and its match count, e.g. `searched: git grep -n -i 'activity.\?log' $SHA -- frontend/e2e frontend/src → 0 matches in tests`.
+- **Never truncate a proving search.** No `head`, `tail` or `cut` on it. Run `| wc -l` first. If there are too many matches, narrow the pattern or the path, then read all of them.
+- **Search at least three ways:**
+  - the feature name, case-insensitive, with separator variants (`activity.?log`);
+  - the route or API path;
+  - a testid, a component name, or the user-visible string.
+- **Search every test root** listed in the profile's test-layers table, not just `src/`. That includes per-mode or per-project folders (e.g. `onPremiseApp/`) and backend test dirs.
+- **Before calling a failure "silent"**, find the global error plumbing:
+  - query/mutation cache subscribers;
+  - `onError` in providers;
+  - fetch/axios interceptors;
+  - `unhandledrejection` listeners;
+  - error boundaries;
+  - "notifications"/"toast" modules.
+
+  State which statuses and bodies it covers. Then say exactly which cases it does not cover, e.g. "404, or a 500 with an empty body".
+
+### 2b. "Covered in code" needs three proofs
+
+1. **The test** at path:line.
+2. **The assertion** that checks the scenario's **distinguishing condition**: the status code, the branch, or the input class. A test of a neighbouring case does not count. Example: a story where `save` resolves `false` does not cover "409 on save".
+3. **The layer runs in CI.** Check the profile's test-layers table. A layer that CI does not run, or that is being phased out, does not count. Write `covered but not in CI: <path>` and treat the scenario as a gap.
+
+If any of the three is missing, the scenario is a **gap**.
+
+### 2c. Other checks
+
+- **Missing scenario:** run the 2a searches for the function, action, route or error code. If you find a test that passes 2b, write `covered in code: <path:line>` instead of listing the scenario as missing.
 - **Invariant in every write path** (QAP-INV-001): list every place that writes the entity (actions, RPC, migrations with CHECK, background jobs, review screens, imports) and say where the invariant is enforced in each.
 - **Security AC → anti-false-green:**
   - find the test that asserts the *specific* failure (error code, status, `rate_limited`);
@@ -56,7 +87,31 @@ A spec-only audit produced about one third false "missing" items in the pilot, a
 - **Spec claims "X exists / is absent / is guaranteed":** verify in the code. When spec and code disagree, report drift. Name the side that is real, and set the severity by what breaks if someone "fixes" the code to match the spec.
 - **Data exposure:** for anonymous endpoints, read the actual returned fields (the RPC body, the select list, the serializer) against the spec's privacy claims.
 
-Every P1/P2 needs a `code` reference: the `file:line` of the implementing code, or `n/a` with the reason.
+Every P1/P2 needs a `code` reference: the `file:line` of the implementing code, or `n/a` with the reason. A P1/P2 that rests on an absence claim also needs the proving search (2a).
+
+## 2d. Prescribing a test: level, location, expected result
+
+A finding is half the work. The scenario you propose will be implemented by another agent exactly as written. On TDK, 5 of 16 scenarios had the wrong level or location, and 2 had an invented expected result.
+
+- **Test where the logic lives.** Pick the level from where the behaviour is decided, not from how the spec describes it:
+
+  | The behaviour is decided in… | Level |
+  |---|---|
+  | a pure function, mapper, or decision table in code | unit test on that function |
+  | a hook or component branch (flags, conditional rendering) | hook/component unit test |
+  | a backend guard, invariant, or query scope (IDOR, uniqueness) | backend integration test in the backend's own suite; mark it `owner: backend` even if qa-pilot writes only frontend tests |
+  | a user-visible flow that crosses layers | e2e |
+
+- **Name the target:** the function, hook or component under test, at the path:line where the logic actually lives. Do not use the nearest existing test file as the target.
+- **One expected result, with a source.** Every scenario states a single expected result and cites where it comes from:
+  - a spec line;
+  - a project decision;
+  - an existing convention elsewhere in the code (path:line).
+- **Otherwise it is a question, not a test.** If the expected result is undecided, would be invented by you, or would pin behaviour you suspect is a bug, the item goes to **Needs product decision**, never to the scenarios.
+  - "Documented, or fixed" is not an expected result.
+  - "Redirect to the default tab" with no source is invented.
+- **Mocked tests must not be masked.** For a `@ui-contract`-style test, name the mocked response and why the global plumbing (2a) will not already satisfy the assertion. Example: "mock a 500 with an empty body; the global toast fires only when `message` is present".
+- **Respect scope filters.** Scope filters from the brief (areas not developed, on hold, or not to be tested) remove scenarios and findings. List what they removed under *Skipped as project decision*.
 
 ## 3. Findings file format (append after EACH spec, so progress survives a dead session)
 
@@ -67,7 +122,10 @@ If your Write tool is blocked, append with a shell command (`cat >> <file> <<'EO
 ### Findings
 | # | Rule | Sev | Where (file:line) | Code (file:line) | Finding | Fix (concrete) |
 ### Missing test scenarios
-- [P1|P2|P3] <one line> — <rule id / technique> — <tier: unit | integration | e2e> — gap | covered in code: <path>
+- [P1|P2|P3] <scenario> → expected: <one result> (source: <spec line | decision | path:line>) — <level: unit | component | backend-integration | e2e> — target: <function/hook/component path:line> — <rule id / technique> — gap (searched: <command> → <n> matches) | covered in code: <test path:line, assertion line> | covered but not in CI: <path>
+- Mark a scenario **BUG** when the current code fails it (cite the line). The implementing agent fixes the code first, then writes the test.
+### Needs product decision
+- <question> — why it is not a test yet (undecided / no source / would pin a suspected bug) — options
 ### Skipped as project decision
 - <rule id> — <decision source>
 ```
