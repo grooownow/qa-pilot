@@ -155,8 +155,11 @@ qa-pilot is **strongest on frontend/e2e testing, and usable well beyond it**:
    product intent produce a batched question, not a hallucinated assumption.
 4. **Your project rules win.** Your repo's CLAUDE.md / AGENTS.md / docs override
    qa-pilot defaults on any conflict.
-5. **Evidence before claims.** Tests are proven able to fail; fixes are
-   re-verified in the browser; suspicious greens are re-checked cold.
+5. **Evidence before claims.** New tests are proven able to fail; an audit of
+   existing tests breaks the code under a sample of them with a script that
+   restores the file; UI tests assert what the user sees, not the response
+   status; fixes are re-verified in the browser; suspicious greens are
+   re-checked cold.
 
 ## Security notes
 

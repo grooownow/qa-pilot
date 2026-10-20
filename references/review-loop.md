@@ -18,7 +18,8 @@ for test-code changes (drop lenses irrelevant to the diff, don't add more than ~
 
 - **Correctness:** do these tests actually verify the claimed behavior? Could
   they pass while the feature is broken (false-green)? Are assertions specific
-  enough?
+  enough? Does a UI/e2e test confirm the action by what the user sees, not
+  only by the response status (QAP-TC-032)?
 - **Flakiness:** timing assumptions, race conditions, shared state, order
   dependence, unstable selectors — anything from `flakiness-catalog.md`.
 - **Simplicity & slop:** over-engineering, needless abstraction, copy-paste,

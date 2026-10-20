@@ -23,7 +23,7 @@ Read first:
 
 - **Fixed part:**
   - profile + maturity: about 30–60k tokens;
-  - test-code sample: about 50–100k tokens.
+  - test-code sample, including the failure proof of up to 10 critical-flow tests: about 50–100k tokens plus test run time.
 - **Variable part:** about 150–250k tokens per critical flow at depth `critical`.
 - **Before starting**, state the estimate for the proposed flows and let the owner choose. Default: the top 3 flows. Full depth (`standard`) per flow only when asked.
 - **Ask for owner scope filters** (areas not developed, on hold, tests not wanted), unless `docs/qa/rule-overrides.json` has `scope`. Filtered items are listed as suppressed, never silently dropped.
@@ -60,7 +60,7 @@ Read first:
 
 ## Phase 4 — Test-code sample
 
-Run `qa-pilot:test-code-audit` limited to the test files that exercise the critical flows (from the spec-audit coverage evidence). Look for false greens, flakiness and wrong layers. Only P1/P2 findings go to the roadmap; the rest stays in the audit's report.
+Run `qa-pilot:test-code-audit` limited to the test files that exercise the critical flows (from the spec-audit coverage evidence). Look for false greens, flakiness and wrong layers, and run its failure proof (test-code-audit Phase 3) on those tests: a `survived` probe is a P1 finding. Only P1/P2 findings go to the roadmap; the rest stays in the audit's report.
 
 ## Phase 5 — Roadmap
 

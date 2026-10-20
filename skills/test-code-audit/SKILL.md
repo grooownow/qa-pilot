@@ -1,6 +1,6 @@
 ---
 name: test-code-audit
-description: Deep audit of an existing test codebase - finds anti-patterns, copy-paste, flakiness sources, over-complexity, false-green and dead tests; produces a severity-ranked report and an ordered refactoring plan, then can execute the plan step by step. Use when the user asks to audit/review/health-check the test suite, complains about flaky or slow tests, or wants a refactoring plan for tests. Requires docs/qa/project-profile.md (run qa-pilot:onboard first).
+description: Deep audit of an existing test codebase - finds anti-patterns, copy-paste, flakiness sources, over-complexity, false-green and dead tests; proves on a sample (critical flows + suspects) that existing tests can fail by breaking the code under test with a restoring script; produces a severity-ranked report and an ordered refactoring plan, then can execute the plan step by step. Use when the user asks to audit/review/health-check the test suite, complains about flaky or slow tests, or wants a refactoring plan for tests. Requires docs/qa/project-profile.md (run qa-pilot:onboard first).
 user-invocable: false
 ---
 
@@ -25,6 +25,7 @@ Create a todo per phase. Read `../../references/quality-rules.md` and
   vs everything). State the scope in the report header.
 - Baseline run: execute the suite once (or the target subset). Record pass/fail/
   skip counts and duration in the report. A suite that doesn't run is finding #1.
+- State the failure-proof sample (Phase 3): which tests, how many, rough time.
 
 ## Phase 2 — Parallel audit lenses
 
@@ -37,7 +38,10 @@ pointed at the whole scoped test codebase instead of a diff). Lenses:
    selectors.
 2. **False-green & assertion quality** — tests that can pass while the feature
    is broken: missing/weak assertions, swallowed errors, over-mocking that tests
-   the mock, conditional assertions.
+   the mock, conditional assertions, a UI/e2e test that confirms an action only
+   by the response status or a mocked API call instead of what the user sees
+   (QAP-TC-032; an exception counts only with a comment giving the reason).
+   This lens also names its **suspects** for Phase 3: test, file:line, why.
 3. **Duplication & over-complexity** — copy-paste blocks, needless abstraction
    layers, dead helpers, unused fixtures, tests nobody could name the purpose of.
 4. **Convention drift** — deviations from the project's own documented
@@ -51,17 +55,54 @@ Each agent brief: scope paths, profile pointer, lens description, the standard
 finding format, word cap. Append raw findings to a scratch section of the
 report as they return.
 
-## Phase 3 — Triage, verify, report
+## Phase 3 — Failure proof of existing tests
+
+Reading a test does not prove it can fail. Break the code it guards and run it.
+
+- **Sample:** the tests of the critical flows from the profile, plus the
+  suspects of lens 2. Default 10 tests; the size goes into the Phase 1 scope
+  with its cost (each probe runs one test twice). The user can widen it.
+- **If the project already runs mutation testing** (a Stryker, mutmut or PIT
+  config in the repo), run it on the scoped modules and use its report instead
+  of hand-picked mutations.
+- **Otherwise, per test, one mutation** in the code under test, on the line
+  the test's main assertion depends on: invert the condition, drop the call
+  that performs the action, return the old value. The mutation must change the
+  behaviour the test names, or the probe proves nothing. Run it with the
+  script, never by editing the file yourself:
+
+  ```bash
+  SKILL_DIR=<absolute base directory of this skill>   # shown when the skill loads
+  python3 "$SKILL_DIR/scripts/failure_probe.py" --file <src> --line <n> \
+      --find "<text>" --replace "<text>" -- <profile command for this one test>
+  ```
+
+  The script runs the test on untouched code (it must pass), applies the
+  mutation, runs again, and restores the file byte for byte, also on timeout or
+  interrupt. Run probes one at a time: they change shared files. Give the shell
+  call a timeout of at least 2 × the probe's `--timeout` (default 240s) plus a
+  minute, at most 600s in the foreground, or run it in the background: a killed probe leaves the mutation in
+  place. If a probe reports a leftover `<file>.qa-probe-orig`, restore it with
+  the `mv` it prints before anything else. Afterwards `git status` must show no
+  change to product code.
+- **Verdicts** go to the report as a table: test · mutation (file:line, find →
+  replace) · verdict · the last output lines.
+  - `survived`: a proven false green, **Critical**.
+  - `killed`: listed under "what's healthy".
+  - `baseline-red`: a broken test, Critical, reported with the baseline.
+  - `timeout` / `interrupted` / `error`: "not proved", with the reason.
+
+## Phase 4 — Triage, verify, report
 
 - Verify EVERY finding against real code before it enters the report; drop
   false positives explicitly. This is main-session judgment — do not delegate.
-- Merge duplicates, rank: **Critical** (false-green, data risk, broken suite) →
+- Merge duplicates, rank: **Critical** (false green, whether proven by a probe or found by reading; data risk; broken suite) →
   **Important** (flaky patterns, spreading drift) → **Worth-fixing**.
 - Finalize `docs/qa/audit-report.md`: scope, baseline numbers, findings with
   file:line evidence, and a short "what's healthy" section (honest, not filler —
   it tells the team what to keep doing).
 
-## Phase 4 — Refactoring plan
+## Phase 5 — Refactoring plan
 
 Write `docs/qa/refactoring-plan.md`: ordered steps, each independently shippable
 and verifiable, roughly: (1) stop-the-bleeding (Critical), (2) flakiness root
@@ -72,7 +113,7 @@ small enough that one step fits comfortably in one session window.
 Present report + plan to the user. **Stop here by default** — execution starts
 only when the user picks steps (or says "do it all").
 
-## Phase 5 — Execute (on request, step by step)
+## Phase 6 — Execute (on request, step by step)
 
 Per step: implement (delegate mechanical bulk to `mechanical-editor`, test
 rewrites to `test-author` — with precise briefs), run the step's verification
@@ -82,4 +123,5 @@ profile allows. Never batch multiple plan steps into one unreviewed diff.
 
 Refactoring tests has a special trap: a "refactored" test that stops testing
 the same behavior. For any rewritten test, re-prove it can fail
-(quality-rules rule 3).
+(quality-rules rule 3), with `failure_probe.py` and the same mutation as in
+Phase 3 when the test was probed there.

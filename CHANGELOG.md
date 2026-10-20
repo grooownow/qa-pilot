@@ -4,6 +4,32 @@ All notable changes to qa-pilot. Versions follow `.claude-plugin/plugin.json`; e
 
 To update an installed plugin: `/plugin` → marketplace qa-pilot → update, then `/reload-plugins`.
 
+## [0.7.0] — 2026-10-20
+
+### Added
+- **Stale-profile check.** Before every run, `/qa-pilot:test` and `/qa-pilot:audit` compare `docs/qa/project-profile.md` with the repo. They flag:
+  - a renamed or deleted test script;
+  - a test directory or config that has moved;
+  - a test layer the profile says CI runs, which no CI job runs any more (or the other way round);
+  - a test command in CI that the profile does not mention.
+
+  On a difference you get the list and one question: refresh only those lines of the profile, or go on as is. The check never blocks and takes well under a second. Workflows that only run by hand (`workflow_dispatch`) do not count as CI. In a monorepo it reads the CI files at the repository root.
+- **`onboard` refresh mode.** When the check finds drift, `onboard` re-detects and rewrites only the drifted lines instead of rebuilding the profile. A freshly written profile must also pass the same check.
+- `check_skills.py` now also checks that every script a skill runs (`$SKILL_DIR/…/scripts/*.py`) exists.
+- **Failure proof of existing tests.** `/qa-pilot:audit tests` (and the test-code part of a project audit) no longer only reads tests. For a sample (by default 10 tests: the critical flows from the profile plus the ones that look like false greens), it breaks one line of the code under test, runs the test and restores the file. The new script `failure_probe.py` does this:
+  - it runs the test on untouched code first (it must pass);
+  - it keeps a backup, applies the mutation, runs the test again and restores the file byte for byte, also on timeout, Ctrl-C, SIGTERM or SIGHUP, and stops the test runner's child processes;
+  - it moves the file's modification time forward on each write, so bytecode caches never run stale code;
+  - it reports `killed` (the test can fail), `survived` (a proven false green, Critical), `baseline-red`, `timeout`, `interrupted` or `error`.
+
+  If the project already has mutation testing set up (Stryker, mutmut, PIT), the audit uses its report instead. `write-tests` uses the same script when it spot-checks new tests.
+- **Rule QAP-TC-032 (must): a UI test confirms an action by what the user sees.** For example, the deleted row is gone from the list, not "the DELETE returned 200". A response status may be checked in addition, never instead. Exceptions (no visible effect, or an API-level test) are allowed when the test says why in a comment. The rule is wired into test plans (expected results), the test-writing agent, the review loop and the test-code audit. QAP-TC-013 and the e2e waiting guide no longer suggest that a response status is enough for a UI test.
+
+### Known limits
+- The check compares commands, paths and CI jobs as text. It does not notice drift in conventions, critical flows or environments; re-run `onboard` for those.
+- CI that starts tests through its own wrapper script is recognised only when the profile names the CI job.
+- The failure probe needs a test command that runs one test, and a mutation chosen by the agent. A probe killed outright (SIGKILL) leaves the mutation in place with a `.qa-probe-orig` backup; the next probe refuses to start until it is restored.
+
 ## [0.6.0] — 2026-10-19
 
 ### Changed

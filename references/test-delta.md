@@ -51,6 +51,8 @@ If any proof is missing, it is a gap. "Not covered" is an absence claim: cite th
   - an existing convention elsewhere in the code (path:line).
 
   The changed code itself is **never** a valid source (QAP-AIQA-002).
+
+  At the UI, component or e2e level the expected result is **what the user sees** (QAP-TC-032): the row is gone from the list, the saved value shows after a reload, the error appears in the form. A response status alone is not an expected result there; it may be checked in addition. Exceptions (no UI reflects the action, or an API-level test) are named in the test with the reason.
 - **Level:** where the logic lives:
   - pure function → unit;
   - hook or component branch → component/unit;

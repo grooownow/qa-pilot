@@ -15,6 +15,18 @@ The one command for stepping back and looking at the whole thing. **You** pick t
 
 `docs/qa/project-profile.md` must exist. If it doesn't, say so in one line and run `qa-pilot:onboard` first.
 
+**Is the profile still true?** Run, from the project root (`SKILL_DIR` is this skill's base directory, shown when it loads):
+
+```bash
+SKILL_DIR=<absolute base directory of this skill>   # shown when the skill loads
+python3 "$SKILL_DIR/../onboard/scripts/profile_drift.py"
+```
+
+It compares the profile's commands, test paths and CI claims with `package.json`, the Makefile and the CI files, in well under a second.
+- **Exit 0:** say nothing and go on.
+- **Exit 1:** show its lines as they are, then ask once: "Профиль разошёлся с репо: (1) обновить только эти строки через `qa-pilot:onboard` (refresh) — рекомендую, (2) продолжить как есть". Do not block. If the user goes on, use the repo's real commands for the drifted items, not the profile's, and say so.
+- **Any other exit** (the script could not run or crashed): say so in one line and go on. The check never blocks the run.
+
 ## Deciding
 
 1. **Explicit words win.** Before starting, say the choice and its cost in one line. Example: "Аудит требований флоу «Workflows» — около 250–450k токенов, начинаю".

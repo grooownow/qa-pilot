@@ -9,6 +9,9 @@
 - **Проверки зелёные:**
   - `python3 -m unittest discover -s scripts/kb`;
   - `python3 -m unittest discover -s skills/spec-audit/scripts`;
+  - `python3 -m unittest discover -s skills/onboard/scripts` (проверка устаревшего профиля `profile_drift.py`);
+  - `python3 -m unittest discover -s skills/test-code-audit/scripts` (проба падения `failure_probe.py`);
+  - `python3 -m unittest discover -s scripts/plugin` и `python3 scripts/plugin/check_skills.py`;
   - `render_rules.py --check` для `knowledge/surkov` и для `knowledge/qa-pilot`.
 
 ## qa-pilot 0.6.0 (2026-10-19): три команды

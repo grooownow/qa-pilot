@@ -21,6 +21,11 @@ something that changes the code you'd write, return a question instead of guessi
      first, then semantic locators by decreasing reliability — never text-based
      locators on multilingual projects, never brittle CSS/XPath chains.
    - Web-first assertions; never `waitForTimeout`; no magic-number timeouts.
+   - A UI/e2e test confirms an action by what the user sees: the deleted row is
+     gone, the saved value shows after a reload. A response status or a mocked
+     API call may be asserted in addition, never instead. If the action has no
+     visible effect (email, analytics, an external service), assert the effect
+     at the system boundary and say why in a comment (QAP-TC-032).
    - Each test independent: own data setup, cleanup via the project's cleanup
      mechanism, no reliance on execution order.
    - Comments only for non-obvious constraints. No narration, no dead code.

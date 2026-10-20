@@ -8,7 +8,8 @@ Checks every skills/<dir>/SKILL.md:
   characters (longer descriptions are dropped by Claude Code and the skill loses its trigger);
 - `user-invocable`, if present, is true or false;
 - every `qa-pilot:<skill>` it mentions exists;
-- every `../../references/…` or `../../knowledge/…` path it mentions exists.
+- every `../../references/…` or `../../knowledge/…` path it mentions exists;
+- every `$SKILL_DIR/scripts/…` or `$SKILL_DIR/../<skill>/scripts/…` script it runs exists.
 Exits 1 with a list of errors.
 """
 import re
@@ -18,6 +19,7 @@ from pathlib import Path
 MAX_DESCRIPTION = 1024
 SKILL_REF = re.compile(r"qa-pilot:([a-z][a-z0-9-]*)")
 PATH_REF = re.compile(r"\.\./\.\./((?:references|knowledge)/[A-Za-z0-9_./-]+\.(?:md|json))")
+SCRIPT_REF = re.compile(r"\$SKILL_DIR/((?:\.\./[a-z][a-z0-9-]*/)?scripts/[A-Za-z0-9_.-]+\.py)")
 
 
 def frontmatter(text):
@@ -60,6 +62,9 @@ def check(root):
         for ref in sorted(set(PATH_REF.findall(text))):
             if not (root / ref).exists():
                 errors.append(f"{where}: missing file {ref}")
+        for ref in sorted(set(SCRIPT_REF.findall(text))):
+            if not (path.parent / ref).resolve().exists():
+                errors.append(f"{where}: missing script {ref}")
     return errors
 
 

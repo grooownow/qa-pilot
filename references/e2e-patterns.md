@@ -205,7 +205,9 @@ need a hand-rolled `test.afterAll` — the per-test cleanup fixture doesn't fit 
 - Web-first assertions (`expect(locator).toBeVisible()`, `.toHaveText()`, `.toBeEnabled()`)
   auto-retry until the timeout; they are the default and cover most cases.
 - `page.waitForResponse(...)` when a test needs to assert on the network call itself (status
-  code, response body), not just the resulting UI state.
+  code, response body) **in addition to** the resulting UI state. The final assertion of a UI
+  test is what the user sees (QAP-TC-032): a 200 on delete with the row still in the list is
+  a passing test over a bug.
 - **`page.waitForTimeout()` is banned outright.** A fixed sleep is always either too short
   (flaky under load) or too long (slow for no reason), and it hides the real signal the test
   should be waiting on. If nothing else works, add a `data-testid` or a state the app

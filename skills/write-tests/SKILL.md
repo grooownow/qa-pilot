@@ -48,7 +48,12 @@ For the full batch, in this order:
 2. **Failure proof** per test (or per tightly-related group): break the subject
    or assertion, watch the RIGHT failure, restore, watch green
    (quality-rules rule 3). `test-author` reports include this — spot-check one
-   per package yourself; trust but verify.
+   per package yourself with the restoring script; trust but verify
+   (`SKILL_DIR` is this skill's base directory, shown when it loads; give the
+   shell call a 600s timeout):
+   `python3 "$SKILL_DIR/../test-code-audit/scripts/failure_probe.py" --file <src> --line <n> --find "<text>" --replace "<text>" -- <command for this test>`.
+   Skip BUG tests that stay red on purpose (expected-fail): their proof is the
+   recorded failure against the unfixed code.
 3. Flakiness shake: run the new tests twice more (use the project's repeat flag
    if it has one). Any flake → fix the root cause now via
    `../../references/flakiness-catalog.md` — never ship with retries/sleeps

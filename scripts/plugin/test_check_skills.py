@@ -42,6 +42,17 @@ class CheckSkillsTest(unittest.TestCase):
         self.assertTrue(any("missing file references/missing.md" in e for e in errors), errors)
         self.assertTrue(any("user-invocable must be" in e for e in errors), errors)
 
+    def test_script_references(self):
+        skill(self.root, "onboard", body='Run `python3 "$SKILL_DIR/scripts/drift.py"`.')
+        skill(self.root, "test", body='Run `python3 "$SKILL_DIR/../onboard/scripts/drift.py"` and `$SKILL_DIR/scripts/x.py`.')
+        errors = check(self.root)
+        self.assertEqual(sorted(errors), ["skills/onboard/SKILL.md: missing script scripts/drift.py",
+                                          "skills/test/SKILL.md: missing script ../onboard/scripts/drift.py",
+                                          "skills/test/SKILL.md: missing script scripts/x.py"])
+        (self.root / "skills" / "onboard" / "scripts").mkdir()
+        (self.root / "skills" / "onboard" / "scripts" / "drift.py").write_text("")
+        self.assertEqual(check(self.root), ["skills/test/SKILL.md: missing script scripts/x.py"])
+
     def test_quoted_description_is_unquoted(self):
         skill(self.root, "test", description='"Says \\"hi\\": fine"')
         self.assertEqual(check(self.root), [])

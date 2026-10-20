@@ -73,7 +73,10 @@ Covering what you shipped (`test cover`) runs these steps:
 
 When to re-run `onboard`: after a framework migration, a test-layout
 reorganization, or new environments. In short, any time the profile's facts
-go stale.
+go stale. You don't have to track this yourself for commands and CI: before
+every run, `test` and `audit` compare the profile's test commands, test paths
+and CI claims with `package.json`, the Makefile and the CI files. If they
+differ, you get the list and an offer to refresh only those lines.
 
 ## What happens before and after coding (the `task-qa` skill)
 
@@ -249,8 +252,10 @@ busywork. Roughly in order of impact:
   your project's own conventions — see "Frontend, backend, or both?" in the
   README. Backend-specific pattern references are on the roadmap.
 - **Stale profile = wrong behavior.** The profile is a cache; like any cache it
-  can go stale. If skills start using outdated commands or conventions, re-run
-  `onboard`.
+  can go stale. Drift in commands, test paths and CI jobs is caught
+  automatically before each `test` and `audit` run. Drift in conventions,
+  critical flows or environments is not: if skills start following outdated
+  conventions, re-run `onboard`.
 - **It asks rather than guesses.** By design, missing credentials, unclear
   acceptance criteria, or ambiguous scope produce questions. Budget a little
   interaction time — especially in the first week, before the profile and your

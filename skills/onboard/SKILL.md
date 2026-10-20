@@ -10,6 +10,13 @@ qa-pilot skill work WITHOUT re-scanning the repo (the main token saver of this
 plugin). Run once per project; re-run only when the stack or conventions change
 materially.
 
+**Refresh mode.** When `/qa-pilot:test` or `/qa-pilot:audit` sends you here because
+`profile_drift.py` reported drift, do not rebuild the profile. Re-detect only the
+drifted facts (Phase 1 checks for those commands, paths and CI jobs), edit just
+those lines, update the `Generated … on <date>` line, show the user the diff, and
+finish with the Phase 4 drift check. Ask questions only when the repo cannot
+answer them.
+
 Create a todo per phase. Read `../../references/model-routing.md` (relative to
 this skill's base directory) before dispatching any subagent.
 
@@ -118,6 +125,13 @@ Facts only — no recommendations (those belong to `/qa-pilot:audit`).
   tests) — a profile with wrong commands poisons every later skill. If the
   check fails, fix before finishing: re-detect from CI config / package
   scripts, or ask the user for the correct command.
+- Run the drift check on the profile you just wrote (`SKILL_DIR` is this
+  skill's base directory):
+  `python3 "$SKILL_DIR/scripts/profile_drift.py"`. It must exit 0. Every line it
+  prints is a command, path or CI claim in the profile that the repo does not
+  back. Fix the profile, or if the script misread a correct claim, say so to
+  the user. `test` and `audit` run the same check before every run, so a profile
+  that fails here will nag the user every time.
 - Show the user a 5-line summary of what was written and where.
 - Suggest the natural next step: `/qa-pilot:audit` for the big picture of an existing project,
   or `/qa-pilot:test <feature or ticket>` if they came with a specific task.
