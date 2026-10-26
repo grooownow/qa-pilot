@@ -15,6 +15,9 @@ Drift:
                   and none has the CI job the profile names for it
   joined-ci       the profile says CI does not run a layer, but a CI file runs its command now
   new-ci-command  a CI file runs a test command the profile does not mention
+  new-test-dep    a known test package is a dependency, but its name appears nowhere in the profile
+  rules-changed   a project-rules file (CLAUDE.md, lint or test config) was committed after the profile
+  lost-test       docs/qa/coverage-matrix.md names a test file that no longer exists
 
 Workflows that only run by hand (`on: workflow_dispatch`) are not CI. In a monorepo the CI files
 at the repository root count too. The check is deliberately shallow (string matching, no YAML
@@ -27,6 +30,7 @@ import os
 import re
 import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
 
 CI_GLOBS = [".github/workflows/*.yml", ".github/workflows/*.yaml", ".gitlab-ci.yml", ".circleci/config.yml",
@@ -47,6 +51,14 @@ TEST_TOOL = re.compile(r"(playwright test|cypress run|vitest|jest|pytest|go test
 NOT_IN_CI = re.compile(r"^\s*(?:(?:no|not|none|never|manual|manually|local|locally|нет|не|вручную|локально|n/a)\b|[—–-]\s*$|[—–-]\s)", re.I)
 # End of a script name inside a CI line: whitespace, a closing quote or the end of the line.
 WORD_END = r"""(?:[\s'"]|$)"""
+# Bare names of test-related packages (scope dropped); the first group of each is the family reported once.
+TEST_DEPS = {"playwright", "cypress", "vitest", "jest", "mocha", "msw", "nock", "supertest", "testing-library",
+             "storybook", "stryker", "testcontainers", "pytest", "pytest-playwright", "hypothesis", "mutmut"}
+SCOPED_DEPS = {"@playwright/test": "playwright", "@storybook/test": "storybook"}
+SCOPE_FAMILIES = {"@testing-library": "testing-library", "@stryker-mutator": "stryker"}
+RULES_NAMES = {"CLAUDE.md", "AGENTS.md", ".cursorrules", "pytest.ini"}
+RULES_PREFIXES = ("eslint.config.", ".eslintrc", "playwright.config.", "vitest.config.", "jest.config.",
+                  "cypress.config.")
 
 
 def mentions(text, phrase):
@@ -265,7 +277,114 @@ def ci_test_commands(ci):
     return found
 
 
-def check(root, profile_text):
+def bare_dep(name):
+    """A dependency name as a known test package's bare name (`@playwright/test` -> `playwright`), or None."""
+    name = name.strip().lower().replace("_", "-")
+    if name in SCOPED_DEPS:
+        return SCOPED_DEPS[name]
+    if name.startswith("@"):
+        return SCOPE_FAMILIES.get(name.split("/")[0])
+    return name if name in TEST_DEPS else None
+
+
+def test_deps(top, files):
+    """Bare names of the known test packages the repo depends on: package.json, requirements*.txt, pyproject.toml."""
+    found = set()
+    for rel in files:
+        name = rel.name
+        try:
+            text = (top / rel).read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        if name == "package.json":
+            try:
+                data = json.loads(text)
+            except ValueError:
+                continue
+            for key in ("dependencies", "devDependencies"):
+                found.update(filter(None, map(bare_dep, data.get(key) or {})))
+        elif re.fullmatch(r"requirements.*\.txt", name):
+            for line in text.splitlines():
+                line = line.split("#")[0].strip()
+                if line and not line.startswith("-"):
+                    found.add(bare_dep(re.split(r"[\[<>=~!; ]", line)[0]))
+        elif name == "pyproject.toml":
+            for array in re.findall(r"=\s*\[(.*?)\]", text, re.S):
+                for item in re.findall(r"""["']([^"']+)["']""", array):
+                    found.add(bare_dep(re.split(r"[\[<>=~!; ]", item)[0]))
+    found.discard(None)
+    return found
+
+
+def spaced(text):
+    return re.sub(r"[-\s]+", " ", text.lower())
+
+
+def last_commit(top, path):
+    """Unix time of the last commit that touched path, or None (no git, untracked, not committed yet)."""
+    try:
+        out = subprocess.run(["git", "-C", str(top), "log", "-1", "--format=%ct", "--", str(path)],
+                             capture_output=True, text=True, timeout=30).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return int(out) if out.isdigit() else None
+
+
+def has_local_changes(top, path):
+    try:
+        out = subprocess.run(["git", "-C", str(top), "status", "--porcelain", "--", str(path)],
+                             capture_output=True, text=True, timeout=30)
+    except (OSError, subprocess.SubprocessError):
+        return True
+    return out.returncode != 0 or bool(out.stdout.strip())
+
+
+def is_rules_file(top, rel):
+    name = rel.name
+    if name == "pyproject.toml":
+        try:
+            return "[tool.pytest" in (top / rel).read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            return False
+    return name in RULES_NAMES or name.startswith(RULES_PREFIXES) or rel.as_posix().startswith(".cursor/rules/")
+
+
+def rules_changed(top, files, profile_path, generated_date):
+    """Details of project-rules files whose last commit is later than the profile (its commit or its Generated day)."""
+    limit = last_commit(top, profile_path)
+    if generated_date:
+        day_end = datetime.strptime(generated_date, "%Y-%m-%d").replace(hour=23, minute=59, second=59).timestamp()
+        limit = max(limit or 0, day_end)
+    if limit is None:
+        return []
+    details = []
+    for rel in sorted(files):
+        if not is_rules_file(top, rel) or has_local_changes(top, top / rel):
+            continue
+        changed = last_commit(top, top / rel)
+        if changed and changed > limit:
+            when, since = (datetime.fromtimestamp(t).strftime("%Y-%m-%d") for t in (changed, limit))
+            details.append(f"{rel.as_posix()} changed on {when}, after the profile ({since})")
+    return details
+
+
+def lost_tests(root, top, names):
+    """Details of coverage-matrix rows whose test file no longer exists."""
+    matrix = root / "docs" / "qa" / "coverage-matrix.md"
+    if not matrix.is_file():
+        return []
+    details = []
+    for row in table_rows(matrix.read_text(encoding="utf-8", errors="replace"))[1:]:
+        if len(row) < 3:
+            continue
+        spans = INLINE_CODE.findall(row[2])
+        path = (spans[0] if spans else row[2].split(" \u203a")[0]).strip().split("::")[0]
+        if PATH_LIKE.match(path) and not path_exists(path, root, top, names):
+            details.append(f"{row[0]} / {row[1]}: test file `{path}` does not exist")
+    return details
+
+
+def check(root, profile_text, profile_path=None):
     drifts = []
     commands_body = section(profile_text, "Commands")
     layers_body = section(profile_text, "Test layers")
@@ -323,6 +442,16 @@ def check(root, profile_text):
         if kind == "tool" and name in mentioned:
             continue
         drifts.append(("new-ci-command", f"CI runs `{line}`, the profile does not mention it"))
+
+    profile_words = spaced(profile_text)
+    for dep in sorted(test_deps(top, files)):
+        if not re.search(rf"(?<![a-z0-9]){re.escape(spaced(dep))}(?![a-z0-9])", profile_words):
+            drifts.append(("new-test-dep", f"`{dep}` is a dependency, the profile does not mention it"))
+    if profile_path is not None:
+        generated = re.search(r"on (\d{4}-\d{2}-\d{2})", profile_text)
+        drifts += [("rules-changed", d) for d in
+                   rules_changed(top, files, profile_path, generated.group(1) if generated else None)]
+    drifts += [("lost-test", d) for d in lost_tests(root, top, names)]
     return drifts, len(ci_files)
 
 
@@ -337,7 +466,7 @@ def main(argv):
         print(f"NO PROFILE: {profile}", file=sys.stderr)
         return 2
     text = profile.read_text(encoding="utf-8")
-    drifts, ci_files = check(root, text)
+    drifts, ci_files = check(root, text, profile_path=profile)
     generated = re.search(r"on (\d{4}-\d{2}-\d{2})", text)
     since = f" (profile from {generated.group(1)})" if generated else ""
     if not drifts:

@@ -1,4 +1,7 @@
 import json
+import os
+import shutil
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -42,11 +45,17 @@ jobs:
 
 
 class DriftTest(unittest.TestCase):
-    def repo(self, scripts=SCRIPTS, workflow=WORKFLOW, profile=PROFILE, paths=("e2e", "visual")):
+    def repo(self, scripts=SCRIPTS, workflow=WORKFLOW, profile=PROFILE, paths=("e2e", "visual"), deps=None,
+             dev_deps=None, pyproject=None, requirements=None, matrix=None, git=False):
         tmp = tempfile.TemporaryDirectory()
         self.addCleanup(tmp.cleanup)
         root = Path(tmp.name)
-        (root / "package.json").write_text(json.dumps({"scripts": scripts}))
+        package = {"scripts": scripts, "dependencies": deps or {}, "devDependencies": dev_deps or {}}
+        (root / "package.json").write_text(json.dumps(package))
+        if pyproject is not None:
+            (root / "pyproject.toml").write_text(pyproject)
+        if requirements is not None:
+            (root / "requirements-dev.txt").write_text(requirements)
         (root / "playwright.config.ts").write_text("")
         (root / "src").mkdir()
         (root / "src" / "a.test.ts").write_text("")
@@ -57,10 +66,34 @@ class DriftTest(unittest.TestCase):
             (root / ".github" / "workflows" / "ci.yml").write_text(workflow)
         (root / "docs" / "qa").mkdir(parents=True)
         (root / "docs" / "qa" / "project-profile.md").write_text(profile)
+        if matrix is not None:
+            (root / "docs" / "qa" / "coverage-matrix.md").write_text(matrix)
+        if git:
+            if shutil.which("git") is None:
+                self.skipTest("git is not installed")
+            self.git(root, "init", "-q")
+            self.commit(root, "2026-10-01T12:00:00")
         return root
 
+    def git(self, root, *args, date=None):
+        env = dict(os.environ)
+        if date:
+            env.update(GIT_AUTHOR_DATE=date, GIT_COMMITTER_DATE=date)
+        subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@example.com", "-c", "commit.gpgsign=false",
+                        "-C", str(root), *args], check=True, capture_output=True, env=env)
+
+    def commit(self, root, date):
+        self.git(root, "add", "-A")
+        self.git(root, "commit", "-q", "-m", "c", date=date)
+
+    def drifts(self, root, kind):
+        found, _ = check(root, (root / "docs/qa/project-profile.md").read_text(),
+                         profile_path=root / "docs/qa/project-profile.md")
+        return [detail for k, detail in found if k == kind]
+
     def kinds(self, root):
-        drifts, _ = check(root, (root / "docs/qa/project-profile.md").read_text())
+        drifts, _ = check(root, (root / "docs/qa/project-profile.md").read_text(),
+                          profile_path=root / "docs/qa/project-profile.md")
         return [kind for kind, _ in drifts]
 
     def test_fresh_profile_has_no_drift(self):
@@ -175,6 +208,81 @@ class DriftTest(unittest.TestCase):
 
     def test_no_ci_files_skips_ci_checks(self):
         self.assertEqual(self.kinds(self.repo(workflow=None)), [])
+
+    def test_new_test_dep_reported(self):
+        found = self.drifts(self.repo(dev_deps={"msw": "^2", "typescript": "^5"}), "new-test-dep")
+        self.assertEqual(len(found), 1)
+        self.assertIn("`msw`", found[0])
+
+    def test_known_dep_named_in_prose_is_quiet(self):
+        deps = {"@playwright/test": "1", "@testing-library/react": "1", "vitest": "1"}
+        profile = PROFILE + "\nTools: Playwright, Testing Library, Vitest.\n"
+        self.assertEqual(self.drifts(self.repo(dev_deps=deps, profile=profile), "new-test-dep"), [])
+
+    def test_testing_library_reported_once(self):
+        deps = {"@testing-library/react": "1", "@testing-library/user-event": "1"}
+        found = self.drifts(self.repo(dev_deps=deps), "new-test-dep")
+        self.assertEqual(len(found), 1)
+        self.assertIn("testing-library", found[0])
+
+    def test_python_deps(self):
+        profile = PROFILE + "\nPython tests use pytest.\n"
+        root = self.repo(profile=profile, requirements="pytest==8.0\nhypothesis>=6  # props\n")
+        found = self.drifts(root, "new-test-dep")
+        self.assertEqual(len(found), 1)
+        self.assertIn("hypothesis", found[0])
+        pyproject = '[project]\nname = "x"\n\n[project.optional-dependencies]\ntest = ["pytest-playwright>=0.4"]\n'
+        found = self.drifts(self.repo(profile=profile, pyproject=pyproject), "new-test-dep")
+        self.assertEqual(len(found), 1)
+        self.assertIn("pytest-playwright", found[0])
+
+    def test_rules_changed_after_profile(self):
+        root = self.repo(git=True)
+        (root / "CLAUDE.md").write_text("rules")
+        self.commit(root, "2026-10-05T12:00:00")
+        found = self.drifts(root, "rules-changed")
+        self.assertEqual(len(found), 1)
+        for needle in ("CLAUDE.md", "2026-10-05", "2026-10-01"):
+            self.assertIn(needle, found[0])
+
+    def test_rules_same_day_or_before_is_quiet(self):
+        root = self.repo(git=True)
+        (root / "CLAUDE.md").write_text("rules")
+        self.commit(root, "2026-10-01T18:00:00")
+        self.assertEqual(self.drifts(root, "rules-changed"), [])
+
+    def test_rules_uncommitted_or_no_git_is_quiet(self):
+        root = self.repo()
+        (root / "CLAUDE.md").write_text("rules")
+        self.assertEqual(self.drifts(root, "rules-changed"), [])
+        root = self.repo(git=True)
+        (root / "AGENTS.md").write_text("rules")
+        self.commit(root, "2026-10-01T13:00:00")
+        (root / "AGENTS.md").write_text("changed later")
+        self.assertEqual(self.drifts(root, "rules-changed"), [])
+
+    def test_pyproject_rules_only_with_pytest_section(self):
+        root = self.repo(git=True, pyproject='[project]\nname = "x"\n')
+        (root / "pyproject.toml").write_text('[project]\nname = "y"\n')
+        self.commit(root, "2026-10-05T12:00:00")
+        self.assertEqual(self.drifts(root, "rules-changed"), [])
+        (root / "pyproject.toml").write_text('[project]\nname = "y"\n[tool.pytest.ini_options]\naddopts = "-q"\n')
+        self.commit(root, "2026-10-06T12:00:00")
+        self.assertEqual(len(self.drifts(root, "rules-changed")), 1)
+
+    def test_lost_test(self):
+        matrix = ("# Coverage matrix\n\n| Feature | Requirement | Test | Layer | In CI | Proof | Updated |\n"
+                  "|---|---|---|---|---|---|---|\n"
+                  "| Checkout | Total includes shipping | `e2e/checkout.spec.ts` \u203a \"total with shipping\" | e2e | yes | none | 2026-10-01 |\n")
+        root = self.repo(matrix=matrix)
+        found = self.drifts(root, "lost-test")
+        self.assertEqual(len(found), 1)
+        self.assertIn("Checkout", found[0])
+        self.assertIn("e2e/checkout.spec.ts", found[0])
+        (root / "e2e" / "checkout.spec.ts").write_text("")
+        self.assertEqual(self.drifts(root, "lost-test"), [])
+        self.assertEqual(self.drifts(self.repo(), "lost-test"), [])
+        self.assertEqual(self.drifts(self.repo(matrix="# Coverage matrix\n\nnothing yet\n"), "lost-test"), [])
 
     def test_exit_codes(self):
         root = self.repo()
