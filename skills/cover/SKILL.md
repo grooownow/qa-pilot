@@ -1,6 +1,6 @@
 ---
 name: cover
-description: One command after shipping new or changed code - detects what changed, maps which behavior is already covered by existing tests, plans the missing scenarios, writes the tests, and reviews everything. The day-to-day orchestrator that chains plan-tests and write-tests around a coverage-gap check. Use when the user says "cover the gaps", "покрой тестами", "add tests for what we just built", "check coverage for this feature/branch/PR", or finishes a feature and wants it tested end to end. Requires docs/qa/project-profile.md (run qa-pilot:onboard first).
+description: One command after shipping new or changed code - detects what changed, maps which behavior is already covered by existing tests, plans the missing scenarios, writes the tests, and reviews everything. The day-to-day orchestrator that chains plan-tests and write-tests around a coverage-gap check. Use when the user says "cover the gaps", "покрой тестами", "add tests for what we just built", "check coverage for this feature/branch/PR", or finishes a feature and wants it tested end to end. Requires docs/qa/project-profile.md (run qa-pilot:onboard first). Not for a task with AC still to check (use qa-pilot:task-qa).
 user-invocable: false
 ---
 

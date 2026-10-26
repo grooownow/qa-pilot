@@ -1,6 +1,6 @@
 ---
 name: onboard
-description: One-time qa-pilot setup for a project - analyzes the stack, test frameworks, conventions, CI, and existing rules, asks the user what cannot be detected, and writes docs/qa/project-profile.md, the persistent project memory every other qa-pilot skill reads. Use when starting qa-pilot on a new project, when the user says "set up qa-pilot", "onboard this project", "create project profile", or when another qa-pilot skill reports the profile is missing or stale.
+description: One-time qa-pilot setup for a project - analyzes the stack, test frameworks, conventions, CI, and existing rules, asks the user what cannot be detected, and writes docs/qa/project-profile.md, the persistent project memory every other qa-pilot skill reads. Use when starting qa-pilot on a new project, when the user says "set up qa-pilot", "onboard this project", "create project profile", or when another qa-pilot skill reports the profile is missing or stale. Not for QA work itself (use qa-pilot:test or qa-pilot:audit).
 ---
 
 # Onboard

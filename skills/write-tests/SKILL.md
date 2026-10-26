@@ -1,6 +1,6 @@
 ---
 name: write-tests
-description: Implements automated tests (Playwright e2e and below) from a qa-pilot test plan or a direct request, following the project's own conventions, with a mandatory review loop and proof that every new test can fail. Use when the user asks to write/add/implement tests, automate scenarios from a test plan, or cover a feature/bugfix with tests. Requires docs/qa/project-profile.md (run qa-pilot:onboard first).
+description: Implements automated tests (Playwright e2e and below) from a qa-pilot test plan or a direct request, following the project's own conventions, with a mandatory review loop and proof that every new test can fail. Use when the user asks to write/add/implement tests, automate scenarios from a test plan, or cover a feature/bugfix with tests. Requires docs/qa/project-profile.md (run qa-pilot:onboard first). Not for deciding what to test (use qa-pilot:plan-tests) or auditing existing tests (use qa-pilot:test-code-audit).
 user-invocable: false
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: test-code-audit
-description: Deep audit of an existing test codebase - finds anti-patterns, copy-paste, flakiness sources, over-complexity, false-green and dead tests; proves on a sample (critical flows + suspects) that existing tests can fail by breaking the code under test with a restoring script; produces a severity-ranked report and an ordered refactoring plan, then can execute the plan step by step. Use when the user asks to audit/review/health-check the test suite, complains about flaky or slow tests, or wants a refactoring plan for tests. Requires docs/qa/project-profile.md (run qa-pilot:onboard first).
+description: Deep audit of an existing test codebase - finds anti-patterns, copy-paste, flakiness sources, over-complexity, false-green and dead tests; proves on a sample (critical flows + suspects) that existing tests can fail by breaking the code under test with a restoring script; produces a severity-ranked report and an ordered refactoring plan, then can execute the plan step by step. Use when the user asks to audit/review/health-check the test suite, complains about flaky or slow tests, or wants a refactoring plan for tests. Requires docs/qa/project-profile.md (run qa-pilot:onboard first). Not for missing scenarios in a feature (use qa-pilot:spec-audit or qa-pilot:plan-tests).
 user-invocable: false
 ---
 

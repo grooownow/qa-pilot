@@ -1,6 +1,6 @@
 ---
 name: plan-tests
-description: Turns a feature (description, ticket, diff, or URL) into a prioritized test plan - scenarios with depth/breadth/cost tradeoff made explicit, tiers (mocked vs real backend), data needs, and out-of-scope notes. Use when the user asks "what should we test here", "write test scenarios for this feature", "составь тест-план", or hands over a ticket/PR to cover with tests. Requires docs/qa/project-profile.md (run qa-pilot:onboard first).
+description: Turns a feature (description, ticket, diff, or URL) into a prioritized test plan - scenarios with depth/breadth/cost tradeoff made explicit, tiers (mocked vs real backend), data needs, and out-of-scope notes. Use when the user asks "what should we test here", "write test scenarios for this feature", "составь тест-план", or hands over a ticket/PR to cover with tests. Requires docs/qa/project-profile.md (run qa-pilot:onboard first). Not for writing the tests (use qa-pilot:write-tests) or checking AC against code (use qa-pilot:task-qa).
 user-invocable: false
 ---
 

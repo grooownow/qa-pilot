@@ -5,7 +5,7 @@ from pathlib import Path
 from check_skills import check
 
 
-def skill(root, name, description="Does things.", body="", extra=""):
+def skill(root, name, description="Does things. Not for z.", body="", extra=""):
     d = root / "skills" / name
     d.mkdir(parents=True)
     (d / "SKILL.md").write_text(f"---\nname: {name}\ndescription: {description}\n{extra}---\n\n{body}\n")
@@ -54,7 +54,22 @@ class CheckSkillsTest(unittest.TestCase):
         self.assertEqual(check(self.root), ["skills/test/SKILL.md: missing script scripts/x.py"])
 
     def test_quoted_description_is_unquoted(self):
-        skill(self.root, "test", description='"Says \\"hi\\": fine"')
+        skill(self.root, "test", description='"Says \\"hi\\": fine. Not for z."')
+        self.assertEqual(check(self.root), [])
+
+    def test_description_needs_not_for(self):
+        skill(self.root, "test", description="Does things.")
+        self.assertEqual(check(self.root), ["skills/test/SKILL.md: description has no 'Not for' clause"])
+
+    def test_not_for_in_quoted_description(self):
+        skill(self.root, "test", description='"Does \\"x\\". Not for y."')
+        self.assertEqual(check(self.root), [])
+
+    def test_missing_example(self):
+        skill(self.root, "test", body="See `examples/report.md`.")
+        self.assertEqual(check(self.root), ["skills/test/SKILL.md: missing example examples/report.md"])
+        (self.root / "skills" / "test" / "examples").mkdir()
+        (self.root / "skills" / "test" / "examples" / "report.md").write_text("x")
         self.assertEqual(check(self.root), [])
 
 

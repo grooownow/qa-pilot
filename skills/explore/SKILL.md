@@ -1,6 +1,6 @@
 ---
 name: explore
-description: Exploratory and scenario-based testing in a real browser via Playwright MCP - walks through flows, hunts for bugs, records findings with repro steps, optionally fixes low-risk bugs under guards, and re-verifies fixes. Use when the user asks to test a feature manually, "покликай/проверь в браузере", verify a fix in the running app, or do an exploratory testing session. Requires docs/qa/project-profile.md (run qa-pilot:onboard first).
+description: Exploratory and scenario-based testing in a real browser via Playwright MCP - walks through flows, hunts for bugs, records findings with repro steps, optionally fixes low-risk bugs under guards, and re-verifies fixes. Use when the user asks to test a feature manually, "покликай/проверь в браузере", verify a fix in the running app, or do an exploratory testing session. Requires docs/qa/project-profile.md (run qa-pilot:onboard first). Not for writing automated tests (use qa-pilot:write-tests).
 user-invocable: false
 ---
 
