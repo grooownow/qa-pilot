@@ -26,7 +26,8 @@ Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.m
   vs everything). State the scope in the report header.
 - Baseline run: execute the suite once (or the target subset). Record pass/fail/
   skip counts and duration in the report. A suite that doesn't run is finding #1.
-- Cheap first pass: run the grep hints from `../../references/test-anti-patterns.md`
+- Cheap first pass: run the patterns in the "Grep hints" list of
+  `../../references/test-anti-patterns.md`
   over the scoped test files (`git grep -nE`). Record the hit count per name in
   the report. A hit is a suspect until the code is read, not a finding.
 - State the failure-proof sample (Phase 3): which tests, how many, rough time.
