@@ -4,6 +4,30 @@ All notable changes to qa-pilot. Versions follow `.claude-plugin/plugin.json`; e
 
 To update an installed plugin: `/plugin` → marketplace qa-pilot → update, then `/reload-plugins`.
 
+## [0.8.0] — 2026-10-26
+
+### Added
+- **Project learnings.** qa-pilot keeps what it learned on a project in `docs/qa/learnings.md`: a finding the owner rejected as wrong for this project, a review finding that came back twice, a flaky test's root cause, a command quirk that cost a retry. At the end of a run the skill shows the proposed lines and writes them only after your yes, at most 3 per run. A duplicate is merged into the existing line. Every skill reads the file right after the profile. Your words in the session win over a lesson, a lesson wins over skill defaults, and a lesson that contradicts the profile or the repo is shown as a question. `onboard` lists lessons that name a path, command or dependency which no longer exists and asks whether to drop them. Format and rules: `references/learnings.md`.
+- **Wider profile drift check.** `profile_drift.py` reports three more kinds:
+  - `new-test-dep`: a known test package (Playwright, Cypress, Vitest, Jest, MSW, pytest, Stryker and others) is a dependency, but its name appears nowhere in the profile;
+  - `rules-changed`: `CLAUDE.md`, `AGENTS.md`, Cursor rules, or a lint or test config was committed after the profile;
+  - `lost-test`: a row of the coverage matrix names a test file that no longer exists.
+
+  `onboard` refresh updates the profile lines for the first two. For `lost-test` it asks whether to drop the row or point it to the new path, and edits the matrix only after a yes.
+- **Coverage matrix.** `docs/qa/coverage-matrix.md` is one table: feature, requirement, test, layer, in CI, proof, updated. `task-qa` verify, `cover`, `write-tests` and `test-code-audit` add or update rows for coverage they proved. `task-qa` plan, `spec-audit` and `project-audit` read it, so a requirement that already has a test is not planned twice. Proof is `failed when broken, <date>` only when the run saw the test fail; a test that was only read gets `distinguishing assertion` or `none`. Format: `references/coverage-matrix.md`.
+- **Named test anti-patterns.** `references/test-anti-patterns.md` names ten: Liar, Mirror, Mockery, Status-only, Giant, Inspector, Chain Gang, Sleeper, Ghost, Copycat. Each has a definition and grep hints. `test-code-audit` runs the hints as a cheap first pass and groups its findings by name.
+- **Routing.** Every skill description now has a "Not for … (use qa-pilot:X)" clause, so the agent picks the right skill. `check_skills.py` enforces the clause and checks that the `examples/` files a skill points to exist.
+- **Example outputs** for the four skills that write documents: `skills/{onboard,task-qa,test-code-audit,spec-audit}/examples/*.md`.
+
+### Changed
+- The `spec-audit` description no longer names the author of the book the rule catalog comes from.
+
+### Known limits
+- The drift kinds are text matching. `new-test-dep` looks for a package name in the profile; it does not read how the package is used.
+- `rules-changed` needs git and ignores uncommitted edits and files git does not track.
+- The matrix records what the skills proved; it is not a CI gate and nothing fails when a row is stale. `lost-test` only notices a deleted or moved test file, not a test that was emptied.
+- Learnings are written by the agent with your yes. Nothing deletes them automatically.
+
 ## [0.7.0] — 2026-10-20
 
 ### Added

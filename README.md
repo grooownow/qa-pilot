@@ -81,12 +81,23 @@ Every skill except `onboard` reads the project profile. If a session hits your
 plan's usage limit mid-task, nothing is lost: every skill writes its progress
 to a file in your repo as it works, and the next session resumes from there.
 
+## What it remembers
+
+Two small files in your project carry knowledge from run to run. Both are plain Markdown you can read and edit.
+
+- **`docs/qa/learnings.md`: project lessons.** A finding you rejected as wrong for this project, a flaky test's root cause, a command quirk. At the end of a run qa-pilot shows the lessons it wants to keep (at most 3) and writes them only after your yes. Every skill reads the file before it starts. `onboard` flags lessons that have gone stale.
+- **`docs/qa/coverage-matrix.md`: what is covered.** One table: feature, requirement, test, layer, in CI, proof, updated. `test` and `audit` add rows for coverage they proved, and read it to avoid planning a test that exists. The proof column says `failed when broken` only when the run saw the test fail. It is a record, not a CI gate.
+
+Before every run, `test` and `audit` also check the profile against the repo. Besides renamed scripts, moved paths and CI changes, they now notice a new test dependency, a changed `CLAUDE.md`, `AGENTS.md` or lint/test config (git only, committed edits only), and a matrix row whose test file is gone.
+
 ## What's inside
 
 - **11 skills** (`skills/`). Three are commands: onboard, test, audit. Eight are internal skills the commands route to: task-qa, cover, plan-tests, write-tests, explore, project-audit, spec-audit, test-code-audit.
   Each follows the same contract: numbered phases, batched questions when
   context is missing, mandatory self-review of any code it changes, evidence
-  before claims.
+  before claims. The four that write documents have an example output in their
+  `examples/` folder. `test-code-audit` names ten test anti-patterns (Liar,
+  Mirror, Mockery, Status-only and others) and finds them with a grep pass first.
 - **3 subagents** (`agents/`) — `test-author` (Sonnet, writes test code from
   precise briefs), `qa-reviewer` (adversarial review lenses), and
   `mechanical-editor` (Haiku, bulk mechanical edits). Cheap models do the

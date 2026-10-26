@@ -14,6 +14,8 @@
   - `python3 -m unittest discover -s scripts/plugin` и `python3 scripts/plugin/check_skills.py`;
   - `render_rules.py --check` для `knowledge/surkov` и для `knowledge/qa-pilot`.
 
+- **0.8.0 (ветка `feat/learnings`, 2026-10-26):** добавлены `docs/qa/learnings.md`, матрица покрытия, drift-виды `new-test-dep` / `rules-changed` / `lost-test`, «Not for» в описаниях, примеры и 10 антипаттернов; changelog и версия готовы, тег и push ждут решения владельца.
+
 ## qa-pilot 0.6.0 (2026-10-19): три команды
 
 > **Правило релиза:** каждая новая версия получает запись в `CHANGELOG.md` (Added / Changed / Fixed / Known limits), затем поднимается версия в `plugin.json` и ставится тег `vX.Y.Z`.
