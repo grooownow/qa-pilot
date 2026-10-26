@@ -92,5 +92,5 @@ Also write `docs/qa/project-audit/<date>-actions.md` and `<date>-actions.json` (
   - fix the framework blockers;
   - run `plan-tests` / `write-tests` on the Must list;
   - wire `qa-pilot:task-qa` into the team's feature workflow (`../../references/orchestrator-integration.md`), so that new tasks keep the picture intact.
-- **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes.
+- **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes. If invoked by another qa-pilot skill, hand the candidates back to it instead of asking.
 - Re-run cadence: after a large feature, after a round of small changes, or quarterly. Each re-run compares with the previous roadmap and lists what was closed.

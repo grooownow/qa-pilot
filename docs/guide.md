@@ -139,7 +139,7 @@ is ambiguous or contradicts another doc?", and "what does the owner still need
 to decide?". How it works:
 
 - **Rules, not vibes.** It checks against `knowledge/` — 1137 rules distilled
-  from Roman Surkov's QA handbook (test design techniques, requirements quality,
+  from a large QA rule catalog (test design techniques, requirements quality,
   a11y/WCAG 2.2, API, forms, UX laws, dark patterns…) plus qa-pilot's own rules
   learned from real audits. Your **Product traits** (in the project profile)
   drop rules that cannot apply — no iOS guidelines for a web app, no checkout

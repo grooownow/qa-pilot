@@ -21,8 +21,9 @@ answer them. Per drift kind:
 - `rules-changed`: re-read that file, update Conventions, and show the owner any
   lesson in `docs/qa/learnings.md` that it contradicts.
 - `lost-test`: not a profile fact. Tell the owner which matrix row lost its test
-  and offer to drop the row or point it to the new test path
-  (`../../references/coverage-matrix.md`). Edit the matrix only after a yes.
+  and offer three options: drop the row, point it to the new test path, or keep it
+  as history (append ` (removed <YYYY-MM-DD>)` to its Test cell; the drift check
+  then skips it) (`../../references/coverage-matrix.md`). Edit the matrix only after a yes.
 
 In a full or refresh run, also check `docs/qa/learnings.md` if it exists
 (`../../references/learnings.md`): list lessons that name a path, command or

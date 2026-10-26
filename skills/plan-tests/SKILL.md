@@ -100,4 +100,4 @@ would most embarrass the team? Fix, then present a compact summary (scenario
 count per priority/level, key assumptions, out-of-scope) and offer
 `qa-pilot:write-tests` for the automatable subset.
 
-**Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes.
+**Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes. If invoked by another qa-pilot skill, hand the candidates back to it instead of asking.

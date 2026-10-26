@@ -73,6 +73,6 @@ re-review (≤3 rounds).
 - Summarize for the user: tests added (count, files), evidence (runs, failure
   proofs), review rounds, debt accepted.
 - Upsert a row in `docs/qa/coverage-matrix.md` for each test added, with its failure proof (`../../references/coverage-matrix.md`).
-- **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes.
+- **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes. If invoked by another qa-pilot skill, hand the candidates back to it instead of asking.
 - Commit/PR per the repo's own policy from the profile; if the policy is
   unknown, show the diff and ask.

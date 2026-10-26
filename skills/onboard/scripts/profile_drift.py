@@ -18,6 +18,7 @@ Drift:
   new-test-dep    a known test package is a dependency, but its name appears nowhere in the profile
   rules-changed   a project-rules file (CLAUDE.md, lint or test config) was committed after the profile
   lost-test       docs/qa/coverage-matrix.md names a test file that no longer exists
+                  (rows whose Test cell contains "(removed " are kept history and skipped)
 
 Workflows that only run by hand (`on: workflow_dispatch`) are not CI. In a monorepo the CI files
 at the repository root count too. The check is deliberately shallow (string matching, no YAML
@@ -292,6 +293,8 @@ def test_deps(top, files):
     found = set()
     for rel in files:
         name = rel.name
+        if not (name in ("package.json", "pyproject.toml") or re.fullmatch(r"requirements.*\.txt", name)):
+            continue
         try:
             text = (top / rel).read_text(encoding="utf-8", errors="replace")
         except OSError:
@@ -353,8 +356,11 @@ def rules_changed(top, files, profile_path, generated_date):
     """Details of project-rules files whose last commit is later than the profile (its commit or its Generated day)."""
     limit = last_commit(top, profile_path)
     if generated_date:
-        day_end = datetime.strptime(generated_date, "%Y-%m-%d").replace(hour=23, minute=59, second=59).timestamp()
-        limit = max(limit or 0, day_end)
+        try:
+            day_end = datetime.strptime(generated_date, "%Y-%m-%d").replace(hour=23, minute=59, second=59).timestamp()
+            limit = max(limit or 0, day_end)
+        except ValueError:  # a malformed date counts as absent
+            pass
     if limit is None:
         return []
     details = []
@@ -375,7 +381,7 @@ def lost_tests(root, top, names):
         return []
     details = []
     for row in table_rows(matrix.read_text(encoding="utf-8", errors="replace"))[1:]:
-        if len(row) < 3:
+        if len(row) < 3 or "(removed " in row[2]:
             continue
         spans = INLINE_CODE.findall(row[2])
         path = (spans[0] if spans else row[2].split(" \u203a")[0]).strip().split("::")[0]

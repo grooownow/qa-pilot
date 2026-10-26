@@ -36,6 +36,10 @@ Strict. Anything outside this list is not a lesson:
 At the end of a run, a skill that met a trigger shows the proposed lines in one message and writes them only after
 the owner says yes. At most 3 new lines per run. A duplicate is merged into the existing line (date updated), not added.
 
+Nested runs: a skill invoked by another qa-pilot skill (`plan-tests` and `write-tests` under `cover`, `write-tests` under
+`task-qa`, `spec-audit` and `test-code-audit` under `project-audit`) does not ask. It hands its lesson candidates back to
+its caller, and only the outermost skill shows one message (3 lines at most in total per run).
+
 ## Reading
 
 Every skill reads the file at start, right after the profile, when it exists. It is capped at about 60 lines, so it

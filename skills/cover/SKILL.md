@@ -77,5 +77,4 @@ fresh approval of the batch follows the auto-test guard in test-delta §6.
 - Summarize for the user: behaviors in scope → covered before / covered now /
   consciously skipped (with reasons from the plan's depth budget), file map,
   evidence. The plan document is the durable record.
-- Upsert a row in `docs/qa/coverage-matrix.md` for each test added, with its proof, per `../../references/coverage-matrix.md`.
-- **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes.
+- **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes. If invoked by another qa-pilot skill, hand the candidates back to it instead of asking.

@@ -101,7 +101,7 @@ Reading a test does not prove it can fail. Break the code it guards and run it.
   - `killed`: listed under "what's healthy".
   - `baseline-red`: a broken test, Critical, reported with the baseline.
   - `timeout` / `interrupted` / `error`: "not proved", with the reason.
-- **Matrix:** verdicts update the Proof column of `docs/qa/coverage-matrix.md` for the tests that have a row: `killed` → `failed when broken, <date>`; `survived` → `none` plus a note (`../../references/coverage-matrix.md`).
+- **Matrix:** verdicts update the Proof column of `docs/qa/coverage-matrix.md` for the tests that have a row: `killed` → `failed when broken, <date>`; `survived` → `none`, with the note in the Test cell after the name (`../../references/coverage-matrix.md`).
 
 ## Phase 4 — Triage, verify, report
 
@@ -127,7 +127,7 @@ small enough that one step fits comfortably in one session window.
 Present report + plan to the user. **Stop here by default** — execution starts
 only when the user picks steps (or says "do it all").
 
-**Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes.
+**Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes. If invoked by another qa-pilot skill, hand the candidates back to it instead of asking.
 
 ## Phase 6 — Execute (on request, step by step)
 

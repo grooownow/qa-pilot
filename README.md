@@ -106,8 +106,7 @@ Before every run, `test` and `audit` also check the profile against the repo. Be
   catalog, browser/dev-server hygiene, the review-loop protocol, quality rules,
   and model-routing rules. Skills load these on demand.
 - **QA rules catalog** (`knowledge/`) — 1137 paraphrased rules, recommendations,
-  tips and checklist items distilled from Roman Surkov's QA handbook «Качество
-  решает всё» (test design, requirements, test artifacts, forms, API, a11y/WCAG
+  tips and checklist items distilled from a large QA rule catalog (test design, requirements, test artifacts, forms, API, a11y/WCAG
   2.2, localization, performance, mobile HIG/Material, UX laws, dark patterns,
   AI-in-QA), each verified against its source and tagged with where it applies
   and how to check it — plus qa-pilot's own rules learned from real audits.

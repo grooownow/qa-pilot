@@ -13,7 +13,7 @@ The skill finds what the requirements and test plan get wrong or leave out. The 
 
 Output: `docs/qa/spec-audit/<date>-<slug>.md`, written as you go. A dead session must lose nothing.
 
-**Never edit the project's specs or code.** This skill only reports.
+**Never edit the project's specs or code.** This skill only reports. The one exception: with the owner's yes it may write `docs/qa/learnings.md`; it upserts nothing else.
 
 Create a todo per phase (if a todo tool is available). Before dispatching anything, read:
 - `../../references/model-routing.md`
@@ -244,4 +244,4 @@ Then:
 - When the user applies filters or answers questions, update **both** files, and offer to save the answers in `rule-overrides.json` (`scope` / `decisions`).
 - **Offer** to export the action list as `docs/qa/test-plans/<feature>.md` in the `qa-pilot:plan-tests` format, so that `qa-pilot:write-tests` can implement it. Do it only on request.
 - Delete `$SCRATCH` only if the user says so; it is the evidence trail.
-- **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes.
+- **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes. If invoked by another qa-pilot skill, hand the candidates back to it instead of asking.
