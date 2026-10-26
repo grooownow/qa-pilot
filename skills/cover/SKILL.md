@@ -12,7 +12,7 @@ and `qa-pilot:write-tests` — invoke them as sub-steps rather than duplicating
 their logic.
 
 Create a todo per phase. Prerequisite: `docs/qa/project-profile.md`
-(else run `qa-pilot:onboard`). Read `../../references/model-routing.md`.
+(else run `qa-pilot:onboard`). Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.md`. Read `../../references/model-routing.md`.
 
 ## Phase 1 — Scope what changed
 
@@ -77,3 +77,5 @@ fresh approval of the batch follows the auto-test guard in test-delta §6.
 - Summarize for the user: behaviors in scope → covered before / covered now /
   consciously skipped (with reasons from the plan's depth budget), file map,
   evidence. The plan document is the durable record.
+- Upsert a row in `docs/qa/coverage-matrix.md` for each test added, with its proof, per `../../references/coverage-matrix.md`.
+- **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes.

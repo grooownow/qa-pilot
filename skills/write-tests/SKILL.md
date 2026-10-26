@@ -13,7 +13,7 @@ designing scope on the fly.
 
 Create a todo per phase. Read `../../references/quality-rules.md`,
 `../../references/model-routing.md`, and `../../references/e2e-patterns.md`.
-Prerequisite: `docs/qa/project-profile.md`.
+Prerequisite: `docs/qa/project-profile.md`. Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.md`.
 
 ## Phase 1 — Prepare briefs
 
@@ -72,5 +72,7 @@ re-review (≤3 rounds).
   or deferred) explicitly listed with reasons.
 - Summarize for the user: tests added (count, files), evidence (runs, failure
   proofs), review rounds, debt accepted.
+- Upsert a row in `docs/qa/coverage-matrix.md` for each test added, with its failure proof (`../../references/coverage-matrix.md`).
+- **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes.
 - Commit/PR per the repo's own policy from the profile; if the policy is
   unknown, show the diff and ask.

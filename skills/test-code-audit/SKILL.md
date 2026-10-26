@@ -17,6 +17,7 @@ must lose nothing):
 Create a todo per phase. Read `../../references/quality-rules.md` and
 `../../references/model-routing.md` first. Prerequisite:
 `docs/qa/project-profile.md` — if missing, stop and run `qa-pilot:onboard`.
+Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.md`.
 
 ## Phase 1 — Scope & baseline
 
@@ -91,6 +92,7 @@ Reading a test does not prove it can fail. Break the code it guards and run it.
   - `killed`: listed under "what's healthy".
   - `baseline-red`: a broken test, Critical, reported with the baseline.
   - `timeout` / `interrupted` / `error`: "not proved", with the reason.
+- **Matrix:** verdicts update the Proof column of `docs/qa/coverage-matrix.md` for the tests that have a row: `killed` → `failed when broken, <date>`; `survived` → `none` plus a note (`../../references/coverage-matrix.md`).
 
 ## Phase 4 — Triage, verify, report
 
@@ -112,6 +114,8 @@ small enough that one step fits comfortably in one session window.
 
 Present report + plan to the user. **Stop here by default** — execution starts
 only when the user picks steps (or says "do it all").
+
+**Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes.
 
 ## Phase 6 — Execute (on request, step by step)
 

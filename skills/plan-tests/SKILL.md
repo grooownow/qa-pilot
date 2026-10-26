@@ -11,7 +11,7 @@ plan a human can review and `qa-pilot:write-tests` can execute. Planning is
 judgment: it stays in the main session, no delegation of scenario design.
 
 Create a todo per phase. Prerequisite: `docs/qa/project-profile.md`
-(else run `qa-pilot:onboard`). Read `../../references/quality-rules.md` and
+(else run `qa-pilot:onboard`). Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.md`. Read `../../references/quality-rules.md` and
 `../../references/test-delta.md` (depth, buckets, the three proofs, sourced
 expected results — shared with `cover`, `task-qa` and `spec-audit`).
 
@@ -99,3 +99,5 @@ listed twice at different levels? Would the chosen depth catch the bug that
 would most embarrass the team? Fix, then present a compact summary (scenario
 count per priority/level, key assumptions, out-of-scope) and offer
 `qa-pilot:write-tests` for the automatable subset.
+
+**Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes.

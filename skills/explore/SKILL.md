@@ -14,6 +14,7 @@ graduate into `qa-pilot:plan-tests` → `qa-pilot:write-tests`.
 Create a todo per phase. Read `../../references/browser-hygiene.md` FIRST —
 its dev-server and browser rules are mandatory. Also
 `../../references/quality-rules.md`. Prerequisite: `docs/qa/project-profile.md`.
+Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.md`.
 
 ## Phase 0 — Safety gate
 
@@ -74,3 +75,4 @@ adjacent scenarios you already passed.
   exercised), findings table, fixes applied with evidence, recommendations —
   including which validated flows deserve automated tests next.
 - Report a compact summary to the user with the document path.
+- **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes.

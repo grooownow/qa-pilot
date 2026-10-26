@@ -15,9 +15,21 @@ materially.
 drifted facts (Phase 1 checks for those commands, paths and CI jobs), edit just
 those lines, update the `Generated … on <date>` line, show the user the diff, and
 finish with the Phase 4 drift check. Ask questions only when the repo cannot
-answer them.
+answer them. Per drift kind:
 
-Create a todo per phase. Read `../../references/model-routing.md` (relative to
+- `new-test-dep`: update Test landscape and Framework maturity with the new package.
+- `rules-changed`: re-read that file, update Conventions, and show the owner any
+  lesson in `docs/qa/learnings.md` that it contradicts.
+- `lost-test`: not a profile fact. Tell the owner which matrix row lost its test
+  and offer to drop the row or point it to the new test path
+  (`../../references/coverage-matrix.md`). Edit the matrix only after a yes.
+
+In a full or refresh run, also check `docs/qa/learnings.md` if it exists
+(`../../references/learnings.md`): list lessons that name a path, command or
+dependency that no longer exists and ask whether to drop them; over 60 lines,
+propose merges. Delete nothing without a yes.
+
+Create a todo per phase. Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.md`. Read `../../references/model-routing.md` (relative to
 this skill's base directory) before dispatching any subagent.
 
 ## Phase 1 — Detect (no questions yet)
@@ -128,8 +140,8 @@ Facts only — no recommendations (those belong to `/qa-pilot:audit`).
 - Run the drift check on the profile you just wrote (`SKILL_DIR` is this
   skill's base directory):
   `python3 "$SKILL_DIR/scripts/profile_drift.py"`. It must exit 0. Every line it
-  prints is a command, path or CI claim in the profile that the repo does not
-  back. Fix the profile, or if the script misread a correct claim, say so to
+  prints is a claim in the profile that the repo does not back, or a repo change
+  the profile does not know about. Fix the profile, or if the script misread a correct claim, say so to
   the user. `test` and `audit` run the same check before every run, so a profile
   that fails here will nag the user every time.
 - Show the user a 5-line summary of what was written and where.

@@ -22,10 +22,12 @@ SKILL_DIR=<absolute base directory of this skill>   # shown when the skill loads
 python3 "$SKILL_DIR/../onboard/scripts/profile_drift.py"
 ```
 
-It compares the profile's commands, test paths and CI claims with `package.json`, the Makefile and the CI files, in well under a second.
+It compares the profile's commands, test paths and CI claims with `package.json`, the Makefile and the CI files. It also notices test dependencies the profile does not name, project rules (CLAUDE.md, AGENTS.md, lint and test configs) changed after the profile, and `docs/qa/coverage-matrix.md` rows whose test file is gone. It runs in well under a second.
 - **Exit 0:** say nothing and go on.
 - **Exit 1:** show its lines as they are, then ask once: "Профиль разошёлся с репо: (1) обновить только эти строки через `qa-pilot:onboard` (refresh) — рекомендую, (2) продолжить как есть". Do not block. If the user goes on, use the repo's real commands for the drifted items, not the profile's, and say so.
 - **Any other exit** (the script could not run or crashed): say so in one line and go on. The check never blocks the run.
+
+Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.md`. The mode you pick reads it again; follow it.
 
 ## Deciding
 
