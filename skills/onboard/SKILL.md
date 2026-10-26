@@ -131,6 +131,8 @@ Write `docs/qa/project-profile.md` (create `docs/qa/` if needed). Sections:
 Keep it under ~180 lines: link to the repo's own docs instead of copying them.
 Facts only — no recommendations (those belong to `/qa-pilot:audit`).
 
+Example: `examples/project-profile.md`.
+
 ## Phase 4 — Verify & hand off
 
 - Sanity-check the profile's commands by running the cheapest one (e.g. list

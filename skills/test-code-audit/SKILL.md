@@ -114,6 +114,8 @@ Reading a test does not prove it can fail. Break the code it guards and run it.
   file:line evidence, and a short "what's healthy" section (honest, not filler —
   it tells the team what to keep doing).
 
+Example: `examples/audit-report.md`.
+
 ## Phase 5 — Refactoring plan
 
 Write `docs/qa/refactoring-plan.md`: ordered steps, each independently shippable

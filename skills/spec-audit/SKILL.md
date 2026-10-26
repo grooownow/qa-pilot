@@ -207,6 +207,8 @@ Source: spec audit of <specs> at <sha>, <date>.
 
 Each Must/Should item: what to do · BUG mark if the code fails it (fix first, confirm the test fails without the fix) · expected (with source) · where to fix · test level + target.
 
+Example: `examples/actions.md`.
+
 ### 6a'. The same list as JSON: `docs/qa/spec-audit/<date>-<slug>-actions.json`
 
 Schema: `../../references/actions-schema.md` (actions with bucket/kind, suppressed, and the entity-card cells). Validate before handing over:
