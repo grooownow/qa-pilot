@@ -25,6 +25,7 @@ A minimal feature → requirement → test table, so a lost test does not go unn
   - `failed when broken, <date>`: the test was seen red. A BUG test against unfixed code, a `failure_probe.py` kill, or `write-tests`' own failure proof.
   - `distinguishing assertion`: read, not run. The assertion tells the correct result from the wrong one.
   - `none`: the test exists but nothing shows it can fail.
+  `failed when broken` is allowed only when the test was seen failing in the run that writes the row. An existing test that was only read gets `distinguishing assertion`, or `none` when its assertion does not tell right from wrong. An upsert never downgrades an existing `failed when broken` to a weaker value unless the test itself changed.
 - **Updated**: date of the last change to the row.
 
 ## Upsert
