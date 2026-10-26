@@ -49,15 +49,15 @@ With `depth: critical`, do only the entity cards, the spec walk and lens 4 (cont
 
 The order matters. The first lenses find real defects; the later ones mostly find gaps.
 
-1. **Lifecycle → state model + action × state grid** (SRK-TD-039/040/042).
+1. **Lifecycle → state model + action × state grid** (QAC-TD-039/040/042).
    - For every entity with a lifecycle (links, jobs, documents, accounts, subscriptions, soft-delete), list its states and every action. For each (action, state) cell, ask:
      - Is the cell defined?
      - Is it guarded?
      - Who writes the transition in the code?
    - Undefined or unguarded off-path cells are the richest source of P1/P2 findings: for example "restore" on a live link, or a status flipped only in UI state.
-2. **Combined conditions → decision table** (SRK-TD-030/031). Landing or routing logic, eligibility and permission matrices. Missing rows are findings.
-3. **Every input and limit → equivalence classes + 3BVA** (SRK-TD-001/007/008/009). Take the limits from the spec AND from the schemas in code (Zod, DB CHECKs). Test lengths at min−1…max+1, impossible dates (Feb 30, Feb 29 in a non-leap year), and the timezone of "today" (QAP-DATE-001).
-4. **Contradictions** (SRK-REQ-009, QAP-REQ-002). Check each of these pairs:
+2. **Combined conditions → decision table** (QAC-TD-030/031). Landing or routing logic, eligibility and permission matrices. Missing rows are findings.
+3. **Every input and limit → equivalence classes + 3BVA** (QAC-TD-001/007/008/009). Take the limits from the spec AND from the schemas in code (Zod, DB CHECKs). Test lengths at min−1…max+1, impossible dates (Feb 30, Feb 29 in a non-leap year), and the timezone of "today" (QAP-DATE-001).
+4. **Contradictions** (QAC-REQ-009, QAP-REQ-002). Check each of these pairs:
    - a spec and its sibling (feature ↔ page);
    - a spec and the decisions it cites;
    - a spec's dated "Changes/Изменения" sections and its own AC block;

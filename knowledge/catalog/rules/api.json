@@ -1,0 +1,3721 @@
+[
+  {
+    "id": "QAC-API-001",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Сайт и API работают только по HTTPS",
+    "statement": "Все страницы и API-эндпоинты должны отдаваться по HTTPS; обращение по HTTP должно перенаправлять на HTTPS, а не обслуживать трафик в открытом виде.",
+    "rationale": "По HTTP запрос, куки, пароли и содержимое ответа видны любому в сети и провайдеру.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Для базового URL и ключевых эндпоинтов: запрос по http:// должен вернуть 301/308 с Location на https://; все запросы в DevTools Network идут по https. Fail — страница/API отвечает 200 по http:// или есть mixed content."
+    },
+    "source": {
+      "chunk_id": "s2-c01-03",
+      "printed_pages": [
+        113,
+        114
+      ]
+    },
+    "tags": [
+      "https",
+      "tls",
+      "security",
+      "web"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Для API OWASP рекомендует отдавать только HTTPS-эндпоинты; отказ на http:// (без редиректа) допустим и даже предпочтителен, т.к. редирект не защищает уже отправленные в открытом виде токены. Для сайтов — редирект + HSTS."
+  },
+  {
+    "id": "QAC-API-002",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Content-Type запроса и ответа соответствует формату тела",
+    "statement": "Запросы с телом должны передавать заголовок Content-Type, совпадающий с фактическим форматом (например application/json), а ответ — Content-Type, соответствующий тому, что реально лежит в теле.",
+    "applies_to": [
+      "test-code",
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "В API-тестах: assert, что response.headers['content-type'] начинается с ожидаемого типа (application/json) и тело парсится этим форматом; в запросах с body явно задан Content-Type. Fail — JSON отдается как text/html или заголовок отсутствует."
+    },
+    "source": {
+      "chunk_id": "s2-c01-03",
+      "printed_pages": [
+        112,
+        113
+      ]
+    },
+    "tags": [
+      "headers",
+      "content-type",
+      "api-testing",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-003",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Повтор неидемпотентного действия (POST, «списать») — проверить на дубли",
+    "statement": "POST и другие действия «с приращением» (списать сумму, добавить запись) не идемпотентны: каждый повтор меняет состояние заново. План и тесты должны покрывать повторную отправку (двойной клик, повтор сети) и проверять, сколько раз эффект применился и допустимо ли это по требованиям.",
+    "rationale": "Повтор POST создаёт дубли с новыми ID, а пятикратное «списать 100 ₽» спишет 500 ₽.",
+    "applies_to": [
+      "test-plan",
+      "test-code",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане/тестах на создание ресурса и денежные/счётные операции найти сценарий двойной отправки или быстрого многократного клика с проверкой итогового состояния (число записей, баланс). Fail — сценария нет. На живом продукте: дважды быстро нажать «Создать/Оплатить» и посмотреть в списке/Network, сколько раз применилось действие."
+    },
+    "source": {
+      "chunk_id": "s2-c01-04",
+      "printed_pages": [
+        114,
+        115
+      ]
+    },
+    "tags": [
+      "idempotency",
+      "post",
+      "duplicates",
+      "double-submit",
+      "payments",
+      "see-QAC-FORM-026"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-005",
+    "kind": "rule",
+    "severity": "should",
+    "title": "GET безопасен: не меняет состояние на сервере",
+    "statement": "GET-запрос должен только читать данные: вызов GET не должен создавать, изменять или удалять сущности.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "В API-тесте: снять состояние ресурса (или счётчик/БД), выполнить GET несколько раз, повторно снять состояние — assert равенства. Fail — после GET изменились данные."
+    },
+    "source": {
+      "chunk_id": "s2-c01-04",
+      "printed_pages": [
+        115
+      ]
+    },
+    "tags": [
+      "http-methods",
+      "get",
+      "safe-method"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "По RFC 9110 §9.2.1 safe-метод может иметь побочные эффекты на сервере (логи, счётчики просмотров, аналитика), если клиент их не запрашивал; проверять нужно бизнес-состояние, а не любые счётчики."
+  },
+  {
+    "id": "QAC-API-006",
+    "kind": "rule",
+    "severity": "should",
+    "title": "PUT идемпотентен: повтор даёт тот же результат",
+    "statement": "Повторная отправка одного и того же PUT на ресурс должна оставлять ресурс в одинаковом состоянии и не создавать новых записей.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: отправить идентичный PUT /resource/{id} 2+ раза, затем GET — assert, что тело совпадает с отправленным и число записей в коллекции не изменилось."
+    },
+    "source": {
+      "chunk_id": "s2-c01-04",
+      "printed_pages": [
+        116,
+        117
+      ]
+    },
+    "tags": [
+      "idempotency",
+      "put",
+      "http-methods",
+      "needs-rest"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-007",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "PUT с неполным телом: поля затираются или 4xx",
+    "statement": "PUT требует полного представления объекта. Покрыть сценарий PUT без части полей (включая серверные, например created_at) и зафиксировать поведение: ошибка валидации или затирание полей — должно соответствовать спецификации.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В плане/тестах для PUT-эндпоинта искать негативный сценарий с неполным телом и проверку итогового состояния через GET. Fail — сценария нет или он не проверяет, какие поля остались."
+    },
+    "source": {
+      "chunk_id": "s2-c01-04",
+      "printed_pages": [
+        116
+      ]
+    },
+    "tags": [
+      "put",
+      "negative-testing",
+      "validation",
+      "needs-rest"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-008",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "PUT на коллекцию без ID возвращает ошибку",
+    "statement": "PUT адресуется конкретному ресурсу; запрос PUT на коллекцию без идентификатора должен завершаться ошибкой, а не создавать/перезаписывать данные.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: PUT /collection (без {id}) — assert статус 4xx (обычно 405 или 404) и отсутствие изменений в коллекции."
+    },
+    "source": {
+      "chunk_id": "s2-c01-04",
+      "printed_pages": [
+        116
+      ]
+    },
+    "tags": [
+      "put",
+      "negative-testing",
+      "status-codes",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "RFC 9110 §9.3.4 не запрещает PUT на URI коллекции (замена её состояния); ожидать 405/404 стоит, только если контракт этот метод не заявляет."
+  },
+  {
+    "id": "QAC-API-009",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "PATCH меняет только переданные поля",
+    "statement": "После PATCH с частью полей проверить, что изменились только они, а остальные поля ресурса сохранили прежние значения.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: GET до, PATCH с одним полем, GET после — assert, что изменилось только переданное поле, остальные равны значениям до запроса."
+    },
+    "source": {
+      "chunk_id": "s2-c01-04",
+      "printed_pages": [
+        117
+      ]
+    },
+    "tags": [
+      "patch",
+      "http-methods",
+      "crud",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-010",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Повторный DELETE не ломает состояние",
+    "statement": "DELETE идемпотентен: повторное удаление уже удалённого ресурса должно вернуть 404 или 204 без побочных изменений в данных, а не 5xx.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: DELETE /resource/{id} дважды — первый 200/204, второй assert статус in (404, 204); последующий GET возвращает 404. Fail — 500 или изменение других данных."
+    },
+    "source": {
+      "chunk_id": "s2-c01-04",
+      "printed_pages": [
+        117
+      ]
+    },
+    "tags": [
+      "delete",
+      "idempotency",
+      "crud",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-011",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Не передавать чувствительные данные и большие фильтры в query-строке",
+    "statement": "Конфиденциальные параметры не должны уходить в URL GET-запроса — они оседают в логах. Для длинных наборов фильтров проверить, что URL не упирается в лимит длины (414), и рассмотреть передачу условий в теле.",
+    "rationale": "Десятки фильтров в URL приводят к 414 URI Too Long и светят данные в логах.",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В Network просмотреть URL запросов: ищите токены, пароли, email, персональные данные в query-параметрах (регэкспом по token|password|email|phone). Для поиска с фильтрами: выставить максимум фильтров и проверить, что запрос не падает с 414."
+    },
+    "modern_note": "Метод QUERY, который автор подаёт как тренд, на момент 2026 года всё ещё черновик IETF (HTTP QUERY method), а не утверждённый RFC; поддержка серверами, прокси и клиентскими библиотеками неполная — проверяйте её перед использованием.",
+    "source": {
+      "chunk_id": "s2-c01-04",
+      "printed_pages": [
+        117,
+        118
+      ]
+    },
+    "tags": [
+      "query-params",
+      "security",
+      "414",
+      "query-method"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-012",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "OPTIONS показывает разрешённые методы эндпоинта",
+    "statement": "Запросом OPTIONS можно узнать, какие методы допустимы для адреса (заголовок Allow), и сверить их со спецификацией; этот же запрос браузер шлёт как preflight при CORS.",
+    "applies_to": [
+      "test-code",
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Отправить OPTIONS на эндпоинт и сравнить набор методов в Allow (или Access-Control-Allow-Methods) с документацией. Fail — разрешены методы, которых нет в спеке, или отсутствуют заявленные."
+    },
+    "source": {
+      "chunk_id": "s2-c01-04",
+      "printed_pages": [
+        119
+      ]
+    },
+    "tags": [
+      "options",
+      "cors",
+      "http-methods",
+      "needs-rest"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-013",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "HEAD отдаёт только заголовки, без тела",
+    "statement": "HEAD должен возвращать те же заголовки, что и GET, но без тела; это удобно, чтобы узнать размер файла по Content-Length без скачивания.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Отправить HEAD и GET на один ресурс: assert пустое тело у HEAD и совпадение Content-Type/Content-Length с GET."
+    },
+    "source": {
+      "chunk_id": "s2-c01-04",
+      "printed_pages": [
+        119
+      ]
+    },
+    "tags": [
+      "head",
+      "http-methods",
+      "needs-rest"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "RFC 9110 §9.3.2: сервер SHOULD отдавать те же заголовки, что и GET, но MAY опустить генерируемые при формировании тела (например, Content-Length)."
+  },
+  {
+    "id": "QAC-API-014",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Ошибка валидации не возвращается как 200 OK",
+    "statement": "Если запрос не прошёл валидацию, API должно ответить кодом 4xx, а не 200 с текстом ошибки в теле. Ответ 200 при ошибке — дефект реализации API.",
+    "applies_to": [
+      "test-code",
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Негативный API-тест с невалидными данными: assert response.status в диапазоне 400–499. Fail — status 200 при наличии в теле признаков ошибки (\"error\", \"status\":\"error\")."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        119,
+        120
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "validation",
+      "negative-testing",
+      "pseudo-rest",
+      "needs-rest"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-015",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Сбой сервера отдаёт 5xx, а не 200 с ошибкой в JSON",
+    "statement": "Падение бэкенда или БД должно отражаться статусом 5xx. Ответ 200 OK с {\"status\":\"error\"} внутри — антипаттерн «псевдо-REST»; QA обязан подсветить этот риск команде.",
+    "rationale": "Такие ответы обманывают автотесты, мониторинг и аналитику.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "В DevTools Network/логах API-тестов искать ответы со статусом 200, в теле которых есть поля ошибки (status: error, code: 5xx, message об исключении). Любое совпадение — finding."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        122,
+        123
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "pseudo-rest",
+      "error-handling",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-016",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "API-тест проверяет HTTP статус-код, а не только тело",
+    "statement": "Проверяя ответ (в DevTools или в API-тесте), смотри не только тело, но и фактический HTTP-статус; в автотестах статус должен утверждаться явно.",
+    "applies_to": [
+      "test-code",
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Grep по API-тестам: в каждом тесте есть assert статуса (expect(res.status()).toBe(..), toBeOK(), status_code ==). Fail — тест проверяет только поля тела. На живом продукте: в Network сверить статус каждого ключевого запроса, а не только содержимое Response."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        123
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "api-testing",
+      "assertions",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-017",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Локализуй баг по статус-коду: фронт или бэк",
+    "statement": "Перед заведением бага посмотри статус ответа: 2xx с корректным телом, но неправильное отображение — дефект фронтенда; 5xx — дефект бэкенда. Указывай статус и слой в баг-репорте.",
+    "applies_to": [
+      "test-cases",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В баг-репортах про ошибки данных/отображения проверить наличие запроса, статус-кода и тела ответа и корректного компонента (frontend/backend). Fail — нет сведений о сетевом ответе или слой указан вопреки статусу."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        119,
+        120
+      ]
+    },
+    "tags": [
+      "bug-localization",
+      "bug-report",
+      "status-codes"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-018",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Создание ресурса возвращает 201 Created",
+    "statement": "Успешное создание ресурса (POST или создающий PUT) по REST-контракту должно отвечать 201 Created; если контракт обещает вернуть созданную сущность, в ней должны быть серверные поля (например id).",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест на создание: assert status == 201; если спецификация описывает тело ответа — assert наличие id/серверных полей. Fail — 200/204 без явного решения в контракте или иной код."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        120
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "201",
+      "crud",
+      "post",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-019",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "204 No Content — без тела ответа",
+    "statement": "Ответ 204 (типичный для DELETE) не должен содержать тела; клиент должен корректно обрабатывать пустой ответ.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: при status == 204 assert пустое тело (длина 0)."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        120
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "204",
+      "delete",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-020",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Асинхронные операции: 202 и опрос до готовности",
+    "statement": "Для долгих операций (генерация отчёта) API может отвечать 202 Accepted, а клиент — опрашивать статус до 200. План должен покрывать промежуточное состояние, успешное завершение и зависший/упавший процесс.",
+    "applies_to": [
+      "test-plan",
+      "test-code",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для фич с фоновой обработкой проверить в плане сценарии: ответ 202, корректный индикатор ожидания в UI, переход к результату после 200, поведение при ошибке/таймауте опроса."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        120
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "202",
+      "polling",
+      "async",
+      "needs-rest"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-022",
+    "kind": "recommendation",
+    "severity": "must",
+    "title": "Недостаточно прав у роли → 403",
+    "statement": "Аутентифицированный пользователь без прав на действие (обычный юзер удаляет админа) должен получать 403 Forbidden, а действие не должно выполняться.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест под низкоправной ролью на привилегированное действие: assert status == 403 и проверить через GET, что ресурс не изменён. Fail — 200/204 или 404 вместо 403 без явного решения в спеке."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        121
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "403",
+      "authorization",
+      "roles",
+      "needs-rest",
+      "needs-auth"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-023",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Несуществующий ресурс → 404",
+    "statement": "Запрос к несуществующему ID или URL должен возвращать 404 Not Found, а не 200 с пустым телом или 500.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: GET/PUT/DELETE по заведомо несуществующему id — assert status == 404."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        121
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "404",
+      "negative-testing",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-024",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Неподдерживаемый метод → 405",
+    "statement": "Вызов эндпоинта методом, который он не поддерживает (например, POST на /cats/123), должен давать 405 Method Not Allowed.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: отправить на эндпоинт методы, не указанные в спеке — assert status == 405 (желательно с заголовком Allow)."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        121
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "405",
+      "http-methods",
+      "negative-testing",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "RFC 9110 §15.5.6: при 405 заголовок Allow обязателен (MUST), а не «желателен»."
+  },
+  {
+    "id": "QAC-API-025",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Конфликт состояния → 409 (дубликат, гонка за последний товар)",
+    "statement": "Покрыть сценарии конфликта: регистрация на уже занятый email, одновременная покупка последней единицы товара двумя пользователями. Ожидается 409 Conflict и целостные данные.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: повторно создать сущность с уникальным полем — assert 409; параллельно отправить две покупки последнего товара — ровно одна успешна, вторая 409, остаток не уходит в минус."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        121
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "409",
+      "concurrency",
+      "duplicates",
+      "see-QAC-TD-050"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "409 на занятый email раскрывает существование аккаунта; OWASP Authentication Cheat Sheet рекомендует при регистрации нейтральный ответ без перечисления пользователей."
+  },
+  {
+    "id": "QAC-API-026",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Битый JSON → 400 Bad Request",
+    "statement": "Синтаксически некорректное тело (незакрытая кавычка, обрезанный JSON) должно отклоняться с 400, а не приводить к 500.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: отправить невалидный JSON с Content-Type: application/json — assert status == 400."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        121
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "400",
+      "negative-testing",
+      "json",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-027",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Нарушение бизнес-правил → 422",
+    "statement": "Синтаксически верный JSON с семантически недопустимыми значениями (отрицательный возраст, неверный формат даты) должен отклоняться с 422 Unprocessable Content (или иным 4xx по контракту проекта).",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: поле с недопустимым значением (age: -5, date: \"31-31-2020\") — assert status == 422 (или 400, если так зафиксировано в контракте) и сообщение указывает на поле."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        122
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "422",
+      "validation",
+      "negative-testing",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "rationale": "Автор на практике с формой бронирования отмечает: 400 для ошибки валидации допустим, но строже и точнее — 422.",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-028",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Превышение лимита размера тела → 413",
+    "statement": "Загрузка файла или тела больше разрешённого лимита (50 МБ при лимите 10 МБ) должна давать 413 Payload Too Large и понятное сообщение в UI.",
+    "applies_to": [
+      "test-plan",
+      "test-code",
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Загрузить файл чуть больше лимита: assert status == 413 и UI показывает понятную ошибку, а не зависает."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        121
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "413",
+      "file-upload",
+      "bva",
+      "see-QAC-FORM-039",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-029",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Неподдерживаемый формат тела → 415",
+    "statement": "Отправка тела в формате, который сервер не принимает (XML вместо JSON, неверный Content-Type), должна давать 415 Unsupported Media Type.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: тот же запрос с Content-Type: application/xml (или text/plain) — assert status == 415."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        122
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "415",
+      "content-type",
+      "negative-testing",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-030",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Rate limit: превышение частоты → 429",
+    "statement": "Если в продукте есть ограничение частоты запросов (логин, отправка SMS), проверить, что при превышении приходит 429 Too Many Requests, а UI сообщает об этом.",
+    "applies_to": [
+      "test-plan",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Отправить серию запросов сверх лимита — assert status == 429 (желательно с Retry-After). В требованиях к чувствительным эндпоинтам проверить, что лимит описан."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        122
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "429",
+      "rate-limit",
+      "security"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-031",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Корректные коды для SEO: 301/308, 404/410, 503",
+    "statement": "Постоянный переезд страницы оформляй 301/308, временный — 302/307; удалённые страницы — 404 или 410; плановые работы — 503, чтобы поисковики не понижали сайт.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Для старых/удалённых/переехавших URL выполнить запрос без следования редиректам и сверить код и Location с ожидаемым. Fail — переехавшая страница отдаёт 200 или 302 вместо постоянного редиректа, удалённая — 200."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        119,
+        121
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "seo",
+      "redirects",
+      "web"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-032",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Редирект с POST должен сохранять метод (307/308)",
+    "statement": "Если перенаправляется запрос, отправленный методом POST, используй 307/308 — они запрещают браузеру менять метод; при 301/302 метод может смениться на GET и данные потеряются.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Отправить POST на перенаправляемый URL без автоследования: при редиректе assert код 307 или 308."
+    },
+    "source": {
+      "chunk_id": "s2-c01-05",
+      "printed_pages": [
+        121
+      ]
+    },
+    "tags": [
+      "redirects",
+      "307",
+      "308",
+      "post"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "conflict",
+    "modern_note": "RFC 9110 §15.4.4: после обработки POST перенаправление на результат делается кодом 303 (паттерн Post/Redirect/Get) — это корректно; 307/308 нужны, только когда сам POST должен быть повторён по новому адресу."
+  },
+  {
+    "id": "QAC-API-033",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Проверяй актуальность данных с учётом кэша (304) и жёсткой перезагрузки",
+    "statement": "Перед проверкой нового билда делай жёсткую перезагрузку/очистку кэша (Ctrl+F5 / Cmd+Shift+R), иначе браузер может отдавать старые файлы (в т.ч. по 304 Not Modified) и баг окажется ложным.",
+    "applies_to": [
+      "live-product",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "При воспроизведении бага после деплоя: повторить с жёсткой перезагрузкой или Disable cache в DevTools; в баг-репорте отметить, что кэш очищен."
+    },
+    "source": {
+      "chunk_id": "s2-c01-06",
+      "printed_pages": [
+        123
+      ]
+    },
+    "tags": [
+      "cache",
+      "304",
+      "devtools",
+      "web"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-034",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Срок жизни cookie соответствует сценарию",
+    "statement": "Проверь тип куки: сессионные должны исчезать после закрытия браузера, постоянные — иметь Expires/Max-Age, соответствующий требованиям (например, «Запомнить меня»).",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В DevTools → Application → Cookies сверить у сессионной куки авторизации поле Expires (Session или дата) с требованием; закрыть/открыть браузер и проверить, сохранилась ли авторизация."
+    },
+    "source": {
+      "chunk_id": "s2-c01-06",
+      "printed_pages": [
+        124
+      ]
+    },
+    "tags": [
+      "cookies",
+      "session",
+      "remember-me"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-035",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Расшифруй JWT и проверь роль и срок действия",
+    "statement": "Токен JWT содержит данные о пользователе (sub, role, exp). Декодируй его и проверь, что роль и время истечения соответствуют ожиданиям.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Взять токен из заголовка Authorization или storage, декодировать payload (jwt.io или base64url), сверить role и exp с требованиями. Fail — роль выше положенной, exp отсутствует или слишком далёк для access-токена."
+    },
+    "modern_note": "Вопреки формулировке книги, payload JWT лишь закодирован base64url, а не зашифрован (если это не JWE): его может прочитать любой, поэтому в нём не должно быть секретов и лишних персональных данных. Сервер не «расшифровывает» токен, а проверяет его подпись.",
+    "source": {
+      "chunk_id": "s2-c01-06",
+      "printed_pages": [
+        124
+      ]
+    },
+    "tags": [
+      "jwt",
+      "auth",
+      "tokens",
+      "security",
+      "needs-auth"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-036",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Истечение access-токена и продление через refresh",
+    "statement": "План должен покрывать истечение access-токена: сессия продлевается через refresh-токен без выхода пользователя, а по истечении refresh — корректный разлогин.",
+    "rationale": "Типичная схема: короткий access (≈15 минут) и длинный refresh (≈14 дней), продлеваемый при заходе.",
+    "applies_to": [
+      "test-plan",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В плане фичи с авторизацией искать сценарии: просроченный access → прозрачное обновление; просроченный/отозванный refresh → редирект на логин; запрос с просроченным access напрямую → 401."
+    },
+    "source": {
+      "chunk_id": "s2-c01-06",
+      "printed_pages": [
+        124,
+        125
+      ]
+    },
+    "tags": [
+      "jwt",
+      "refresh-token",
+      "session",
+      "auth",
+      "needs-auth"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-037",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Смена сети не разлогинивает пользователя (stateless)",
+    "statement": "Сервер не должен хранить сессию в памяти конкретного узла: при переключении Wi-Fi ↔ мобильная сеть (смена IP, другой сервер в кластере) пользователь с валидным токеном остаётся авторизованным.",
+    "rationale": "По правилу Stateless каждый запрос несёт токен, и любой сервер может его обслужить.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "На устройстве с активной сессией переключить сеть Wi-Fi → 4G (или VPN вкл/выкл) и выполнить действие, требующее авторизации. Fail — разлогин или 401 при валидном токене."
+    },
+    "source": {
+      "chunk_id": "s2-c02-01",
+      "printed_pages": [
+        127
+      ]
+    },
+    "tags": [
+      "rest",
+      "stateless",
+      "session",
+      "mobile",
+      "network-switch",
+      "needs-auth"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-038",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Кэшируемые ответы явно помечены заголовками",
+    "statement": "Для редко меняющихся данных (каталог, справочники) сервер должен явно сообщать клиенту, сколько ответ можно не перезапрашивать — это правило кэшируемости REST.",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "В Network/API-тесте для справочных GET проверить наличие Cache-Control (max-age) или ETag/Last-Modified; для персональных ответов — отсутствие публичного кэширования (no-store/private)."
+    },
+    "source": {
+      "chunk_id": "s2-c02-01",
+      "printed_pages": [
+        127
+      ]
+    },
+    "tags": [
+      "rest",
+      "cache",
+      "headers"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-039",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "REST API не ниже 2-го уровня зрелости Ричардсона",
+    "statement": "Ресурсы должны иметь собственные URL (/users/42), а действия выражаться правильными HTTP-методами и статус-кодами. Единая точка POST /api со всем в теле или POST на все операции — признак незрелого API.",
+    "rationale": "Уровень 2 (методы + статус-коды) — норма современных веб-приложений; по нему сторонний разработчик понимает API без документации.",
+    "applies_to": [
+      "requirements",
+      "test-code",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Просмотреть спецификацию/список эндпоинтов: чтение через GET, удаление через DELETE, обновление через PUT/PATCH на URL ресурса; ресурсы — существительные. Flag: один эндпоинт для всех действий, глаголы в пути (/deleteUser), POST для чтения."
+    },
+    "source": {
+      "chunk_id": "s2-c02-01",
+      "printed_pages": [
+        128,
+        129
+      ]
+    },
+    "tags": [
+      "rest",
+      "richardson-maturity",
+      "api-design",
+      "needs-rest"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-040",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Составные данные в JSON — вложенным объектом, а не одной строкой",
+    "statement": "Адрес и подобные составные значения передавай вложенным объектом с отдельными ключами (улица, город, индекс), а не одной склеенной строкой — иначе усложняются валидация, парсинг и развитие API.",
+    "applies_to": [
+      "requirements",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В контракте/примерах ответов найти поля, склеивающие несколько смысловых частей в строку (адрес, ФИО, диапазоны). Flag как риск архитектуры контракта."
+    },
+    "source": {
+      "chunk_id": "s2-c02-01",
+      "printed_pages": [
+        130
+      ]
+    },
+    "tags": [
+      "json",
+      "api-design",
+      "contract"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-041",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Однотипные множественные значения — массивом, не нумерованными ключами",
+    "statement": "Несколько однородных значений (телефоны) передаются массивом, а не объектом с ключами numberOne/numberTwo — так проще масштабировать.",
+    "applies_to": [
+      "requirements",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Grep по схемам/примерам JSON на ключи с порядковыми суффиксами (regex: \"\\w+(One|Two|1|2)\"\\s*:). Совпадения — кандидаты на массив."
+    },
+    "source": {
+      "chunk_id": "s2-c02-01",
+      "printed_pages": [
+        131
+      ]
+    },
+    "tags": [
+      "json",
+      "api-design",
+      "arrays"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-042",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Типы значений в JSON-ответе соответствуют смыслу и контракту",
+    "statement": "Проверяй тип каждого значения в JSON: числа без кавычек, строки в кавычках, булевы — только true/false, отсутствующее значение — null. Номера телефонов с пробелами и дефисами — строки, а не числа.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Валидировать ответ JSON Schema (ajv, jsonschema, zod): type для каждого поля, nullable там, где допускается null. Fail — число пришло строкой, булево — строкой \"true\", телефон — number."
+    },
+    "source": {
+      "chunk_id": "s2-c02-01",
+      "printed_pages": [
+        130,
+        131
+      ]
+    },
+    "tags": [
+      "json",
+      "schema-validation",
+      "contract",
+      "data-types"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-043",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Тестовые JSON-тела проверяй на синтаксис",
+    "statement": "Незакрытая скобка, пропущенное двоеточие или висячая запятая делают JSON нечитаемым. Тестовые фикстуры и тела запросов должны быть валидным JSON, а негативные кейсы с битым JSON — осознанными.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Прогнать все .json фикстуры через JSON.parse / jq; ошибка парсинга в файле, не помеченном как негативный кейс — fail."
+    },
+    "source": {
+      "chunk_id": "s2-c02-01",
+      "printed_pages": [
+        131,
+        132
+      ]
+    },
+    "tags": [
+      "json",
+      "fixtures",
+      "syntax"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-044",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Вебхук без валидной подписи отклоняется",
+    "statement": "Получатель вебхука должен проверять подлинность отправителя по секрету/подписи в заголовках; запросы без подписи или с неверной подписью не обрабатываются.",
+    "applies_to": [
+      "test-plan",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: отправить на webhook-URL валидный payload без заголовка подписи и с неверной подписью — assert 401/403 и отсутствие побочных эффектов; в требованиях проверить, что механизм подписи описан."
+    },
+    "source": {
+      "chunk_id": "s2-c02-02",
+      "printed_pages": [
+        133
+      ]
+    },
+    "tags": [
+      "webhooks",
+      "security",
+      "signature"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-045",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Повторная доставка вебхука при недоступности получателя",
+    "statement": "Если получатель недоступен, отправитель вебхуков должен повторять доставку через интервалы. План должен покрывать падение получателя и последующее восстановление.",
+    "applies_to": [
+      "test-plan",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В плане/требованиях к вебхукам искать сценарий: получатель отвечает 5xx/таймаут → отправитель повторяет; событие доставлено после восстановления. Fail — нет политики retry."
+    },
+    "source": {
+      "chunk_id": "s2-c02-02",
+      "printed_pages": [
+        133
+      ]
+    },
+    "tags": [
+      "webhooks",
+      "retries",
+      "reliability"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-046",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Дубли вебхука обрабатываются идемпотентно",
+    "statement": "Получатель должен игнорировать повторную доставку одного и того же события: двойной вебхук об оплате не должен дважды зачислять деньги или создавать два заказа.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: отправить один и тот же webhook payload (тот же event id) дважды — assert, что эффект применён один раз (одна запись, баланс изменился однократно)."
+    },
+    "source": {
+      "chunk_id": "s2-c02-02",
+      "printed_pages": [
+        133
+      ]
+    },
+    "tags": [
+      "webhooks",
+      "idempotency",
+      "duplicates"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-047",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "WebSocket: рукопожатие 101 и доставка без перезагрузки",
+    "statement": "Для чатов, котировок и совместного редактирования проверь в Network, что соединение открывается ответом 101 Switching Protocols, а новые события приходят клиенту сами, без обновления страницы.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "DevTools → Network → фильтр WS: есть запрос со статусом 101, во вкладке Messages видны входящие кадры; действие во второй вкладке/устройстве отображается в первой без перезагрузки."
+    },
+    "source": {
+      "chunk_id": "s2-c02-03",
+      "printed_pages": [
+        133,
+        134
+      ]
+    },
+    "tags": [
+      "websocket",
+      "realtime",
+      "devtools"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-048",
+    "kind": "recommendation",
+    "severity": "must",
+    "title": "GraphQL: проверять поле errors, а не только статус 200",
+    "statement": "GraphQL почти всегда отвечает 200 OK даже при ошибке, сведения о сбое лежат в поле errors тела. Тесты и клиент должны проверять отсутствие/наличие errors и содержимое data.",
+    "applies_to": [
+      "test-code",
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "В GraphQL-тестах assert body.errors отсутствует (позитивные) или содержит ожидаемое сообщение (негативные). Fail — тест проверяет только status == 200."
+    },
+    "source": {
+      "chunk_id": "s2-c02-04",
+      "printed_pages": [
+        136
+      ]
+    },
+    "tags": [
+      "graphql",
+      "error-handling",
+      "assertions",
+      "needs-graphql"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "По черновику GraphQL-over-HTTP при media type application/graphql-response+json ошибки запроса (парсинг, валидация) отдаются кодом 4xx; при application/json — по-прежнему 200."
+  },
+  {
+    "id": "QAC-API-049",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "GraphQL: ответ содержит ровно запрошенные поля",
+    "statement": "Структура data в ответе должна зеркально повторять запрос: присутствуют все запрошенные поля и нет лишних.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Сравнить множество ключей в data с полями selection set запроса (рекурсивно). Fail — отсутствует запрошенное поле или пришли незапрошенные."
+    },
+    "source": {
+      "chunk_id": "s2-c02-04",
+      "printed_pages": [
+        136,
+        137
+      ]
+    },
+    "tags": [
+      "graphql",
+      "contract",
+      "schema-validation",
+      "needs-graphql"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-050",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "GraphQL: слишком глубокий запрос отклоняется",
+    "statement": "Сервер должен ограничивать глубину вложенности и сложность запросов; чрезмерно глубокий запрос нужно отклонять ошибкой, а не выполнять до зависания.",
+    "applies_to": [
+      "test-plan",
+      "test-code",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Отправить запрос с вложенностью сверх лимита (например, user→posts→author→posts… 10+ уровней): assert ответ с errors о лимите глубины/сложности и быстрый ответ (< таймаута)."
+    },
+    "source": {
+      "chunk_id": "s2-c02-04",
+      "printed_pages": [
+        136
+      ]
+    },
+    "tags": [
+      "graphql",
+      "security",
+      "depth-limit",
+      "dos",
+      "needs-graphql"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-051",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "GraphQL: вложенные списки проверяй на N+1",
+    "statement": "Запросы со вложенными списками (авторы и их книги) при наивной реализации порождают лавину запросов в БД. Сравни время ответа на маленькой и большой выборке.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Выполнить вложенный запрос для 1 и для 100 родительских сущностей; если время растёт пропорционально или в логах БД видно N отдельных запросов — флаг N+1."
+    },
+    "source": {
+      "chunk_id": "s2-c02-04",
+      "printed_pages": [
+        136
+      ]
+    },
+    "tags": [
+      "graphql",
+      "performance",
+      "n-plus-one",
+      "needs-graphql"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-052",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "GraphQL: поля @deprecated продолжают работать, их использование отслеживается",
+    "statement": "В GraphQL вместо новой версии API старые поля помечают @deprecated, чтобы не ломать старые клиенты. Проверяй, что устаревшие поля по-прежнему отдают данные, пока их не удалили, и знай, какие из них ещё использует клиент.",
+    "applies_to": [
+      "test-code",
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Через introspection получить поля с isDeprecated: true; для каждого — запрос, assert отсутствие errors и наличие данных; grep по запросам клиента/тестов на использование этих полей (список для плана миграции)."
+    },
+    "source": {
+      "chunk_id": "s2-c02-04",
+      "printed_pages": [
+        137
+      ]
+    },
+    "tags": [
+      "graphql",
+      "deprecation",
+      "versioning",
+      "needs-graphql"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-053",
+    "kind": "tip",
+    "severity": "should",
+    "title": "SOAP: запросы строятся и проверяются по WSDL",
+    "statement": "Для SOAP сначала загрузи WSDL в инструмент (SoapUI, Postman) — он описывает методы, параметры и типы. Ответы сверяй со схемой из WSDL.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Валидировать SOAP-ответы против XSD из WSDL (assertion «Schema Compliance» в SoapUI или xmllint --schema). Fail — ответ не соответствует схеме."
+    },
+    "source": {
+      "chunk_id": "s2-c02-05",
+      "printed_pages": [
+        138
+      ]
+    },
+    "tags": [
+      "soap",
+      "wsdl",
+      "xml",
+      "contract",
+      "needs-soap"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-054",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "SOAP: ошибка возвращается блоком Fault с причиной",
+    "statement": "При сбое SOAP-сервис должен вернуть в конверте блок Fault с объяснением причины, а не пустое тело или общий текст.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Негативный SOAP-запрос: XPath //*[local-name()='Fault'] существует и содержит faultcode/faultstring (или Code/Reason в SOAP 1.2)."
+    },
+    "source": {
+      "chunk_id": "s2-c02-05",
+      "printed_pages": [
+        137,
+        138
+      ]
+    },
+    "tags": [
+      "soap",
+      "error-handling",
+      "xml",
+      "needs-soap"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-056",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "XML-ответ корректно сформирован",
+    "statement": "XML должен иметь один корневой элемент, закрытые и непересекающиеся теги, совпадающий регистр имён, атрибуты в кавычках.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Парсить каждый XML-ответ строгим парсером (xmllint --noout, lxml). Ошибка парсинга — fail."
+    },
+    "source": {
+      "chunk_id": "s2-c02-05",
+      "printed_pages": [
+        140,
+        142
+      ]
+    },
+    "tags": [
+      "xml",
+      "well-formed",
+      "syntax"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-057",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Спецсимволы <, >, & в данных экранируются в XML",
+    "statement": "Значения, содержащие <, > или &, должны экранироваться (&lt; &gt; &amp;); передай такие символы в текстовых полях и убедись, что XML остаётся валидным.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Отправить значение «I & my <dog>» в текстовом поле XML-API, затем прочитать сущность: ответ парсится без ошибок, значение вернулось без искажений."
+    },
+    "source": {
+      "chunk_id": "s2-c02-05",
+      "printed_pages": [
+        142
+      ]
+    },
+    "tags": [
+      "xml",
+      "escaping",
+      "special-characters"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-058",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Долгие операции — асинхронно, без зависания интерфейса",
+    "statement": "Тяжёлые операции (выписка за годы, обработка видео) должны выполняться асинхронно: клиент сразу получает подтверждение приёма и номер задачи, результат приходит позже уведомлением.",
+    "applies_to": [
+      "requirements",
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для долгих операций проверить в требованиях способ доставки результата и в продукте — что UI не блокируется на время обработки, есть статус «принято в работу» и уведомление о готовности."
+    },
+    "source": {
+      "chunk_id": "s2-c02-06",
+      "printed_pages": [
+        143
+      ]
+    },
+    "tags": [
+      "async",
+      "long-running",
+      "ux"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-059",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Ломающее изменение API — только с новой мажорной версией",
+    "statement": "Удаление или переименование поля, смена структуры — breaking change, требующий новой мажорной версии (v1 → v2). Добавление необязательного поля версию не меняет.",
+    "rationale": "Иначе падают старые версии мобильных приложений у пользователей.",
+    "applies_to": [
+      "requirements",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Сравнить OpenAPI/схему текущей и предыдущей версии (oasdiff, openapi-diff): при обнаружении breaking changes в той же мажорной версии — fail."
+    },
+    "source": {
+      "chunk_id": "s2-c02-06",
+      "printed_pages": [
+        144
+      ]
+    },
+    "tags": [
+      "versioning",
+      "breaking-changes",
+      "contract"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-060",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Старая версия API продолжает работать после выпуска новой",
+    "statement": "Версионирование нужно, чтобы клиенты на старой версии (старые мобильные приложения) не ломались после выката новой; значит, контракт предыдущей версии стоит покрывать регрессией.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В плане релиза с новой версией API искать регрессионные тесты/контракты для предыдущей версии (URL /v1/, заголовок Accept с версией или ?version=). Fail — тестируется только новая версия."
+    },
+    "source": {
+      "chunk_id": "s2-c02-06",
+      "printed_pages": [
+        144
+      ]
+    },
+    "tags": [
+      "versioning",
+      "regression",
+      "mobile"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-061",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "mTLS-трафик не перехватывается прокси без сертификатов",
+    "statement": "Банковские API с взаимной проверкой сертификатов (mTLS) не видны в Charles/Fiddler/Proxyman без специальной настройки сертификатов — заранее запроси их у команды.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Если прокси не показывает трафик сервиса или соединение рвётся при включении прокси — проверить, используется ли mTLS, и получить клиентский сертификат для стенда."
+    },
+    "source": {
+      "chunk_id": "s2-c02-06",
+      "printed_pages": [
+        143
+      ]
+    },
+    "tags": [
+      "mtls",
+      "proxy",
+      "security"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-062",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Держи включённым Preserve log при проверке через Network",
+    "statement": "Во время тестирования включай в DevTools Network опции Preserve log и Disable cache: без первой при редиректе или перезагрузке теряется цепочка запросов, без второй можно получить устаревший ответ из кэша.",
+    "applies_to": [
+      "live-product",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Перед воспроизведением бага с редиректами/логином проверить, что Preserve log и Disable cache включены; в баг-репорте сетевая цепочка должна начинаться до редиректа."
+    },
+    "source": {
+      "chunk_id": "s2-c03-02",
+      "printed_pages": [
+        148,
+        149
+      ]
+    },
+    "tags": [
+      "devtools",
+      "network",
+      "preserve-log",
+      "web"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-063",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Проверяй приложение на медленной сети и офлайн",
+    "statement": "Через Throttling (Fast 3G, Slow 3G, Offline) проверь, как приложение ведёт себя при плохом соединении: индикаторы загрузки, таймауты, сообщения об ошибке, отсутствие двойных отправок.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В плане фичи с сетевыми запросами искать сценарии медленной сети и офлайна. На продукте: включить Slow 3G и Offline, выполнить ключевые действия — должны быть лоадеры и понятные ошибки, без «белых экранов» и бесконечных спиннеров. Для мобильных клиентов: Network Link Conditioner (iOS), сетевые профили эмулятора Android; кроме низкой скорости проверить высокую задержку. В тестах — задержка ответа в моке."
+    },
+    "source": {
+      "chunk_id": "s2-c03-02",
+      "printed_pages": [
+        149
+      ]
+    },
+    "tags": [
+      "devtools",
+      "throttling",
+      "offline",
+      "slow-network",
+      "mobile",
+      "network",
+      "latency",
+      "also-mobile"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-064",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Прикладывай HAR-файл к баг-репорту о сетевых проблемах",
+    "statement": "Экспортируй записанную сессию Network в .har и прикладывай к багу: разработчик увидит все запросы, заголовки и ответы как у тебя.",
+    "applies_to": [
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В баг-репортах про API-ошибки, загрузку данных или авторизацию проверить наличие HAR (или как минимум запроса/ответа). Fail — описан только симптом в UI."
+    },
+    "modern_note": "HAR может содержать cookies, токены и данные форм — перед передачей вне команды их стоит вычистить. По имеющимся данным, примерно с 2024 года Chrome DevTools по умолчанию экспортирует «очищенный» HAR, а экспорт с чувствительными данными вынесен в отдельную опцию; поведение зависит от версии браузера, проверяйте у себя.",
+    "source": {
+      "chunk_id": "s2-c03-02",
+      "printed_pages": [
+        150
+      ]
+    },
+    "tags": [
+      "har",
+      "bug-report",
+      "devtools"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-065",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Разбор API-запроса в Network: URL, метод, статус, заголовки, payload, ответ",
+    "statement": "Для каждого проверяемого действия в UI найди его запрос (фильтр Fetch/XHR) и сверь: URL и метод, статус-код, Content-Type и токены в заголовках, отправленный Payload и тело ответа.",
+    "applies_to": [
+      "live-product",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Во время исследовательской сессии для каждого действия записать запрос; finding — неожиданный метод, 4xx/5xx, неверный Content-Type, в Payload лишние/пустые поля, в Response данные не совпадают с UI."
+    },
+    "source": {
+      "chunk_id": "s2-c03-05",
+      "printed_pages": [
+        157,
+        158
+      ]
+    },
+    "tags": [
+      "devtools",
+      "network",
+      "fetch-xhr",
+      "api-testing"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-066",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Фильтры Network для быстрого поиска запросов",
+    "statement": "Используй строку фильтра Network (status-code:, method:, domain:) и вкладки типов (Fetch/XHR, WS, Img), чтобы быстро найти нужные API-запросы и упавшие ответы среди сотен ресурсов.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "При проверке страницы отфильтровать Fetch/XHR и просмотреть статусы; отдельно отфильтровать по домену третьих сторон и по методам, меняющим данные."
+    },
+    "source": {
+      "chunk_id": "s2-c03-03",
+      "printed_pages": [
+        150,
+        151
+      ]
+    },
+    "tags": [
+      "devtools",
+      "network",
+      "filters"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-067",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Timing и TTFB показывают, где теряется время",
+    "statement": "Во вкладке Timing запроса видно, сколько заняли DNS, TLS и ожидание ответа бэкенда (TTFB); долгий TTFB указывает на медленный сервер, а не на фронтенд.",
+    "applies_to": [
+      "live-product",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для медленных действий открыть Timing ключевого запроса и указать в баг-репорте, какая фаза доминирует (TTFB vs загрузка контента)."
+    },
+    "source": {
+      "chunk_id": "s2-c03-04",
+      "printed_pages": [
+        154
+      ]
+    },
+    "tags": [
+      "devtools",
+      "performance",
+      "ttfb"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-069",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Не видно тела ответа из-за быстрого редиректа — замедли сеть",
+    "statement": "Если DevTools не успевает показать тело ответа (например, у логина с мгновенным редиректом), включи Slow 3G или поставь breakpoint в JS, либо повтори запрос в Postman.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "При «Failed to load response data» повторить действие со Slow 3G/breakpoint или воспроизвести запрос в Postman/curl."
+    },
+    "source": {
+      "chunk_id": "s2-c04-02",
+      "printed_pages": [
+        162,
+        163
+      ]
+    },
+    "tags": [
+      "devtools",
+      "postman",
+      "debugging"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-070",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Пользовательская история покрывается сквозной цепочкой API-вызовов",
+    "statement": "Разложи пользовательский сценарий на последовательность API-запросов (список → элемент → создание → логин → чтение → изменение → удаление) и проверяй её целиком в порядке выполнения, передавая ID и токены между шагами.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для фичи с CRUD проверить, что в плане/коллекции есть упорядоченный сквозной сценарий, покрывающий все операции (Create, Read list/one, Update, Delete) и защищённые шаги с авторизацией. Fail — проверены отдельные эндпоинты без связки."
+    },
+    "source": {
+      "chunk_id": "s2-c04-03",
+      "printed_pages": [
+        164,
+        173
+      ]
+    },
+    "tags": [
+      "crud",
+      "e2e",
+      "user-story",
+      "postman",
+      "api-testing"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-071",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "POST без обязательного тела → 4xx, а не 500",
+    "statement": "Отправь POST без тела или с пустым телом: корректное поведение — 400/422 с описанием ошибки. Ответ 500 говорит о необработанном исключении на бэкенде.",
+    "rationale": "В учебном примере POST на создание брони без тела отвечает 500; по определению автора 500 — это необработанное исключение на бэкенде.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: POST на эндпоинт создания без body и с {} — assert status в 400–499. 500 — дефект."
+    },
+    "source": {
+      "chunk_id": "s2-c04-03",
+      "printed_pages": [
+        167
+      ]
+    },
+    "tags": [
+      "negative-testing",
+      "post",
+      "status-codes",
+      "500",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-072",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Не каждое действие в UI порождает API-запрос",
+    "statement": "Переключение вкладок интерфейса обрабатывается фронтендом, ввод в поля собирается в один запрос при отправке, а проверка текста — это ассерт, не сетевой вызов. Учитывай это при сопоставлении шагов теста с API.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "При переводе UI-сценария в API-тесты проверить, что каждый API-шаг соответствует реальному запросу из Network, а не выдуманному эндпоинту для фронтовых действий."
+    },
+    "source": {
+      "chunk_id": "s2-c04-03",
+      "printed_pages": [
+        165,
+        166
+      ]
+    },
+    "tags": [
+      "api-testing",
+      "e2e",
+      "frontend"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-073",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Бэкенд-валидацию тестировать напрямую через API, в обход UI",
+    "statement": "Проверки формы в браузере не защищают сервер: злоумышленник или интеграция шлют запросы напрямую. План должен содержать негативные API-тесты для всех полей тела запроса, включая служебные ключи, которых нет на форме.",
+    "rationale": "Тестирование фронтенда не равно тестированию бэкенда; каждая пара ключ-значение в запросе — отдельная точка отказа.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Сравнить поля тела запроса (из Network/OpenAPI) с негативными сценариями плана/тестов. Fail — негатив проверен только через UI или служебные поля (id, флаги, даты) не покрыты API-тестами."
+    },
+    "source": {
+      "chunk_id": "s2-c05-00",
+      "printed_pages": [
+        174,
+        175
+      ]
+    },
+    "tags": [
+      "api-testing",
+      "backend-validation",
+      "negative-testing",
+      "security"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-074",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Для каждого поля запроса прогоняй мнемонику BINMEN",
+    "statement": "Негативное покрытие поля API складывается из шести проверок: Boundary (выход за лимит), Invalid (неверный тип), Negative (отрицательные/несуществующие значения), Method (подмена метода), Empty (пустая строка), Null (null или удалённый ключ).",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для каждого эндпоинта, принимающего тело, построить матрицу поля × BINMEN по плану/тестам и отметить незакрытые ячейки. Пробелы по Null и Boundary — приоритетные findings."
+    },
+    "source": {
+      "chunk_id": "s2-c05-02",
+      "printed_pages": [
+        175,
+        176
+      ]
+    },
+    "tags": [
+      "binmen",
+      "api-testing",
+      "negative-testing",
+      "checklist"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-075",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "BINMEN-B: значение длиннее лимита отклоняется",
+    "statement": "Отправь в поле значение на один символ длиннее допустимого (например, 31 при лимите 30) — сервер должен вернуть ошибку валидации и не сохранить данные. Сообщение должно называть поле и единицу лимита (символы), а не только «size must be between 3 and 30».",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: для каждого строкового поля с лимитом отправить max+1 (и min-1, если есть минимум) символов — assert 4xx (предпочтительно 422), отсутствие созданной записи и имя поля в теле ошибки; значения max и min — 2xx."
+    },
+    "source": {
+      "chunk_id": "s2-c05-02",
+      "printed_pages": [
+        176
+      ]
+    },
+    "tags": [
+      "binmen",
+      "bva",
+      "boundary",
+      "validation"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-076",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "BINMEN-I: значение неверного типа даёт понятную 4xx",
+    "statement": "Передай строку вместо числа (roomid: \"one\") и другие несоответствия типов: сервер должен ответить 4xx с понятным указанием поля и ожидаемого типа, а не системной ошибкой.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: подменить тип каждого поля (string↔number, object↔string) — assert статус 400/422 и что сообщение содержит имя поля. Fail — 500 или стектрейс/системный текст."
+    },
+    "source": {
+      "chunk_id": "s2-c05-02",
+      "printed_pages": [
+        176,
+        177
+      ]
+    },
+    "tags": [
+      "binmen",
+      "data-types",
+      "validation",
+      "negative-testing"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-077",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "BINMEN-N: отрицательные и несуществующие ID и даты",
+    "statement": "Передай отрицательный или несуществующий идентификатор (roomid: -1): ожидается корректный код ошибки и конкретное сообщение вида «объект с ID -1 не найден», а не общий текст.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: id = -1, 0, очень большое число — assert 404 или 422 и сообщение, упоминающее идентификатор/поле."
+    },
+    "source": {
+      "chunk_id": "s2-c05-02",
+      "printed_pages": [
+        177
+      ]
+    },
+    "tags": [
+      "binmen",
+      "negative-testing",
+      "ids"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-078",
+    "kind": "checklist",
+    "severity": "nice",
+    "title": "BINMEN-M: ответ 405 содержит пояснение о допустимых методах",
+    "statement": "При подмене метода (DELETE/PUT/GET на эндпоинт создания) кроме кода 405 ответ должен пояснять, какие методы допустимы (тело с описанием или заголовок Allow), а не быть пустым.",
+    "applies_to": [
+      "test-code",
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: неподдерживаемый метод — assert 405 и наличие заголовка Allow или непустого JSON-тела с описанием."
+    },
+    "source": {
+      "chunk_id": "s2-c05-02",
+      "printed_pages": [
+        177
+      ]
+    },
+    "tags": [
+      "binmen",
+      "405",
+      "http-methods",
+      "error-messages",
+      "needs-rest"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "conflict",
+    "modern_note": "RFC 9110 §15.5.6: заголовок Allow в ответе 405 обязателен (MUST); тело с описанием — по желанию и Allow не заменяет."
+  },
+  {
+    "id": "QAC-API-079",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "BINMEN-E: пустая строка в обязательном поле отклоняется",
+    "statement": "Отправь \"\" в каждое обязательное текстовое поле — сервер должен вернуть ошибку с указанием поля («фамилия не может быть пустой»).",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: для каждого обязательного строкового поля value = \"\" (и строка из пробелов) — assert 4xx и упоминание поля в теле ошибки."
+    },
+    "source": {
+      "chunk_id": "s2-c05-02",
+      "printed_pages": [
+        177
+      ]
+    },
+    "tags": [
+      "binmen",
+      "empty",
+      "required-fields",
+      "validation"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-080",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "BINMEN-N: null или отсутствующий ключ не роняет сервер",
+    "statement": "Для каждого поля отправь null и запрос без этого ключа. Сервер должен ответить 4xx; 500 означает, что проверка на null сделана не на всех полях и код падает с необработанным исключением.",
+    "rationale": "В примере null в дате обработан, а null в телефоне и email привёл к 500.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Параметризованный API-тест по всем полям тела: value = null и ключ удалён — assert status в 400–499 для каждого поля. Любой 5xx — дефект."
+    },
+    "source": {
+      "chunk_id": "s2-c05-02",
+      "printed_pages": [
+        177,
+        178
+      ]
+    },
+    "tags": [
+      "binmen",
+      "null",
+      "500",
+      "negative-testing"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Для необязательных полей null или отсутствие ключа — валидный ввод, ожидается 2xx; дефектом во всех случаях является только 5xx."
+  },
+  {
+    "id": "QAC-API-081",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Покрывай бизнес-логику API мнемоникой POISED",
+    "statement": "Помимо синтаксиса проверяй: Parameters (порядок, заголовки, приведение типов), Output (статус, заголовки, структура, время), Interoperability (сквозной CRUD), Security (права, подделка флагов, инъекции), Errors (понятность ошибок), Data (сохранность в БД).",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Пройти план API-фичи по шести буквам POISED и отметить, какие направления не покрыты; отсутствие Security или Data — приоритетный gap."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        178,
+        179
+      ]
+    },
+    "tags": [
+      "poised",
+      "api-testing",
+      "checklist"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-082",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Порядок ключей в JSON не важен — не завязывай на него тесты",
+    "statement": "По RFC 8259 порядок пар в JSON-объекте несущественен: смена порядка полей в запросе — не баг, и тесты не должны сравнивать JSON как строку с фиксированным порядком.",
+    "applies_to": [
+      "test-code",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Grep в API-тестах на сравнение сериализованного JSON как строки (JSON.stringify(body) ===, toEqual на строке ответа, snapshot сырого текста). Такие ассерты — флаг; использовать глубокое сравнение объектов."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        179
+      ]
+    },
+    "tags": [
+      "poised",
+      "json",
+      "assertions",
+      "flakiness"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-083",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "POISED-P: логически перевёрнутые даты отклоняются",
+    "statement": "Дата окончания раньше даты начала (выезд раньше заезда) должна давать ошибку валидации.",
+    "applies_to": [
+      "test-code",
+      "test-plan",
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: checkout < checkin (и checkout == checkin, если запрещено) — assert 4xx и отсутствие созданной сущности."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        179,
+        180
+      ]
+    },
+    "tags": [
+      "poised",
+      "dates",
+      "business-logic",
+      "validation"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-084",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "POISED-P: зафиксируй политику приведения типов",
+    "statement": "Если сервер принимает строку \"false\" вместо булева false, это либо осознанная терпимость (закон Постела), либо нарушение строгого контракта (должно быть 400/422). Поведение нужно явно согласовать и покрыть тестом.",
+    "applies_to": [
+      "requirements",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Отправить булевы/числовые поля строками (\"false\", \"1\"); если принято — проверить, что в требованиях/контракте явно разрешено приведение. Нет упоминания — finding к спецификации."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        180
+      ]
+    },
+    "tags": [
+      "poised",
+      "type-coercion",
+      "postels-law",
+      "contract"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-085",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "POISED-P: политика content negotiation задокументирована — 406 или формат по умолчанию",
+    "statement": "Если клиент запрашивает формат через Accept (например application/xml), сервер должен вернуть его или ответить 406 Not Acceptable, а не молча прислать другой формат.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Сверить с API-спекой, какую политику выбрал сервис для неподдерживаемого Accept. API-тест с Accept: application/xml: pass — поведение совпадает с задокументированным (406 Not Acceptable или представление по умолчанию с корректным Content-Type). Fail — поведение не задокументировано или расходится с документацией."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        180
+      ]
+    },
+    "tags": [
+      "poised",
+      "accept",
+      "406",
+      "content-negotiation",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned",
+    "modern_note": "RFC 9110 §12.5.1 разрешает серверу игнорировать Accept и вернуть представление по умолчанию; 406 — лишь один из допустимых вариантов. Дефект — не выбор политики, а её отсутствие или расхождение с документацией."
+  },
+  {
+    "id": "QAC-API-086",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "POISED-O: полнота ответа и время отклика",
+    "statement": "Проверяй ответ целиком: статус по спецификации, наличие Content-Type, сгенерированный идентификатор созданной сущности, а также время ответа сервера.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: assert status по спеке, header content-type присутствует, в теле есть id созданной сущности; время ответа < согласованного порога (например, p95 из NFR)."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        180
+      ]
+    },
+    "tags": [
+      "poised",
+      "output",
+      "response-time",
+      "ttfb"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-087",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "POISED-I: после удаления ресурс освобождается",
+    "statement": "В сквозной цепочке создай сущность, найди её в связанных списках, измени, удали — и затем повтори создание на тех же условиях (те же даты брони): ресурс должен снова быть доступен.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: POST бронь → GET список содержит её → DELETE → повторный POST на те же даты — assert 201 (не 409)."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        180,
+        181
+      ]
+    },
+    "tags": [
+      "poised",
+      "crud",
+      "interoperability",
+      "resource-release"
+    ],
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-088",
+    "kind": "rule",
+    "severity": "must",
+    "title": "POISED-S: ни один эндпоинт с данными не доступен без авторизации",
+    "statement": "Проверь каждый защищённый эндпоинт, включая списки, без токена/cookie и с испорченным или просроченным токеном: все должны отвечать 401 и не отдавать данные. Частая дыра — защищён детальный GET /items/:id, но забыт список GET /items с чужими персональными данными.",
+    "applies_to": [
+      "test-code",
+      "test-plan",
+      "live-product"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Пройти по всем эндпоинтам из OpenAPI/коллекции без Authorization и Cookie, а также с испорченным токеном — assert 401 и отсутствие данных в теле для всех, кроме явно публичных. Любой 200 с персональными данными — критический дефект."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        181
+      ]
+    },
+    "tags": [
+      "poised",
+      "security",
+      "auth",
+      "pii",
+      "401",
+      "status-codes",
+      "negative-testing",
+      "needs-auth"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-089",
+    "kind": "rule",
+    "severity": "must",
+    "title": "POISED-S: сервер не доверяет клиенту флаги оплаты и привилегий",
+    "statement": "Поля, отражающие оплату, роль или статус (depositpaid: true, is_admin), не должны приниматься от клиента на веру: подставь их в тело запроса и убедись, что сервер их игнорирует или отклоняет.",
+    "rationale": "В примере клиент передал признак оплаченного залога, и бэкенд принял бронь как оплаченную без эквайринга.",
+    "applies_to": [
+      "test-code",
+      "test-plan",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: создать/обновить сущность с привилегированными полями (paid=true, role=admin, status=approved) — assert, что в сохранённой сущности (через GET) значения выставлены сервером, а не клиентом."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        181,
+        182
+      ]
+    },
+    "tags": [
+      "poised",
+      "security",
+      "mass-assignment",
+      "payments"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-090",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "POISED-S: SQL-инъекция в текстовых полях не срабатывает",
+    "statement": "Передай в строковые поля инъекционные строки (например, ' OR '1'='1): ожидается экранирование или 422; данные из БД или искажённые значения в ответе — уязвимость.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: payload с ' OR '1'='1, '; -- в каждое строковое поле — assert 2xx с сохранённой буквальной строкой или 4xx; fail — 500, лишние записи в ответе, булево вместо строки."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        182,
+        183
+      ]
+    },
+    "tags": [
+      "poised",
+      "security",
+      "sql-injection",
+      "see-QAC-FORM-014"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Защита от SQLi — параметризованные запросы; отклонение апострофа (422) не защита и ломает легитимный ввод (O'Brien). Одиночный payload не доказывает отсутствие blind-инъекций."
+  },
+  {
+    "id": "QAC-API-091",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "POISED-S: в ответах нет лишних служебных полей",
+    "statement": "Ответы не должны раскрывать служебную информацию: флаги вроде is_admin, внутренние идентификаторы, версии библиотек и серверов бэкенда.",
+    "applies_to": [
+      "test-code",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Сравнить поля ответа со схемой — лишние ключи fail (additionalProperties: false); grep тел и заголовков на is_admin|password|hash|stack|version, проверить X-Powered-By/Server на версии."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        183
+      ]
+    },
+    "tags": [
+      "poised",
+      "security",
+      "data-exposure",
+      "headers"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "Новые необязательные поля — не нарушение (ср. QAC-API-059); additionalProperties: false и grep по «version» дают ложные срабатывания, находки требуют оценки."
+  },
+  {
+    "id": "QAC-API-092",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "POISED-E: текст ошибки называет поле, правило и единицы",
+    "statement": "Ответ на невалидный запрос должен объяснять клиенту, что не так: перечислить все невалидные поля, нарушенное правило и единицы лимита («Phone number is required», «lastname: от 3 до 30 символов»). Общие фразы вроде «Failed to create booking» или «size must be between 3 and 30» без поля — недоработка.",
+    "applies_to": [
+      "test-code",
+      "test-plan",
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Негативный API-тест с несколькими пустыми/невалидными полями: assert 4xx и что тело ошибки упоминает каждое невалидное поле; grep ответов на общие сообщения без имени поля. В UI: отправить пустую форму и проверить сообщения у полей. В требованиях — наличие текстов ошибок."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        183,
+        184
+      ]
+    },
+    "tags": [
+      "poised",
+      "error-messages",
+      "validation",
+      "forms",
+      "ux",
+      "see-QAC-A11Y-108"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-093",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "POISED-D: данные сохраняются без потерь, округлений и порчи кодировки",
+    "statement": "После записи проверь в БД или повторным GET, что значения сохранились точно: сумма 100.50 не округлилась до 100 или 101, кириллица и спецсимволы не побились.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: POST с дробной суммой и не-ASCII строкой → GET (или SELECT в БД) — assert точного равенства значений (сравнение decimal, а не float)."
+    },
+    "source": {
+      "chunk_id": "s2-c05-03",
+      "printed_pages": [
+        184
+      ]
+    },
+    "tags": [
+      "poised",
+      "data-integrity",
+      "rounding",
+      "encoding",
+      "database"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-094",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Воспроизводи запрос из браузера через Copy as cURL",
+    "statement": "Чтобы быстро повторить сложный запрос с заголовками, cookie и телом, скопируй его в Network через Copy as cURL и вставь в Postman или терминал — авторизация сохранится, пока жива сессия.",
+    "applies_to": [
+      "live-product",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "При исследовании API-бага воспроизвести запрос через cURL вне браузера, чтобы отделить проблему бэкенда от фронтенда; cURL можно приложить к баг-репорту (без действующих токенов)."
+    },
+    "source": {
+      "chunk_id": "s2-c06-00",
+      "printed_pages": [
+        185,
+        186
+      ]
+    },
+    "tags": [
+      "curl",
+      "postman",
+      "devtools",
+      "reproduction"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-095",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Базовый URL API вынесен в переменную, а не захардкожен",
+    "statement": "Адрес стенда в API-тестах и коллекциях задаётся одной переменной (baseUrl), а запросы строятся от неё — чтобы смена домена или стенда не требовала правки каждого запроса.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Grep по API-тестам и коллекциям на литералы https?://<домены проекта> в путях запросов. Совпадения вне конфигурационного файла/переменных окружения — finding."
+    },
+    "source": {
+      "chunk_id": "s2-c06-02",
+      "printed_pages": [
+        186,
+        188
+      ]
+    },
+    "tags": [
+      "postman",
+      "variables",
+      "base-url",
+      "test-config"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-096",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Настройки стенда, роли и фича-флаги — в профилях окружений",
+    "statement": "Для работы с несколькими стендами (dev, staging, prod) держи в окружениях хост, токены, логины/пароли тестовых ролей, ID сущностей для сквозных сценариев и фича-флаги; переключение стенда не должно требовать правок тестов.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Проверить, что API-тесты/коллекции читают хост, учётные данные ролей и флаги из environment-файлов или env-переменных, и что есть профили для каждого используемого стенда. Fail — значения вписаны в тела тестов."
+    },
+    "source": {
+      "chunk_id": "s2-c06-03",
+      "printed_pages": [
+        191,
+        192
+      ]
+    },
+    "tags": [
+      "postman",
+      "environments",
+      "test-config",
+      "feature-flags"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-097",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Токен получается автоматически, а не вставляется вручную",
+    "statement": "Токен живёт недолго, поэтому в API-тестах его нужно получать шагом логина и автоматически подставлять в последующие запросы (post-response и pre-request скрипты, фикстуры), а не копировать руками.",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Grep по тестам и коллекциям на захардкоженные токены (regex eyJ[A-Za-z0-9_-]{10,}\\.|Bearer [A-Za-z0-9]{20,}|token=[A-Za-z0-9]{16,}). Совпадение — finding; ожидается получение токена в setup/fixture."
+    },
+    "source": {
+      "chunk_id": "s2-c06-04",
+      "printed_pages": [
+        192,
+        194
+      ]
+    },
+    "tags": [
+      "postman",
+      "auth",
+      "tokens",
+      "test-setup",
+      "needs-auth"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-098",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "В Swagger/OpenAPI описаны все коды ответов, включая ошибки",
+    "statement": "Документация эндпоинта должна перечислять все возможные статусы (успех, 400, 401, 403, 404, 422, 5xx) со схемами тел. Разработчики часто заполняют раздел Responses не полностью — это пробел в спецификации.",
+    "applies_to": [
+      "requirements"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Парсить OpenAPI: для каждой операции перечислить ключи responses. Fail — описан только 200/201; для защищённых операций нет 401/403; для операций с телом нет 400/422."
+    },
+    "source": {
+      "chunk_id": "s2-c07-00",
+      "printed_pages": [
+        196,
+        197
+      ]
+    },
+    "tags": [
+      "swagger",
+      "openapi",
+      "documentation",
+      "status-codes",
+      "needs-rest"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-099",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Бери из Swagger обязательные поля, типы и коды для тест-дизайна",
+    "statement": "Используй Swagger как справочник: список эндпоинтов, required-поля, типы данных и ожидаемые коды ответов — исходные данные для негативных проверок. Сами негативные и сквозные проверки удобнее вести в Postman/автотестах.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Сопоставить план API-тестов с OpenAPI: каждый эндпоинт представлен, для каждого required-поля есть кейс с его отсутствием, для типизированных полей — кейс с неверным типом. Fail — эндпоинт или required-поле без негативного кейса. (Покрытие кодов ответа — см. правило о кодах из спецификации.)"
+    },
+    "source": {
+      "chunk_id": "s2-c07-03",
+      "printed_pages": [
+        199
+      ]
+    },
+    "tags": [
+      "swagger",
+      "openapi",
+      "test-design",
+      "coverage",
+      "needs-rest"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-100",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "GraphQL: обязательные аргументы (!) — отдельный негативный кейс",
+    "statement": "Аргумент с ! в схеме обязателен. В позитивных запросах всегда заполняй его; отдельно проверь, что происходит без него — ответ с молча пустыми (null) полями вместо ошибки стоит обсудить с командой.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Отправить query без Non-Null аргумента: зафиксировать ответ; ожидаемо — массив errors. Если вернулся data с null-полями без errors — флаг для обсуждения контракта."
+    },
+    "source": {
+      "chunk_id": "s2-c08-02",
+      "printed_pages": [
+        203,
+        204
+      ]
+    },
+    "tags": [
+      "graphql",
+      "non-null",
+      "negative-testing",
+      "needs-graphql"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-101",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Пагинация возвращает заданное число элементов и общий счётчик",
+    "statement": "При запросе страницы с limit N ответ должен содержать не более N элементов нужной страницы и корректный общий счётчик (totalCount); без параметров пагинации — базовая выборка по умолчанию.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: page=1, limit=5 — assert length == 5 и totalCount равен общему числу; page=2 — элементы не пересекаются с page=1; без параметров — размер по умолчанию из спеки."
+    },
+    "source": {
+      "chunk_id": "s2-c08-02",
+      "printed_pages": [
+        207,
+        208
+      ]
+    },
+    "tags": [
+      "pagination",
+      "graphql",
+      "api-testing"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned",
+    "modern_note": "totalCount есть не у всех API: курсорная пагинация (Relay, keyset) часто не отдаёт общий счётчик; проверять по контракту."
+  },
+  {
+    "id": "QAC-API-102",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Результат мутации виден в последующем запросе",
+    "statement": "После мутации (создание, изменение, удаление) проверь отдельным Query, что изменение действительно сохранилось; на реальном проекте мутация меняет данные в БД.",
+    "rationale": "Публичные моки не сохраняют состояние, поэтому эта проверка имеет смысл только на реальном стенде.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "GraphQL-тест: mutation create → query по возвращённому id — assert, что сущность находится и поля совпадают с переданными."
+    },
+    "source": {
+      "chunk_id": "s2-c08-03",
+      "printed_pages": [
+        209,
+        210
+      ]
+    },
+    "tags": [
+      "graphql",
+      "mutation",
+      "crud",
+      "data-integrity"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-103",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "GraphQL: запрос несуществующего поля даёт ошибку с указанием места",
+    "statement": "Запрос поля, которого нет в схеме, должен возвращать в errors понятное сообщение с именем поля и позицию ошибки (строка и колонка).",
+    "applies_to": [
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "GraphQL-тест с несуществующим полем: assert errors[0].message упоминает поле и присутствуют locations; код в extensions.code (например GRAPHQL_VALIDATION_FAILED у Apollo) проверять, только если сервер его отдаёт. Статус HTTP при этом может быть 400 или 200 — сверять с контрактом проекта."
+    },
+    "source": {
+      "chunk_id": "s2-c08-03",
+      "printed_pages": [
+        210,
+        211
+      ]
+    },
+    "tags": [
+      "graphql",
+      "error-handling",
+      "schema-validation",
+      "needs-graphql"
+    ],
+    "verification": "fixed",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-104",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Гостевая корзина переживает закрытие вкладки",
+    "statement": "Если корзина неавторизованного пользователя хранится в Local Storage, товары должны сохраняться после закрытия вкладки и перезапуска браузера, а Local Storage должен обновляться при добавлении товара.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Без логина добавить товар, проверить в Application → Local Storage ключ корзины, закрыть браузер, открыть сайт снова — товар на месте, счётчик корзины корректен."
+    },
+    "source": {
+      "chunk_id": "s2-c09-02",
+      "printed_pages": [
+        213,
+        214
+      ]
+    },
+    "tags": [
+      "local-storage",
+      "cart",
+      "persistence",
+      "devtools",
+      "needs-payments"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-105",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Срок жизни данных соответствует выбранному хранилищу",
+    "statement": "Local Storage живёт до очистки, Session Storage — до закрытия вкладки, cookie — по Expires/Max-Age. Проверь, что данные исчезают или сохраняются именно так, как ожидает пользователь (например, шаги многостраничной формы в Session Storage пропадут при закрытии вкладки).",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "requirements"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Найти в Application, в каком хранилище лежат данные фичи (черновик, шаги формы, настройки); закрыть вкладку/браузер и открыть снова; сравнить фактическое поведение с требованием."
+    },
+    "source": {
+      "chunk_id": "s2-c09-02",
+      "printed_pages": [
+        214,
+        215
+      ]
+    },
+    "tags": [
+      "local-storage",
+      "session-storage",
+      "cookies",
+      "persistence"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-106",
+    "kind": "recommendation",
+    "severity": "nice",
+    "title": "Не хранить объёмные данные в cookie",
+    "statement": "Cookie уходят на сервер с каждым запросом и имеют срок годности, поэтому крупные данные (вроде корзины с десятками товаров) в них держать не стоит — для этого есть Local Storage.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В Application → Cookies (или по заголовку Cookie в Network) посмотреть, что лежит в cookie домена; флаг, если там хранятся списки сущностей или объёмные данные. Ориентир по размеру: браузеры ограничивают одну cookie примерно 4 КБ."
+    },
+    "source": {
+      "chunk_id": "s2-c09-02",
+      "printed_pages": [
+        214
+      ]
+    },
+    "tags": [
+      "cookies",
+      "performance",
+      "storage"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-107",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Выбор в баннере cookie запоминается",
+    "statement": "После согласия с баннером cookie он не должен появляться снова при перезагрузке; если удалить cookie, где хранится выбор/сессия, сайт должен вести себя как с новым посетителем и снова показать баннер.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Принять cookie, перезагрузить — баннера нет; удалить в Application cookie, в которой сохраняется выбор (или сессионную, как session-id в примере с Amazon), перезагрузить — баннер снова показан."
+    },
+    "source": {
+      "chunk_id": "s2-c09-03",
+      "printed_pages": [
+        215,
+        216
+      ]
+    },
+    "tags": [
+      "cookies",
+      "consent",
+      "gdpr"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-108",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Clear site data — быстрый способ стать новым пользователем",
+    "statement": "Для проверки сценариев «первого визита» сбрасывай cookie, Local Storage, кэш и service workers через Application → Storage → Clear site data (или настройки сайта у адресной строки).",
+    "applies_to": [
+      "live-product",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В тест-кейсах на сценарии нового пользователя в предусловии указан сброс данных сайта; при выполнении — Clear site data с отмеченными Cookies, Local storage, Unregister workers."
+    },
+    "source": {
+      "chunk_id": "s2-c09-03",
+      "printed_pages": [
+        217,
+        218
+      ]
+    },
+    "tags": [
+      "devtools",
+      "clear-site-data",
+      "first-visit"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-109",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Удаление cookie сессии выбрасывает на страницу входа",
+    "statement": "Войди в систему, удали cookie сессии вручную и обнови страницу: пользователь должен попасть на экран логина, а запросы к бэкенду без сессии — отклоняться.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "E2E: после логина очистить cookies контекста (context.clearCookies()), перезагрузить — assert URL страницы логина и что защищённые API-запросы вернули 401."
+    },
+    "source": {
+      "chunk_id": "s2-c09-04",
+      "printed_pages": [
+        219
+      ]
+    },
+    "tags": [
+      "cookies",
+      "logout",
+      "session",
+      "security",
+      "needs-auth"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-110",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Истечение сессии требует повторного входа",
+    "statement": "Сократи срок жизни авторизационной cookie (Expires на минуту вперёд или в прошлое) и выполни действие: система должна корректно запросить повторный логин, без ошибок и потери контекста.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В Application → Cookies изменить Expires авторизационной cookie, дождаться истечения, кликнуть по сайту — ожидается переход на логин/диалог повторного входа, без 500 и «белого экрана»."
+    },
+    "source": {
+      "chunk_id": "s2-c09-04",
+      "printed_pages": [
+        219
+      ]
+    },
+    "tags": [
+      "cookies",
+      "session-timeout",
+      "auth",
+      "needs-auth"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-111",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Очистка хранилища сбрасывает корзину в UI",
+    "statement": "После очистки Local Storage с корзиной счётчик корзины в интерфейсе должен стать 0, а экран корзины — пустым.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Добавить товары, очистить Local Storage, перезагрузить — счётчик 0, страница корзины показывает пустое состояние."
+    },
+    "source": {
+      "chunk_id": "s2-c09-04",
+      "printed_pages": [
+        219
+      ]
+    },
+    "tags": [
+      "local-storage",
+      "cart",
+      "empty-state",
+      "needs-payments"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-112",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Слияние гостевой корзины с корзиной аккаунта при логине",
+    "statement": "Товары, добавленные без авторизации, после входа должны объединиться с корзиной аккаунта на сервере, а не затереть её и не потеряться.",
+    "applies_to": [
+      "test-plan",
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В плане фичи корзины искать сценарий cart merge: аккаунт с товарами A, гость добавляет B, логин — ожидается A+B. В требованиях — описаны правила слияния (дубли, количества)."
+    },
+    "source": {
+      "chunk_id": "s2-c09-04",
+      "printed_pages": [
+        219
+      ]
+    },
+    "tags": [
+      "cart",
+      "merge",
+      "local-storage",
+      "auth",
+      "needs-payments",
+      "needs-auth"
+    ],
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "Правила слияния гостевой корзины — продуктовое решение (объединить, заменить, спросить); проверять соответствие описанному поведению."
+  },
+  {
+    "id": "QAC-API-113",
+    "kind": "checklist",
+    "severity": "nice",
+    "title": "Сброс хранилища возвращает тему по умолчанию",
+    "statement": "Если выбор тёмной/светлой темы хранится в Local Storage, его очистка должна возвращать тему по умолчанию без поломок интерфейса.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Переключить тему, удалить соответствующий ключ в Local Storage, перезагрузить — применена тема по умолчанию."
+    },
+    "source": {
+      "chunk_id": "s2-c09-04",
+      "printed_pages": [
+        219
+      ]
+    },
+    "tags": [
+      "local-storage",
+      "theme",
+      "dark-mode"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-114",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Онбординг показывается пользователю без сохранённого состояния",
+    "statement": "После сброса Local Storage новый пользователь должен увидеть приветственный тур и подсказки, если они предусмотрены.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Очистить данные сайта, открыть приложение — онбординг и подсказки появились; после прохождения и перезагрузки — больше не показываются."
+    },
+    "source": {
+      "chunk_id": "s2-c09-04",
+      "printed_pages": [
+        219
+      ]
+    },
+    "tags": [
+      "onboarding",
+      "local-storage",
+      "first-visit"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-115",
+    "kind": "checklist",
+    "severity": "nice",
+    "title": "Черновик в локальном хранилище и его сброс",
+    "statement": "Если несохранённый черновик поста или комментария хранится в Local Storage, очистка хранилища должна корректно сбрасывать его, не ломая форму.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Набрать текст без сохранения, очистить Local Storage, перезагрузить — поле пустое, форма работает, в консоли нет ошибок. Дополнительно (если требования это обещают) — без очистки черновик восстанавливается после перезагрузки."
+    },
+    "source": {
+      "chunk_id": "s2-c09-04",
+      "printed_pages": [
+        219
+      ]
+    },
+    "tags": [
+      "drafts",
+      "local-storage"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-116",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "A/B-группы проверяй сбросом cookie и хранилища",
+    "statement": "Очистка cookie и Local Storage делает тебя новым неидентифицированным пользователем — так можно попадать в разные группы A/B-теста и проверять каждый вариант.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Несколько раз сбросить данные сайта и зафиксировать, какой вариант показан; убедиться, что все варианты эксперимента проверены и вариант стабилен в рамках одной сессии."
+    },
+    "source": {
+      "chunk_id": "s2-c09-04",
+      "printed_pages": [
+        219
+      ]
+    },
+    "tags": [
+      "ab-testing",
+      "cookies",
+      "local-storage"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-117",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Отзыв доступа к камере/микрофону/геолокации на лету",
+    "statement": "Во время звонка, записи или работы с геолокацией отзови разрешение в настройках сайта: приложение не должно зависать или падать с необработанной ошибкой, а должно показать понятное сообщение.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Дать сайту доступ к устройству, начать сценарий, отозвать разрешение через Site settings — ожидается понятное уведомление; в консоли нет Uncaught TypeError и подобных ошибок."
+    },
+    "source": {
+      "chunk_id": "s2-c09-04",
+      "printed_pages": [
+        219
+      ]
+    },
+    "tags": [
+      "permissions",
+      "camera",
+      "microphone",
+      "geolocation",
+      "error-handling",
+      "see-QAC-MOB-029"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-118",
+    "kind": "recommendation",
+    "severity": "must",
+    "title": "Фронтенд корректно обрабатывает 500, 403 и 404 от API",
+    "statement": "Подменой ответа (Local Overrides, прокси) проверь реакцию интерфейса на ошибки сервера, отсутствие прав и отсутствующий ресурс: должны быть понятные сообщения, а не белый экран или вечная загрузка.",
+    "rationale": "Подмена позволяет получить любой код ошибки за секунды, не роняя реальный стенд.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "E2E с моком сети (page.route → fulfill со status 500/403/404) для ключевых запросов экрана: assert видимого сообщения об ошибке и отсутствия бесконечного лоадера. В плане — наличие таких сценариев."
+    },
+    "source": {
+      "chunk_id": "s2-c10-00",
+      "printed_pages": [
+        220
+      ]
+    },
+    "tags": [
+      "mocking",
+      "error-state",
+      "status-codes",
+      "overrides"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-119",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Тестируй UI на моках, не дожидаясь готового бэкенда",
+    "statement": "Если интерфейс готов раньше API, начинай проверку интерфейса, валидации и переходов на локальных заглушках ответов по согласованному контракту.",
+    "applies_to": [
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для фич, где бэкенд отстаёт, проверить, что план предусматривает UI-проверки на моках с контрактом из спеки и последующую повторную проверку на реальном API."
+    },
+    "source": {
+      "chunk_id": "s2-c10-00",
+      "printed_pages": [
+        221
+      ]
+    },
+    "tags": [
+      "mocking",
+      "early-testing",
+      "shift-left"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-120",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Перенаправляй трафик на другой стенд без пересборки",
+    "statement": "Чтобы проверить свежий бэкенд на изолированном стенде, перенаправь API-запросы тестового фронтенда на этот сервер через прокси (Map Remote).",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Настроить Map Remote в Proxyman/Charles с домена тестового API на dev-API и убедиться в Network/прокси, что запросы уходят на нужный хост."
+    },
+    "source": {
+      "chunk_id": "s2-c10-00",
+      "printed_pages": [
+        221
+      ]
+    },
+    "tags": [
+      "proxy",
+      "map-remote",
+      "environments"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-121",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Пустое состояние проверено подменой ответа на пустой массив",
+    "statement": "Для каждого списка (покупки, свободные номера, результаты поиска) подмени ответ API на пустой массив и проверь, что показывается осмысленное пустое состояние, а не пустая область.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "E2E: page.route на эндпоинт списка → fulfill с {items: []} — assert видимого текста пустого состояния. Fail — блок просто пустой без пояснения."
+    },
+    "source": {
+      "chunk_id": "s2-c10-02",
+      "printed_pages": [
+        221,
+        225
+      ]
+    },
+    "tags": [
+      "empty-state",
+      "mocking",
+      "overrides",
+      "lists"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-122",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Сверхдлинный текст из API не ломает вёрстку",
+    "statement": "Подмени в ответе текстовые поля (имя, описание) на очень длинные значения: текст должен переноситься или обрезаться многоточием, не перекрывать кнопки и не выходить за края карточки.",
+    "rationale": "Тестовая база обычно содержит короткие значения, и такой дефект без подмены не находится.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Через Local Overrides/page.route вставить строку 150+ символов и описание ×15; проверить карточки на разных ширинах: нет горизонтального переполнения (scrollWidth > clientWidth у контейнера), кнопки кликабельны."
+    },
+    "source": {
+      "chunk_id": "s2-c10-03",
+      "printed_pages": [
+        225,
+        227
+      ]
+    },
+    "tags": [
+      "long-text",
+      "layout",
+      "ellipsis",
+      "mocking"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-123",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Сбой запроса: не вечный спиннер, а экран ошибки с повтором",
+    "statement": "При недоступности эндпоинта интерфейс должен убрать индикатор загрузки и показать понятное сообщение с возможностью обновить, а не зависнуть с бесконечным лоадером.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "Заблокировать запрос (DevTools Block request URL или page.route → abort()): assert в разумный срок исчезает лоадер и виден текст ошибки и кнопка повтора."
+    },
+    "source": {
+      "chunk_id": "s2-c10-04",
+      "printed_pages": [
+        228,
+        229
+      ]
+    },
+    "tags": [
+      "error-state",
+      "request-blocking",
+      "spinner",
+      "resilience"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-124",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Повторы запросов с экспоненциальной паузой, без частого опроса",
+    "statement": "При временном сбое клиент может повторить запрос 2–3 раза с нарастающей паузой (например 1 → 3 → 5 с). Бесконечный опрос с короткими интервалами запрещён — массово он работает как DDoS на собственный бэкенд.",
+    "applies_to": [
+      "live-product",
+      "requirements",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Заблокировать эндпоинт и посмотреть в Network число и интервалы повторных запросов. Pass — несколько (2–3) повторов с растущей паузой, затем экран ошибки. Fail — повторы без ограничения или с интервалом в доли секунды (как 0,2 с в антипримере автора)."
+    },
+    "source": {
+      "chunk_id": "s2-c10-04",
+      "printed_pages": [
+        228
+      ]
+    },
+    "tags": [
+      "retries",
+      "exponential-backoff",
+      "polling",
+      "resilience"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-API-125",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Для мобильных и десктопных клиентов используй прокси",
+    "statement": "DevTools видит только одну вкладку браузера; трафик мобильных и десктопных приложений, а также подмену статусов, путей и заголовков даёт прокси (Proxyman, Charles, Fiddler) с установленным сертификатом для HTTPS.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Для тестирования мобильного/десктопного клиента настроить прокси и сертификат на устройстве, включить SSL Proxying для домена и убедиться, что тела HTTPS-ответов видны."
+    },
+    "source": {
+      "chunk_id": "s2-c11-00",
+      "printed_pages": [
+        230
+      ]
+    },
+    "tags": [
+      "proxy",
+      "proxyman",
+      "charles",
+      "mobile",
+      "ios",
+      "android",
+      "see-QAC-MOB-069"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-126",
+    "kind": "recommendation",
+    "severity": "must",
+    "title": "Ошибка сервера при отправке формы показывает ошибку, а не успех",
+    "statement": "Подмени ответ на отправку формы (например, создание брони) кодом 500: интерфейс должен показать сообщение об ошибке и не изображать успешное действие.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "E2E: page.route на POST формы → fulfill status 500 — assert, что виден текст ошибки и нет сообщения об успехе/перехода на страницу подтверждения."
+    },
+    "source": {
+      "chunk_id": "s2-c11-04",
+      "printed_pages": [
+        237,
+        239
+      ]
+    },
+    "tags": [
+      "error-state",
+      "forms",
+      "500",
+      "mocking"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-API-127",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Проверяемые коды ответа берутся из спецификации эндпоинта",
+    "statement": "Не перебирай все коды из RFC: уточни в Swagger/OpenAPI или у разработчика, какие статусы заложены в эндпоинт, и покрой каждый из них.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Сопоставить для каждого эндпоинта коды из спецификации с кодами, ожидаемыми в плане/тестах. Fail — задокументированный код не покрыт; тесты на коды, которые эндпоинт не генерирует, — лишняя работа."
+    },
+    "source": {
+      "chunk_id": "s2-c11-05",
+      "printed_pages": [
+        240,
+        241
+      ]
+    },
+    "tags": [
+      "status-codes",
+      "openapi",
+      "test-design",
+      "coverage",
+      "needs-rest"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-API-128",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Пользователь не может менять и удалять чужие данные через API",
+    "statement": "Через прямой API-запрос проверь, что пользователь не может изменить или удалить чужой ресурс (комментарий, бронь), подставив его идентификатор, даже если в интерфейсе такой кнопки нет.",
+    "rationale": "Фронтенд легко обойти, реальную безопасность показывает только прямое тестирование API.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "API-тест: под пользователем A выполнить PUT/PATCH/DELETE на ресурс пользователя B — assert 403 (или 404) и неизменность ресурса через GET от B."
+    },
+    "source": {
+      "chunk_id": "s2-c11-06",
+      "printed_pages": [
+        241
+      ]
+    },
+    "tags": [
+      "security",
+      "idor",
+      "authorization",
+      "api-testing",
+      "see-QAC-DB-029",
+      "needs-auth"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  }
+]

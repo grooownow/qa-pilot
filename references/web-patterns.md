@@ -33,9 +33,9 @@ Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibr
 
 **Triggers (where to look):** `rg -n "useMutation\(|axios\.(put|patch|delete)\(|method: *['\"](PUT|PATCH|DELETE)" src`, `rg -n "mutationFn: .*\$\{.*[iI]d\}" src`, `Spring: rg -n "@(Put|Patch|Delete)Mapping\(.*\{id\}|findById\(.*\)\.get\(\)"`, `Express: rg -n "router\.(put|patch|delete)\(['\"].*:id"`, `Django/Rails: rg -n "get_object_or_404|\.objects\.get\(|find\(params\[:id\]\)"`
 
-**Why:** Мотивирующий промах колоквиума: сценарий «правка × удаление» не всплыл ни в одном прогоне, потому что агент сам выбирал места кода. Книга знает 404/500 на фронте (SRK-API-118) и 409 (SRK-API-025), но не связывает их с устаревшей сущностью.
+**Why:** Мотивирующий промах колоквиума: сценарий «правка × удаление» не всплыл ни в одном прогоне, потому что агент сам выбирал места кода. Книга знает 404/500 на фронте (QAC-API-118) и 409 (QAC-API-025), но не связывает их с устаревшей сущностью.
 
-**Book rules:** SRK-API-118, SRK-API-025
+**Book rules:** QAC-API-118, QAC-API-025
 
 _Source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.5 (404), §15.5.11 (410); qa-pilot TDK audit 2026-10_
 
@@ -49,9 +49,9 @@ Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibr
 
 **Triggers (where to look):** `rg -n "onClick=\{.*(mutate|submit|handle(Run|Create|Save))" src  # затем проверить disabled={isPending}`, `rg -n "isPending|isLoading|disabled=" src  # сверить с местами вызова mutate: кнопка без блокировки — триггер`, `rg -n "Idempotency-Key|idempotency" (front+back)`, `Spring: rg -n "@PostMapping\(.*(run|start|execute|pay)"`, `Express/Django/Rails: rg -n "post\(['\"].*/(run|start|execute)|def (run|start|execute)"`
 
-**Why:** Блокировка кнопки не защищает от второй вкладки, ретрая сети и прямого вызова API. POST не идемпотентен по RFC 9110, поэтому защита на сервере обязательна. Уточняет SRK-FORM-026 и SRK-API-003: книга проверяет только двойной клик.
+**Why:** Блокировка кнопки не защищает от второй вкладки, ретрая сети и прямого вызова API. POST не идемпотентен по RFC 9110, поэтому защита на сервере обязательна. Уточняет QAC-FORM-026 и QAC-API-003: книга проверяет только двойной клик.
 
-**Book rules:** SRK-FORM-026, SRK-API-003, SRK-PERF-014, SRK-UX-031, SRK-DB-024
+**Book rules:** QAC-FORM-026, QAC-API-003, QAC-PERF-014, QAC-UX-031, QAC-DB-024
 
 _Source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §9.2.2 (идемпотентные методы); IETF Internet-Draft draft-ietf-httpapi-idempotency-key-header, https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/; qa-pilot TDK audit 2026-10_
 
@@ -67,7 +67,7 @@ Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibr
 
 **Why:** Молчаливый сбой записи — потеря данных с точки зрения пользователя. Глобальная обвязка часто ловит только 401/500, а 400/409/422 проходят мимо. Ожидаемый результат при молчании спеки — инвариант QAP-WINV-002.
 
-**Book rules:** SRK-API-118, SRK-A11Y-060, SRK-MOB-016
+**Book rules:** QAC-API-118, QAC-A11Y-060, QAC-MOB-016
 
 _Source: TanStack Query v5 docs, Guides: Mutations (onError; глобальные колбэки через MutationCache), https://tanstack.com/query/latest/docs/framework/react/guides/mutations; Nielsen Norman Group, 10 Usability Heuristics #1 и #9, https://www.nngroup.com/articles/ten-usability-heuristics/; qa-pilot TDK audit 2026-10_
 
@@ -83,7 +83,7 @@ Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-cali
 
 **Why:** Найдено в аудите TDK (G2): закрытие вызывалось в том же обработчике, что и mutate(), поэтому при ошибке ввод терялся, а пользователь видел закрытую модалку как успех. Книжного аналога нет.
 
-**Book rules:** SRK-FORM-056, SRK-API-118
+**Book rules:** QAC-FORM-056, QAC-API-118
 
 _Source: qa-pilot TDK audit 2026-10 (G2); TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview (Mutations: mutate vs mutateAsync, onSuccess); Nielsen Norman Group, 10 Usability Heuristics #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/_
 
@@ -99,7 +99,7 @@ Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-cali
 
 **Why:** В TanStack Query v5 при сбое рефетча status становится 'error', а data от прошлого успешного ответа сохраняется (isRefetchError=true). Код вида `if (isError) return <Error/>` перед проверкой data стирает историю. Найдено в аудите TDK (G4); книжного аналога нет.
 
-**Book rules:** SRK-API-118, SRK-API-123
+**Book rules:** QAC-API-118, QAC-API-123
 
 _Source: TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; TanStack Query query-core types.ts (QueryObserverRefetchErrorResult: data сохраняется, isRefetchError), https://github.com/TanStack/query/blob/main/packages/query-core/src/types.ts; qa-pilot TDK audit 2026-10 (G4)_
 
@@ -113,9 +113,9 @@ Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-cali
 
 **Triggers (where to look):** `Spring: rg -n "unique *= *true|@UniqueConstraint|DataIntegrityViolationException|DuplicateKeyException"`, `Django/Rails: rg -n "unique=True|UniqueConstraint|validates .*uniqueness|IntegrityError"`, `Express/Prisma: rg -n "@unique|P2002|ER_DUP_ENTRY|23505"`, `Front: rg -n "409|status === 409|Conflict" src`
 
-**Why:** Обычно 409 обработан в create и забыт в rename/duplicate. Родитель — QAP-INV-001 (инвариант во всех путях записи); книга: SRK-API-025.
+**Why:** Обычно 409 обработан в create и забыт в rename/duplicate. Родитель — QAP-INV-001 (инвариант во всех путях записи); книга: QAC-API-025.
 
-**Book rules:** SRK-API-025, SRK-DB-024
+**Book rules:** QAC-API-025, QAC-DB-024
 
 _Source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.10 (409 Conflict); qa-pilot TDK audit 2026-10_
 
@@ -129,9 +129,9 @@ Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibr
 
 **Triggers (where to look):** `rg -n "can\(|hasRole|hasPermission|isAdmin|permissions\.includes|role ===" src`, `rg -n "disabled=\{!.*(can|perm|role)" src`, `Spring: rg -n "@PreAuthorize|@Secured|@RolesAllowed"`, `Express: rg -n "(authorize|requireRole|checkPermission)\("`, `Django/Rails: rg -n "permission_classes|@permission_required|authorize! |Pundit|CanCan"`
 
-**Why:** Скрытая кнопка не защищает API: это Broken Function Level Authorization (OWASP API5:2023). Книга проверяет 403 на уровне API (SRK-API-022), но не связывает его с UI-проверкой прав.
+**Why:** Скрытая кнопка не защищает API: это Broken Function Level Authorization (OWASP API5:2023). Книга проверяет 403 на уровне API (QAC-API-022), но не связывает его с UI-проверкой прав.
 
-**Book rules:** SRK-API-022, SRK-API-089
+**Book rules:** QAC-API-022, QAC-API-089
 
 _Source: OWASP API Security Top 10 2023 (CC BY-SA 4.0), https://owasp.org/API-Security/editions/2023/en/0x11-t10/ API5:2023 Broken Function Level Authorization; OWASP Authorization Cheat Sheet (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html_
 
@@ -145,9 +145,9 @@ Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibr
 
 **Triggers (where to look):** `rg -n "Mapping\(.*\{\w+Id\}.*\{id\}|router\.\w+\(['\"].*/:\w+Id/.*/:id"`, `rg -n "findById\(|findByPk\(|\.objects\.get\(pk=|\.find\(params\[:id\]\)"  # затем проверить скоуп`, `Supabase: rg -n "\.from\(['\"]\w+['\"]\)\.(update|delete|select)" src + проверить RLS-политики в миграциях`
 
-**Why:** Это Broken Object Level Authorization (OWASP API1:2023), самая частая API-уязвимость. Типичный код делает findById(id) и игнорирует parentId из пути. Уточняет SRK-API-128: проверять надо именно скоуп запроса, а не только роль.
+**Why:** Это Broken Object Level Authorization (OWASP API1:2023), самая частая API-уязвимость. Типичный код делает findById(id) и игнорирует parentId из пути. Уточняет QAC-API-128: проверять надо именно скоуп запроса, а не только роль.
 
-**Book rules:** SRK-API-128, SRK-DB-029
+**Book rules:** QAC-API-128, QAC-DB-029
 
 _Source: OWASP API Security Top 10 2023 (CC BY-SA 4.0), https://owasp.org/API-Security/editions/2023/en/0x11-t10/ API1:2023 Broken Object Level Authorization; OWASP Insecure Direct Object Reference Prevention Cheat Sheet (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html_
 
@@ -161,9 +161,9 @@ Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-cali
 
 **Triggers (where to look):** `rg -n "status === 401|401\b|refreshToken|refresh_token|getSession|onAuthStateChange" src`, `rg -n "interceptors\.response\.use" src -A20`, `rg -n "navigate\(['\"]/login|window\.location.*login" src`
 
-**Why:** Книга описывает истечение токена (SRK-API-036, SRK-API-110) и отправку формы после истечения сессии (SRK-TD-061), но не требует сохранения ввода и не учитывает параллельные 401. Если теряется длинный ввод, серьёзность поднимается до P1.
+**Why:** Книга описывает истечение токена (QAC-API-036, QAC-API-110) и отправку формы после истечения сессии (QAC-TD-061), но не требует сохранения ввода и не учитывает параллельные 401. Если теряется длинный ввод, серьёзность поднимается до P1.
 
-**Book rules:** SRK-API-036, SRK-API-110, SRK-TD-061, SRK-A11Y-066
+**Book rules:** QAC-API-036, QAC-API-110, QAC-TD-061, QAC-A11Y-066
 
 _Source: OWASP Session Management Cheat Sheet (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html; IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.2 (401); W3C WCAG 2.2 SC 2.2.5 Re-authenticating (AAA), https://www.w3.org/WAI/WCAG22/Understanding/re-authenticating_
 
@@ -179,7 +179,7 @@ Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-cali
 
 **Why:** Условия, размазанные по меню, роутеру и компонентам, расходятся: вкладка скрыта, но URL открывается, или флаг выключен в UI, а эндпоинт работает. При обходе прав серьёзность P2 и связь с QAP-WEB-007.
 
-**Book rules:** SRK-INST-024, SRK-API-089
+**Book rules:** QAC-INST-024, QAC-API-089
 
 _Source: OWASP API Security Top 10 2023 API5 Broken Function Level Authorization, https://owasp.org/API-Security/editions/2023/en/0x11-t10/; Pete Hodgson, Feature Toggles (aka Feature Flags), martinfowler.com, https://martinfowler.com/articles/feature-toggles.html; qa-pilot TDK audit 2026-10_
 

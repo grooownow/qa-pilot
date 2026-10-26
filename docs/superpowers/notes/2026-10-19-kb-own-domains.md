@@ -1,13 +1,13 @@
 # qa-pilot's own knowledge domains (2026-10-19)
 
-The independent book review (§4, §7) named the main gaps of the Surkov catalog: security, test-code quality, HTTP API correctness, authentication, test strategy (risk-based, contract testing, testing in production, exploratory) and AI-feature testing. qa-pilot's own rules now cover them.
+The independent book review (§4, §7) named the main gaps of the book catalog: security, test-code quality, HTTP API correctness, authentication, test strategy (risk-based, contract testing, testing in production, exploratory) and AI-feature testing. qa-pilot's own rules now cover them.
 
 ## How each rule set was built
 
 1. **Author agent.** One per domain. It worked from current open sources, with web research and caps on rule count. Every rule:
    - is paraphrased;
    - has `source.origin` (source, version, section or ID, URL) and `authority`;
-   - avoids existing book rules, and refers to an SRK id when it refines or corrects one.
+   - avoids existing book rules, and refers to an QAC id when it refines or corrects one.
 2. **Independent verifier agent.** It opened each cited source and confirmed the section exists and supports the rule. It also checked severity and authority discipline, paraphrase and auditability, and fixed or dropped rules in place.
 3. **Main session.** It resolved the overlaps the verifiers reported between domains, validated the files with `render_rules.py`, and promoted them from `drafts/` to `rules/` after the 0.5 TDK eval, so the eval measured phase 1 alone.
 

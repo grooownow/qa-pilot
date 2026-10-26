@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a chunked local corpus of Surkov's QA book and a verified, paraphrased rules catalog plus summary, committed to git without any raw book text.
+**Goal:** Build a chunked local corpus of the source QA book and a verified, paraphrased rules catalog plus summary, committed to git without any raw book text.
 
 **Architecture:** `scripts/kb/build_chunks.py` turns the PDF into per-page text, then into heading-bounded chunks (gitignored `raw/`) and a text-free TOC (committed). Parallel subagents extract rules per topic into `rules/<topic>.json`. Verifier subagents check them against the chunks. `scripts/kb/render_rules.py` validates the schema and renders the Markdown.
 
@@ -12,12 +12,12 @@
 
 ## Global Constraints
 
-- The full book text never enters git. `knowledge/surkov/raw/` is listed in `.gitignore`.
+- The full book text never enters git. `knowledge/catalog/raw/` is listed in `.gitignore`.
 - Rule `statement` text is always a paraphrase. Verbatim quotes are allowed only for terms and short standard wording (WCAG).
 - Rules are written in Russian.
 - No new dependencies: Python stdlib plus poppler only.
 - Chunk ids follow `s{section}-c{chapter:02}-{sub:02}[-pN]`.
-- Rule ids follow `SRK-<TOPIC>-NNN`.
+- Rule ids follow `QAC-<TOPIC>-NNN`.
 - Enums: `kind` ∈ {rule, recommendation, tip, checklist}; `severity` ∈ {must, should, nice}; `check.mode` ∈ {deterministic, heuristic, manual}; `applies_to` ⊆ {requirements, test-plan, test-code, live-product, test-cases}.
 - Career (7.8), Belarus (5.7) and the author bio are recorded in the TOC and summary only. No rules are extracted from them.
 
@@ -67,7 +67,7 @@ Otherwise it writes `rules/<topic>.md` and a stats block into `README.md`, betwe
 
 ### Task 3: Topic tagging + extraction (subagents)
 
-- [ ] Write `knowledge/surkov/topics.md`: a topic → chunk ids mapping from `toc.json`, following spec §5.2.
+- [ ] Write `knowledge/catalog/topics.md`: a topic → chunk ids mapping from `toc.json`, following spec §5.2.
 - [ ] Dispatch about 10 extraction agents in parallel, one per topic group. Each one appends to `rules/<topic>.json` as it goes and keeps notes in the scratchpad.
 - [ ] Run the validator and fix any errors.
 
@@ -79,6 +79,6 @@ Otherwise it writes `rules/<topic>.md` and a stats block into `README.md`, betwe
 
 ### Task 5: Summary + README
 
-- [ ] `knowledge/surkov/summary.md` (RU) per spec §5.4.6.
-- [ ] `knowledge/surkov/README.md`: purpose, rebuild instructions, agent lookup contract (spec §6), license note, stats.
+- [ ] `knowledge/catalog/summary.md` (RU) per spec §5.4.6.
+- [ ] `knowledge/catalog/README.md`: purpose, rebuild instructions, agent lookup contract (spec §6), license note, stats.
 - [ ] Final gates: unit tests, validator, `git status` clean of raw text, grep the committed files for long verbatim runs. Commit.

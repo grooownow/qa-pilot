@@ -109,7 +109,7 @@ Both scripts accept a missing overrides file, so pass the flag every time.
 
 **No `python3`?** Do it by hand, and say so in the report header.
 - **Packs:** read `knowledge/*/rules/*.json`. Keep the records whose `applies_to` includes requirements or test-plan and whose every `needs-*` tag is satisfied by the traits (see the tag table in `scripts/rules_pack.py`). Apply the overrides.
-- **Lint:** search the spec prose for the SRK-REQ-014 stems and the QAP-REQ-001 markers. Skip code, quoted strings, and rationale/history/changes/open-questions sections.
+- **Lint:** search the spec prose for the QAC-REQ-014 stems and the QAP-REQ-001 markers. Skip code, quoted strings, and rationale/history/changes/open-questions sections.
 
 ## Phase 2 — Cluster analysis (agents)
 
@@ -133,12 +133,12 @@ Both scripts accept a missing overrides file, so pass the flag every time.
 
 Check these once, not per spec, and record each as a finding or "ok". Look up the full rules by id in the catalog JSON:
 
-- **Measurable NFRs at all** (SRK-REQ-007).
-- **Accessibility target:** is a WCAG level stated (SRK-A11Y-002)? Do tests use axe or similar? Reflow at 320px (SRK-A11Y-044).
-- **Supported browsers and devices** (SRK-INST-037/041, SRK-MOB-003): stated? Check `playwright.config` projects, real mobile emulation (`isMobile` / `hasTouch`) and the minimum width.
-- **Performance budget** (SRK-PERF-001/029): Core Web Vitals or response-time targets.
-- **Offline behaviour and slow networks** (SRK-API-063, for pwa/mobile traits); request timeouts and time limits (SRK-A11Y-059).
-- **Release gating** (SRK-STRAT-059/062): CI triggers (does anything run on PR/merge?), the Definition of Done in CLAUDE.md, and whether a smoke or regression set blocks a deploy. If the project has a recorded decision about this, apply the decision rule in `severity-calibration.md`.
+- **Measurable NFRs at all** (QAC-REQ-007).
+- **Accessibility target:** is a WCAG level stated (QAC-A11Y-002)? Do tests use axe or similar? Reflow at 320px (QAC-A11Y-044).
+- **Supported browsers and devices** (QAC-INST-037/041, QAC-MOB-003): stated? Check `playwright.config` projects, real mobile emulation (`isMobile` / `hasTouch`) and the minimum width.
+- **Performance budget** (QAC-PERF-001/029): Core Web Vitals or response-time targets.
+- **Offline behaviour and slow networks** (QAC-API-063, for pwa/mobile traits); request timeouts and time limits (QAC-A11Y-059).
+- **Release gating** (QAC-STRAT-059/062): CI triggers (does anything run on PR/merge?), the Definition of Done in CLAUDE.md, and whether a smoke or regression set blocks a deploy. If the project has a recorded decision about this, apply the decision rule in `severity-calibration.md`.
 
 **When to run it:**
 - Run it for whole-project and multi-cluster audits.

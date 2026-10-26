@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans. Steps use checkbox (`- [ ]`) syntax.
 
-**Goal:** Ship `qa-pilot:spec-audit`, which audits requirements and test plans against the Surkov catalog plus qa-pilot's own rules, cross-checks against code, and writes a calibrated report.
+**Goal:** Ship `qa-pilot:spec-audit`, which audits requirements and test plans against the book catalog plus qa-pilot's own rules, cross-checks against code, and writes a calibrated report.
 
 **Architecture:** Two stdlib Python scripts do the deterministic work:
 - `rules_pack.py` filters the catalog by product traits and project overrides, then writes compact packs;
@@ -18,8 +18,8 @@ SKILL.md orchestrates phases 0–6 from the spec. Cluster agents apply the lense
 
 - Scripts use the Python stdlib only. The skill must still work without `python3` by following the manual fallback in SKILL.md.
 - Catalog schema is unchanged except:
-  - ids may be `SRK-`, `QAP-` or `PRJ-`;
-  - `source` is either `{chunk_id, printed_pages}` (SRK) or `{origin}` (QAP/PRJ).
+  - ids may be `QAC-`, `QAP-` or `PRJ-`;
+  - `source` is either `{chunk_id, printed_pages}` (QAC) or `{origin}` (QAP/PRJ).
 - Trait tags are written `needs-<trait>`. A rule is kept only if every one of its `needs-*` tags is satisfied by the product traits.
 - The skill never edits the project's specs. It writes only `docs/qa/spec-audit/*`, and the profile's Product traits section after asking.
 - SKILL.md is in English, like the other skills. Rules and reports use the user's or the project's language.
@@ -36,13 +36,13 @@ SKILL.md orchestrates phases 0–6 from the spec. Cluster agents apply the lense
 
 ### Task 1: Catalog schema for QAP/PRJ and the first 5 qa-pilot rules
 - [ ] Extend `render_rules.py`:
-  - ID_RE accepts `(SRK|QAP|PRJ)`;
-  - `source.origin` (non-empty string) is allowed for non-SRK ids;
-  - SRK ids still require `chunk_id`.
+  - ID_RE accepts `(QAC|QAP|PRJ)`;
+  - `source.origin` (non-empty string) is allowed for non-QAC ids;
+  - QAC ids still require `chunk_id`.
 - [ ] Tests:
   - a QAP record with an origin passes;
   - a QAP record without a source fails;
-  - an SRK record with only an origin fails.
+  - an QAC record with only an origin fails.
 - [ ] `knowledge/qa-pilot/rules/pilot.json` holds the 5 rules from spec §6. Then validate, render and commit.
 
 ### Task 2: needs-* trait tags across the catalog (subagents, in parallel)
@@ -64,7 +64,7 @@ SKILL.md orchestrates phases 0–6 from the spec. Cluster agents apply the lense
 ### Task 4: spec_lint.py
 - **Interface:** `spec_lint.py [--overrides f] <files…>`. It prints JSON `[{file, line, check, rule, match, text}]` and exits 0.
 - **Checks:**
-  - `vague-word`, rule SRK-REQ-014: the regex plus `extra_vague_words` plus the defaults `корректн` and `нормальн`;
+  - `vague-word`, rule QAC-REQ-014: the regex plus `extra_vague_words` plus the defaults `корректн` and `нормальн`;
   - `unfinished`, rule QAP-REQ-001 (added in Task 1 as a 6th rule): TBD, TODO, ???, ЧЕРНОВИК, «уточнить», TBC.
 - **Skipping:** fenced code, inline code, «…» and "…" quotes, and sections under headings that match the default or project skip patterns (rationale, обоснование, история, history, изменения, changes, changelog, open questions, открытые вопросы/решения, альтернативы, alternatives).
 - [ ] Tests for Review Focus items 1–2. Implement, then commit.

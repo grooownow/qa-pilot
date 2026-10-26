@@ -1,4 +1,4 @@
-# HANDOFF — свод знаний по книге Суркова и скилл spec-audit
+# HANDOFF — свод знаний по книге «Качество решает всё» и скилл spec-audit
 
 > **Единая точка продолжения.** Новая сессия на вопрос «на чем мы остановились?» читает этот файл и пересказывает его: где мы, что читать, что открыто, что дальше.
 > Обновлено: 2026-10-19 (qa-pilot 0.5).
@@ -12,7 +12,7 @@
   - `python3 -m unittest discover -s skills/onboard/scripts` (проверка устаревшего профиля `profile_drift.py`);
   - `python3 -m unittest discover -s skills/test-code-audit/scripts` (проба падения `failure_probe.py`);
   - `python3 -m unittest discover -s scripts/plugin` и `python3 scripts/plugin/check_skills.py`;
-  - `render_rules.py --check` для `knowledge/surkov` и для `knowledge/qa-pilot`.
+  - `render_rules.py --check` для `knowledge/catalog` и для `knowledge/qa-pilot`.
 
 - **0.8.0 (ветка `feat/learnings`, 2026-10-26):** добавлены `docs/qa/learnings.md`, матрица покрытия, drift-виды `new-test-dep` / `rules-changed` / `lost-test`, «Not for» в описаниях, примеры и 10 антипаттернов; changelog и версия готовы, тег и push ждут решения владельца.
 
@@ -33,7 +33,7 @@
   - план: `docs/superpowers/plans/2026-10-19-qa-pilot-0.5.md`.
 - **Входы:**
   - коллоквиум из 4 агентов: `docs/superpowers/notes/2026-10-19-spec-audit-colloquium.md`;
-  - независимое ревью книги: `docs/superpowers/notes/2026-10-19-surkov-book-independent-review.md`.
+  - независимое ревью книги: `docs/superpowers/notes/2026-10-19-book-independent-review.md`.
 - **Два сценария владельца:**
   1. `qa-pilot:task-qa`: QA-шаг в каждой задаче. `plan` проверяет AC, строит карту влияния и дельту тестов; `verify` сверяет дифф с планом, задаёт вопросы «так задумано?», доказывает покрытие и дописывает до 5 тестов под защитой правил. Фрагмент для TDK `gov-front-feature` (Phase 3 и Phase 6) лежит в `references/orchestrator-integration.md`. Сам TDK не трогали.
   2. `qa-pilot:project-audit`: зрелость тестовой обвязки, критичные флоу, spec-audit по каждому флоу на глубине `critical`, дорожная карта.
@@ -59,7 +59,7 @@
 4. Классифицировать оставшиеся ~700 правил книги (`unclassified`).
 5. Push и PR, только по просьбе владельца.
 
-- **Цель задачи** (как её поставила пользователь): взять книгу Р. Суркова «Качество решает всё» (819 стр.) и превратить её в базу для агентов. Из неё нужно:
+- **Цель задачи** (как её поставила пользователь): взять книгу «Качество решает всё» (819 стр.) и превратить её в базу для агентов. Из неё нужно:
   - справочник;
   - жёсткие правила, рекомендации и лайфхаки;
   - скилл аудита тестовой модели;
@@ -97,8 +97,8 @@
    - [skills/spec-audit/SKILL.md](../skills/spec-audit/SKILL.md);
    - инструкция агентам: [references/spec-audit-lenses.md](../references/spec-audit-lenses.md);
    - калибровка P1/P2/P3: [references/severity-calibration.md](../references/severity-calibration.md).
-3. **Краткое содержание книги:** [knowledge/surkov/summary.md](../knowledge/surkov/summary.md).
-4. **Как устроен свод:** [knowledge/surkov/README.md](../knowledge/surkov/README.md). Там схема, статистика, как агенту искать и как пересобрать.
+3. **Краткое содержание книги:** [knowledge/catalog/summary.md](../knowledge/catalog/summary.md).
+4. **Как устроен свод:** [knowledge/catalog/README.md](../knowledge/catalog/README.md). Там схема, статистика, как агенту искать и как пересобрать.
 
 ### Все артефакты
 
@@ -110,13 +110,13 @@
 - Уроки пилота на pawfile, вход для C: [docs/superpowers/notes/2026-10-12-pawfile-spec-audit-pilot.md](superpowers/notes/2026-10-12-pawfile-spec-audit-pilot.md)
 
 **Свод знаний** (`knowledge/`)
-- `knowledge/surkov/`:
+- `knowledge/catalog/`:
   - `summary.md`;
   - `README.md` со статистикой;
   - `toc.md` — оглавление со ссылками на куски;
   - `topics.json` → `topics.md` — карта тем;
   - `rules/<тема>.json` и рендеры `.md`, 21 тема.
-- `knowledge/surkov/raw/` — **полный текст книги, только локально** (в .gitignore из-за авторского права). Пересборка: `python3 scripts/kb/build_chunks.py <PDF> knowledge/surkov`. PDF лежит в `~/Documents/КАЧЕСТВО_РЕШАЕТ_ВСЕ_ПОЛНОЕ_РУКОВОДСТВО_ПО_ТЕСТИРОВАНИЮ_ПО.pdf`.
+- `knowledge/catalog/raw/` — **полный текст книги, только локально** (в .gitignore из-за авторского права). Пересборка: `python3 scripts/kb/build_chunks.py <PDF> knowledge/catalog`. PDF лежит в `~/Documents/КАЧЕСТВО_РЕШАЕТ_ВСЕ_ПОЛНОЕ_РУКОВОДСТВО_ПО_ТЕСТИРОВАНИЮ_ПО.pdf`.
 - `knowledge/qa-pilot/` — 8 собственных правил (`QAP-`), выросших из пилота.
 
 **Скрипты**
@@ -134,7 +134,7 @@
 - `skills/onboard/SKILL.md` — добавлены Product traits
 
 **Отчёты на других проектах** (вне этого репозитория)
-- `pawfile/docs/qa/2026-10-12-surkov-spec-audit.md` — отчёт пилота. **Не закоммичен.** Пользователь обрабатывает его в pawfile сама: P1 — 4 находки (3 первопричины), P2 — 95, P3 — 70, сценариев — 140.
+- `pawfile/docs/qa/2026-10-12-*-spec-audit.md` — отчёт пилота. **Не закоммичен.** Пользователь обрабатывает его в pawfile сама: P1 — 4 находки (3 первопричины), P2 — 95, P3 — 70, сценариев — 140.
 - Сырые материалы, локально, в .gitignore: `qa-pilot/.work/2026-10-12/`:
   - `A/`, `B/`, `C/` — отчёты и eval-notes трёх прогонов скилла;
   - `pilot-pawfile/` — находки пилота по группам;
@@ -146,8 +146,8 @@
 - **Язык.** Правила свода — на русском. SKILL.md и references — на английском, как остальной плагин.
 - **Что не извлекалось.** Карьера (7.8), доступность в Беларуси (5.7) и раздел «Об авторе» — только в оглавлении и саммари.
 - **Противоречия книги** решены полем `decision`:
-  - пароль после ошибки формы **не очищается** (`SRK-UX-028` важнее `SRK-FORM-029`);
-  - кнопка подтверждения в диалоге **не блокируется** (`SRK-MD-055`).
+  - пароль после ошибки формы **не очищается** (`QAC-UX-028` важнее `QAC-FORM-029`);
+  - кнопка подтверждения в диалоге **не блокируется** (`QAC-MD-055`).
 - **Первая цель аудита — требования и тест-план.** Код автотестов, живой продукт и внешние тест-кейсы — позже.
 - **Отчёты аудита** кладутся в проект без коммита. Коммитит пользователь.
 - **Пилот на pawfile.** Пользователь обработает его отдельно в pawfile. Здесь продолжаем QA-вопросы.

@@ -53,7 +53,7 @@ qa-pilot/
 │   ├── e2e-patterns.md      # Playwright patterns: fixtures, POM-via-fixtures, waiting, mocking
 │   ├── flakiness-catalog.md # known flakiness sources + fixes + quarantine pattern
 │   └── browser-hygiene.md   # dev-server lifecycle, one-page rule, memory caps
-├── knowledge/               # QA rules catalog: surkov/ (book-derived), qa-pilot/ (own rules)
+├── knowledge/               # QA rules catalog: catalog/ (book-derived), qa-pilot/ (own rules)
 └── README.md                # install + quickstart for an AI-agent beginner
 ```
 

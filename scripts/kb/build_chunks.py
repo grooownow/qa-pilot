@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Split the Surkov QA book PDF into heading-bounded chunks.
+"""Split the source QA book PDF into heading-bounded chunks.
 
 Usage: python3 scripts/kb/build_chunks.py <book.pdf> <kb_dir>
 
@@ -236,7 +236,7 @@ def build(pdf, kb_dir):
 
     toc_idx = [i for i, p in enumerate(pages) if is_toc_page(p)]
     if not toc_idx:
-        sys.exit("No table-of-contents pages (dot-leader lines) found — this script expects the Surkov book layout.")
+        sys.exit("No table-of-contents pages (dot-leader lines) found — this script expects the source book layout.")
     toc_first, toc_last = toc_idx[0], toc_idx[-1]
     toc_lines = [line for p in pages[toc_first:toc_last + 1] for line in p.split("\n")]
     toc = parse_toc(toc_lines)

@@ -61,17 +61,17 @@ class BuildTest(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         kb = Path(self.tmp.name)
-        (kb / "surkov" / "rules").mkdir(parents=True)
+        (kb / "catalog" / "rules").mkdir(parents=True)
         (kb / "qa-pilot" / "rules").mkdir(parents=True)
-        (kb / "surkov" / "rules" / "mobile-hig.json").write_text(json.dumps([
-            record("SRK-HIG-001", ["ios", "needs-ios"]),
-            record("SRK-HIG-002", ["web"]),
+        (kb / "catalog" / "rules" / "mobile-hig.json").write_text(json.dumps([
+            record("QAC-HIG-001", ["ios", "needs-ios"]),
+            record("QAC-HIG-002", ["web"]),
         ]))
-        (kb / "surkov" / "rules" / "requirements.json").write_text(json.dumps([
-            record("SRK-REQ-001"),
-            record("SRK-REQ-002", ["needs-payments"]),
-            record("SRK-REQ-003", applies=("live-product",)),
-            record("SRK-REQ-004", ["needs-teleport"]),
+        (kb / "catalog" / "rules" / "requirements.json").write_text(json.dumps([
+            record("QAC-REQ-001"),
+            record("QAC-REQ-002", ["needs-payments"]),
+            record("QAC-REQ-003", applies=("live-product",)),
+            record("QAC-REQ-004", ["needs-teleport"]),
         ]))
         (kb / "qa-pilot" / "rules" / "pilot.json").write_text(json.dumps([record("QAP-AUTH-001", ["needs-auth"])]))
         self.kb = kb
@@ -84,33 +84,40 @@ class BuildTest(unittest.TestCase):
 
     def test_trait_filtering(self):
         packs, manifest = build(self.kb, PROFILE, {}, ["requirements", "test-plan"])
-        self.assertEqual(self.ids(packs), {"SRK-HIG-002", "SRK-REQ-001", "QAP-AUTH-001", "SRK-REQ-004"})
-        self.assertIn("needs-ios", manifest["excluded"]["SRK-HIG-001"])
-        self.assertIn("needs-payments", manifest["excluded"]["SRK-REQ-002"])
+        self.assertEqual(self.ids(packs), {"QAC-HIG-002", "QAC-REQ-001", "QAP-AUTH-001", "QAC-REQ-004"})
+        self.assertIn("needs-ios", manifest["excluded"]["QAC-HIG-001"])
+        self.assertIn("needs-payments", manifest["excluded"]["QAC-REQ-002"])
         self.assertEqual(manifest["unknown_needs_tags"], ["needs-teleport"])
-        self.assertEqual(packs["platform"][0]["id"], "SRK-HIG-002")
+        self.assertEqual(packs["platform"][0]["id"], "QAC-HIG-002")
         self.assertEqual(packs["core"][-1]["id"], "QAP-AUTH-001")
 
     def test_untagged_rule_kept_even_without_profile(self):
         packs, manifest = build(self.kb, "", {}, ["requirements"])
-        self.assertIn("SRK-REQ-001", self.ids(packs))
+        self.assertIn("QAC-REQ-001", self.ids(packs))
         self.assertNotIn("QAP-AUTH-001", self.ids(packs))
         self.assertFalse(manifest["traits_section_found"])
 
     def test_overrides_disable_decide_and_add_project_rules(self):
-        overrides = {"disabled": ["SRK-REQ-001"], "decisions": {"SRK-HIG-002": "У нас иначе."},
+        overrides = {"disabled": ["QAC-REQ-001"], "decisions": {"QAC-HIG-002": "У нас иначе."},
                      "rules": [record("PRJ-SEC-001")]}
         overrides["rules"].append({"id": "PRJ-BAD-001", "applies_to": ["requirements"]})
         packs, manifest = build(self.kb, PROFILE, overrides, ["requirements"])
         ids = self.ids(packs)
         self.assertNotIn("PRJ-BAD-001", ids)
         self.assertTrue(any("PRJ-BAD-001 skipped" in w for w in manifest["warnings"]))
-        self.assertNotIn("SRK-REQ-001", ids)
+        self.assertNotIn("QAC-REQ-001", ids)
         self.assertIn("PRJ-SEC-001", ids)
-        self.assertEqual(manifest["excluded"]["SRK-REQ-001"], "disabled by project")
-        self.assertEqual(manifest["decisions_applied"], ["SRK-HIG-002"])
+        self.assertEqual(manifest["excluded"]["QAC-REQ-001"], "disabled by project")
+        self.assertEqual(manifest["decisions_applied"], ["QAC-HIG-002"])
         line = rule_line(packs["platform"][0])
         self.assertIn("РЕШЕНИЕ ПРОЕКТА (приоритетнее): У нас иначе.", line)
+
+    def test_overrides_with_pre_0_8_1_ids_still_apply(self):
+        overrides = {"disabled": ["SRK-REQ-001"], "decisions": {"SRK-HIG-002": "У нас иначе."}}
+        packs, manifest = build(self.kb, PROFILE, overrides, ["requirements"])
+        self.assertNotIn("QAC-REQ-001", self.ids(packs))
+        self.assertEqual(manifest["excluded"]["QAC-REQ-001"], "disabled by project")
+        self.assertEqual(manifest["decisions_applied"], ["QAC-HIG-002"])
 
     def test_scope_filters_pass_through_and_bad_entries_warn(self):
         scope = [{"exclude": "cloud runtime mode", "reason": "not developed or tested", "source": "owner 2026-10-15"},
@@ -136,14 +143,14 @@ class AuthorityAndTopicsTest(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         kb = Path(self.tmp.name)
-        (kb / "surkov" / "rules").mkdir(parents=True)
+        (kb / "catalog" / "rules").mkdir(parents=True)
         (kb / "qa-pilot" / "rules").mkdir(parents=True)
         (kb / "qa-pilot" / "drafts").mkdir(parents=True)
-        (kb / "surkov" / "rules" / "requirements.json").write_text(json.dumps([
-            {**record("SRK-REQ-001"), "authority": "author-opinion"},
-            {**record("SRK-REQ-002"), "authority": "normative"},
-            record("SRK-REQ-003"),
-            {**record("SRK-REQ-004"), "authority": "vendor-guideline"},
+        (kb / "catalog" / "rules" / "requirements.json").write_text(json.dumps([
+            {**record("QAC-REQ-001"), "authority": "author-opinion"},
+            {**record("QAC-REQ-002"), "authority": "normative"},
+            record("QAC-REQ-003"),
+            {**record("QAC-REQ-004"), "authority": "vendor-guideline"},
         ]))
         (kb / "qa-pilot" / "rules" / "web-patterns.json").write_text(json.dumps([record("QAP-WEB-001")]))
         (kb / "qa-pilot" / "rules" / "security.json").write_text(json.dumps([record("QAP-SEC-001")]))
@@ -160,20 +167,20 @@ class AuthorityAndTopicsTest(unittest.TestCase):
 
     def test_author_opinion_must_shown_as_should(self):
         rules, _ = self.build()
-        self.assertEqual(effective_severity(rules["SRK-REQ-001"][1]), "should")
-        self.assertEqual(effective_severity(rules["SRK-REQ-004"][1]), "should")
-        self.assertIn("[should/heuristic/author-opinion]", rule_line(rules["SRK-REQ-001"][1]))
-        self.assertIn("[must/heuristic/normative]", rule_line(rules["SRK-REQ-002"][1]))
+        self.assertEqual(effective_severity(rules["QAC-REQ-001"][1]), "should")
+        self.assertEqual(effective_severity(rules["QAC-REQ-004"][1]), "should")
+        self.assertIn("[should/heuristic/author-opinion]", rule_line(rules["QAC-REQ-001"][1]))
+        self.assertIn("[must/heuristic/normative]", rule_line(rules["QAC-REQ-002"][1]))
 
     def test_conflict_rule_line_carries_the_correction(self):
-        r = {**record("SRK-REQ-009"), "external_check": "conflict", "modern_note": "RFC 9110 §12.5.1 разрешает иное."}
+        r = {**record("QAC-REQ-009"), "external_check": "conflict", "modern_note": "RFC 9110 §12.5.1 разрешает иное."}
         self.assertIn("РАСХОДИТСЯ СО СТАНДАРТОМ (приоритетнее проверки выше): RFC 9110", rule_line(r))
-        self.assertNotIn("РАСХОДИТСЯ", rule_line(record("SRK-REQ-010")))
+        self.assertNotIn("РАСХОДИТСЯ", rule_line(record("QAC-REQ-010")))
 
     def test_unclassified_must_stays_must(self):
         rules, _ = self.build()
-        self.assertEqual(effective_severity(rules["SRK-REQ-003"][1]), "must")
-        self.assertIn("[must/heuristic]", rule_line(rules["SRK-REQ-003"][1]))
+        self.assertEqual(effective_severity(rules["QAC-REQ-003"][1]), "must")
+        self.assertIn("[must/heuristic]", rule_line(rules["QAC-REQ-003"][1]))
 
     def test_web_patterns_not_in_packs_and_qap_topics_mapped(self):
         rules, _ = self.build()
@@ -194,7 +201,7 @@ class AuthorityAndTopicsTest(unittest.TestCase):
 
 class RuleLineTest(unittest.TestCase):
     def test_truncates_long_check(self):
-        line = rule_line(record("SRK-REQ-009", how="а" * 400))
+        line = rule_line(record("QAC-REQ-009", how="а" * 400))
         self.assertTrue(line.endswith("…"))
         self.assertIn("[must/heuristic]", line)
 

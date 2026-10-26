@@ -2,12 +2,12 @@
 
 Дата: 2026-10-12 · Ветка: `feat/book-knowledge-base` · Статус: на ревью
 Входные данные:
-- свод `knowledge/surkov/` (подпроекты A+B);
+- свод `knowledge/catalog/` (подпроекты A+B);
 - уроки пилота `docs/superpowers/notes/2026-10-12-pawfile-spec-audit-pilot.md`.
 
 ## 1. Цель
 
-Скилл проверяет **требования и тест-план** продукта по своду правил (книга Суркова плюс собственные правила qa-pilot) и отвечает на три вопроса пользователя:
+Скилл проверяет **требования и тест-план** продукта по своду правил (книга «Качество решает всё» плюс собственные правила qa-pilot) и отвечает на три вопроса пользователя:
 
 1. **Каких тест-кейсов не хватает** для этого флоу или фичи?
 2. **Насколько хорошо требования готовы** к тестированию: полнота, однозначность, противоречия?
@@ -47,7 +47,7 @@ references/
   spec-audit-lenses.md        # линзы анализа и формат находок для агентов
   severity-calibration.md     # как ставить P1/P2/P3 (общий для будущих аудитов)
 knowledge/
-  surkov/                     # как есть (A+B)
+  catalog/                     # как есть (A+B)
   qa-pilot/rules/*.json       # собственные правила qa-pilot (QAP-…), та же схема
 ```
 
@@ -76,7 +76,7 @@ rtl: false
 regulated: [gdpr]               # gdpr | hipaa | pci | eaa | none
 ```
 
-`rules_pack.py` берёт свод (`knowledge/surkov`, `knowledge/qa-pilot` и правила проекта `PRJ-*`), цели аудита (`requirements`, `test-plan`) и черты продукта. На выходе:
+`rules_pack.py` берёт свод (`knowledge/catalog`, `knowledge/qa-pilot` и правила проекта `PRJ-*`), цели аудита (`requirements`, `test-plan`) и черты продукта. На выходе:
 
 - компактный пакет `<scratch>/packs/*.md`: строка на правило, решения проекта подставлены, отключённые правила выброшены;
 - `manifest.json`: какие темы и теги исключены и почему.
@@ -154,7 +154,7 @@ regulated: [gdpr]               # gdpr | hipaa | pci | eaa | none
 
 ## 6. Собственные правила qa-pilot (пробелы каталога)
 
-`knowledge/qa-pilot/rules/*.json` использует ту же схему, что и свод Суркова, с тремя отличиями:
+`knowledge/qa-pilot/rules/*.json` использует ту же схему, что и свод книги, с тремя отличиями:
 - id `QAP-<TOPIC>-NNN`;
 - вместо `source.chunk_id` указывается `source.origin`, например «pilot pawfile 2026-10-12»;
 - язык — русский, как у свода.
@@ -174,8 +174,8 @@ regulated: [gdpr]               # gdpr | hipaa | pci | eaa | none
 
 ```json
 {
-  "disabled": ["SRK-ART-004"],
-  "decisions": { "SRK-REQ-014": "…текст решения…" },
+  "disabled": ["QAC-ART-004"],
+  "decisions": { "QAC-REQ-014": "…текст решения…" },
   "extra_vague_words": ["корректн", "нормальн"],
   "skip_section_patterns": ["^#+\\s*(Rationale|История|Изменения)"],
   "rules": [ /* PRJ-… записи в схеме свода */ ]

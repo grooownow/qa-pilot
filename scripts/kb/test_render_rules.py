@@ -4,7 +4,7 @@ import unittest
 from render_rules import dangling_refs, render_topic, validate_all
 
 VALID = {
-    "id": "SRK-FORM-001",
+    "id": "QAC-FORM-001",
     "kind": "rule",
     "severity": "must",
     "title": "Проверять пробелы в начале и конце ввода",
@@ -53,7 +53,7 @@ class ValidateTest(unittest.TestCase):
 
     def test_duplicate_id_across_files(self):
         errors = validate_all({"forms": [VALID], "gui": [copy.deepcopy(VALID)]}, CHUNKS)
-        self.assertTrue(any("duplicate id SRK-FORM-001" in e for e in errors), errors)
+        self.assertTrue(any("duplicate id QAC-FORM-001" in e for e in errors), errors)
 
     def test_source_checked_against_chunks(self):
         self.assert_error(with_change(source={"chunk_id": "s9-c99-99"}), "unknown chunk_id")
@@ -81,7 +81,7 @@ class NonBookRulesTest(unittest.TestCase):
 
 class AuthorityAndPatternTest(unittest.TestCase):
     WEB = {**copy.deepcopy(VALID), "id": "QAP-WEB-001", "source": {"origin": "RFC 9110 §15.5.10"},
-           "pattern": {"tier": "must-check", "triggers": ["useMutation("], "level": "e2e", "book_refs": ["SRK-API-001"]}}
+           "pattern": {"tier": "must-check", "triggers": ["useMutation("], "level": "e2e", "book_refs": ["QAC-API-001"]}}
 
     def test_authority_values_validated(self):
         self.assertEqual(validate_all({"forms": [with_change(authority="normative", external_check="aligned")]}, CHUNKS), [])
@@ -114,21 +114,21 @@ class AuthorityAndPatternTest(unittest.TestCase):
 
 class DanglingRefsTest(unittest.TestCase):
     def test_unknown_ids_in_text_and_book_refs_are_reported(self):
-        r = with_change(rationale="Уточняет SRK-FORM-001 и QAP-TC-016.")
+        r = with_change(rationale="Уточняет QAC-FORM-001 и QAP-TC-016.")
         web = {**copy.deepcopy(AuthorityAndPatternTest.WEB), "pattern": {**AuthorityAndPatternTest.WEB["pattern"],
-                                                                          "book_refs": ["SRK-API-404"]}}
-        errors = dangling_refs({"forms": [r], "web-patterns": [web]}, {"SRK-FORM-001", "QAP-WEB-001"})
-        self.assertEqual(sorted(errors), ["QAP-WEB-001: refers to unknown SRK-API-404",
-                                          "SRK-FORM-001: refers to unknown QAP-TC-016"])
+                                                                          "book_refs": ["QAC-API-404"]}}
+        errors = dangling_refs({"forms": [r], "web-patterns": [web]}, {"QAC-FORM-001", "QAP-WEB-001"})
+        self.assertEqual(sorted(errors), ["QAC-FORM-001: refers to unknown QAP-TC-016",
+                                          "QAP-WEB-001: refers to unknown QAC-API-404"])
 
 
 class RenderTest(unittest.TestCase):
     def test_groups_by_kind_and_shows_check(self):
-        tip = with_change(id="SRK-FORM-002", kind="tip", verification="doubtful")
+        tip = with_change(id="QAC-FORM-002", kind="tip", verification="doubtful")
         md = render_topic("forms", [tip, VALID])
         self.assertLess(md.index("## Жёсткие правила"), md.index("## Практические советы"))
         self.assertIn("**Как проверить:** Ищем в плане", md)
-        self.assertIn("SRK-FORM-002 · Проверять пробелы в начале и конце ввода ⚠️ сомнительно", md)
+        self.assertIn("QAC-FORM-002 · Проверять пробелы в начале и конце ввода ⚠️ сомнительно", md)
         self.assertIn("с. 41–42", md)
 
     def test_renders_team_decision(self):

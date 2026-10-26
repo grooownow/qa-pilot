@@ -5,7 +5,7 @@ Usage:
   python3 rules_pack.py --kb <plugin>/knowledge --profile docs/qa/project-profile.md \
       [--overrides docs/qa/rule-overrides.json] [--targets requirements,test-plan] --out <dir>
 
-Reads every rules/*.json under <kb>/surkov and <kb>/qa-pilot (never drafts/), plus project
+Reads every rules/*.json under <kb>/catalog and <kb>/qa-pilot (never drafts/), plus project
 rules (PRJ-…) and owner scope filters from the overrides file. Keeps rules whose applies_to meets the
 targets and whose needs-* tags are all satisfied by the product traits. A `must` rule
 classified as author-opinion or vendor-guideline is shown as `should`. Web patterns and
@@ -115,10 +115,10 @@ def parse_traits(profile_text):
 
 def load_rules(kb, overrides):
     rules = []
-    for source in ("surkov", "qa-pilot"):
+    for source in ("catalog", "qa-pilot"):
         for path in sorted((kb / source / "rules").glob("*.json")):
             for r in json.loads(path.read_text(encoding="utf-8")):
-                rules.append((path.stem if source == "surkov" else f"qa-pilot:{path.stem}", r))
+                rules.append((path.stem if source == "catalog" else f"qa-pilot:{path.stem}", r))
     rules += [("project", r) for r in overrides.get("rules", [])]
     return rules
 
@@ -179,11 +179,19 @@ def scope_entries(overrides, warnings):
     return kept
 
 
+# Catalog ids were renamed in 0.8.1 (same numbers); override files written before still use the old prefix.
+OLD_CATALOG_PREFIX = "SRK-"
+
+
+def current_id(rule_id):
+    return "QAC-" + rule_id[len(OLD_CATALOG_PREFIX):] if rule_id.startswith(OLD_CATALOG_PREFIX) else rule_id
+
+
 def build(kb, profile_text, overrides, targets):
     traits, has_section, warnings = parse_traits(profile_text)
     scope = scope_entries(overrides, warnings)
-    disabled = set(overrides.get("disabled", []))
-    decisions = overrides.get("decisions", {})
+    disabled = {current_id(i) for i in overrides.get("disabled", [])}
+    decisions = {current_id(k): v for k, v in overrides.get("decisions", {}).items()}
     packs = {name: [] for name in PACKS}
     excluded, unknown_tags, applied = {}, set(), []
     for topic, r in load_rules(kb, overrides):

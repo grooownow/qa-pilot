@@ -9,7 +9,7 @@ def pattern(rid, tier, title="Паттерн"):
             "check": {"mode": "heuristic", "how": "Вопрос к сущности."},
             "source": {"origin": "RFC 9110 §15.5.10"}, "authority": "normative",
             "pattern": {"tier": tier, "triggers": ["useMutation(", "rg -n 'onError'"], "level": "e2e",
-                        "book_refs": ["SRK-API-001"]}}
+                        "book_refs": ["QAC-API-001"]}}
 
 
 def invariant(rid):

@@ -117,7 +117,7 @@ To update an installed plugin: `/plugin` → marketplace qa-pilot → update, th
 - **Onboard records more.** The profile now captures test-framework maturity and critical flows.
 
 ### Changed
-- **Book rules are checked against standards.** Rules from the Surkov book carry `authority` (standard / industry practice / vendor guideline / author opinion) and `external_check`. 427 must and deterministic rules were checked against RFC, W3C, ISTQB, OWASP and NIST. In audit packs an author opinion is never a hard `must`, and remaining conflicts are flagged.
+- **Book rules are checked against standards.** Rules from the book carry `authority` (standard / industry practice / vendor guideline / author opinion) and `external_check`. 427 must and deterministic rules were checked against RFC, W3C, ISTQB, OWASP and NIST. In audit packs an author opinion is never a hard `must`, and remaining conflicts are flagged.
 - **Shared test-delta rules.** Depth, buckets, the three proofs of coverage and the auto-test guard now live in `references/test-delta.md`, which `plan-tests`, `cover`, `task-qa` and `spec-audit` all follow.
 
 ### Fixed
@@ -142,7 +142,7 @@ To update an installed plugin: `/plugin` → marketplace qa-pilot → update, th
 ## [0.3.0] — 2026-10-12
 
 ### Added
-- **`spec-audit` skill.** It audits requirements and test plans against a catalog of 1137 rules distilled from R. Surkov's QA handbook, plus qa-pilot's own rules, and cross-checks every claim against the code and tests.
+- **`spec-audit` skill.** It audits requirements and test plans against a catalog of 1137 rules distilled from a QA handbook, plus qa-pilot's own rules, and cross-checks every claim against the code and tests.
 - **Knowledge base** in `knowledge/`: the rule catalog and its summary. The book text itself is not included (copyright).
 
 ## [0.2.0 – 0.2.4] — 2026-07

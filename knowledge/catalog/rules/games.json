@@ -1,0 +1,502 @@
+[
+  {
+    "id": "QAC-GAME-001",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Проверка на вылеты (crash) игры",
+    "statement": "В плане тестирования игры должны быть сценарии на аварийное завершение, когда игрока выбрасывает на рабочий стол или в меню консоли. При вылете игра часто формирует crash dump, и он помогает разобрать причину.",
+    "rationale": "По книге вылет относится к самым тяжёлым игровым дефектам.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане или чек-листе игры найти сценарии, нацеленные на вылеты: стресс, длительные сессии, смена настроек, тяжёлые сцены. Нет таких сценариев — fail. В баг-репортах о вылетах желательно наличие crash dump или лога; их отсутствие пометить как слабый репорт."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        492
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "crash",
+      "crash-dump",
+      "needs-game"
+    ],
+    "verification": "fixed",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-GAME-002",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Проверка на полное зависание (ANR) игры",
+    "statement": "Проверить, что игра не замирает намертво, когда картинка остановилась и выйти можно только принудительным закрытием процесса.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "На устройстве или ПК прогнать тяжёлые сцены, загрузки и переходы. Fail — если игра перестаёт реагировать на ввод и её приходится снимать через диспетчер задач. В тест-плане должен быть пункт про зависания."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        492
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "anr",
+      "freeze",
+      "needs-game"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-GAME-003",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Проверка на фризы и статтеры кадра",
+    "statement": "Отслеживать кратковременные подвисания кадра, которые ломают плавность геймплея. Типичные причины: подгрузка шейдеров, утечки памяти, слабая оптимизация, устаревшие драйверы.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Играть с включённым счётчиком FPS / frametime (оверлей движка или внешний инструмент). Фиксировать пики frametime при первом появлении эффектов, в новых локациях и при долгой сессии. В тест-плане должен быть пункт о плавности кадра и долгих сессиях."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        493
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "stutter",
+      "fps",
+      "memory-leak",
+      "needs-game"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-GAME-004",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Проверка на блокировщики прохождения (WTB)",
+    "statement": "Проверить, что сюжет и квесты нельзя заблокировать ошибкой скрипта. Например, гибель квестового NPC или сбой диалога не должны обрывать цепочку обязательных заданий.",
+    "rationale": "Если игрок не может продолжить сюжет, ему остаётся только откат на старое сохранение или новая игра.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане проверить негативные сценарии для ключевых квестов: убить или потерять квестового NPC, прервать диалог, выполнить шаги не по порядку, загрузить сохранение посреди скрипта. Таких сценариев нет — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        493
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "walkthrough-blocker",
+      "quest",
+      "scripting",
+      "needs-game"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-GAME-005",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Проверка меню и HUD на наложения и обрезку",
+    "statement": "Проверить элементы меню и HUD: полоска здоровья, патроны и мини-карта не перекрывают друг друга, текст не выходит за плашки, отступы ровные, все кнопки меню нажимаются.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Пройти все экраны меню и состояния HUD при разных разрешениях и соотношениях сторон. Fail — наложение элементов, обрезанный текст или кнопка, которая не реагирует."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        493
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "hud",
+      "gui",
+      "menu",
+      "needs-game"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-GAME-006",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Поиск абузов механик и дисбаланса",
+    "statement": "Искать нестандартные действия, которые дают игроку незапланированное преимущество: простреливаемые «непробиваемые» стены, срезка уровня распрыжкой, скорость выше лимита из-за физики, бесконечный урон от комбинаций карт.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане должны быть exploit-сценарии под жанр игры: прострел геометрии, обход маршрута, разгон физики, комбо карт или способностей. Если есть только «счастливый путь» — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        494
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "gameplay",
+      "exploit",
+      "balance",
+      "needs-game"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-GAME-007",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Проверка поведения скриптового AI NPC",
+    "statement": "Проверить логику врагов и союзников: NPC не застревают в стенах, не теряют игрока вплотную и не перекрывают проходы.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Провести NPC через узкие проходы, двери и углы, прятаться рядом с врагами, стоять на пути напарника. Fail — NPC бесконечно упирается в препятствие, не видит игрока рядом или блокирует путь."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        494
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "npc",
+      "ai-behavior",
+      "needs-game"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-GAME-008",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Проверка графики и смены настроек отображения",
+    "statement": "Проверить отсутствие артефактов рендеринга и теней, корректность сглаживания и отсутствие вылетов при смене разрешения или переключении между полноэкранным и оконным режимом.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Перебрать комбинации графических настроек: разрешение, полный экран/окно, AA, качество теней. Переключать их на лету в разных сценах. Fail — артефакты, вылет или некорректная картинка после переключения."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        495
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "graphics",
+      "rendering",
+      "settings",
+      "needs-game"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-GAME-009",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Проверка текстур и мешей (level art)",
+    "statement": "Искать отсутствующие текстуры (фиолетово-чёрная шахматка), наложенные друг на друга меши, растянутые или слишком размытые текстуры.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Осмотреть локации вблизи. Fail — текстура-заглушка шахматкой, пересекающиеся меши, растянутая или «мыльная» текстура."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        495
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "level-art",
+      "textures",
+      "needs-game"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-GAME-010",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Проверка коллизий: провалы под карту, застревания, невидимые стены",
+    "statement": "Проверить, что физические ограничители уровня на месте: игрок не проваливается сквозь пол, не застревает в геометрии и не упирается в невидимую стену на открытом пространстве.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Пройти вдоль краёв, запрыгивать на объекты и в углы, прижиматься к стыкам геометрии. Fail — провал под карту, застревание без выхода, невидимое препятствие. По градации книги провал под карту — High severity."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        496
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "level-design",
+      "collision",
+      "needs-game"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-GAME-011",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Проверка переключения уровней детализации (LOD)",
+    "statement": "Проверить, что при приближении игрока подгружаются детализированные модели, а дальние объекты не рисуются в максимальном качестве и не просаживают FPS.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Приближаться к объектам и отдаляться от них, следя за моделью и FPS. Fail — вблизи остаётся low-poly или размытый объект, либо дальний план отрисован в high-poly и FPS падает."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        497
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "lod",
+      "performance",
+      "needs-game"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-GAME-012",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Проверка звука: наложение реплик, громкость, липсинк",
+    "statement": "Проверить, что реплики разных персонажей не звучат одновременно, громкость достаточна при максимальной системной, а анимация губ совпадает с озвучкой на каждом языке.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Прослушать диалоговые сцены на всех языках озвучки и при 100% системной громкости. Fail — две реплики одновременно, слишком тихий звук или рассинхрон губ и речи."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        497,
+        498
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "audio",
+      "lipsync",
+      "localization",
+      "needs-game"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-GAME-013",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Проверка локализации игры",
+    "statement": "Проверить, что весь текст переведён, термины переведены с учётом контекста, а длинные фразы не выходят за границы UI-плашек.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Пройти UI на каждом языке, особенно на самых «длинных» (например, немецком). Fail — непереведённые строки, ошибочный перевод игровых терминов, обрезка или вылет текста за плашку."
+    },
+    "source": {
+      "chunk_id": "s6-c01-02",
+      "printed_pages": [
+        498
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "l10n",
+      "i18n",
+      "needs-game",
+      "needs-i18n"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-GAME-014",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Вылеты, ANR, WTB, провалы под карту и низкий FPS — High/Critical",
+    "statement": "Вылеты, зависания, блокировщики прохождения, провалы под карту, FPS ниже играбельного порога и полностью сломанные ключевые механики оцениваются как High/Critical severity.",
+    "applies_to": [
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В баг-репортах игры найти дефекты этих типов (crash, freeze/ANR, blocker, fall through map, FPS drop, broken core mechanic). Если severity у них ниже High — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c01-03",
+      "printed_pages": [
+        498
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "severity",
+      "bug-report",
+      "see-QAC-ART-057",
+      "needs-game"
+    ],
+    "verification": "ok",
+    "authority": "author-opinion",
+    "external_check": "aligned",
+    "modern_note": "Градация severity задаётся политикой проекта (ISTQB CTFL v4 §5.5); перечисленные типы — кандидаты в High/Critical, а не жёсткое правило."
+  },
+  {
+    "id": "QAC-GAME-015",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Графика, звук, анимации, сложные абузы, плейсхолдеры — Medium",
+    "statement": "Графические и звуковые баги, некорректные анимации, абузы механик, требующие сложного обходного пути, и заглушки вместо финальных ресурсов оцениваются как Medium severity.",
+    "applies_to": [
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Сверить severity баг-репортов этих категорий с градацией: Medium. Fail — явное завышение до Critical или занижение до Low без обоснования."
+    },
+    "source": {
+      "chunk_id": "s6-c01-03",
+      "printed_pages": [
+        498
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "severity",
+      "bug-report",
+      "placeholder",
+      "needs-game"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-GAME-016",
+    "kind": "rule",
+    "severity": "nice",
+    "title": "Мелкие визуальные дефекты, лёгкие просадки кадра, опечатки — Low",
+    "statement": "Небольшие визуальные огрехи, незначительные просадки кадра и опечатки в диалогах оцениваются как Low severity.",
+    "applies_to": [
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В баг-репортах игры проверить, что опечатки и косметические дефекты не помечены как High/Critical. Если помечены — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c01-03",
+      "printed_pages": [
+        498
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "severity",
+      "bug-report",
+      "needs-game"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-GAME-017",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Error guessing по слабым местам движка",
+    "statement": "Включать в тест-дизайн игры предугадывание ошибок там, где движки обычно ломаются: швы между текстурами, застревание в углах уровня, многократное нажатие кнопок посреди анимации удара, частое переключение оружия, резкий поворот камеры.",
+    "rationale": "Автор считает error guessing особенно эффективной техникой в Game QA.",
+    "applies_to": [
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане или чек-листе игры найти exploratory/error-guessing сценарии хотя бы по нескольким пунктам: стыки, углы, спам ввода во время анимации, быстрая смена оружия, резкий поворот камеры. Ни одного нет — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c01-03",
+      "printed_pages": [
+        498
+      ]
+    },
+    "tags": [
+      "gamedev",
+      "error-guessing",
+      "exploratory",
+      "needs-game"
+    ],
+    "verification": "ok"
+  }
+]

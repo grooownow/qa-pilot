@@ -23,7 +23,7 @@ AUTHORITY = ("normative", "industry-practice", "vendor-guideline", "author-opini
 EXTERNAL_CHECK = ("aligned", "conflict", "unchecked")
 PATTERN_TIERS = ("must-check", "highlight")
 PATTERN_LEVELS = ("unit", "component", "backend-integration", "e2e")
-ID_RE = re.compile(r"^(SRK|QAP|PRJ)-[A-Z0-9]+(-[A-Z0-9]+)*-\d{3}$")
+ID_RE = re.compile(r"^(QAC|QAP|PRJ)-[A-Z0-9]+(-[A-Z0-9]+)*-\d{3}$")
 REQUIRED_TEXT = ("id", "kind", "severity", "title", "statement")
 OPTIONAL_TEXT = ("rationale", "modern_note", "decision")
 ALLOWED = set(REQUIRED_TEXT + OPTIONAL_TEXT + ("applies_to", "check", "source", "tags", "verification",
@@ -61,7 +61,7 @@ def validate_record(r, chunks):
     if extra:
         errors.append(f"{rid}: unknown fields {sorted(extra)}")
     if isinstance(r.get("id"), str) and not ID_RE.match(r["id"]):
-        errors.append(f"{rid}: id must look like SRK-TOPIC-001")
+        errors.append(f"{rid}: id must look like QAC-TOPIC-001")
     if r.get("kind") not in KINDS:
         errors.append(f"{rid}: kind must be one of {KINDS}")
     if r.get("severity") not in SEVERITIES:
@@ -84,7 +84,7 @@ def validate_record(r, chunks):
     if "pattern" in r:
         errors.extend(validate_pattern(rid, r["pattern"]))
     source = r.get("source")
-    from_book = str(r.get("id", "")).startswith("SRK-")
+    from_book = str(r.get("id", "")).startswith("QAC-")
     if not from_book:
         if not isinstance(source, dict) or not isinstance(source.get("origin"), str) or not source["origin"].strip():
             errors.append(f"{rid}: source.origin is required for non-book rules")
@@ -142,7 +142,7 @@ def validate_all(rule_sets, chunks):
     return errors
 
 
-REF_RE = re.compile(r"\b(?:SRK|QAP|PRJ)-[A-Z0-9]+(?:-[A-Z0-9]+)*-\d{3}\b")
+REF_RE = re.compile(r"\b(?:QAC|QAP|PRJ)-[A-Z0-9]+(?:-[A-Z0-9]+)*-\d{3}\b")
 REF_FIELDS = ("statement", "rationale", "modern_note", "decision", "title")
 
 
@@ -169,8 +169,8 @@ def known_catalog_ids(kb_dir):
 
 
 def render_topic(topic, records):
-    from_book = all(r["id"].startswith("SRK-") for r in records)
-    provenance = ("Формулировки — пересказ книги Р. Суркова «Качество решает всё»; страницы — печатные номера книги."
+    from_book = all(r["id"].startswith("QAC-") for r in records)
+    provenance = ("Формулировки — пересказ книги «Качество решает всё»; страницы — печатные номера книги."
                   if from_book else "Собственные правила qa-pilot: источник каждого правила указан в поле «источник».")
     out = [f"# {topic}", "",
            f"Сгенерировано из `{topic}.json` скриптом `scripts/kb/render_rules.py` — правьте JSON, не этот файл.",

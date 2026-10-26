@@ -1,0 +1,2380 @@
+[
+  {
+    "id": "QAC-MOB-001",
+    "kind": "rule",
+    "severity": "must",
+    "title": "Нативное приложение тестируется на iOS и Android отдельно",
+    "statement": "У нативного приложения две независимые кодовые базы, поэтому каждую фичу проверяют параллельно на обеих платформах. Прохождение на одной ОС ничего не говорит о другой.",
+    "rationale": "Баг, найденный на iOS, часто не воспроизводится на Android, и наоборот.",
+    "applies_to": [
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане/кейсах нативного приложения проверить, что сценарии размечены или продублированы под iOS и Android. Если указана одна платформа или платформа не указана вовсе — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c02-00",
+      "printed_pages": [
+        500
+      ]
+    },
+    "tags": [
+      "mobile",
+      "native",
+      "ios",
+      "android",
+      "cross-platform",
+      "needs-native-mobile"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-002",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Офлайн-поведение проверяется с учётом архитектуры приложения",
+    "statement": "Нативное приложение проверяют на работу без сети из кэша и локальной БД (SQLite/Realm). У гибридного и мобильного веба, которые зависят от сети, проверяют корректную реакцию на её отсутствие.",
+    "rationale": "Книга называет офлайн-работу ключевым отличием нативных приложений и главной слабостью гибридов и мобильного веба.",
+    "applies_to": [
+      "test-plan",
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В требованиях найти заявленное офлайн-поведение. В тест-плане должны быть сценарии в авиарежиме: для нативного — доступ к закэшированным данным; для гибрида/веба — понятное сообщение об отсутствии сети, без белого экрана и зависания. Нет офлайн-сценариев — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c02-00",
+      "printed_pages": [
+        500,
+        502
+      ]
+    },
+    "tags": [
+      "mobile",
+      "offline",
+      "native",
+      "hybrid",
+      "mobile-web",
+      "needs-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-003",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Мобильный веб проверяется по трём признакам мобильного устройства",
+    "statement": "Сайт определяет мобильное устройство по ширине экрана (media queries), типу ввода (pointer: coarse/fine) и User-Agent/Client Hints. Мобильную версию проверяют так, чтобы были заданы все три признака, а не только ширина окна.",
+    "applies_to": [
+      "test-code",
+      "test-plan",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В e2e-тестах мобильного веба проверить, что используется полная эмуляция устройства (в Playwright — `devices['iPhone …']` или `isMobile`/`hasTouch`/`userAgent`), а не только `setViewportSize`. Найден только resize viewport — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c02-00",
+      "printed_pages": [
+        502
+      ]
+    },
+    "tags": [
+      "mobile-web",
+      "responsive",
+      "media-queries",
+      "user-agent",
+      "playwright",
+      "web",
+      "needs-mobile"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned",
+    "modern_note": "Для чисто адаптивной вёрстки (только CSS media queries по ширине) изменения viewport достаточно; полная эмуляция устройства нужна, если сайт ветвится по UA/Client Hints или pointer/hover. Только setViewportSize — повод проверить, а не автоматический fail."
+  },
+  {
+    "id": "QAC-MOB-004",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Требования к мобильному вебу с доступом к железу — красный флаг",
+    "statement": "Если требования к мобильному вебу опираются на фоновые push (особенно iOS Safari), биометрию, фоновый GPS, Bluetooth или NFC, это стоит проверить на реализуемость в браузере.",
+    "rationale": "По книге урезанный доступ к железу — главная боль мобильного веба.",
+    "applies_to": [
+      "requirements",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В требованиях к мобильной веб-версии найти фичи с push, FaceID/отпечатком, фоновой геолокацией, Bluetooth, NFC. Для каждой должна быть указана поддержка браузерами и fallback. Нет — fail."
+    },
+    "modern_note": "Ситуация частично изменилась: с iOS и iPadOS 16.4 (2023) Safari поддерживает Web Push для веб-приложений, добавленных на домашний экран, а WebAuthn/passkeys позволяют входить в вебе по биометрии. Web Bluetooth и Web NFC доступны в Chrome на Android, но не в Safari.",
+    "source": {
+      "chunk_id": "s6-c02-00",
+      "printed_pages": [
+        503
+      ]
+    },
+    "tags": [
+      "mobile-web",
+      "push",
+      "biometrics",
+      "gps",
+      "bluetooth",
+      "nfc",
+      "ios",
+      "web",
+      "needs-mobile"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-MOB-005",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Хотфикс нативного или гибридного приложения проходит модерацию стора",
+    "statement": "Хотфикс нативного или гибридного приложения проходит ревью Apple/Google, а это от нескольких часов до суток. Поэтому регресс перед отправкой в стор должен быть полнее, чем перед выкаткой веба.",
+    "applies_to": [
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В плане релиза мобильного приложения проверить, что перед отправкой в стор запланирован регресс и учтено время модерации. Если релиз-план предполагает мгновенный откат или хотфикс, как в вебе, — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c02-00",
+      "printed_pages": [
+        501
+      ]
+    },
+    "tags": [
+      "mobile",
+      "release",
+      "app-review",
+      "hotfix",
+      "needs-native-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-006",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Входящий звонок ставит медиа/игру на паузу и глушит звук",
+    "statement": "При входящем или исходящем звонке (GSM или мессенджер) видео или игра встают на паузу, а звук сразу глушится. После звонка воспроизведение корректно продолжается с того же места.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "На реальном устройстве во время воспроизведения или игры принять звонок по GSM и в мессенджере, затем завершить его. Pass — пауза, тишина во время звонка, возобновление с той же позиции. В тест-плане должен быть сценарий прерывания звонком."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        503
+      ]
+    },
+    "tags": [
+      "mobile",
+      "interruptions",
+      "incoming-call",
+      "audio-focus",
+      "see-QAC-HIG-051",
+      "needs-native-mobile"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-007",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Уведомления и будильник во время критичной операции",
+    "statement": "Проверить приход SMS, push от других приложений, будильника или календаря во время критичных операций: перевода денег, сканирования лица, загрузки документов. Операция не должна сорваться или задублироваться.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Для каждой критичной операции в тест-плане должен быть сценарий прерывания уведомлением или будильником. На устройстве: вызвать уведомление посреди операции, открыть и закрыть его, вернуться. Fail — потеря введённых данных, двойное списание, зависший экран."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        503
+      ]
+    },
+    "tags": [
+      "mobile",
+      "interruptions",
+      "push",
+      "notifications",
+      "needs-native-mobile"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-008",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Системные триггеры: зарядка, наушники, скриншот, запись экрана",
+    "statement": "Проверить поведение приложения при подключении и отключении зарядки, проводных или Bluetooth-наушников, при создании скриншота и при записи экрана.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "На устройстве во время ключевых сценариев выполнить каждый триггер. Fail — сбой UI, потеря состояния, звук продолжает играть в динамик после отключения наушников, крэш."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        503
+      ]
+    },
+    "tags": [
+      "mobile",
+      "interruptions",
+      "headphones",
+      "bluetooth",
+      "screenshot",
+      "needs-native-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-009",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Низкий заряд и режим энергосбережения не ломают фичи",
+    "statement": "Проверить работу при заряде 20% и 5% и при автоматическом включении энергосбережения. На части Android-прошивок система при низком заряде отключает GPS, и фичи на геолокации должны это переживать.",
+    "rationale": "В практике автора geofencing ломался, потому что прошивка гасила GPS при заряде ниже 15%.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "На реальных устройствах разных вендоров разрядить батарею до порогов или включить Low Power Mode, затем прогнать фоновые и гео-фичи. Fail — молчаливый отказ без сообщения пользователю или крэш. В тест-плане должен быть пункт про энергосбережение."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        503
+      ]
+    },
+    "tags": [
+      "mobile",
+      "battery",
+      "power-saving",
+      "gps",
+      "geofencing",
+      "android",
+      "needs-native-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-010",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Чистая установка приложения",
+    "statement": "Проверить установку приложения на устройство, где его никогда не было.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Установить сборку на чистое устройство или эмулятор и пройти первый запуск и онбординг. В тест-плане релиза должен быть пункт Clean Install."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504
+      ]
+    },
+    "tags": [
+      "mobile",
+      "installation",
+      "clean-install",
+      "needs-native-mobile"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-011",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Удаление приложения очищает кэш и локальные данные",
+    "statement": "После удаления приложения его кэш и локальные данные должны быть удалены с устройства.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Удалить приложение, проверить, что данные не остались в хранилище (на Android — например, через `adb shell` / Device Explorer), установить заново и убедиться, что старые данные не подтянулись (если это не задумано)."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504
+      ]
+    },
+    "tags": [
+      "mobile",
+      "installation",
+      "uninstall",
+      "needs-native-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-012",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Переустановка поверх существующей версии",
+    "statement": "Проверить установку приложения поверх уже установленной версии.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Поверх установленной сборки поставить ту же или другую сборку (например, `adb install -r`). Fail — ошибка установки, крэш на старте, повреждённые данные."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504
+      ]
+    },
+    "tags": [
+      "mobile",
+      "installation",
+      "reinstall",
+      "needs-native-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-014",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Переключение Wi-Fi ↔ мобильная сеть на лету",
+    "statement": "Проверить, что приложение переживает смену типа соединения во время работы (Wi-Fi → 4G/5G → Wi-Fi).",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Во время загрузки данных и отправки форм переключить сеть. Fail — зависший спиннер, потеря запроса без сообщения, крэш. В тест-плане должен быть сценарий смены сети."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504
+      ]
+    },
+    "tags": [
+      "mobile",
+      "network",
+      "wifi",
+      "cellular",
+      "needs-mobile"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-016",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Потеря пакетов и обрыв связи во время POST-запроса",
+    "statement": "Проверить поведение при частичной потере пакетов и резком обрыве связи в момент отправки данных (POST).",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Оборвать соединение во время отправки формы или платежа (авиарежим, прокси вроде Charles/Proxyman, `page.route(...).abort()` в Playwright). Fail — молчаливая потеря данных, дубль операции при повторе, бесконечный спиннер."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504
+      ]
+    },
+    "tags": [
+      "mobile",
+      "network",
+      "packet-loss",
+      "idempotency",
+      "needs-mobile"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-017",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Отзывчивость UI на устройстве",
+    "statement": "Проверить скорость отклика интерфейса на действия пользователя на реальном устройстве.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "На реальных, в том числе слабых, устройствах проверить отклик на тапы, прокрутку и переходы. Fail — заметная задержка, подтормаживание анимаций."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504
+      ]
+    },
+    "tags": [
+      "mobile",
+      "performance",
+      "responsiveness",
+      "needs-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-018",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Нагрузка на CPU и RAM, утечки памяти",
+    "statement": "Измерить нагрузку приложения на процессор и память и проверить отсутствие утечек памяти.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Профилировать ключевые сценарии (Android Studio Profiler, Xcode Instruments). Многократно открывать и закрывать экраны. Fail — память растёт и не освобождается, постоянная высокая загрузка CPU."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504
+      ]
+    },
+    "tags": [
+      "mobile",
+      "performance",
+      "cpu",
+      "memory-leak",
+      "profiler",
+      "see-QAC-PERF-007",
+      "needs-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-019",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Расход заряда батареи",
+    "statement": "Оценить, насколько быстро приложение разряжает аккумулятор, в активном и фоновом режиме.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Замерить расход батареи за фиксированную сессию и в фоне (Energy-профилировщики Xcode/Android Studio, системная статистика батареи). Fail — аномальный расход, особенно в фоне."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504
+      ]
+    },
+    "tags": [
+      "mobile",
+      "performance",
+      "battery-drain",
+      "needs-native-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-020",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Смена ориентации экрана",
+    "statement": "Проверить переход Portrait ↔ Landscape на всех экранах: вёрстка корректна, введённые данные и состояние не теряются.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "На каждом экране, особенно с формами и медиа, повернуть устройство туда и обратно. Fail — поехавшая вёрстка, сброс введённых данных или позиции, крэш."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504
+      ]
+    },
+    "tags": [
+      "mobile",
+      "orientation",
+      "configuration-change",
+      "needs-mobile"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-021",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Мобильные жесты",
+    "statement": "Проверить поддерживаемые жесты: свайп, pinch-to-zoom, тап, двойной тап, drag-and-drop, встряхивание.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для каждого экрана выяснить, какие жесты заявлены в требованиях, и проверить каждый на устройстве или в тестах (Appium/Espresso/XCUITest gestures). Fail — заявленный жест не срабатывает или конфликтует с системным."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504
+      ]
+    },
+    "tags": [
+      "mobile",
+      "gestures",
+      "swipe",
+      "pinch-zoom",
+      "see-QAC-A11Y-089",
+      "needs-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-022",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Камера, сенсоры и биометрия",
+    "statement": "Проверить сценарии с камерами, акселерометром, гироскопом, сканером отпечатка и FaceID на реальном железе.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Прогнать функции, использующие железо, на реальных устройствах, включая неуспешную биометрию и устройство без нужного датчика. Fail — крэш или тупик без альтернативного пути."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504
+      ]
+    },
+    "tags": [
+      "mobile",
+      "hardware",
+      "camera",
+      "biometrics",
+      "faceid",
+      "sensors",
+      "needs-native-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-023",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Фоновые процессы на прошивках с агрессивной оптимизацией",
+    "statement": "Проверить фоновые задачи на прошивках, которые убивают фоновые процессы и выгружают службы: Samsung One UI, Xiaomi (MIUI/HyperOS), Oppo, Vivo.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В матрице устройств тест-плана должны быть устройства этих вендоров. На них свернуть приложение с фоновой задачей (загрузка, трекинг, таймер) и подождать. Fail — задача молча прервана."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "fragmentation",
+      "background",
+      "samsung",
+      "xiaomi",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-024",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Устройства Huawei без Google Mobile Services",
+    "statement": "Если Huawei входит в поддерживаемые устройства, проверить приложение без GMS: нет Play Store, Google-карт и Google push-сервиса.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "requirements"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В требованиях/матрице устройств проверить, учтены ли устройства без GMS. Если да, на устройстве Huawei проверить карты, push и вход через Google. Fail — крэш или неработающая функция без альтернативы."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        504,
+        505
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "huawei",
+      "gms",
+      "push",
+      "fragmentation",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-025",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Матрица поддерживаемых версий ОС задана явно",
+    "statement": "Поддерживаемые версии ОС должны быть зафиксированы и покрыты тестами. Ориентир по книге: 2–3 последние версии iOS и 5–6 последних версий Android.",
+    "applies_to": [
+      "requirements",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В требованиях или тест-плане найти список поддерживаемых версий iOS/Android и матрицу устройств. Нет списка — fail; список уже ориентира — пометить как риск."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        505
+      ]
+    },
+    "tags": [
+      "mobile",
+      "os-versions",
+      "compatibility",
+      "ios",
+      "android",
+      "needs-native-mobile"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-MOB-026",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "Тестировать на бета-версиях новых iOS/Android до их релиза",
+    "statement": "Заранее прогонять приложение на бета-версиях готовящихся iOS и Android. В день выхода пользователи массово обновляются, и непроверенные фичи ломаются.",
+    "rationale": "Иначе приходится экстренно выпускать хотфиксы.",
+    "applies_to": [
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В плане тестирования или регламенте проверить пункт о регрессе на бета-версиях ОС перед их публичным релизом. Нет — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        505
+      ]
+    },
+    "tags": [
+      "mobile",
+      "os-versions",
+      "beta",
+      "compatibility",
+      "needs-native-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-027",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Разрешение выдано при первом запросе",
+    "statement": "Проверить сценарий, в котором пользователь даёт разрешение (камера, гео, уведомления и т. п.) при первом системном запросе.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для каждого запрашиваемого разрешения в тест-плане должен быть позитивный сценарий: Allow → функция работает сразу."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        505
+      ]
+    },
+    "tags": [
+      "mobile",
+      "permissions",
+      "needs-native-mobile"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-028",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Разрешение отклонено при первом запросе",
+    "statement": "Проверить сценарий, в котором пользователь отказывает в разрешении при первом запросе. Приложение не должно падать или зависать и должно объяснить, как включить доступ.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Для каждого разрешения в тест-плане должен быть сценарий Deny. На устройстве: отказать и попробовать воспользоваться функцией. Fail — крэш, пустой или чёрный экран, бесконечный повторный запрос."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        505
+      ]
+    },
+    "tags": [
+      "mobile",
+      "permissions",
+      "negative",
+      "see-QAC-UXL-036",
+      "needs-native-mobile"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-029",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Разрешение отозвано в системных настройках после выдачи",
+    "statement": "Проверить сценарий, в котором пользователь сначала выдал разрешение, а потом отозвал его в настройках ОС. Наличие разрешения нужно проверять при каждом обращении к функции, а не только при старте.",
+    "rationale": "В практике автора после отзыва доступа к камере сканер показывал намертво чёрный экран, и понадобился срочный патч.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане для каждого разрешения должен быть сценарий Allow → отзыв в Настройках → возврат в приложение и вызов функции. В коде/тестах проверить, что статус разрешения проверяется перед каждым использованием. Нет сценария — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c02-02",
+      "printed_pages": [
+        505
+      ]
+    },
+    "tags": [
+      "mobile",
+      "permissions",
+      "camera",
+      "settings",
+      "see-QAC-API-117",
+      "needs-native-mobile"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-030",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Перед отправкой в стор проверить соответствие HIG/Material и правилам ревью",
+    "statement": "Нативные и гибридные приложения должны соответствовать Human Interface Guidelines (Apple) и Material Design (Google). Перед App Review проверяют типичные причины реджекта: безопасность, подписки, доступность, нарушение UX-гайдлайнов.",
+    "applies_to": [
+      "test-plan",
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В релизном тест-плане мобильного приложения должен быть pre-submission чек: соответствие HIG/Material, работа подписок и покупок, доступность, безопасность. Нет такого блока — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c02-03",
+      "printed_pages": [
+        505
+      ]
+    },
+    "tags": [
+      "mobile",
+      "app-review",
+      "store-certification",
+      "hig",
+      "material-design",
+      "see-QAC-HIG-001",
+      "needs-native-mobile"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned",
+    "modern_note": "Apple App Review опирается на HIG, но Google Play не требует соответствия Material Design: это рекомендация, а не условие публикации. Pre-submission чек стоит строить по App Review Guidelines и Google Play Developer Policy."
+  },
+  {
+    "id": "QAC-MOB-031",
+    "kind": "rule",
+    "severity": "should",
+    "title": "Производительность и аппаратные режимы не проверяются на симуляторе iOS",
+    "statement": "Симулятор iOS использует ресурсы Mac, поэтому реальную память, FPS, нагрев, низкий заряд и энергосбережение на нём проверить нельзя. Такие проверки делают на реальном устройстве или на эмуляторе, который виртуализирует железо.",
+    "rationale": "Симулятор воссоздаёт только программную среду, а не железо.",
+    "applies_to": [
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане найти сценарии производительности, батареи и энергосбережения для iOS. Если для них указан только Simulator — fail. Ожидается реальное устройство."
+    },
+    "source": {
+      "chunk_id": "s6-c06-01",
+      "printed_pages": [
+        618,
+        619
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "simulator",
+      "emulator",
+      "performance",
+      "battery",
+      "see-QAC-STRAT-006",
+      "needs-ios"
+    ],
+    "verification": "fixed",
+    "modern_note": "Эмулятор Android тоже плохо подходит для замеров производительности: на современных компьютерах он обычно запускает образ той же архитектуры, что и хост, через аппаратную виртуализацию, и цифры памяти, FPS и нагрева не совпадают с реальным телефоном. Для профилирования обычно рекомендуют реальные устройства, а эмулятор использовать для задания состояний (заряд, сенсоры, сеть)."
+  },
+  {
+    "id": "QAC-MOB-032",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Точные уровни заряда батареи удобно задавать в эмуляторе",
+    "statement": "Сценарии на пограничных уровнях заряда (например, переход с 6% на 5% и реакция приложения на него) удобнее воспроизводить в эмуляторе, где уровень батареи задаётся вручную. На реальном устройстве так точно не попасть.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Если в тест-плане есть сценарии по порогам заряда, проверить, что для них указан способ точно задать уровень: эмулятор Android (Extended Controls → Battery) или `adb shell dumpsys battery set level N`. После теста на реальном устройстве вернуть реальный статус: `adb shell dumpsys battery reset`."
+    },
+    "source": {
+      "chunk_id": "s6-c06-01",
+      "printed_pages": [
+        619
+      ]
+    },
+    "tags": [
+      "mobile",
+      "emulator",
+      "battery",
+      "android",
+      "adb",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-033",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Кнопки симулятора для проверки сворачивания, блокировки и звука",
+    "statement": "Кнопки симулятора iOS позволяют быстро проверить сворачивание (Home или свайп снизу), блокировку и разблокировку (Power), беззвучный режим (Mute/Action), громкость, а также шторки уведомлений и пункта управления поверх приложения.",
+    "applies_to": [
+      "test-plan",
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Во время ключевых сценариев в симуляторе свернуть и развернуть приложение, заблокировать и разблокировать экран, включить беззвучный режим, поменять громкость, открыть Notification/Control Center. Fail — потеря состояния, звук в беззвучном режиме, сломанная вёрстка после возврата."
+    },
+    "source": {
+      "chunk_id": "s6-c06-03",
+      "printed_pages": [
+        622,
+        626
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "simulator",
+      "interruptions",
+      "background",
+      "needs-ios"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-034",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Clean Install через сброс симулятора",
+    "statement": "Чтобы проверить первый запуск, используют полный сброс симулятора (Erase All Content and Settings). Так видно онбординг, первичную выдачу токенов и сброшенные разрешения.",
+    "applies_to": [
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В кейсах на первый запуск/онбординг проверить, что предусловие — чистое устройство (сброшенный симулятор/эмулятор или удалённое приложение). Если кейсы прогоняются на «грязном» устройстве — fail. На Android то же самое без переустановки делает `adb shell pm clear <package>`."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        627
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "simulator",
+      "clean-install",
+      "onboarding",
+      "permissions",
+      "adb",
+      "needs-ios"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-035",
+    "kind": "checklist",
+    "severity": "nice",
+    "title": "Функции, привязанные к встряхиванию устройства",
+    "statement": "Если в приложении есть реакция на встряхивание (отмена ввода в текстовых полях, Shake to Report), проверить её через симуляцию тряски.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В симуляторе вызвать Device → Shake на экранах с текстовыми полями и там, где заявлен shake-жест. Pass — срабатывает ожидаемое действие и нет крэша."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        627
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "shake",
+      "gestures",
+      "needs-ios"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-036",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "FaceID не настроен на устройстве",
+    "statement": "Если биометрия на устройстве не настроена, приложение должно корректно сообщить, что FaceID не настроен, и не падать.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В симуляторе снять Features → Face ID → Enrolled и вызвать вход по биометрии. Fail — крэш, пустой экран или нет понятного сообщения и альтернативного входа."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        628
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "faceid",
+      "biometrics",
+      "negative",
+      "needs-ios"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-037",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "FaceID: успешное распознавание",
+    "statement": "При совпадении лица приложение пропускает пользователя дальше.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В симуляторе включить Enrolled, вызвать биометрию и выбрать Features → Face ID → Matching Face. Pass — успешный вход."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        628
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "faceid",
+      "biometrics",
+      "needs-ios"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-038",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "FaceID: лицо не совпало",
+    "statement": "При несовпадении лица приложение показывает ошибку и не пускает пользователя.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В симуляторе вызвать биометрию и выбрать Features → Face ID → Non-matching Face. Pass — сообщение об ошибке, доступ не выдан, можно повторить или войти иначе."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        628
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "faceid",
+      "biometrics",
+      "negative",
+      "needs-ios"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-039",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Успешная оплата Apple Pay через симулятор",
+    "statement": "Если тестовых карт платёжного провайдера нет, экран успешной покупки можно проверить, эмулируя одобрение Apple Pay в симуляторе.",
+    "applies_to": [
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Вызвать шторку Apple Pay и выбрать Features → Authorize Apple Pay. Проверить финальный экран покупки. В тест-плане отметить, что реальное списание так не проверяется."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        629
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "apple-pay",
+      "payments",
+      "simulator",
+      "needs-ios",
+      "needs-payments"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-040",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Вёрстка в тёмной теме",
+    "statement": "Проверить все экраны в светлой и тёмной теме: ничего не пропадает, цвета и контраст корректны.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Переключить тему (в симуляторе Features → Toggle Appearance, в вебе `colorScheme: 'dark'` в Playwright) и пройти экраны. Fail — невидимый текст или иконки, белые «дыры», нечитаемые элементы."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        629
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "dark-mode",
+      "theming"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-041",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Вёрстка при плашке активного звонка в статус-баре",
+    "statement": "Проверить, что при появлении системной плашки звонка вёрстка корректно сдвигается и ничего не перекрывается.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В симуляторе включить Features → Toggle In-Call Status Bar или реально позвонить на устройство и пройти экраны. Fail — контент залезает под плашку или обрезается. Автор отмечает, что на новых iOS эта опция в симуляторе срабатывает нестабильно; тогда проверять на устройстве."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        630
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "status-bar",
+      "interruptions",
+      "layout",
+      "needs-ios"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-042",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Замедленные анимации для поиска багов переходов",
+    "statement": "Чтобы найти мелкие баги вёрстки, разрывы кадров и сломанные переходы между экранами, анимации замедляют (в симуляторе iOS — Debug → Slow Animations, в 5 раз).",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Включить замедление анимаций (iOS Simulator: Debug → Slow Animations; Android: Developer options → Animator duration scale) и пройти переходы между экранами. Фиксировать прыжки элементов и артефакты."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        631
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "animations",
+      "transitions",
+      "needs-ios"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-043",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Геолокация и геозоны: вход в зону и выход из неё",
+    "statement": "Для фич на геозонах проверить и вход в зону, и выход за её радиус при движении. Система должна зафиксировать событие и отправить нужный запрос на бэкенд. Нужные координаты и маршруты эмулируют в симуляторе или эмуляторе.",
+    "rationale": "Так автор тестировал автоматический check-in/check-out сотрудника по геообъекту офиса.",
+    "applies_to": [
+      "test-plan",
+      "live-product",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане геофичи должны быть сценарии: координата внутри зоны → событие входа; движение по маршруту за радиус → событие выхода; проверка запроса к бэкенду (через прокси/логи). Нет сценария выхода из зоны — fail. Инструменты: Xcode Features → Location (Custom/Freeway Drive), Extended Controls → Location в Android Studio. Удобный приём: GPX-маршрут из трёх точек (снаружи → внутри зоны → снаружи с другой стороны), импортированный в Extended Controls → Location → Routes, с регулировкой скорости движения."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        631,
+        633
+      ]
+    },
+    "tags": [
+      "mobile",
+      "geolocation",
+      "geofencing",
+      "simulator",
+      "emulator",
+      "needs-native-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-044",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Читаемость при инверсии цветов",
+    "statement": "Проверить, что при включённой инверсии цветов интерфейс остаётся читаемым.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Включить Invert Colors (Accessibility Inspector → Settings или настройки iOS) и пройти ключевые экраны. Fail — нечитаемый текст или элементы, сливающиеся с фоном."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        634
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "accessibility",
+      "invert-colors",
+      "needs-ios"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-045",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Поддержка настройки «Увеличение контрастности»",
+    "statement": "При включённом увеличенном контрасте элементы интерфейса должны становиться чётче и не сливаться.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Включить Increase Contrast и сравнить экраны с обычным режимом. Fail — интерфейс никак не реагирует на настройку или элементы по-прежнему сливаются."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        634
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "accessibility",
+      "contrast",
+      "needs-ios"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-046",
+    "kind": "checklist",
+    "severity": "nice",
+    "title": "Поддержка настройки «Уменьшение прозрачности»",
+    "statement": "При включённом Reduce Transparency размытые и полупрозрачные фоны должны заменяться сплошным цветом.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Включить Reduce Transparency и пройти экраны с blur и полупрозрачными панелями. Fail — эффекты остались или контент стал нечитаемым."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        634
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "accessibility",
+      "transparency",
+      "needs-ios"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-048",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Вёрстка при жирном системном шрифте",
+    "statement": "При включённом Bold Text строки не должны переноситься с поломкой вёрстки и обрезаться.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Включить Bold Text и пройти экраны с плотным текстом, кнопками и табами. Fail — обрезанный текст, наложения, вылет за контейнер."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        634
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "accessibility",
+      "bold-text",
+      "layout",
+      "needs-ios"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-049",
+    "kind": "checklist",
+    "severity": "nice",
+    "title": "Метки вкл/выкл и формы кнопок",
+    "statement": "При включённых On/Off Labels и Button Shapes переключатели показывают метки состояния, а текстовые кнопки — видимые границы или подчёркивание. Кастомные контролы не должны это ломать.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Включить On/Off Labels и Button Shapes и пройти экраны с тумблерами и текстовыми кнопками. Fail — кастомные контролы игнорируют настройки или ломаются."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        634,
+        635
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "accessibility",
+      "toggles",
+      "buttons",
+      "needs-ios"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-050",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Смысл не передаётся только цветом (проверка в оттенках серого)",
+    "statement": "Включить режим оттенков серого и убедиться, что состояния, ошибки и статусы различимы без цвета.",
+    "applies_to": [
+      "live-product",
+      "requirements"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Включить Grayscale (Color Filters) и пройти экраны со статусами, ошибками, графиками. Fail — состояние различимо только по цвету. Соответствует WCAG SC 1.4.1 Use of Color."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        635
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "accessibility",
+      "grayscale",
+      "wcag-1.4.1",
+      "see-QAC-A11Y-036"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-051",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Поддержка настройки «Дифференциация без цвета»",
+    "statement": "При включённом Differentiate Without Color элементы, которые различаются только цветом, должны получать дополнительный признак: иконку или форму.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Включить Differentiate Without Color и проверить цветовые индикаторы. Fail — приложение не реагирует, а элемент по-прежнему различим только цветом."
+    },
+    "source": {
+      "chunk_id": "s6-c06-04",
+      "printed_pages": [
+        635
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "accessibility",
+      "color-blindness",
+      "see-QAC-HIG-004"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-052",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Вёрстка при максимальном Dynamic Type",
+    "statement": "Проверить интерфейс при максимальном и минимальном системном размере шрифта: текст масштабируется, помещается в блоки и не накладывается.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В Accessibility Inspector выставить ползунок Dynamic Type на максимум (или Features → Increase Preferred Text Size) и пройти все экраны. Fail — текст не масштабируется, вылезает за экран или блоки, перекрывается."
+    },
+    "source": {
+      "chunk_id": "s6-c06-05",
+      "printed_pages": [
+        635,
+        636
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "accessibility",
+      "dynamic-type",
+      "text-resize",
+      "see-QAC-A11Y-001",
+      "needs-ios"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-053",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Автоаудит экрана в Accessibility Inspector",
+    "statement": "Каждый ключевой экран прогоняют через автоматический аудит Accessibility Inspector. Он находит мелкие зоны нажатия, элементы без текстовой метки и неконтрастный текст.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Accessibility Inspector → выбрать Simulator → Audit → Run Audit на каждом экране. Любое предупреждение о размере hit area, отсутствии label или контрасте — fail. В автотестах есть аналог: XCUITest `performAccessibilityAudit()` (Xcode 15+)."
+    },
+    "source": {
+      "chunk_id": "s6-c06-05",
+      "printed_pages": [
+        637
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "accessibility",
+      "accessibility-inspector",
+      "audit",
+      "needs-ios"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned",
+    "modern_note": "Аудит Accessibility Inspector даёт ложные срабатывания (Apple сама рекомендует проверять результаты вручную); каждое предупреждение — повод разобрать, а не автоматический fail."
+  },
+  {
+    "id": "QAC-MOB-054",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Подписи VoiceOver понятны без зрения",
+    "statement": "Прослушать подписи элементов так, как их зачитает VoiceOver. По ним одним должно быть понятно, где пользователь находится и что делает каждая кнопка.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В Accessibility Inspector (Inspector → Play) или с включённым VoiceOver пройти экран «с закрытыми глазами». Fail — безымянные кнопки, технические имена, непонятный контекст."
+    },
+    "source": {
+      "chunk_id": "s6-c06-05",
+      "printed_pages": [
+        637
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "accessibility",
+      "voiceover",
+      "screen-reader",
+      "see-QAC-A11Y-134",
+      "needs-ios"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-055",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Образы эмулятора покрывают популярные версии и нижнюю границу поддержки",
+    "statement": "Для проверки совместимости эмуляторы Android создают на двух самых популярных актуальных версиях ОС либо на самой старой поддерживаемой версии, чтобы покрыть нижнюю границу.",
+    "applies_to": [
+      "test-plan",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В матрице устройств тест-плана или в конфиге CI-эмуляторов (API level) проверить, что выбор версий обоснован: популярные актуальные версии и/или минимальная поддерживаемая (minSdk). Если есть только одна свежая версия и нижняя граница не покрыта нигде — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c07-00",
+      "printed_pages": [
+        645
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "emulator",
+      "avd",
+      "compatibility",
+      "os-versions",
+      "needs-android"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-MOB-056",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Нижние элементы UI не перекрыты трёхкнопочной навигацией Android",
+    "statement": "Приложение проверяют не только в жестовой навигации, но и в режиме трёх кнопок. Панель системных кнопок часто перекрывает элементы управления внизу экрана.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Переключить Navigation Mode на Buttons (Device UI Shortcuts эмулятора или системные настройки) и пройти экраны с нижними кнопками, таб-барами, FAB и шторками. Fail — элемент перекрыт системной панелью или недоступен для нажатия."
+    },
+    "source": {
+      "chunk_id": "s6-c07-02",
+      "printed_pages": [
+        650
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "navigation-bar",
+      "insets",
+      "layout",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-057",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Элементы озвучиваются TalkBack осмысленно",
+    "statement": "Каждый интерактивный элемент на Android должен озвучиваться TalkBack понятным названием и подсказкой (contentDescription).",
+    "applies_to": [
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Включить TalkBack и пройти экран свайпами. Fail — «кнопка без названия», технические id, иконки без contentDescription. В коде/тестах можно искать ImageView/ImageButton без contentDescription (Android Lint, Accessibility Scanner, Espresso AccessibilityChecks)."
+    },
+    "source": {
+      "chunk_id": "s6-c07-02",
+      "printed_pages": [
+        650,
+        651
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "accessibility",
+      "talkback",
+      "screen-reader",
+      "needs-android"
+    ],
+    "verification": "ok",
+    "authority": "normative",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-058",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Вёрстка Android при увеличенном шрифте и масштабе экрана",
+    "statement": "Проверить интерфейс при увеличенном системном шрифте (Font Size) и масштабе интерфейса (Display Size), который увеличивает и иконки, и отступы.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Выставить максимальные Font Size и Display Size и пройти все экраны. Fail — обрезанный или наложенный текст, кнопки за пределами экрана, недоступные элементы."
+    },
+    "source": {
+      "chunk_id": "s6-c07-02",
+      "printed_pages": [
+        651
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "accessibility",
+      "font-scale",
+      "layout",
+      "needs-android"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-059",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Show Layout Bounds для pixel-perfect проверок",
+    "statement": "Чтобы видеть реальные границы элементов, padding и margin при сверке с макетом, на Android включают отображение границ разметки.",
+    "applies_to": [
+      "live-product"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Включить Show Layout Bounds (Developer options или Device UI Shortcuts эмулятора) и сверить отступы и размеры с макетом. Fail — расхождение с дизайном, наложение контейнеров."
+    },
+    "source": {
+      "chunk_id": "s6-c07-02",
+      "printed_pages": [
+        651,
+        652
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "layout-bounds",
+      "pixel-perfect",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-060",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Складные устройства: смена дисплея при раскрытии",
+    "statement": "Если поддерживаются складные смартфоны, проверить поведение при складывании и раскрытии, когда меняется разрешение экрана.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "На эмуляторе foldable-профиля (Extended Controls → Display) или реальном Fold/Flip сложить и разложить устройство на ключевых экранах. Fail — сломанная вёрстка, потеря состояния, крэш. В матрице устройств должен быть foldable, если он поддерживается."
+    },
+    "source": {
+      "chunk_id": "s6-c07-02",
+      "printed_pages": [
+        652
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "foldable",
+      "configuration-change",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-061",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Поведение на порогах энергосбережения Android",
+    "statement": "Эмулировать уровни заряда по порогам: 16–20% (предупреждение), 6–15% (Battery Saver: снижение мощности и FPS, блокировка фоновых обновлений), 5% и ниже (возможны отключение GPS и запрет камеры). Приложение должно корректно переживать каждый порог.",
+    "rationale": "Не зная этих порогов, команда автора пропустила баг: при 5% прошивка без предупреждения отключала GPS, и приложение уходило в офлайн.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В эмуляторе (Extended Controls → Battery) выставлять 20%, 15%, 5% и проверять фоновые синхронизации, трекинг геолокации и камеру. Fail — молчаливое падение функции без сообщения пользователю или крэш."
+    },
+    "source": {
+      "chunk_id": "s6-c07-02",
+      "printed_pages": [
+        653
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "battery",
+      "battery-saver",
+      "gps",
+      "emulator",
+      "needs-android"
+    ],
+    "verification": "fixed",
+    "modern_note": "Пороги в книге отражают опыт автора на конкретных прошивках. В стоковом Android порог автоматического включения Battery Saver задаёт пользователь (или расписание), а набор ограничений (фоновая геолокация, тёмная тема, частота обновления экрана) зависит от версии ОС и производителя. Пороги стоит сверять с устройствами из матрицы проекта."
+  },
+  {
+    "id": "QAC-MOB-062",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Подмена изображения камеры в эмуляторе",
+    "statement": "Сценарии с камерой (сканирование QR, документов) на эмуляторе проверяют, подставив вместо видеопотока картинку с компьютера.",
+    "applies_to": [
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Extended Controls → Camera: загрузить нужное изображение (QR, документ) и пройти сценарий сканирования, включая некорректное изображение."
+    },
+    "source": {
+      "chunk_id": "s6-c07-02",
+      "printed_pages": [
+        654
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "emulator",
+      "camera",
+      "qr",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-063",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Управление с D-pad для Android TV",
+    "statement": "Приложения для Android TV и приставок должны полностью управляться с пульта: стрелки, Select, Back, Home.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Через Extended Controls → Directional Pad пройти все экраны только пультом. Fail — элемент недостижим фокусом, фокус не виден или застревает, Back работает некорректно."
+    },
+    "source": {
+      "chunk_id": "s6-c07-02",
+      "printed_pages": [
+        656
+      ]
+    },
+    "tags": [
+      "android",
+      "android-tv",
+      "d-pad",
+      "focus",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-064",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Проверка голосового ввода через микрофон ПК",
+    "statement": "Голосовой ввод и аудиокоманды на эмуляторе проверяют, направив в него звук с микрофона компьютера.",
+    "applies_to": [
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Включить проброс микрофона (Extended Controls → Microphone) и проверить голосовой ввод, включая отказ в разрешении на микрофон."
+    },
+    "source": {
+      "chunk_id": "s6-c07-02",
+      "printed_pages": [
+        656
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "emulator",
+      "microphone",
+      "voice-input",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-065",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Авторизация по отпечатку: успешное и нераспознанное касание",
+    "statement": "Проверить вход по отпечатку на Android в двух вариантах: распознанное касание пускает пользователя, нераспознанное показывает ошибку.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "В эмуляторе (Extended Controls → Fingerprint или `adb -e emu finger touch <id>`) отправить совпадающий и несовпадающий отпечаток. Fail — нет сообщения об ошибке, нет альтернативного входа, крэш."
+    },
+    "source": {
+      "chunk_id": "s6-c07-02",
+      "printed_pages": [
+        656
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "fingerprint",
+      "biometrics",
+      "needs-android"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-066",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "Архитектура APK должна совпадать с архитектурой эмулятора",
+    "statement": "Ошибка INSTALL_FAILED_NO_MATCHING_ABIS при установке APK означает, что архитектура сборки и эмулятора разная: ARM64 (в том числе Mac на Apple Silicon) или x86/x86_64. Нужно брать сборку под архитектуру эмулятора.",
+    "applies_to": [
+      "test-code",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "deterministic",
+      "how": "В конфиге CI или тестового окружения сверить ABI системного образа эмулятора (arm64-v8a / x86_64) с ABI собираемого APK. Несовпадение — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c07-03",
+      "printed_pages": [
+        659
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "emulator",
+      "apk",
+      "abi",
+      "needs-android"
+    ],
+    "verification": "fixed",
+    "modern_note": "Системные образы Android 11+ для x86_64 умеют транслировать ARM-код, поэтому на Intel/AMD-машинах многие ARM-only APK всё же устанавливаются; на Mac с Apple Silicon x86-образы не запускаются, нужен arm64-v8a.",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-067",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Отладка мобильного веба на реальном iPhone через Safari Web Inspector",
+    "statement": "Вёрстку, консоль и сетевые запросы мобильного веба проверяют на физическом iPhone: устройство подключают к Mac и открывают его вкладку в DevTools Safari. Приватная вкладка для этого не подходит.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Если мобильный веб проверялся только эмуляцией в десктопном DevTools, это пробел: на реальном iPhone через Safari → Develop → <устройство> проверить консоль на ошибки и вёрстку."
+    },
+    "source": {
+      "chunk_id": "s6-c08-00",
+      "printed_pages": [
+        660,
+        662
+      ]
+    },
+    "tags": [
+      "mobile-web",
+      "ios",
+      "safari",
+      "web-inspector",
+      "real-device",
+      "see-QAC-INST-042",
+      "needs-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-069",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Обработка ошибок сервера и задержек через прокси",
+    "statement": "Через прокси-анализатор (Proxyman, Charles) подменяют ответы сервера и проверяют реакцию приложения на 500, 401, 403 и долгие задержки. После сессии прокси на устройстве обязательно отключают, иначе без компьютера пропадёт интернет.",
+    "applies_to": [
+      "test-plan",
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане мобильного приложения найти сценарии с ответами 500/401/403 и таймаутом для ключевых запросов (Map Local / Breakpoints в прокси; в автотестах — мок сервера). Fail — проверяется только успешный ответ. Pass — у каждого кода есть понятная реакция UI (сообщение, релогин при 401, повтор)."
+    },
+    "source": {
+      "chunk_id": "s6-c08-00",
+      "printed_pages": [
+        664,
+        665
+      ]
+    },
+    "tags": [
+      "mobile",
+      "proxy",
+      "proxyman",
+      "charles",
+      "error-handling",
+      "http-status",
+      "see-QAC-API-125",
+      "needs-mobile"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-070",
+    "kind": "recommendation",
+    "severity": "should",
+    "title": "К баг-репорту о крэше на Android прикладываются логи",
+    "statement": "К отчёту о вылете или зависании на Android прикладывают лог ошибок (logcat или стектрейс из встроенного отладчика) и, по возможности, скриншот или видео.",
+    "applies_to": [
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В баг-репортах с типом crash/ANR для Android проверить вложение лога (`adb logcat -d > crash_log.txt`, фильтр `adb logcat \"*:E\"`, Bug Report из эмулятора или стектрейс из Pluto/Crashlytics). Нет лога и стектрейса — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c08-02",
+      "printed_pages": [
+        668,
+        669
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "bug-report",
+      "logcat",
+      "adb",
+      "crash",
+      "needs-android"
+    ],
+    "verification": "fixed"
+  },
+  {
+    "id": "QAC-MOB-071",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Восстановление состояния после process death на Android",
+    "statement": "Когда система выгружает приложение из памяти, после возврата через Recent Apps пользователь должен оказаться на том же экране с введённым текстом, выбранными чекбоксами и тумблерами. Перезапуск со сплэша или главного экрана и потеря данных считаются багом жизненного цикла.",
+    "rationale": "Правильное поведение по книге — восстановление из SavedInstanceState/SavedStateHandle или локальной БД.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Заполнить поля, выставить чекбоксы и тумблеры, свернуть приложение кнопкой Home (оно остаётся в Recent Apps) и смоделировать выгрузку процесса. Книга предлагает для этого `adb shell am recover-prep <package>` (см. modern_note); естественный путь — около 15 минут в фоне под тяжёлой 3D-игрой или камерой. Вернуться через Recent Apps. Fail — сброс полей, перезапуск со сплэша или главного экрана, крэш. В тест-плане должен быть сценарий process death."
+    },
+    "source": {
+      "chunk_id": "s6-c08-02",
+      "printed_pages": [
+        670,
+        671
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "lifecycle",
+      "process-death",
+      "state-restoration",
+      "adb",
+      "see-QAC-HIG-032",
+      "needs-android"
+    ],
+    "verification": "fixed",
+    "modern_note": "Подкоманды `am recover-prep` нет среди документированных команд `adb shell am`, вероятно это неточность книги (проверьте `adb shell am help` на своей версии Android). Обычно process death моделируют так: свернуть приложение кнопкой Home и выполнить `adb shell am kill <package>` — команда убивает процесс, только если приложение в фоне. Developer options → Don't keep activities уничтожает активити, но не процесс, поэтому заменяет сценарий лишь частично. `am force-stop`, как правило, не подходит: он сбрасывает задачу вместе с сохранённым состоянием.",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-072",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Объёмные данные для UI-проверок наполняют прямо в локальной БД",
+    "statement": "Экраны с большими объёмами (история из 1000 заказов) проверяют, наполнив локальную БД SQL-запросами через встроенный в debug-сборку инспектор (Pluto). Накликивать данные вручную не нужно.",
+    "applies_to": [
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане для списков и истории найти сценарий с большим объёмом данных и способ его подготовки (сидинг БД, API, debug-инструмент). Проверяется только пустой или короткий список — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c08-02",
+      "printed_pages": [
+        673,
+        674
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "pluto",
+      "test-data",
+      "volume",
+      "local-db",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-073",
+    "kind": "tip",
+    "severity": "should",
+    "title": "Редкие состояния достигаются правкой локальных настроек",
+    "statement": "Состояния, до которых долго добираться (баннер на 3-м запуске, огромный баланс для проверки вёрстки, обход авторизации), получают, меняя значения в SharedPreferences/DataStore debug-сборки.",
+    "applies_to": [
+      "test-plan"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "Если тест-план проверяет счётчики запусков, пороговые значения или длинные числа, проверить, что указан способ быстро задать состояние (debug-меню, Pluto, deeplink, правка prefs). Проверка «перезапустить N раз» — пометить как неэффективную."
+    },
+    "source": {
+      "chunk_id": "s6-c08-02",
+      "printed_pages": [
+        675,
+        676
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "pluto",
+      "shared-preferences",
+      "test-data",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-074",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "События аналитики уходят с правильными параметрами",
+    "statement": "На ключевых действиях (например, покупке) проверить, что событие аналитики (Firebase, AppsFlyer) отправляется с корректными параметрами: id товара, цена.",
+    "applies_to": [
+      "test-plan",
+      "live-product",
+      "test-code"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В тест-плане для ключевых действий должны быть проверки событий аналитики с параметрами. Способы: логгер debug-сборки (Pluto Logger с тегом), прокси или перехват запросов в автотестах. Не покрыто — fail."
+    },
+    "source": {
+      "chunk_id": "s6-c08-02",
+      "printed_pages": [
+        677,
+        678
+      ]
+    },
+    "tags": [
+      "mobile",
+      "analytics",
+      "firebase",
+      "appsflyer",
+      "pluto"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-075",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "Поворот экрана во время загрузки не роняет приложение",
+    "statement": "Повернуть устройство, пока идёт тяжёлая загрузка (крутится лоадер). На Android при повороте Activity пересоздаётся, и старый поток может обратиться к уничтоженному экрану.",
+    "rationale": "Типичный результат — NullPointerException из-за обновления UI уничтоженной Activity.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Запустить загрузку списка или отправку данных и повернуть экран во время лоадера, затем ещё раз. Fail — крэш, вечный лоадер или потеря результата."
+    },
+    "source": {
+      "chunk_id": "s6-c09-00",
+      "printed_pages": [
+        682
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "lifecycle",
+      "orientation",
+      "loading",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-076",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Звонок на шаге ввода OTP при оплате",
+    "statement": "Прервать звонком шаг ввода SMS-кода подтверждения оплаты и вернуться. Деньги не должны списаться дважды, введённый код не должен сброситься.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "На шаге подтверждения платежа принять входящий вызов (на эмуляторе — Extended Controls → Phone), завершить его и вернуться в приложение. Fail — двойная транзакция, сброшенный код или сессия."
+    },
+    "source": {
+      "chunk_id": "s6-c09-00",
+      "printed_pages": [
+        682,
+        683
+      ]
+    },
+    "tags": [
+      "mobile",
+      "lifecycle",
+      "interruptions",
+      "otp",
+      "payments",
+      "needs-native-mobile",
+      "needs-payments"
+    ],
+    "verification": "ok",
+    "authority": "industry-practice",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-077",
+    "kind": "checklist",
+    "severity": "should",
+    "title": "В фоне приложение отпускает CPU, GPS и датчики",
+    "statement": "Свёрнутое приложение не должно продолжать грузить процессор и удерживать GPS или другие датчики, если фоновая работа не предусмотрена.",
+    "rationale": "Забытая отписка от слушателей в onStop/onDestroy ведёт к утечкам и разряду батареи.",
+    "applies_to": [
+      "live-product",
+      "test-plan"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Свернуть приложение и через Android Studio Profiler (или системную статистику батареи и индикатор геолокации) проверить загрузку CPU и использование GPS. Fail — активность продолжается без заявленной фоновой функции."
+    },
+    "source": {
+      "chunk_id": "s6-c09-00",
+      "printed_pages": [
+        683
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "lifecycle",
+      "background",
+      "memory-leak",
+      "battery",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-078",
+    "kind": "tip",
+    "severity": "nice",
+    "title": "В баг-репорте о крэше указывать переход жизненного цикла",
+    "statement": "В баг-репорте стоит указать, при каком переходе произошёл крэш: при повороте или возврате из фона (обычно onStart/onResume) или при сворачивании (onPause/onStop). Это сразу сужает поиск причины.",
+    "applies_to": [
+      "test-cases"
+    ],
+    "check": {
+      "mode": "heuristic",
+      "how": "В мобильных баг-репортах о крэше проверить, что шаги фиксируют момент падения относительно сворачивания, возврата, поворота. Если в шагах только «приложение упало» без контекста — пометить."
+    },
+    "source": {
+      "chunk_id": "s6-c09-00",
+      "printed_pages": [
+        683
+      ]
+    },
+    "tags": [
+      "mobile",
+      "android",
+      "lifecycle",
+      "bug-report",
+      "logcat",
+      "needs-android"
+    ],
+    "verification": "ok"
+  },
+  {
+    "id": "QAC-MOB-079",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Долгая операция в фоне на iOS",
+    "statement": "Свернуть приложение во время длительной операции (загрузка видео или альбома) и проверить, что она успевает завершиться за отведённое системой фоновое время или корректно продолжается, и приложение не падает по превышению фонового лимита.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "На реальном iPhone запустить большую загрузку, свернуть, подождать, вернуться. Fail — крэш (Background Time Limit Exceeded), потеря загрузки без сообщения, зависание. В тест-плане должен быть сценарий фоновой операции."
+    },
+    "source": {
+      "chunk_id": "s6-c10-02",
+      "printed_pages": [
+        688,
+        689
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "lifecycle",
+      "background",
+      "upload",
+      "see-QAC-STRAT-028",
+      "needs-ios"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  },
+  {
+    "id": "QAC-MOB-080",
+    "kind": "checklist",
+    "severity": "must",
+    "title": "Возврат на iOS после выгрузки из Suspended",
+    "statement": "После того как iOS выгрузила замороженное приложение из памяти, при возврате оно должно восстановить сессию и данные (например, корзину) и не зависнуть на белом экране.",
+    "applies_to": [
+      "live-product",
+      "test-plan",
+      "test-cases"
+    ],
+    "check": {
+      "mode": "manual",
+      "how": "Положить товар в корзину или выполнить целевое действие, свернуть, открыть камеру и тяжёлую игру, чтобы создать дефицит памяти, вернуться через переключатель приложений. Fail — белый экран, разлогин, пустая корзина, крэш."
+    },
+    "source": {
+      "chunk_id": "s6-c10-02",
+      "printed_pages": [
+        689
+      ]
+    },
+    "tags": [
+      "mobile",
+      "ios",
+      "lifecycle",
+      "suspended",
+      "state-restoration",
+      "see-QAC-HIG-032",
+      "needs-ios"
+    ],
+    "verification": "ok",
+    "authority": "vendor-guideline",
+    "external_check": "aligned"
+  }
+]

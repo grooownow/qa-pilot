@@ -11,7 +11,7 @@ changes, open questions or alternatives (extendable via overrides).
 Also skips lines that record a dated decision ("решение 2026-06-13").
 
 Checks:
-  vague-word  (SRK-REQ-014)  unmeasurable words: быстро, удобно, интуитивно… / fast, easy, intuitive, properly…
+  vague-word  (QAC-REQ-014)  unmeasurable words: быстро, удобно, интуитивно… / fast, easy, intuitive, properly…
                              quantified=true when the line already has a number
                              with a unit — usually a false positive, triage drops it
   unfinished  (QAP-REQ-001)  TBD / TBC / TODO / DRAFT / ??? / ЧЕРНОВИК (caps) / уточнить
@@ -85,7 +85,7 @@ def lint_text(path, text, vague, skip_rx):
             continue
         line = prose(raw)
         quantified = bool(QUANTITY.search(line))
-        for check, rule, rx in (("vague-word", "SRK-REQ-014", vague), ("unfinished", "QAP-REQ-001", UNFINISHED)):
+        for check, rule, rx in (("vague-word", "QAC-REQ-014", vague), ("unfinished", "QAP-REQ-001", UNFINISHED)):
             for m in rx.finditer(line):
                 findings.append({"file": str(path), "line": n, "check": check, "rule": rule,
                                  "match": raw[m.start():m.end()], "quantified": quantified and check == "vague-word",
