@@ -9,8 +9,10 @@ ROOT = Path(__file__).resolve().parents[2]
 # Built from parts so this file does not match itself.
 NAME = re.compile("|".join(["sur" + "kov", "сур" + "ков"]), re.IGNORECASE)
 OLD_PREFIX = re.compile(r"\b" + "S" + "RK" + r"\b")
-# The only place allowed to know the old id prefix: reading override files written before 0.8.1.
-OLD_PREFIX_ALLOWED = {"skills/spec-audit/scripts/rules_pack.py", "skills/spec-audit/scripts/test_rules_pack.py"}
+# The only places allowed to know the old id prefix: reading override files written before 0.8.1,
+# and the changelog entry that tells users how the ids changed.
+OLD_PREFIX_ALLOWED = {"skills/spec-audit/scripts/rules_pack.py", "skills/spec-audit/scripts/test_rules_pack.py",
+                      "CHANGELOG.md"}
 
 
 def tracked_texts():

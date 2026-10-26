@@ -1,20 +1,25 @@
-# HANDOFF — свод знаний по книге «Качество решает всё» и скилл spec-audit
+# HANDOFF — qa-pilot
 
 > **Единая точка продолжения.** Новая сессия на вопрос «на чем мы остановились?» читает этот файл и пересказывает его: где мы, что читать, что открыто, что дальше.
-> Обновлено: 2026-10-19 (qa-pilot 0.5).
+> Обновлено: 2026-10-26 (qa-pilot 0.8.1).
 
 ## Где мы сейчас
 
-- **Репозиторий:** `qa-pilot`, ветка **`feat/book-knowledge-base`**, версия плагина **0.6.0** (в `main`, теги `v0.5.0`, `v0.6.0`). Запушено через SSH-хост `github.com-grooownow`; `main` перематывается fast-forward с ветки.
-- **Проверки зелёные:**
+- **Репозиторий:** `qa-pilot`, версия плагина **0.8.1**, в `main`, теги до `v0.8.1`. Push через SSH-хост `github.com-grooownow`; `main` перематывается fast-forward с ветки релиза.
+- **Проверки (все зелёные на 0.8.1):**
   - `python3 -m unittest discover -s scripts/kb`;
+  - `python3 -m unittest discover -s scripts/plugin` (в т. ч. запрет имени автора книги в файлах) и `python3 scripts/plugin/check_skills.py`;
   - `python3 -m unittest discover -s skills/spec-audit/scripts`;
-  - `python3 -m unittest discover -s skills/onboard/scripts` (проверка устаревшего профиля `profile_drift.py`);
-  - `python3 -m unittest discover -s skills/test-code-audit/scripts` (проба падения `failure_probe.py`);
-  - `python3 -m unittest discover -s scripts/plugin` и `python3 scripts/plugin/check_skills.py`;
-  - `render_rules.py --check` для `knowledge/catalog` и для `knowledge/qa-pilot`.
+  - `python3 -m unittest discover -s skills/onboard/scripts` (`profile_drift.py`);
+  - `python3 -m unittest discover -s skills/test-code-audit/scripts` (`failure_probe.py`);
+  - `render_rules.py --check` для `knowledge/catalog` и `knowledge/qa-pilot`; `claude plugin validate .`.
+- **0.8.0:** память уроков `docs/qa/learnings.md`, матрица покрытия, drift-виды `new-test-dep` / `rules-changed` / `lost-test`, «Not for» в описаниях, примеры, 10 антипаттернов.
+- **0.8.1:** свод книги переехал в `knowledge/catalog/`, id правил `QAC-` (номера те же; старые id в `rule-overrides.json` читаются); доработки после ревью 0.8.0. Подробно — `CHANGELOG.md`.
+- **Правило:** имя автора книги нигде не показываем; книгу называем только по названию. Тест `scripts/plugin/test_no_author_name.py` это проверяет.
 
-- **0.8.0 (ветка `feat/learnings`, 2026-10-26):** добавлены `docs/qa/learnings.md`, матрица покрытия, drift-виды `new-test-dep` / `rules-changed` / `lost-test`, «Not for» в описаниях, примеры и 10 антипаттернов; changelog и версия готовы, тег и push ждут решения владельца.
+## Что дальше: Agensi (продолжаем отсюда)
+
+План, решения, факты о площадке и шаги лежат **локально**: `.superpowers/agensi/HANDOFF.md` (не в git — там цены и планы по платной версии). Заметки об изучении 11 бесплатных QA-скиллов: `.superpowers/agensi/notes-A.md`, `notes-B.md`.
 
 ## qa-pilot 0.6.0 (2026-10-19): три команды
 

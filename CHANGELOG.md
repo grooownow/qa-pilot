@@ -4,6 +4,23 @@ All notable changes to qa-pilot. Versions follow `.claude-plugin/plugin.json`; e
 
 To update an installed plugin: `/plugin` → marketplace qa-pilot → update, then `/reload-plugins`.
 
+## [0.8.1] — 2026-10-26
+
+### Changed
+- **The book catalog no longer names its author.** It moved from its old folder to `knowledge/catalog/`, and its rule ids now start with `QAC-` instead of `SRK-` (the numbers are the same, e.g. `SRK-API-001` → `QAC-API-001`). The book is cited by its title only. Project override files (`docs/qa/rule-overrides.json`) written before this release keep working: `rules_pack.py` reads old ids in `disabled` and `decisions` as the new ones. A test checks that no tracked file names the author.
+- `check_skills.py`: the "Not for" clause must name the sibling skill (`qa-pilot:<skill>`).
+- `task-qa` plan now has a lessons step: a proposed AC, impact edge or test the owner rejects as wrong for the project is a lesson candidate.
+- `project-audit` counts a `survived` probe and a Proof `none` matrix row for the same test as one finding.
+
+### Fixed
+- `lost-test` checked only the first code span of the Test cell and missed `` `path › name` `` written as one span. It now checks every span, and paths with `[slug]` or `(group)` segments and `.tsx` / `.jsx` file names count as paths.
+- `new-test-dep` stopped reading a `pyproject.toml` dependency array at the `]` of an extra such as `pytest[cov]`, so the packages after it were missed.
+- Test anti-pattern hints, after a run on a real suite of 349 test files: `getByTestId(` is no longer an Inspector hint (it was 1174 of 1197 hits, and qa-pilot itself recommends test ids). A `toHaveBeenCalled` hit is named Status-only when it is the last assertion of a UI test, Mockery otherwise. The Giant count is per file, and the empty-body hint says it also matches no-op callbacks.
+- `write-tests` and `cover` say who writes the matrix row and when its Proof is `failed when broken`.
+
+### Known limits
+- Old ids stay in your own documents (task files, audit reports). Only the override file is translated.
+
 ## [0.8.0] — 2026-10-26
 
 ### Added
