@@ -5,7 +5,8 @@ from pathlib import Path
 from check_skills import check
 
 
-def skill(root, name, description="Does things. Not for z.", body="", extra=""):
+def skill(root, name, description=None, body="", extra=""):
+    description = description or f"Does things. Not for z (use qa-pilot:{name})."
     d = root / "skills" / name
     d.mkdir(parents=True)
     (d / "SKILL.md").write_text(f"---\nname: {name}\ndescription: {description}\n{extra}---\n\n{body}\n")
@@ -54,15 +55,19 @@ class CheckSkillsTest(unittest.TestCase):
         self.assertEqual(check(self.root), ["skills/test/SKILL.md: missing script scripts/x.py"])
 
     def test_quoted_description_is_unquoted(self):
-        skill(self.root, "test", description='"Says \\"hi\\": fine. Not for z."')
+        skill(self.root, "test", description='"Says \\"hi\\": fine. Not for z (use qa-pilot:test)."')
         self.assertEqual(check(self.root), [])
 
     def test_description_needs_not_for(self):
         skill(self.root, "test", description="Does things.")
-        self.assertEqual(check(self.root), ["skills/test/SKILL.md: description has no 'Not for' clause"])
+        self.assertEqual(check(self.root), ["skills/test/SKILL.md: description has no 'Not for' clause naming a qa-pilot:<skill>"])
+
+    def test_not_for_must_name_a_sibling(self):
+        skill(self.root, "test", description="Does things. Not for z.")
+        self.assertEqual(check(self.root), ["skills/test/SKILL.md: description has no 'Not for' clause naming a qa-pilot:<skill>"])
 
     def test_not_for_in_quoted_description(self):
-        skill(self.root, "test", description='"Does \\"x\\". Not for y."')
+        skill(self.root, "test", description='"Does \\"x\\". Not for y (use qa-pilot:test)."')
         self.assertEqual(check(self.root), [])
 
     def test_missing_example(self):

@@ -10,7 +10,7 @@ Checks every skills/<dir>/SKILL.md:
 - every `qa-pilot:<skill>` it mentions exists;
 - every `../../references/…` or `../../knowledge/…` path it mentions exists;
 - every `$SKILL_DIR/scripts/…` or `$SKILL_DIR/../<skill>/scripts/…` script it runs exists;
-- the description contains a "Not for" clause naming the sibling skill to use instead (routing);
+- the description contains a "Not for" clause naming the sibling `qa-pilot:<skill>` to use instead (routing);
 - every `examples/<file>.md` it mentions exists next to the SKILL.md.
 Exits 1 with a list of errors.
 """
@@ -20,6 +20,7 @@ from pathlib import Path
 
 MAX_DESCRIPTION = 1024
 SKILL_REF = re.compile(r"qa-pilot:([a-z][a-z0-9-]*)")
+NOT_FOR = re.compile(r"Not for\b.*?qa-pilot:[a-z]")
 PATH_REF = re.compile(r"\.\./\.\./((?:references|knowledge)/[A-Za-z0-9_./-]+\.(?:md|json))")
 SCRIPT_REF = re.compile(r"\$SKILL_DIR/((?:\.\./[a-z][a-z0-9-]*/)?scripts/[A-Za-z0-9_.-]+\.py)")
 EXAMPLE_REF = re.compile(r"`(examples/[A-Za-z0-9_.-]+\.md)`")
@@ -58,8 +59,8 @@ def check(root):
             errors.append(f"{where}: description is empty")
         elif len(description) > MAX_DESCRIPTION:
             errors.append(f"{where}: description is {len(description)} chars, max {MAX_DESCRIPTION}")
-        if description and "Not for" not in description:
-            errors.append(f"{where}: description has no 'Not for' clause")
+        if description and not NOT_FOR.search(description):
+            errors.append(f"{where}: description has no 'Not for' clause naming a qa-pilot:<skill>")
         if "user-invocable" in fm and fm["user-invocable"] not in ("true", "false"):
             errors.append(f"{where}: user-invocable must be true or false")
         for ref in sorted(set(SKILL_REF.findall(text)) - names):

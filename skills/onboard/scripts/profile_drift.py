@@ -67,7 +67,8 @@ def mentions(text, phrase):
     return re.search(rf"(?<![\w:.-]){re.escape(phrase)}(?![\w:.-])", text) is not None
 YAML_KEY = re.compile(r"^-?\s*[\w-]+:(?:\s|$)")
 INLINE_CODE = re.compile(r"`([^`\n]+)`")
-PATH_LIKE = re.compile(r"^\.{0,2}/?[\w@.-]+(?:/[\w@.*-]*)+/?$|^[\w.-]+\.(?:ts|js|mjs|cjs|json|ya?ml|toml|ini|cfg|py)$")
+PATH_LIKE = re.compile(r"^\.{0,2}/?[\w@.-]+(?:/[\w@.*()\[\]-]*)+/?$"
+                       r"|^[\w.-]+\.(?:tsx?|jsx?|mjs|cjs|mts|cts|json|ya?ml|toml|ini|cfg|py)$")
 
 
 def section(text, title):
@@ -312,7 +313,7 @@ def test_deps(top, files):
                 if line and not line.startswith("-"):
                     found.add(bare_dep(re.split(r"[\[<>=~!; ]", line)[0]))
         elif name == "pyproject.toml":
-            for array in re.findall(r"=\s*\[(.*?)\]", text, re.S):
+            for array in re.findall(r"""=\s*\[((?:[^\]"']|"[^"]*"|'[^']*')*)\]""", text):
                 for item in re.findall(r"""["']([^"']+)["']""", array):
                     found.add(bare_dep(re.split(r"[\[<>=~!; ]", item)[0]))
     found.discard(None)
@@ -383,9 +384,10 @@ def lost_tests(root, top, names):
     for row in table_rows(matrix.read_text(encoding="utf-8", errors="replace"))[1:]:
         if len(row) < 3 or "(removed " in row[2]:
             continue
-        spans = INLINE_CODE.findall(row[2])
-        path = (spans[0] if spans else row[2].split(" \u203a")[0]).strip().split("::")[0]
-        if PATH_LIKE.match(path) and not path_exists(path, root, top, names):
+        spans = INLINE_CODE.findall(row[2]) or [row[2]]
+        paths = [span.split(" \u203a")[0].strip().split("::")[0] for span in spans]
+        path = next((p for p in paths if PATH_LIKE.match(p)), None)
+        if path and not path_exists(path, root, top, names):
             details.append(f"{row[0]} / {row[1]}: test file `{path}` does not exist")
     return details
 

@@ -38,7 +38,7 @@ The cart summary and the checkout total show the shipping line. Touches `src/lib
 - Q2: Should the order email show the new shipping amount? Default: yes.
 
 ## Suppressed by your filters
-- Gift-card payment during checkout · QAP-WEB-002 · owner 2026-10-20: gift cards are not live.
+- Gift card covers part of the total and the card charge then fails · QAP-WEB-013 · owner 2026-10-20: gift cards are not live.
 
 ## Verify log
 > mode: verify · 2026-10-27 · diff 3f9c2ab...b81d4e0

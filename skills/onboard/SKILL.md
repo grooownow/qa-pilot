@@ -30,8 +30,12 @@ In a full or refresh run, also check `docs/qa/learnings.md` if it exists
 dependency that no longer exists and ask whether to drop them; over 60 lines,
 propose merges. Delete nothing without a yes.
 
-Create a todo per phase. Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.md`. Read `../../references/model-routing.md` (relative to
-this skill's base directory) before dispatching any subagent.
+Create a todo per phase.
+
+Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.md`.
+
+Read `../../references/model-routing.md` (relative to this skill's base directory) before dispatching any
+subagent.
 
 ## Phase 1 — Detect (no questions yet)
 

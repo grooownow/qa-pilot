@@ -38,13 +38,15 @@ Paste each line after `git grep -nE`, quoted. Liar has no hint.
 - **Mirror:** `<helperName>\(` (put the name of the helper the code under test uses)
 - **Mockery:** `toHaveBeenCalled|toBeCalled|verify\(|assert_called|\.mock\.calls`
 - **Status-only:** `waitForResponse|expect\(.*status.*\)|response\.ok\(\)|toHaveBeenCalled`
-- **Giant:** `expect\(|assert` (count per test, e.g. `git grep -cE`; many hits in one test is a cue)
-- **Inspector:** `\._[a-zA-Z]+|\["_[a-z]+"\]|toHaveClass\(|\.state\.|getByTestId\(`
+- **Giant:** `expect\(|assert` (`git grep -cE` counts per file; read the tests in the files with the most hits)
+- **Inspector:** `\._[a-zA-Z]+|\["_[a-z]+"\]|toHaveClass\(|\.state\.` (a `data-testid` locator is not an Inspector: it is the stable selector most suites are told to use)
 - **Chain Gang:** `describe\.serial|\.serial\(|@Order|dependsOn`
 - **Sleeper:** `waitForTimeout\(|sleep\(|setTimeout\(|time\.sleep|Thread\.sleep|cy\.wait\([0-9]`
 - **Ghost:** `\.(skip|only)\(|xit\(|xdescribe\(|it\.todo|test\.fixme|@Disabled|@pytest\.mark\.skip|pytest\.skip\(`
-- **Ghost, empty bodies:** `\(\) *=> *\{ *\}`
+- **Ghost, empty bodies:** `\(\) *=> *\{ *\}` (also matches harmless no-op callbacks such as `onClick={() => {}}`; only an empty test body counts)
 - **Copycat:** a distinctive setup line, e.g. `page\.goto\('/cart'\)`; a count (`git grep -cE`) above a few is a cue
+
+A `toHaveBeenCalled` hit matches both Mockery and Status-only: name it Status-only when it is the last assertion of a UI test, Mockery otherwise.
 
 ## Tagging in reports
 

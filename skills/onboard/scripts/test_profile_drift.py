@@ -236,6 +236,13 @@ class DriftTest(unittest.TestCase):
         self.assertEqual(len(found), 1)
         self.assertIn("pytest-playwright", found[0])
 
+    def test_pyproject_extras_do_not_cut_the_array(self):
+        profile = PROFILE + "\nPython tests use pytest.\n"
+        pyproject = '[project]\nname = "x"\n\n[project.optional-dependencies]\ntest = ["pytest[cov]>=8", "hypothesis"]\n'
+        found = self.drifts(self.repo(profile=profile, pyproject=pyproject), "new-test-dep")
+        self.assertEqual(len(found), 1)
+        self.assertIn("hypothesis", found[0])
+
     def test_rules_changed_after_profile(self):
         root = self.repo(git=True)
         (root / "CLAUDE.md").write_text("rules")
@@ -283,6 +290,24 @@ class DriftTest(unittest.TestCase):
         self.assertEqual(self.drifts(root, "lost-test"), [])
         self.assertEqual(self.drifts(self.repo(), "lost-test"), [])
         self.assertEqual(self.drifts(self.repo(matrix="# Coverage matrix\n\nnothing yet\n"), "lost-test"), [])
+
+    def test_lost_test_cell_forms(self):
+        head = ("# Coverage matrix\n\n| Feature | Requirement | Test | Layer | In CI | Proof | Updated |\n"
+                "|---|---|---|---|---|---|---|\n")
+        rows = ["| Cart | A | `e2e/cart.spec.ts \u203a \"adds item\"` | e2e | yes | none | 2026-10-01 |",
+                "| Cart | B | `tests/test_cart.py::test_total` | unit | yes | none | 2026-10-01 |",
+                "| Blog | C | `smoke` `app/[slug]/page.test.tsx` | unit | yes | none | 2026-10-01 |"]
+        root = self.repo(matrix=head + "\n".join(rows) + "\n")
+        found = self.drifts(root, "lost-test")
+        self.assertEqual(len(found), 3)
+        for path in ("e2e/cart.spec.ts", "tests/test_cart.py", "app/[slug]/page.test.tsx"):
+            self.assertTrue(any(path in d for d in found), path)
+        (root / "e2e" / "cart.spec.ts").write_text("")
+        (root / "tests").mkdir()
+        (root / "tests" / "test_cart.py").write_text("")
+        (root / "app" / "[slug]").mkdir(parents=True)
+        (root / "app" / "[slug]" / "page.test.tsx").write_text("")
+        self.assertEqual(self.drifts(root, "lost-test"), [])
 
     def test_lost_test_skips_removed_rows(self):
         matrix = ("# Coverage matrix\n\n| Feature | Requirement | Test | Layer | In CI | Proof | Updated |\n"

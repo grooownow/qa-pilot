@@ -1,6 +1,6 @@
 ---
 name: project-audit
-description: Whole-project QA audit — the big picture a per-task check cannot give. Assesses the maturity of the project's "test framework" (layers, CI gates, mocking, test data, selectors, flaky handling, linting), confirms the 3–7 critical user flows with the owner, runs spec-audit at depth "critical" on each chosen flow (entity cards of must-check web patterns: modify vs delete, double submit, silent mutations, UI-only permissions…), samples the test code around those flows, and writes one prioritized roadmap — framework fixes, Must tests per flow, questions, highlights — plus an English action list an agent can execute. Use when entering a new project, for an interim audit of a live project, or after a large feature or a round of small changes ("аудит проекта", "общая картина по тестам", "что у нас с тестами в целом", "project QA audit", "health check of QA"). Costs ~250k tokens per flow; the owner picks the flows. Not for a single feature (use qa-pilot:spec-audit) or a single task (use qa-pilot:task-qa).
+description: Whole-project QA audit — the big picture a per-task check cannot give. Assesses the maturity of the project's "test framework" (layers, CI gates, mocking, test data, selectors, flaky handling, linting), confirms the 3–7 critical user flows with the owner, runs spec-audit at depth "critical" on each chosen flow (entity cards of must-check web patterns: modify vs delete, double submit, silent mutations, UI-only permissions…), samples the test code around those flows, and writes one prioritized roadmap — framework fixes, Must tests per flow, questions, highlights — plus an English action list an agent can execute. Use when entering a project, for an interim audit, or after a large feature or many small changes ("аудит проекта", "общая картина по тестам", "что у нас с тестами в целом", "project QA audit", "health check of QA"). Costs ~250k tokens per flow; the owner picks the flows. Not for a single feature (use qa-pilot:spec-audit) or a single task (use qa-pilot:task-qa).
 user-invocable: false
 ---
 
@@ -60,7 +60,7 @@ Read first:
 
 ## Phase 4 — Test-code sample
 
-Run `qa-pilot:test-code-audit` limited to the test files that exercise the critical flows (from the spec-audit coverage evidence). Look for false greens, flakiness and wrong layers, and run its failure proof (test-code-audit Phase 3) on those tests: a `survived` probe is a P1 finding. Only P1/P2 findings go to the roadmap; the rest stays in the audit's report. Rows of `docs/qa/coverage-matrix.md` are coverage evidence: a row with Proof `none` on a critical flow is a finding (`../../references/coverage-matrix.md`).
+Run `qa-pilot:test-code-audit` limited to the test files that exercise the critical flows (from the spec-audit coverage evidence). Look for false greens, flakiness and wrong layers, and run its failure proof (test-code-audit Phase 3) on those tests: a `survived` probe is a P1 finding. Only P1/P2 findings go to the roadmap; the rest stays in the audit's report. Rows of `docs/qa/coverage-matrix.md` are coverage evidence: a row with Proof `none` on a critical flow is a finding (`../../references/coverage-matrix.md`). A `survived` probe and a Proof `none` row for the same test are one finding, not two.
 
 ## Phase 5 — Roadmap
 
