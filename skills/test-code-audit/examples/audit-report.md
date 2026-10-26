@@ -3,17 +3,17 @@
 
 ## Scope and baseline
 - Scope: `e2e/` (22 tests) and `src/**/*.test.ts(x)` (140 tests); critical flows from the profile: checkout, add to cart, login, order history.
-- Baseline run: `pnpm test:unit` 140 passed, 0 failed, 2 skipped, 38 s. `pnpm test:e2e` 21 passed, 1 skipped, 4 min 10 s.
-- Failure-proof sample: 10 tests (the checkout and cart tests plus 3 suspects from the false-green lens); about 25 min.
+- Baseline run: `pnpm test:unit` 139 passed, 0 failed, 1 todo, 38 s. `pnpm test:e2e` 20 passed, 2 skipped, 4 min 10 s.
+- Failure-proof sample: 5 tests, below the default 10 to keep the run short (3 critical-flow tests plus 2 suspects from the false-green lens); about 12 min.
 
 ## First pass: grep hints
 | Name | Pattern hits | Read, confirmed |
 |---|---|---|
-| Sleeper | 9 | 7 |
+| Sleeper | 9 | 4 |
 | Ghost | 3 | 3 |
-| Status-only | 5 | 3 |
-| Mockery | 11 | 2 |
-| Copycat | 6 | 4 |
+| Status-only | 5 | 1 |
+| Mockery | 11 | 1 |
+| Copycat | 6 | 1 |
 
 ## Critical
 ### [Liar]
@@ -31,7 +31,7 @@
 ### [Ghost]
 - `e2e/orders.spec.ts:70`: `test.skip` with no reason (QAP-TC-010).
 - `src/lib/cart.test.ts:88`: `it.todo("merges duplicates")`: the behaviour exists and is untested.
-- `e2e/catalog.spec.ts:9`: a committed `test.only`; the other 6 tests of the file do not run (QAP-TC-009).
+- `e2e/catalog.spec.ts:9`: `test.fixme` with no reason or ticket (QAP-TC-010).
 
 ### [Mockery]
 - `src/components/cart/CartSummary.test.tsx:30`: asserts that `formatPrice` was called twice, not what the user reads (QAP-TC-013).

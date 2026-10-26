@@ -57,7 +57,7 @@
 | Network mocking | present | `src/mocks/handlers.ts` |
 | Test data | partial | seed script exists; no per-test cleanup (`searched: afterEach in e2e → 0`) |
 | Stable selectors | present | 31 `getByRole`, 4 `data-testid`, 0 CSS in `e2e/` |
-| Flaky handling | missing | `searched: retries, quarantine, fixme → 0` |
+| Flaky handling | partial | `retries: 2` in CI (`playwright.config.ts`); `searched: quarantine, owner → 0` |
 | Test lint rules | partial | `eslint-plugin-playwright` on, no `no-skipped-test` |
 | API integration tests | missing | `searched: supertest, route handler tests → 0` |
 

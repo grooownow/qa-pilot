@@ -38,7 +38,7 @@ The cart summary and the checkout total show the shipping line. Touches `src/lib
 - Q2: Should the order email show the new shipping amount? Default: yes.
 
 ## Suppressed by your filters
-- Gift-card payment during checkout · QAP-WEB-013 · owner 2026-10-20: gift cards are not live.
+- Gift-card payment during checkout · QAP-WEB-002 · owner 2026-10-20: gift cards are not live.
 
 ## Verify log
 > mode: verify · 2026-10-27 · diff 3f9c2ab...b81d4e0
@@ -64,12 +64,13 @@ The cart summary and the checkout total show the shipping line. Touches `src/lib
 `pnpm test:unit src/lib/pricing.test.ts` 14 passed; `pnpm test:e2e e2e/checkout.spec.ts` 6 passed; regression set green.
 
 ### Coverage matrix upsert (`docs/qa/coverage-matrix.md`)
+The last row is an existing test, only read in this run; its stronger Proof from the test-code audit probe (2026-10-26) is kept, not downgraded.
 | Feature | Requirement | Test | Layer | In CI | Proof | Updated |
 |---|---|---|---|---|---|---|
 | Checkout | Subtotal ≥ 50.00 gives free shipping (SHOP-57 AC1) | src/lib/pricing.test.ts › "free shipping at exactly 50.00" | unit | yes | failed when broken, 2026-10-27 | 2026-10-27 |
 | Checkout | Subtotal below 50.00 pays 4.90 (SHOP-57 AC1) | src/lib/pricing.test.ts › "paid shipping at 49.99" | unit | yes | failed when broken, 2026-10-27 | 2026-10-27 |
 | Checkout | Charged amount equals displayed total (SHOP-57 AC2) | e2e/checkout.spec.ts › "charged amount equals displayed total" | e2e | yes | failed when broken, 2026-10-27 | 2026-10-27 |
-| Checkout | Total includes shipping (SHOP-42 AC2) | e2e/checkout.spec.ts › "total with shipping" | e2e | yes | distinguishing assertion | 2026-10-27 |
+| Checkout | Total includes shipping (SHOP-42 AC2) | e2e/checkout.spec.ts › "total with shipping" | e2e | yes | failed when broken, 2026-10-26 | 2026-10-26 |
 
 ### PR block
 ## QA verification
