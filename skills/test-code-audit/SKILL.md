@@ -26,6 +26,9 @@ Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.m
   vs everything). State the scope in the report header.
 - Baseline run: execute the suite once (or the target subset). Record pass/fail/
   skip counts and duration in the report. A suite that doesn't run is finding #1.
+- Cheap first pass: run the grep hints from `../../references/test-anti-patterns.md`
+  over the scoped test files (`git grep -nE`). Record the hit count per name in
+  the report. A hit is a suspect until the code is read, not a finding.
 - State the failure-proof sample (Phase 3): which tests, how many, rough time.
 
 ## Phase 2 — Parallel audit lenses
@@ -51,6 +54,11 @@ pointed at the whole scoped test codebase instead of a diff). Lenses:
 5. **Structure & cost** — suite runtime distribution, missing parallelism/
    isolation, redundant coverage (five e2e tests where one e2e + four unit
    would do).
+
+Lenses 1-3 tag every finding with a name from
+`../../references/test-anti-patterns.md` (Liar, Mirror, Mockery, Status-only,
+Giant, Inspector, Chain Gang, Sleeper, Ghost, Copycat) or `other`, and start from
+the Phase 1 grep hits in their scope.
 
 Each agent brief: scope paths, profile pointer, lens description, the standard
 finding format, word cap. Append raw findings to a scratch section of the
@@ -99,7 +107,8 @@ Reading a test does not prove it can fail. Break the code it guards and run it.
 - Verify EVERY finding against real code before it enters the report; drop
   false positives explicitly. This is main-session judgment — do not delegate.
 - Merge duplicates, rank: **Critical** (false green, whether proven by a probe or found by reading; data risk; broken suite) →
-  **Important** (flaky patterns, spreading drift) → **Worth-fixing**.
+  **Important** (flaky patterns, spreading drift) → **Worth-fixing**. Inside each
+  severity, group findings by anti-pattern name.
 - Finalize `docs/qa/audit-report.md`: scope, baseline numbers, findings with
   file:line evidence, and a short "what's healthy" section (honest, not filler —
   it tells the team what to keep doing).

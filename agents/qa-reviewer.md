@@ -30,5 +30,8 @@ Severity honestly: **Critical** = broken behavior, false-green test, data/creden
 risk. **Important** = will bite soon (flaky pattern, convention violation that
 spreads). **Worth-fixing** = real but minor.
 
+When reviewing test code, you may tag a finding with a name from
+`references/test-anti-patterns.md` (e.g. `[Sleeper]`) in its title.
+
 If you find nothing within your lens after a genuine hunt, reply exactly
 "No findings" — do not manufacture filler findings to look useful.
