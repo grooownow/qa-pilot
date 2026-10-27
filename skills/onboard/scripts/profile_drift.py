@@ -3,8 +3,8 @@
 
 Usage: python3 profile_drift.py [--profile docs/qa/project-profile.md] [--root .]
 
-Reads the inline-code commands and paths in the profile's `## Commands` and `## Test layers`
-sections and compares them with package.json scripts, the Makefile and the CI config files.
+Reads the inline-code commands and paths in the profile's `## Commands`, `## Test layers` and
+`## Harness` sections and compares them with package.json scripts, the Makefile and the CI config files.
 Prints one line per drift and exits 1; prints "OK: …" and exits 0 when nothing drifted;
 exits 2 when there is no profile to check.
 
@@ -402,7 +402,8 @@ def check(root, profile_text, profile_path=None):
     targets, names = make_targets(root), {f.name for f in files}
     ci_files, ci, own_ci = ci_text(root, top)
 
-    snippets = INLINE_CODE.findall(commands_body + "\n" + layers_body)
+    harness_body = section(profile_text, "Harness")
+    snippets = INLINE_CODE.findall(commands_body + "\n" + layers_body + "\n" + harness_body)
     seen = set()
     for snippet in snippets:
         snippet = snippet.strip()

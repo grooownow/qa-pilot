@@ -15,6 +15,24 @@ Rules:
 - Cost: plan ≈ 80k and verify ≈ 100k tokens (targets). For a well-understood small fix (the orchestrator's short path), run `verify` only.
 - For a large feature, or after a round of small changes, run `/qa-pilot:audit <feature>` (one feature) or `/qa-pilot:audit` (the whole picture) instead of relying on per-task checks.
 
+## Generic snippet: a workflow with a plan phase and a test/review phase
+
+Onboard proposes this for any project workflow (skill, command, `AGENTS.md` flow) that has a plan step and a test or review step. Adapt the phase names; the owner pastes it, qa-pilot never edits the workflow file.
+
+**In the plan phase, before the plan is approved:**
+
+```markdown
+- **QA plan (qa-pilot).** Invoke the `qa-pilot:task-qa` skill in mode `plan` for <TICKET> (internal: use the Skill tool, not a slash command). Put its Must tests into the plan, its proposed AC edits and questions into the open questions, and its regression set into the final checks. Skip on the short path.
+```
+
+**After the tests are written and green, before review or PR:**
+
+```markdown
+- **QA verify (qa-pilot).** Invoke `qa-pilot:task-qa` in mode `verify` for <TICKET>. A BUG it reports goes back to the implement phase with the owner's OK. Paste its `## QA verification` block into the PR body.
+```
+
+**Periodic (release, or after a round of small changes):** run `/qa-pilot:audit` for the whole picture, or `/qa-pilot:audit <feature>` for one feature.
+
 ## Example: TDK `gov-front-feature`
 
 The owner adds the following to `.claude/skills/gov-front-feature/SKILL.md`. qa-pilot does not edit the project itself.

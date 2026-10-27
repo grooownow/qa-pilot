@@ -99,6 +99,27 @@ class DriftTest(unittest.TestCase):
     def test_fresh_profile_has_no_drift(self):
         self.assertEqual(self.kinds(self.repo()), [])
 
+    def test_harness_paths_checked(self):
+        profile = PROFILE + ("\n## Harness\n| Workflow | Path | Phases | Fit point |\n|---|---|---|---|\n"
+                             "| feature | `.claude/skills/feature/SKILL.md` | plan, tests | plan |\n")
+        root = self.repo(profile=profile)
+        self.assertEqual(len(self.drifts(root, "missing-path")), 1)
+        (root / ".claude" / "skills" / "feature").mkdir(parents=True)
+        (root / ".claude" / "skills" / "feature" / "SKILL.md").write_text("")
+        self.assertEqual(self.drifts(root, "missing-path"), [])
+
+    def test_harness_manual_is_quiet(self):
+        profile = PROFILE + "\n## Harness\nHow qa-pilot is called here: manually\n"
+        self.assertEqual(self.kinds(self.repo(profile=profile)), [])
+
+    def test_harness_directory_row_is_not_missing_when_it_exists(self):
+        profile = PROFILE + ("\n## Harness\n| Workflow | Path | Phases | Fit point |\n|---|---|---|---|\n"
+                             "| hooks | `e2e/` | pre-commit | none fits |\n")
+        self.assertEqual(self.drifts(self.repo(profile=profile), "missing-path"), [])
+
+    def test_profile_without_harness_has_no_new_drift(self):
+        self.assertEqual(self.drifts(self.repo(), "missing-path"), [])
+
     def test_renamed_script_is_missing(self):
         scripts = {k: v for k, v in SCRIPTS.items() if k != "typecheck"} | {"types": "tsc"}
         self.assertEqual(self.kinds(self.repo(scripts=scripts)), ["missing-script"])
