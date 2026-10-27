@@ -6,17 +6,21 @@ qa-pilot is free for personal and other noncommercial use under the
 Using qa-pilot for a business needs a commercial licence. That includes work on your
 employer's or your clients' projects, and use inside a company.
 
-## What a commercial licence gives
+## Licences
 
-- Use by the whole company, on any number of internal and client projects, with no seat
-  or project limit.
-- Updates released while the licence is valid.
-- Everything qa-pilot produces for your projects (reports, plans, tests) is yours.
+- **Personal commercial licence:** one person, on any number of their own, employer's or
+  clients' projects. Available as qa-pilot Pro on Agensi
+  (link added once the listing is live) or by email.
+- **Company licence:** the whole company, on any number of internal and client projects,
+  with no seat or project limit. Write to [krobox@gmail.com](mailto:krobox@gmail.com);
+  we send the package and an invoice.
+
+Both include updates released while the licence is valid. Everything qa-pilot produces for
+your projects (reports, plans, tests) is yours.
 
 ## How to get one
 
-- **qa-pilot Pro on Agensi:** <!-- TODO: Agensi listing URL once published -->
-- **Directly, by email:** <!-- TODO: contact address --> We send the package and an invoice.
+- **By email:** [krobox@gmail.com](mailto:krobox@gmail.com)
 
 ## Earlier versions
 
