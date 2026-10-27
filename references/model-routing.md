@@ -54,3 +54,5 @@ sloppy iterations.** Quality is never traded down — waste is.
 - If the window limit is near, stop at a clean checkpoint: write the state
   document, list "next steps" in it, and tell the user exactly how to resume
   (`continue the audit from docs/qa/audit-report.md, phase 3`).
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

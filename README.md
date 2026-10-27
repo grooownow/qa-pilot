@@ -204,4 +204,8 @@ we build client work.
 
 ## License
 
-MIT
+Free for personal and other noncommercial use under the
+[PolyForm Noncommercial License 1.0.0](LICENSE). Business use (your employer's or your
+clients' projects, use inside a company) needs a commercial licence: see
+[COMMERCIAL.md](COMMERCIAL.md). Versions up to and including 0.9.0 were released under the
+MIT licence and stay under it.

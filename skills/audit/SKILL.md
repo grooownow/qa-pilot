@@ -40,3 +40,5 @@ Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.m
 4. **The user doesn't know which audit they need.** Start with the project audit: its roadmap points at the next audit worth running.
 
 The audits report: they write reports and action lists under `docs/qa/` and propose actions. Any writing (tests, stories, `data-testid` hooks) happens only through `qa-pilot:write-tests` after the owner's yes: the UI audit hands picked gaps to it in its Phase 5, and for the other action lists point the user to `/qa-pilot:test` with the list. Product logic is never changed; adding a test id changes no behaviour and is listed (`../../references/test-delta.md`, §6).
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

@@ -143,3 +143,5 @@ Refactoring tests has a special trap: a "refactored" test that stops testing
 the same behavior. For any rewritten test, re-prove it can fail
 (quality-rules rule 3), with `failure_probe.py` and the same mutation as in
 Phase 3 when the test was probed there.
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

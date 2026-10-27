@@ -57,3 +57,5 @@ Check it with `python3 <plugin>/skills/spec-audit/scripts/score.py validate <fil
 2. After the run, a judge (a subagent) reads the rubric JSON, the actions and the findings. It writes `mapping.json`: `{"G1": {"verdict": "pass|partial|fail", "actions": ["A3"], "note": "..."}}`.
 3. Run `score.py score --actions … --mapping … --rubric …` to get the pass/partial/fail counts, the bucket counts and the share of product questions.
 4. Run `score.py agreement run1.json run2.json` to get the share of (entity, pattern) cells with the same verdict. A cell present in only one run counts as a disagreement.
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

@@ -247,3 +247,5 @@ Then:
 - **Offer** to export the action list as `docs/qa/test-plans/<feature>.md` in the `qa-pilot:plan-tests` format, so that `qa-pilot:write-tests` can implement it. Do it only on request.
 - Delete `$SCRATCH` only if the user says so; it is the evidence trail.
 - **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes. If invoked by another qa-pilot skill, hand the candidates back to it instead of asking.
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

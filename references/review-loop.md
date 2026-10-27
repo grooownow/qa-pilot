@@ -78,3 +78,5 @@ that had Critical/Important findings, scoped to the changed areas.
 - Re-reviewing the whole diff every round — round 2+ is scoped to changes.
 - Fixing Worth-fixing items by rewriting half the file (scope creep).
 - Running reviewers sequentially — dispatch is always one parallel batch.
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

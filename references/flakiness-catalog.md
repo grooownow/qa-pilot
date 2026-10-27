@@ -239,3 +239,5 @@ Key properties worth keeping if you build your own version:
   default.
 - Track quarantine count as a metric worth watching: a registry that only grows is a sign
   the underlying flakiness sources above aren't being fixed, just hidden.
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

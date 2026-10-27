@@ -63,3 +63,5 @@ A small online shop: catalog, cart, checkout, accounts.
 | Checkout | A declined card keeps the cart and shows a retry | e2e/checkout.spec.ts › "declined card keeps cart" | e2e | yes | distinguishing assertion | 2026-10-26 |
 | Accounts | Password reset link works once | src/lib/auth.test.ts › "reset link is single use" | unit | no | none | 2026-10-20 |
 ```
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

@@ -143,3 +143,5 @@ Thresholds:
   signal to investigate, not to move on assuming it will clean itself up eventually.
 - **Screenshotting every click** instead of every state. This produces a wall of redundant
   images that hide the one that actually shows the bug.
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

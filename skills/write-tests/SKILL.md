@@ -123,3 +123,5 @@ Invoked by `qa-pilot:ui-test-audit` with the gaps the owner picked, or from a UI
 - **Failure proof:** break the behaviour the `play` test checks in the component (drop the handler call, invert the disabled condition), run the story test: it must fail for that reason. Restore, run: green. Use `failure_probe.py` as in Phase 3. A `play` test that only renders, or passes with the behaviour broken, is not delivered.
 - **Guard:** the auto-test guard (`../../references/test-delta.md`, §6) caps a batch at 5 new tests; above that, return the rest to the owner as a list.
 - **Matrix:** one row per `play` test, Layer `component`, Feature `UI library`, Requirement `<Component>: <behaviour>`.
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

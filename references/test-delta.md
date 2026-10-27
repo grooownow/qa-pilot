@@ -75,3 +75,5 @@ No source means it is a **question**, not a test.
 **A BUG test is never made green by the agent.** Record its failure output. Then either leave it uncommitted for the owner, or commit it with the framework's expected-failure marker (`test.fail()` in Playwright, `it.failing` in Jest/Vitest) and the BUG reference in the title. The "all new tests green" and gate checks of `write-tests` exclude these tests. The owner, or the orchestrator with the owner's OK, fixes the code and removes the marker.
 
 Anything beyond that goes to the owner as a list. Silence is not approval.
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

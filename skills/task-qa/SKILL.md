@@ -125,3 +125,5 @@ The `Not in CI` line appears only when the profile's `Test layers` has a layer t
 ## Plugging into an orchestrator
 
 See `../../references/orchestrator-integration.md`. It gives a generic contract and a ready snippet for a feature workflow with plan and test phases, such as TDK's `gov-front-feature`. Do not edit another project's workflow yourself; give the owner the snippet.
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

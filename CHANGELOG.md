@@ -4,6 +4,15 @@ All notable changes to qa-pilot. Versions follow `.claude-plugin/plugin.json`; e
 
 To update an installed plugin: `/plugin` → marketplace qa-pilot → update, then `/reload-plugins`.
 
+## [Unreleased]
+
+### Changed
+- **Licence.** From the next release qa-pilot is free for personal and other noncommercial use under the PolyForm
+  Noncommercial License 1.0.0 (`LICENSE`). Business use needs a commercial licence (`COMMERCIAL.md`). Versions up to
+  and including 0.9.0 were released under MIT and stay under it.
+- Author in `plugin.json` is Ludvik4. Skill, reference and agent files end with an ownership marker;
+  `scripts/plugin/find_copies.py` prints search links for copies, and `test_license.py` keeps the marker in place.
+
 ## [0.9.0] — 2026-10-27
 
 ### Added

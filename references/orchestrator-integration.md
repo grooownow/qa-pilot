@@ -50,3 +50,5 @@ The owner adds the following to `.claude/skills/gov-front-feature/SKILL.md`. qa-
 ```
 
 **Phase table (Model routing).** Both calls are judgment work. Run them inline on the session model, or delegate them to a subagent that returns only the task file path and the summary block.
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

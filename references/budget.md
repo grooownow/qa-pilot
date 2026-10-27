@@ -40,3 +40,5 @@ Anything a mode skipped is listed in the report under "Not done (budget)", one l
 ## Spend reporting
 
 The agent cannot read its own token count. With `report_spend: yes`, each heavy skill states its own estimate before the run and an estimate after ("~120k by the size of what was read"), and points the owner to Claude Code's `/cost` (or `/usage`) for the real number.
+
+<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->
