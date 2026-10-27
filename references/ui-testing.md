@@ -37,4 +37,4 @@ OS image). Never the only assertion for a behaviour (QAP-TC-024).
 
 A UI test that CI does not run counts as local only. Report it with the "Not in CI" line; do not draft the CI job.
 
-<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->
+<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

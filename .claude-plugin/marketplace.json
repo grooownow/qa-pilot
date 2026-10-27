@@ -1,7 +1,7 @@
 {
   "name": "qa-pilot",
   "owner": {
-    "name": "grooownow"
+    "name": "Ekaterina Pustovaia (Ludvik4)"
   },
   "metadata": {
     "description": "QA copilot for Claude Code with three commands: onboard, test (per-task QA and browser testing) and audit (project, requirements, test code)."

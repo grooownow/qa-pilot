@@ -68,4 +68,4 @@ A Phase 1 first-pass count for a small shop suite, and one finding it led to:
 asserts `response.status() === 200`; it never checks the confirmation page.
 Fix: assert the order number is visible after the click.
 
-<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->
+<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

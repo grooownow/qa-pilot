@@ -375,4 +375,4 @@ both are worth naming.
 - `test.describe.serial` is an explicit escape hatch for a handful of cases that must share
   state — treat it as rare and document why cleanup couldn't be per-test.
 
-<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->
+<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

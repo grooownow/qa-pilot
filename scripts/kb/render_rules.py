@@ -168,6 +168,10 @@ def known_catalog_ids(kb_dir):
     return ids
 
 
+OWN_MARKER = ("<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · "
+              "PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->")
+
+
 def render_topic(topic, records):
     from_book = all(r["id"].startswith("QAC-") for r in records)
     provenance = ("Формулировки — пересказ книги «Качество решает всё»; страницы — печатные номера книги."
@@ -201,6 +205,8 @@ def render_topic(topic, records):
                 out += [f"**Сегодня:** {r['modern_note']}", ""]
             if r.get("decision"):
                 out += [f"**Решение команды (приоритетнее книги):** {r['decision']}", ""]
+    if records and all(r["id"].startswith("QAP-") for r in records):
+        out += ["", OWN_MARKER]
     return "\n".join(out).rstrip() + "\n"
 
 

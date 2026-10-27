@@ -51,4 +51,4 @@ If you cannot point to the code or config that makes the harm reachable, it is n
 
 Details and the auto-test guard: `references/test-delta.md`.
 
-<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->
+<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

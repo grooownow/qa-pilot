@@ -65,4 +65,4 @@ A small online shop: catalog, cart, checkout, accounts.
 - 2026-10-20 · `npm run test:e2e` needs `SHOP_BASE_URL`; without it every test passes against an empty page · source: run · for: all
 ```
 
-<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->
+<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

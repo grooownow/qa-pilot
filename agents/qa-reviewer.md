@@ -36,4 +36,4 @@ When reviewing test code, you may tag a finding with a name from
 If you find nothing within your lens after a genuine hunt, reply exactly
 "No findings" — do not manufacture filler findings to look useful.
 
-<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->
+<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

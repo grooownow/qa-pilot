@@ -9,20 +9,21 @@ Usage: python3 scripts/plugin/find_copies.py
 from urllib.parse import quote
 
 MARKER_REF = "qp-l4-7f3a9c"
+# The marker, rule ids, and full sentences that only qa-pilot uses. Short generic phrases are noise.
 NEEDLES = [
     MARKER_REF,
     "QAP-WEB-001",
     "QAP-UI-001",
-    "test delta",
-    "distinguishing assertion",
+    "QAP-TC-028",
+    "Для каждой сущности с правкой и удалением определено и проверено",
 ]
 
 
 def search_links(needle):
     q = quote(f'"{needle}"')
     return [
-        f"https://github.com/search?q={q}+NOT+repo%3Agrooownow%2Fqa-pilot&type=code",
-        f"https://www.google.com/search?q={q}+qa-pilot",
+        f"https://github.com/search?q={q}+-repo%3Agrooownow%2Fqa-pilot&type=code",
+        f"https://www.google.com/search?q={q}",
     ]
 
 

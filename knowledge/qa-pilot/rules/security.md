@@ -384,3 +384,6 @@ Lock-файл закоммичен, в CI работает проверка за
 **Почему:** Защита в глубину: nosniff не даёт браузеру исполнить файл с неверным типом, Referrer-Policy ограничивает утечку URL (см. QAP-SEC-021).
 
 **Как проверить:** curl -sI по HTML-страницам, API и статике. Fail: нет X-Content-Type-Options: nosniff; нет Referrer-Policy (ни в заголовке, ни в meta) или значение unsafe-url или no-referrer-when-downgrade.
+
+
+<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

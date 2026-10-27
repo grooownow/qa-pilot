@@ -285,4 +285,4 @@ Example: `examples/strategy-check.md`.
 - Suggest the natural next step: `/qa-pilot:audit` for the big picture of an existing project,
   or `/qa-pilot:test <feature or ticket>` if they came with a specific task.
 
-<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->
+<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

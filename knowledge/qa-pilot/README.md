@@ -36,4 +36,4 @@ python3 scripts/kb/render_rules.py knowledge/qa-pilot   # валидация + �
 По способу проверки: deterministic — 33, heuristic — 148, manual — 2
 <!-- /stats -->
 
-<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->
+<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

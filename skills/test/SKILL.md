@@ -74,4 +74,4 @@ When you are done, offer the natural next step in one line, for example: "Про
 - **Over-testing is a failure.** Must is always covered; Highlight items are listed, not drilled into, unless the user asks for depth ("подробно", "thorough").
 - **Scope filters** in `docs/qa/rule-overrides.json` → `scope` apply in every mode. Filtered risks are listed under *Suppressed by your filters*, never silently dropped.
 
-<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->
+<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

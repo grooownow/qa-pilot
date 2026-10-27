@@ -34,6 +34,7 @@ class RenderWebPatternsTest(unittest.TestCase):
         self.assertIn("`useMutation(`", md)
         self.assertIn("| QAP-WEB-001 |", md)
         self.assertNotIn("| QAP-WEB-003 |", md)
+        self.assertTrue(md.rstrip().endswith("ref qp-l4-7f3a9c -->"))
         self.assertEqual(md, render(list(reversed(patterns)), [invariant("QAP-WINV-001"), invariant("QAP-WINV-002")]))
 
 

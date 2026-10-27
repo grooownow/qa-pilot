@@ -7,11 +7,13 @@ To update an installed plugin: `/plugin` → marketplace qa-pilot → update, th
 ## [1.0.0] — 2026-10-27
 
 ### Changed
-- **Licence.** From this release qa-pilot is free for personal and other noncommercial use under the PolyForm
-  Noncommercial License 1.0.0 (`LICENSE`). Business use needs a commercial licence (`COMMERCIAL.md`). Versions up to
-  and including 0.9.0 were released under MIT and stay under it.
-- Author in `plugin.json` is Ludvik4. Skill, reference and agent files end with an ownership marker;
-  `scripts/plugin/find_copies.py` prints search links for copies, and `test_license.py` keeps the marker in place.
+- **Licence.** From this release qa-pilot is free for noncommercial use under the PolyForm Noncommercial License
+  1.0.0 (`LICENSE`). Commercial use needs a personal or company licence (`COMMERCIAL.md`). The book-derived rule
+  catalog in `knowledge/catalog/` is not covered by commercial licences. Versions up to and including 0.9.0 were
+  released under MIT and stay under it.
+- Licensor and author: Ekaterina Pustovaia (Ludvik4). Skill, reference, agent and own-rule files end with an
+  ownership marker; both renderers write it. `scripts/plugin/find_copies.py` prints search links for copies;
+  `test_license.py` pins the licence text and keeps the marker in place.
 
 ## [0.9.0] — 2026-10-27
 

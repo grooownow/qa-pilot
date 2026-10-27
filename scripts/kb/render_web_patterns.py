@@ -14,6 +14,10 @@ from pathlib import Path
 VERDICTS = "OK · BUG · GAP · N/A (with evidence) · DECISION · SUPPRESSED (owner filter)"
 
 
+OWN_MARKER = ("<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · "
+              "PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->")
+
+
 def render(patterns, invariants):
     patterns = sorted(patterns, key=lambda r: r["id"])
     must = [r for r in patterns if r["pattern"]["tier"] == "must-check"]
@@ -40,6 +44,7 @@ def render(patterns, invariants):
             "(cite the id). A violation on a user-visible path is a BUG, not a product question.", ""]
     for r in sorted(invariants, key=lambda r: r["id"]):
         out += [f"- **{r['id']} · {r['title']}.** {r['statement']} _(source: {r['source']['origin']})_"]
+    out += ["", OWN_MARKER]
     return "\n".join(out).rstrip() + "\n"
 
 

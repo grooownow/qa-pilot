@@ -204,8 +204,9 @@ we build client work.
 
 ## License
 
-Free for personal and other noncommercial use under the
-[PolyForm Noncommercial License 1.0.0](LICENSE). Business use (your employer's or your
-clients' projects, use inside a company) needs a commercial licence: see
-[COMMERCIAL.md](COMMERCIAL.md). Versions up to and including 0.9.0 were released under the
-MIT licence and stay under it.
+Free for noncommercial use under the [PolyForm Noncommercial License 1.0.0](LICENSE).
+Commercial use (work for a for-profit employer or for clients, use inside a company) needs
+a commercial licence: see [COMMERCIAL.md](COMMERCIAL.md). The rule catalog in
+`knowledge/catalog/` is derived from a third-party book and is not covered by commercial
+licences. Versions up to and including 0.9.0 were released under the MIT licence and stay
+under it.

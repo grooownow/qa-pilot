@@ -79,4 +79,4 @@ Before declaring any task complete:
 - [ ] Review loop completed (or explicitly waived as trivial one-liner)
 - [ ] Output document updated (report / plan / session log)
 
-<!-- qa-pilot · © 2026 Ludvik4 · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->
+<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

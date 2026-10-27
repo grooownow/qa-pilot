@@ -70,6 +70,10 @@ class NonBookRulesTest(unittest.TestCase):
         self.assertIn("источник: pilot pawfile 2026-10-12", md)
         self.assertIn("Собственные правила qa-pilot", md)
 
+    def test_ownership_marker_only_on_own_rules(self):
+        self.assertIn("ref qp-l4-7f3a9c", render_topic("pilot", [self.QAP]))
+        self.assertNotIn("ref qp-l4-7f3a9c", render_topic("forms", [VALID]))
+
     def test_qap_without_origin_fails(self):
         bad = {**self.QAP, "source": {"chunk_id": "s1-c07-01"}}
         self.assertTrue(any("source.origin is required" in e for e in validate_all({"pilot": [bad]}, CHUNKS)))
