@@ -9,7 +9,8 @@ win on conflict.
 ## Quick checklist
 
 - One `test.describe` per spec file; the file name and describe title both name the feature.
-- Locate by stable `data-testid` first, then semantic locators by decreasing reliability
+- Locate every element by `data-testid`; if it is missing, add it to the component. A role or
+  text locator only when a test id cannot be added, with a `// no testid: <reason>` comment
   (see Locator strategy); never CSS classes or `nth-child`.
 - Page Object Model for any flow with more than a couple of interactions; injected via a
   fixture, not `new`'d inline in every test.
@@ -177,28 +178,44 @@ need a hand-rolled `test.afterAll` — the per-test cleanup fixture doesn't fit 
 
 ## Locator strategy
 
-- Prefer, in order of decreasing reliability:
-  1. **`getByTestId`** — a dedicated `data-testid` is the only locator that survives
-     restyling, copy changes, AND translation. On any project that is (or may become)
-     multilingual, this is the default.
-  2. **`getByRole` without a text name** (e.g. `getByRole("alert")`, `getByRole("dialog")`) —
-     semantic and language-independent, when the role alone is unambiguous in context.
-  3. **`getByRole`/`getByLabel` with a name** — readable and accessibility-aware, but the
-     name IS display text: it breaks on copy edits and on every non-default locale. Fine for
-     single-language projects; on multilingual ones only with a locale-independent source
-     (translation-key lookup or a pinned test locale).
-  4. **`getByText`** — last resort: couples the test to exact copy and to one language.
-     Acceptable only when the text itself is the behavior under test (e.g. asserting a
-     specific message), and even then prefer asserting text on an element found by test id.
+**Hard rule: every element a test touches is found by `data-testid`.** A missing test id is
+not a reason to fall back to a role or a text: **add the test id to the component** as part of
+writing the test. This is not a code fix — it changes no behaviour — and the auto-test guard
+allows it (test-delta §6).
 
-  Never `.locator('.some-class')` or `nth-child` — both break the moment styling or DOM
-  order changes, independent of any user-visible change.
 - Export `data-testid` values as named constants from the component that owns them, not as
   string literals sprinkled through tests. A rename becomes a one-file diff instead of a
   find-and-replace across specs.
+- **Fall back only when a test id cannot be added.** Before falling back, try in this order:
+  1. pass it through the component's props (`data-testid`, `inputProps`, `slotProps`,
+     `PaperProps` and the like — most UI libraries forward `data-*`);
+  2. put it on the nearest element you own (a wrapper or container) and find the inner
+     element inside it;
+  3. only then a fallback locator, scoped inside an element found by test id.
+
+  Cases where a test id is impossible: markup of a third-party library that forwards no
+  props and cannot be wrapped; a cross-origin iframe or external widget (payment form,
+  captcha, maps); generated or vendored code you must not edit; native browser UI (file
+  chooser, permission and print dialogs).
+- **Fallback order** (only in those cases):
+  1. `getByRole` without a text name (e.g. `getByRole("dialog")`) — language-independent;
+  2. `getByRole`/`getByLabel` with a name — breaks on copy edits and on every non-default
+     locale; on multilingual projects only with a locale-independent source (translation-key
+     lookup or a pinned test locale);
+  3. `getByText` — only when the text itself is the behaviour under test.
+
+  Every fallback carries a comment with the reason: `// no testid: <library> renders this
+  without forwarding props`. A fallback without that comment is a finding.
+- Never `.locator('.some-class')`, XPath or `nth-child` — they break the moment styling or
+  DOM order changes, independent of any user-visible change.
+- Asserting a visible text is fine (it is the result the user sees); find the element by test
+  id and assert its text.
 - Test ids are hooks for tests, not a replacement for accessibility: if an interactive
   element has no role or accessible name at all, flag the component — screen-reader users
   hit the same wall the locator did.
+- A project that documents a different locator policy (in its own rules, see the profile's
+  Conventions) keeps it: project rules win (`quality-rules.md` rule 6). Without such a rule,
+  this hard rule applies.
 
 ## Waiting strategy
 

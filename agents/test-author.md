@@ -17,9 +17,12 @@ something that changes the code you'd write, return a question instead of guessi
 2. Look at 1–2 existing tests nearest to your target before writing — copy their
    structure, not a generic template.
 3. Write the tests. Rules that always apply:
-   - The project's locator policy from the profile; absent one, stable test ids
-     first, then semantic locators by decreasing reliability — never text-based
-     locators on multilingual projects, never brittle CSS/XPath chains.
+   - The project's locator policy from the profile; absent one, the hard rule from
+     `references/e2e-patterns.md`: every element by `data-testid`. If the element has
+     none, add it to the component (exported constant) — that is part of the test, not
+     a code fix. A role or text locator only when a test id cannot be added (third-party
+     markup that forwards no props, cross-origin iframe, vendored code, native browser
+     UI), with a `// no testid: <reason>` comment. Never CSS/XPath chains or `nth()`.
    - Web-first assertions; never `waitForTimeout`; no magic-number timeouts.
    - A UI/e2e test confirms an action by what the user sees: the deleted row is
      gone, the saved value shows after a reload. A response status or a mocked

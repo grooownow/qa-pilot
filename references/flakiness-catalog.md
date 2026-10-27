@@ -78,8 +78,9 @@ test runs) rather than adding a wait long enough to outlast the longest transiti
 **Root cause:** the locator targets a CSS class, DOM position (`nth-child`), or generated
 class name, none of which are part of the component's contract with its users.
 
-**Fix:** switch to a stable `data-testid` exported as a named constant from the component,
-or a semantic role locator. Text-based locators are not a fix — they trade DOM-flakiness
+**Fix:** switch to a stable `data-testid` exported as a named constant from the component;
+add it to the component if it is missing. A semantic role locator only when a test id cannot
+be added (see `e2e-patterns.md`). Text-based locators are not a fix — they trade DOM-flakiness
 for copy/translation-flakiness. See `e2e-patterns.md` — locator strategy.
 
 ## Real-backend data drift

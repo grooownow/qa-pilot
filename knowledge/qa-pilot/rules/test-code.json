@@ -651,19 +651,19 @@
   {
     "id": "QAP-TC-028",
     "kind": "rule",
-    "severity": "should",
-    "title": "Локаторы по роли, подписи или test id, а не по CSS, XPath и позиции",
-    "statement": "Элементы находятся через getByRole/getByLabel/getByTestId (и аналогичные запросы Testing Library), а не через CSS-классы, XPath, nth()/first()/last() или ElementHandle. Порядок предпочтения между ролью и test id задаёт проект: Playwright и Testing Library ставят роль первой, а references/e2e-patterns.md для многоязычных продуктов ставит test id первым. Аудит не считает находкой ни один из этих двух вариантов.",
-    "rationale": "CSS и позиционные локаторы ломаются от рефакторинга вёрстки без изменения поведения. Локатор по роли заодно проверяет, что у элемента есть доступная роль и имя.",
+    "severity": "must",
+    "title": "Каждый элемент в тесте находится по data-testid; нет test id — его добавляют",
+    "statement": "Тест находит элементы через getByTestId (data-testid, вынесенный константой из компонента). Если у элемента нет test id, его добавляют в компонент — это часть написания теста, а не правка кода. Роль, подпись или текст допустимы, только когда test id добавить нельзя: разметка сторонней библиотеки, которая не пробрасывает пропсы и не оборачивается; кросс-доменный iframe или внешний виджет; сгенерированный или вендорный код; нативный UI браузера. Такой запасной локатор ищется внутри элемента с test id и несёт комментарий с причиной («no testid: …»). CSS-классы, XPath, nth()/first()/last() и ElementHandle не используются никогда. Если в правилах проекта явно записана другая политика локаторов, действует она.",
+    "rationale": "Test id переживает смену вёрстки, текстов и перевода; роль с именем и текст ломаются от правки копирайта и на каждом не основном языке. Когда агент «довольствуется» ролью или текстом вместо того, чтобы добавить test id, хрупкость копится незаметно.",
     "applies_to": [
       "test-code"
     ],
     "check": {
       "mode": "deterministic",
-      "how": "Линтер: playwright/no-raw-locators, playwright/no-nth-methods, playwright/no-element-handle, playwright/prefer-native-locators; testing-library/no-container, testing-library/no-node-access. Срабатывание — находка, кроме случаев с комментарием, почему семантического локатора нет (тогда находка на сам компонент — нет роли/подписи)."
+      "how": "Линтер: playwright/no-raw-locators, playwright/no-nth-methods, playwright/no-element-handle; testing-library/no-container, testing-library/no-node-access. Плюс поиск getByRole|getByLabel|getByText в тестах: срабатывание без комментария «no testid: <причина>» — находка. С комментарием — проверить, что причина реальна (сторонняя разметка, iframe, вендорный код, нативный UI), иначе находка."
     },
     "source": {
-      "origin": "Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) — Use locators; eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright): no-raw-locators, no-nth-methods, no-element-handle; Testing Library, Guiding Principles (https://testing-library.com/docs/guiding-principles) и Queries/About Queries — Priority (https://testing-library.com/docs/queries/about#priority) — query priority; eslint-plugin-testing-library (https://github.com/testing-library/eslint-plugin-testing-library): no-container, no-node-access; references/e2e-patterns.md (Locator strategy, иная приоритизация)"
+      "origin": "Cypress docs, Best Practices — Selecting Elements (https://docs.cypress.io/app/core-concepts/best-practices#Selecting-Elements): data-* атрибуты как основной селектор; Playwright docs, Best Practices (https://playwright.dev/docs/best-practices) и Testing Library, Queries Priority (https://testing-library.com/docs/queries/about#priority) ставят роль первой — qa-pilot сознательно выбирает test id, а роль оставляет запасным вариантом; eslint-plugin-playwright (https://github.com/mskelton/eslint-plugin-playwright); eslint-plugin-testing-library (https://github.com/testing-library/eslint-plugin-testing-library); references/e2e-patterns.md (Locator strategy)"
     },
     "tags": [
       "selectors",
@@ -671,7 +671,7 @@
       "lint",
       "playwright"
     ],
-    "authority": "vendor-guideline",
+    "authority": "industry-practice",
     "verification": "ok",
     "external_check": "aligned"
   },

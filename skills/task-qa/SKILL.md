@@ -101,7 +101,7 @@ Example of a finished task file with its verify log: `examples/task-file.md`.
    - every expected result has a source; the changed code is never the source;
    - a BUG test has been seen to fail against the unfixed code;
    - at most 5 new tests and at most 1 new e2e;
-   - no code fixes.
+   - no code fixes (adding a `data-testid` to a component is not a code fix, test-delta §6).
 
    Anything beyond the guard goes to the owner as a list.
 5. **Append to the task file** under `## Verify log`: the reconcile table, new questions, tests added (paths), and the proof results. Upsert the tests into `docs/qa/coverage-matrix.md` (`../../references/coverage-matrix.md`): "Covered (CI)" tests get `distinguishing assertion` (or `none`), since they were not seen failing in this run; "Added" tests get `failed when broken, <date>` only with the failure proof seen in this run, else `distinguishing assertion`. Keep an existing row's stronger Proof unless the test changed. Hand back the PR block:

@@ -30,7 +30,7 @@ python3 scripts/kb/render_rules.py knowledge/qa-pilot   # валидация + �
 | [web-invariants](rules/web-invariants.md) | 6 | 6 | 0 | 0 | 0 | 0 |
 | [web-patterns](rules/web-patterns.md) | 18 | 10 | 8 | 0 | 0 | 0 |
 
-По severity: must — 70, should — 95, nice — 11
+По severity: must — 71, should — 94, nice — 11
 
 По способу проверки: deterministic — 33, heuristic — 141, manual — 2
 <!-- /stats -->
