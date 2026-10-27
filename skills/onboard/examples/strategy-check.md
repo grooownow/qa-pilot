@@ -39,4 +39,6 @@ a11y — missing
 Not in CI: e2e full. These tests count as local only.
 
 ## UI state
-Filled by UI detection, only when it runs. Not run yet.
+UI library: `packages/ui` · 14 components · 5 with interaction tests · runner Storybook Vitest addon · in CI no
+
+The shop's Button, Input and Checkbox atoms have stories and `play` tests; the composed `AddressForm` and `CartLine` have stories only. Run `/qa-pilot:audit ui` for the gap list.
