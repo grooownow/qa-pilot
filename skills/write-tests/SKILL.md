@@ -87,18 +87,19 @@ Creates the first e2e layer of a project that has none. Read `../../references/e
 **Preconditions** (same as the offer in `../onboard/SKILL.md`, Strategy check):
 - The profile's `Test layers` shows no e2e layer (the project is empty or has unit tests only). If an e2e runner with its own config already exists, refuse in one line, create nothing, and point to `docs/qa/strategy-check.md` (the gaps are reported there).
 - Framework: the e2e runner already in the dependencies, else Playwright.
+- A JS/TS project (a `package.json`). Otherwise bootstrap stops and lists what the owner would need to set up.
 - The profile has at least one critical flow and the run commands. If it has no critical flow, ask the owner for the first one; do not guess it.
 
 **1. Install list. Show it, then stop.** Print in the chat, in full:
 - packages with exact versions (look up the current version; no ranges, no `latest`), as dev dependencies of this project;
 - the commands it will run: the package manager's install command and the browser download (for Playwright `npx playwright install chromium`);
-- the files it will create or edit: `package.json` (dependency and script), the lockfile, the framework config, the auth fixture, the base page object, the cleanup fixture, the test-id constants file, the smoke test, and any component that needs a `data-testid`.
+- the files it will create or edit, each as a resolved path (find the lockfile of the project's package manager, and read the smoke flow's components to see which lack a `data-testid`, before printing): `package.json` (dependency and script), the named lockfile, the framework config, the auth fixture, the base page object, the cleanup fixture, the test-id constants file, the smoke test, and every component to edit, one path each. A file not on the list is a new ask.
 
 Install nothing and write nothing until the owner answers yes to this exact list. Without a yes, stop at the list. **A yes covers this list only.** If a later step needs one more package, command or file outside the list (an extra plugin, a different browser, a dependency for the cleanup), show the addition and ask again before doing it. Never install globally (no `-g`, no `sudo`), and never edit CI.
 
 **2. Create** (after the yes), reusing the project's folder layout and naming from the profile:
 - the framework config (base URL and the dev-server command from the profile, trace and screenshots on first retry, projects/tags per `../../references/e2e-patterns.md`);
-- an auth fixture (`storageState` or API login per "Auth & storageState");
+- an auth fixture (`storageState` or API login per "Auth & storageState"); credentials come from the profile's Environments credential mechanism, and if it names none, ask the owner;
 - a base page object, fixture-injected ("Fixture-injected Page Object Model");
 - the cleanup fixture ("Fixtures & cleanup");
 - the test-id constants file, owned by the component side as the patterns file says;
@@ -107,6 +108,6 @@ Install nothing and write nothing until the owner answers yes to this exact list
 
 The smoke test follows the hard test-id rule: every element it touches is found by `data-testid`. A missing test id is added to the component. That is not a code fix (`../../references/test-delta.md`, section 6): it changes no behaviour, so list each such component edit in the report and the commit. A role or text locator only with the `// no testid: <reason>` comment the patterns file requires.
 
-**3. Run and prove.** Run the smoke test: green. Then the failure proof, as in Phase 3 step 2: temporarily break the behaviour the smoke test checks, watch it fail for the right reason, restore, watch it green (use the `failure_probe.py` command from Phase 3). A smoke test that cannot fail is not delivered; fix it first. Run it twice more for flakiness.
+**3. Run and prove.** Start the dev server per the profile's Commands (the test needs it running). Run the smoke test: green. Then the failure proof, as in Phase 3 step 2: temporarily break the behaviour the smoke test checks, watch it fail for the right reason, restore, watch it green (use the `failure_probe.py` command from Phase 3). A smoke test that cannot fail is not delivered; fix it first. Run it twice more for flakiness.
 
 **4. Finish.** Run the project's typecheck and lint over the new files. Run the review loop (Phase 4) on the diff. Add the coverage-matrix row for the smoke test (Phase 5). Commit per the repo's policy, or show the diff and ask. The closing message lists the files created, the installs that were approved, the component edits for test ids, and the CI job the owner should add (the run command, the browser install step, the report and trace upload). CI itself is not touched.
