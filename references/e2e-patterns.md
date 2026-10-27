@@ -53,12 +53,12 @@ export class CheckoutPage {
   constructor(private readonly page: Page) {}
 
   // Locators are private and lazy — built on access, not in the constructor.
-  // Test ids first (survive restyling and translation); bare roles where unambiguous.
+  // Every element by test id, from the constants the component exports (hard rule, Locator strategy).
   private el = {
     cardNumber: (): Locator => this.page.getByTestId(CHECKOUT_TEST_IDS.cardNumber),
     expiry: (): Locator => this.page.getByTestId(CHECKOUT_TEST_IDS.expiry),
     payButton: (): Locator => this.page.getByTestId(CHECKOUT_TEST_IDS.payButton),
-    errorBanner: (): Locator => this.page.getByRole("alert"),
+    errorBanner: (): Locator => this.page.getByTestId(CHECKOUT_TEST_IDS.errorBanner),
   };
 
   // Methods are business actions, not "fillCardNumber" + "clickPay" busywork.

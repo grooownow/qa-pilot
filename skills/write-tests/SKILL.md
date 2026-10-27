@@ -11,7 +11,7 @@ Turn scenarios into merged-quality test code. Input: a plan from
 covering more than ~3 scenarios, run `qa-pilot:plan-tests` first instead of
 designing scope on the fly.
 
-**Mode.** Invoked with mode `bootstrap` (by onboard's Strategy check, or `/qa-pilot:test` on "set up e2e") → go to "Mode bootstrap" at the end and skip Phases 1-5. Invoked with target `story` (by the UI audit) → the normal flow, with the rules of "Target story" at the end. Anything else is the normal flow below.
+**Mode.** Invoked with mode `bootstrap` (by onboard's Strategy check, or `/qa-pilot:test` on "set up e2e") → go to "Mode bootstrap" at the end and skip Phases 1-5. Invoked with target `story` (by the UI audit), or given a UI-audit action list (`docs/qa/ui-test-audit-<date>-actions.md`, implemented later through `/qa-pilot:test`; its items have `level: component`, or `story` when written by hand) → the normal flow, with the rules of "Target story" at the end: its setup install rule and its `play` failure proof apply. Anything else is the normal flow below.
 
 Create a todo per phase. Read `../../references/quality-rules.md`,
 `../../references/model-routing.md`, and `../../references/e2e-patterns.md`.
@@ -114,12 +114,12 @@ The smoke test follows the hard test-id rule: every element it touches is found 
 
 ## Target story — stories and `play` tests
 
-Invoked by `qa-pilot:ui-test-audit` with the gaps the owner picked. Read `../../references/ui-testing.md` first. Phases 1-5 apply, with these differences:
+Invoked by `qa-pilot:ui-test-audit` with the gaps the owner picked, or from a UI-audit action list (each item is one gap row; a `component`-level item of another audit's list stays in the normal flow). Read `../../references/ui-testing.md` first. Phases 1-5 apply, with these differences:
 
 - **Input:** gap rows (component, kind, missing states, missing behaviours, rule id), not a test plan. Do not widen them.
 - **What to write:** a story per missing state, in the component's existing `*.stories.*` file (create it next to the component if there is none, in the project's story format: CSF version, `meta` shape, args). A `play` function per missing behaviour, on the story that shows that state, using the project's runner (`storybook/test` or `@storybook/test` `expect`, `userEvent`, `within`, whichever the existing stories import). For an atom, every listed behaviour. For a composition, only what it adds: wiring, state passed between atoms, its own logic; never a check of a nested atom's own behaviour (QAP-UI-003).
 - **Locators:** the hard test-id rule of `../../references/e2e-patterns.md`. A missing `data-testid` is added to the component and listed; it is not a code fix.
-- **Setup (the project has no UI-test tooling yet):** before any story, the install list exactly as in Mode bootstrap, step 1: the Storybook packages and the Vitest addon with its browser-mode Playwright provider, `addon-a11y`, exact versions looked up now, every command, every file as a resolved path. Stop at the list until the owner's yes. A yes covers that list only; one more package, command or file later is asked again. Never install globally, never edit CI. After the yes, install, then write the first `play` test on the top atom of the audit's order.
+- **Setup (the project has no UI-test tooling yet):** before any story, the install list exactly as in Mode bootstrap, step 1: the Storybook packages and the Vitest addon with its browser-mode Playwright provider, `addon-a11y`, exact versions looked up now, every command, every file as a resolved path. Stop at the list until the owner's yes. When `qa-pilot:ui-test-audit` calls with a list the owner already approved in its Phase 5, that yes stands: do not ask again for the same, unchanged list. Called any other way (an action list through `/qa-pilot:test`), ask here. A yes covers that list only; one more package, command or file later is asked again. Never install globally, never edit CI. After the yes, install, then write the first `play` test on the top atom of the audit's order.
 - **Failure proof:** break the behaviour the `play` test checks in the component (drop the handler call, invert the disabled condition), run the story test: it must fail for that reason. Restore, run: green. Use `failure_probe.py` as in Phase 3. A `play` test that only renders, or passes with the behaviour broken, is not delivered.
 - **Guard:** the auto-test guard (`../../references/test-delta.md`, §6) caps a batch at 5 new tests; above that, return the rest to the owner as a list.
 - **Matrix:** one row per `play` test, Layer `component`, Feature `UI library`, Requirement `<Component>: <behaviour>`.

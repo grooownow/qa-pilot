@@ -1,6 +1,6 @@
 {
   "name": "qa-pilot",
-  "description": "QA copilot for existing projects with three commands: onboard (set up the project profile), test (per-task QA: a plan before coding; verification, impact analysis and missing tests after; exploratory browser testing on request) and audit (the big picture: whole project, a feature's requirements against a 1100+ rule catalog and verified own rules, or the test code). Strict quality gates and token economy for subscription plans.",
+  "description": "QA copilot for existing projects with three commands: onboard (set up the project profile), test (per-task QA: a plan before coding; verification, impact analysis and missing tests after; exploratory browser testing on request) and audit (the big picture: whole project, a feature's requirements against a 1100+ rule catalog and verified own rules, the test code, or a UI component library bottom-up). Strict quality gates and token economy for subscription plans.",
   "version": "0.9.0",
   "author": {
     "name": "grooownow",

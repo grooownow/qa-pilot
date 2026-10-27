@@ -26,7 +26,7 @@ Read first:
   - test-code sample, including the failure proof of up to 10 critical-flow tests: about 50–100k tokens plus test run time.
 - **Variable part:** about 150–250k tokens per critical flow at depth `critical`.
 - Read the mode from the profile's `## Budget` per `../../references/budget.md`; the defaults below are `standard`.
-- **Before starting**, state the estimate for the proposed flows and let the owner choose. Default: the top 3 flows. Full depth (`standard`) per flow only when asked.
+- **Before starting**, state the estimate for the proposed flows and let the owner choose. Default: the top 3 flows. Full depth (`standard`) per flow when asked or when the budget mode is `thorough`.
 - **Ask for owner scope filters** (areas not developed, on hold, tests not wanted), unless `docs/qa/rule-overrides.json` has `scope`. Filtered items are listed as suppressed, never silently dropped.
 
 ## Phase 1 — Profile and framework maturity

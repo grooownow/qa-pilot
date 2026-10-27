@@ -14,6 +14,8 @@ The one command for stepping back and looking at the whole thing. **You** pick t
 | **Test code** | `qa-pilot:test-code-audit` | "тесты", "флаки", "test code", "suite", "почему тесты падают", "рефакторинг тестов" |
 | **UI / components** | `qa-pilot:ui-test-audit` | "ui", "storybook", "компоненты", "UI-тесты", "библиотека компонентов" |
 
+The more specific words win: `ui`, `storybook`, `UI-тесты`, `компоненты`, `библиотека компонентов` pick the UI audit even though they contain or sit next to the Test-code word `тесты`.
+
 `docs/qa/project-profile.md` must exist. If it doesn't, say so in one line and run `qa-pilot:onboard` first.
 
 **Is the profile still true?** Run, from the project root (`SKILL_DIR` is this skill's base directory, shown when it loads):
@@ -37,4 +39,4 @@ Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.m
 3. **Ask once,** when the words fit two audits. Example: "проверь тесты флоу оплаты" can mean the requirements coverage of the flow or the quality of its test code. Use one question with the options and your recommendation first.
 4. **The user doesn't know which audit they need.** Start with the project audit: its roadmap points at the next audit worth running.
 
-The audits are read-only for product code. They write reports under `docs/qa/` and propose actions. For implementing the action lists, point the user to `/qa-pilot:test` with the list (it writes tests from a plan).
+The audits report: they write reports and action lists under `docs/qa/` and propose actions. Any writing (tests, stories, `data-testid` hooks) happens only through `qa-pilot:write-tests` after the owner's yes: the UI audit hands picked gaps to it in its Phase 5, and for the other action lists point the user to `/qa-pilot:test` with the list. Product logic is never changed; adding a test id changes no behaviour and is listed (`../../references/test-delta.md`, §6).

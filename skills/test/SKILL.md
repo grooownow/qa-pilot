@@ -15,7 +15,7 @@ The modes are hidden skills; invoke them with the Skill tool and follow them. Do
 | **Task verify** | `qa-pilot:task-qa` (mode `verify`) | There is a change: branch diff or uncommitted work. If no task file exists, verify runs plan steps 1–4 compactly first |
 | **Cover what shipped** | `qa-pilot:cover` | The user wants tests for code already written and does not care about the plan or AC: "покрой тестами", "add tests for this" |
 | **Browser** | `qa-pilot:explore` | "в браузере", "покликай", "manually", a URL, "reproduce this bug", "check the fix in the app" |
-| **Write tests from a plan** | `qa-pilot:write-tests` | The user points to a test plan (`docs/qa/test-plans/*.md`) or an action list (`*-actions.md`) and wants it implemented. Mode `bootstrap`: "каркас e2e", "set up e2e", "bootstrap" in a project with no e2e layer |
+| **Write tests from a plan** | `qa-pilot:write-tests` | The user points to a test plan (`docs/qa/test-plans/*.md`) or an action list (`*-actions.md`) and wants it implemented. An action list from the UI audit (`ui-test-audit-*-actions.md`, actions with `level: component`) goes with target `story`. Mode `bootstrap`: "каркас e2e", "set up e2e", "bootstrap" in a project with no e2e layer |
 
 `docs/qa/project-profile.md` must exist. If it doesn't, say so in one line and run `qa-pilot:onboard` first.
 

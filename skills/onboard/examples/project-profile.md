@@ -11,6 +11,7 @@
 
 ## Test landscape
 - Playwright (e2e), Vitest (unit + component), MSW (network mocks for component tests).
+- UI library `packages/ui`: Storybook 9 with the Vitest addon; 14 components, 5 stories with `play` tests.
 - About 140 Vitest tests in `src/**/*.test.ts(x)`, 22 Playwright tests in `e2e/*.spec.ts`.
 - Tags in e2e titles: `@smoke` (runs on every PR), `@full` (nightly).
 
@@ -21,6 +22,7 @@
 | component | `src/components/**/*.test.tsx` | `pnpm test:unit` | yes: job `unit`, every PR | no |
 | e2e smoke | `e2e/*.spec.ts` `@smoke` | `pnpm test:e2e --grep @smoke` | yes: job `e2e`, every PR | no |
 | e2e full | `e2e/*.spec.ts` `@full` | `pnpm test:e2e` | yes: nightly only | no |
+| component/UI | `packages/ui/**/*.stories.tsx` | `pnpm test:storybook` | no: local only | no |
 | API integration | none | none | no | n/a |
 
 ## Error plumbing
@@ -36,7 +38,7 @@
 - Dev server: `pnpm dev` (port 3000).
 
 ## Conventions
-- Locators: role or label first, `data-testid` as fallback; no CSS or XPath. See `docs/testing.md`.
+- Locators: `data-testid` on every element a test touches, constants in `src/testIds.ts`; no CSS or XPath. See `docs/testing.md`. (`CONTRIBUTING.md` line 41 still says "use CSS selectors"; the code does not follow it.)
 - Fixtures: `e2e/fixtures.ts` provides `loggedInPage` and `seededCart`; no page-object classes.
 - Naming: `feature.spec.ts` for e2e, `<module>.test.ts` next to the source for unit.
 - Network mocks: handlers in `src/mocks/handlers.ts`, one per endpoint.
@@ -56,7 +58,7 @@
 | Layers and CI gates | partial | e2e full runs nightly only (`.github/workflows/ci.yml`) |
 | Network mocking | present | `src/mocks/handlers.ts` |
 | Test data | partial | seed script exists; no per-test cleanup (`searched: afterEach in e2e → 0`) |
-| Stable selectors | present | 31 `getByRole`, 4 `data-testid`, 0 CSS in `e2e/` |
+| Stable selectors | present | 35 `getByTestId`, 0 CSS in `e2e/`; constants in `src/testIds.ts` |
 | Flaky handling | partial | `retries: 2` in CI (`playwright.config.ts`); `searched: quarantine, owner → 0` |
 | Test lint rules | partial | `eslint-plugin-playwright` on, no `no-skipped-test` |
 | API integration tests | missing | `searched: supertest, route handler tests → 0` |
@@ -82,6 +84,19 @@ has_ai_features: false
 
 ## Priorities
 - Stop false greens in checkout tests, then cover the account flows.
+
+## Harness
+| Workflow | Path | Phases | Fit point |
+|---|---|---|---|
+| none found | `searched: .claude/, AGENTS.md, CLAUDE.md, .husky/, PR templates → 0` | | none fits |
+
+How qa-pilot is called here: manually
+
+## Budget
+```yaml
+mode: standard
+report_spend: no
+```
 
 ## Open gaps
 - Non-blocking: is the guest checkout still supported? The code has it, the docs do not.

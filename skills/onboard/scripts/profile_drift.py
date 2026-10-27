@@ -10,7 +10,8 @@ exits 2 when there is no profile to check.
 
 Drift:
   missing-script  a profile command runs a package or make script that no longer exists
-  missing-path    a path the profile names no longer exists
+  missing-path    a path the profile names no longer exists (in `## Harness` also a bare `.md` file,
+                  such as `AGENTS.md` or `CLAUDE.md`)
   left-ci         the profile says CI runs a layer, but no CI file runs its command any more
                   and none has the CI job the profile names for it
   joined-ci       the profile says CI does not run a layer, but a CI file runs its command now
@@ -69,6 +70,9 @@ YAML_KEY = re.compile(r"^-?\s*[\w-]+:(?:\s|$)")
 INLINE_CODE = re.compile(r"`([^`\n]+)`")
 PATH_LIKE = re.compile(r"^\.{0,2}/?[\w@.-]+(?:/[\w@.*()\[\]-]*)+/?$"
                        r"|^[\w.-]+\.(?:tsx?|jsx?|mjs|cjs|mts|cts|json|ya?ml|toml|ini|cfg|py)$")
+# A bare Markdown file name (`AGENTS.md`, `CLAUDE.md`) is a path only in `## Harness`, where it names a workflow
+# file; elsewhere a bare `.md` name is usually a doc reference in prose.
+HARNESS_FILE = re.compile(r"^[\w.-]+\.md$")
 
 
 def section(text, title):
@@ -403,6 +407,7 @@ def check(root, profile_text, profile_path=None):
     ci_files, ci, own_ci = ci_text(root, top)
 
     harness_body = section(profile_text, "Harness")
+    harness_snippets = {s.strip() for s in INLINE_CODE.findall(harness_body)}
     snippets = INLINE_CODE.findall(commands_body + "\n" + layers_body + "\n" + harness_body)
     seen = set()
     for snippet in snippets:
@@ -416,7 +421,7 @@ def check(root, profile_text, profile_path=None):
         elif ref and ref[0] == "make" and ref[1] not in targets:
             drifts.append(("missing-script", f"`{snippet}`: the Makefile has no target \"{ref[1]}\""))
         elif not ref and " " not in snippet and "://" not in snippet and not snippet.startswith("@") \
-                and PATH_LIKE.match(snippet):
+                and (PATH_LIKE.match(snippet) or (snippet in harness_snippets and HARNESS_FILE.match(snippet))):
             if not path_exists(snippet, root, top, names):
                 drifts.append(("missing-path", f"`{snippet}` does not exist"))
 

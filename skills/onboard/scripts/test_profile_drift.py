@@ -117,6 +117,18 @@ class DriftTest(unittest.TestCase):
                              "| hooks | `e2e/` | pre-commit | none fits |\n")
         self.assertEqual(self.drifts(self.repo(profile=profile), "missing-path"), [])
 
+    def test_harness_root_md_file_missing_is_reported(self):
+        profile = PROFILE + ("\n## Harness\n| Workflow | Path | Phases | Fit point |\n|---|---|---|---|\n"
+                             "| agents | `AGENTS.md` | plan, review | task-qa plan |\n")
+        root = self.repo(profile=profile)
+        self.assertEqual(self.drifts(root, "missing-path"), ["`AGENTS.md` does not exist"])
+        (root / "AGENTS.md").write_text("")
+        self.assertEqual(self.drifts(root, "missing-path"), [])
+
+    def test_bare_md_name_outside_harness_is_not_checked(self):
+        profile = PROFILE.replace("- config:", "- rules: see `CONTRIBUTING.md`\n- config:")
+        self.assertEqual(self.kinds(self.repo(profile=profile)), [])
+
     def test_profile_without_harness_has_no_new_drift(self):
         self.assertEqual(self.drifts(self.repo(), "missing-path"), [])
 

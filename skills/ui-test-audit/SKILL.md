@@ -59,8 +59,9 @@ Decide which of the three states the project is in, and say it in the report hea
 ### State 1 — setup recommendation
 
 - **Tooling.** Keep what the project already has (Storybook without tests gets only the test addon). With nothing, the default from `../../references/ui-testing.md`: Storybook, interaction tests in `play` functions run by the Storybook Vitest addon (browser mode, Playwright provider), `addon-a11y`.
-- **Exact steps for this repo:** the install list in the form of `../write-tests/SKILL.md`, Mode bootstrap, step 1 (exact versions looked up now, every command, every file as a resolved path). Show it in the chat in full and put it in the report. Install nothing and write nothing without a yes to that exact list. A yes covers that list only: if a later step needs one more package, command or file (another addon, a browser, a config the list did not name), show the addition and ask again before doing it. Never install globally, never edit CI.
-- **After the yes:** `qa-pilot:write-tests` target `story` does the setup, then writes the first `play` test on the top atom of the order below and proves it can fail. A setup whose first `play` test cannot fail is not delivered.
+- **Exact steps for this repo:** the install list in the form of `../write-tests/SKILL.md`, Mode bootstrap, step 1 (exact versions looked up now, every command, every file as a resolved path). Put it in the report. It is not asked for here: the owner's yes is asked once, in Phase 5. Install nothing and write nothing before that yes. A yes covers that list only: if a later step needs one more package, command or file (another addon, a browser, a config the list did not name), show the addition and ask again before doing it. Never install globally, never edit CI.
+- **Accessibility:** the list includes `addon-a11y` (`../../references/e2e-patterns.md`, Accessibility check: it plays the role of the axe scan for components), so every story gets the a11y panel and check. Keep it out only if the project already checks components with axe another way; say which.
+- **After the yes (Phase 5):** `qa-pilot:write-tests` target `story` does the setup, then writes the first `play` test on the top atom of the order below and proves it can fail. A setup whose first `play` test cannot fail is not delivered.
 - **CI:** the job the owner should add (the run command, the browser install step). qa-pilot does not touch CI; until the job exists, these tests count as local only (QAP-UI-007).
 - **Order:** the atoms of this run, most used first, each with its states and behaviours to cover; then the compositions, each with only what it adds.
 
@@ -70,6 +71,8 @@ Read each component of this run and its stories and tests. For an atom, list the
 
 | Component | Kind | Missing states | Missing behaviours | Re-tests atoms? | Rule id |
 |---|---|---|---|---|---|
+
+If the project's Storybook has no `addon-a11y` (check `.storybook/main.*`) and no axe check covers the components, add one finding above the table: "no a11y check on stories", the fix is `addon-a11y` per story (`../../references/e2e-patterns.md`, Accessibility check), and it goes into the Phase 5 install list. No rule id: write "none (a11y policy)".
 
 Rows ordered atoms, then compositions; inside each, most used first. `Re-tests atoms?` is `n/a` for an atom; for a composition, `yes: <test › name> re-checks <Atom> <behaviour>` or `no`. Every row cites at least one rule id. A component with no gap gets no row; count it under "What's healthy". Visual snapshots are a finding only where QAP-UI-006 says so.
 
@@ -109,6 +112,8 @@ Example: `examples/ui-test-audit.md`.
 ## Phase 5 — Writing (only after a yes)
 
 Present the report and the action list, and stop. Writing starts only when the owner picks gaps (or says "do the Must list").
+
+When the project needs setup (state 1, or the a11y addon from the gap table), show the install list from the report in the chat, in full, in the same message as the question about the gaps. This is the only time the audit asks for the install yes; write-tests reuses it for the same, unchanged list and does not ask again. Anything added to the list later is asked again.
 
 - Hand the picked gaps to `qa-pilot:write-tests`, target `story`: stories for missing states, `play` tests for missing behaviours, compositions tested only for what they add.
 - Under the auto-test guard (`../../references/test-delta.md`, §6): at most 5 new tests per batch, no code fix. Adding a `data-testid` to a component so a `play` test can find an element is allowed and listed. More than 5 tests is another list for the owner.
