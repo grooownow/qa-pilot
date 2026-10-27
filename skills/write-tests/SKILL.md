@@ -1,6 +1,6 @@
 ---
 name: write-tests
-description: Implements automated tests (Playwright e2e and below) from a qa-pilot test plan or a direct request, following the project's own conventions, with a mandatory review loop and proof that every new test can fail. Use when the user asks to write/add/implement tests, automate scenarios from a test plan, or cover a feature/bugfix with tests. Requires docs/qa/project-profile.md (run qa-pilot:onboard first). Not for deciding what to test (use qa-pilot:plan-tests) or auditing existing tests (use qa-pilot:test-code-audit).
+description: Implements automated tests (Playwright e2e and below) from a qa-pilot test plan or a direct request, following the project's own conventions, with a mandatory review loop and proof that every new test can fail. Mode bootstrap sets up an e2e skeleton (config, fixtures, page object, one smoke test) in a project with no e2e layer, installing tools only after a yes to the exact list. Use when the user asks to write/add/implement tests, automate scenarios from a test plan, cover a feature/bugfix with tests, or bootstrap/set up e2e. Requires docs/qa/project-profile.md (run qa-pilot:onboard first). Not for deciding what to test (use qa-pilot:plan-tests) or auditing existing tests (use qa-pilot:test-code-audit).
 user-invocable: false
 ---
 
@@ -10,6 +10,8 @@ Turn scenarios into merged-quality test code. Input: a plan from
 `docs/qa/test-plans/` (preferred) or a direct request — for a direct request
 covering more than ~3 scenarios, run `qa-pilot:plan-tests` first instead of
 designing scope on the fly.
+
+**Mode.** Invoked with mode `bootstrap` (by onboard's Strategy check, or `/qa-pilot:test` on "set up e2e") → go to "Mode bootstrap" at the end and skip Phases 1-5. Anything else is the normal flow below.
 
 Create a todo per phase. Read `../../references/quality-rules.md`,
 `../../references/model-routing.md`, and `../../references/e2e-patterns.md`.
@@ -77,3 +79,34 @@ re-review (≤3 rounds).
 - **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes. If invoked by another qa-pilot skill, hand the candidates back to it instead of asking.
 - Commit/PR per the repo's own policy from the profile; if the policy is
   unknown, show the diff and ask.
+
+## Mode bootstrap — e2e skeleton
+
+Creates the first e2e layer of a project that has none. Read `../../references/e2e-patterns.md` first; the skeleton follows it and this section does not repeat it.
+
+**Preconditions** (same as the offer in `../onboard/SKILL.md`, Strategy check):
+- The profile's `Test layers` shows no e2e layer (the project is empty or has unit tests only). If an e2e runner with its own config already exists, refuse in one line, create nothing, and point to `docs/qa/strategy-check.md` (the gaps are reported there).
+- Framework: the e2e runner already in the dependencies, else Playwright.
+- The profile has at least one critical flow and the run commands. If it has no critical flow, ask the owner for the first one; do not guess it.
+
+**1. Install list. Show it, then stop.** Print in the chat, in full:
+- packages with exact versions (look up the current version; no ranges, no `latest`), as dev dependencies of this project;
+- the commands it will run: the package manager's install command and the browser download (for Playwright `npx playwright install chromium`);
+- the files it will create or edit: `package.json` (dependency and script), the lockfile, the framework config, the auth fixture, the base page object, the cleanup fixture, the test-id constants file, the smoke test, and any component that needs a `data-testid`.
+
+Install nothing and write nothing until the owner answers yes to this exact list. Without a yes, stop at the list. **A yes covers this list only.** If a later step needs one more package, command or file outside the list (an extra plugin, a different browser, a dependency for the cleanup), show the addition and ask again before doing it. Never install globally (no `-g`, no `sudo`), and never edit CI.
+
+**2. Create** (after the yes), reusing the project's folder layout and naming from the profile:
+- the framework config (base URL and the dev-server command from the profile, trace and screenshots on first retry, projects/tags per `../../references/e2e-patterns.md`);
+- an auth fixture (`storageState` or API login per "Auth & storageState");
+- a base page object, fixture-injected ("Fixture-injected Page Object Model");
+- the cleanup fixture ("Fixtures & cleanup");
+- the test-id constants file, owned by the component side as the patterns file says;
+- one smoke test on the first critical flow: the shortest path that proves the flow works, its own data, cleanup registered;
+- the package script (`test:e2e` unless the project names scripts differently).
+
+The smoke test follows the hard test-id rule: every element it touches is found by `data-testid`. A missing test id is added to the component. That is not a code fix (`../../references/test-delta.md`, section 6): it changes no behaviour, so list each such component edit in the report and the commit. A role or text locator only with the `// no testid: <reason>` comment the patterns file requires.
+
+**3. Run and prove.** Run the smoke test: green. Then the failure proof, as in Phase 3 step 2: temporarily break the behaviour the smoke test checks, watch it fail for the right reason, restore, watch it green (use the `failure_probe.py` command from Phase 3). A smoke test that cannot fail is not delivered; fix it first. Run it twice more for flakiness.
+
+**4. Finish.** Run the project's typecheck and lint over the new files. Run the review loop (Phase 4) on the diff. Add the coverage-matrix row for the smoke test (Phase 5). Commit per the repo's policy, or show the diff and ask. The closing message lists the files created, the installs that were approved, the component edits for test ids, and the CI job the owner should add (the run command, the browser install step, the report and trace upload). CI itself is not touched.
