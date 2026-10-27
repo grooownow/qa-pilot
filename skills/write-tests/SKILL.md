@@ -20,6 +20,7 @@ Prerequisite: `docs/qa/project-profile.md`. Also read `docs/qa/learnings.md` if 
 - From the plan: take the automatable scenarios (or the subset the user picked).
 - From the profile + 1–2 neighboring test files: pin down the exact conventions
   (imports, fixtures, POM usage, tags, data setup/cleanup).
+- **Shared data.** A new test that logs in as a shared account or depends on data another test created or left behind is not written that way unless it carries a comment with the reason (QAP-TC-020). By default it creates its own data and registers cleanup; see `../../references/e2e-patterns.md`, Fixtures & cleanup and Test data management. Put this rule in every brief.
 - Check reuse FIRST: existing fixtures, page objects, helpers, seeded data that
   cover part of the work. New infrastructure only when nothing reusable exists
   (quality-rules rule 1).

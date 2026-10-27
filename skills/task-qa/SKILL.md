@@ -115,7 +115,10 @@ Example of a finished task file with its verify log: `examples/task-file.md`.
 - Highlighted, not drilled: <one line each>
 - Suppressed by your filters: <one line each>
 - Not run: <what could not be run, and why>
+- Not in CI: <layers>. These tests count as local only.
 ```
+
+The `Not in CI` line appears only when the profile's `Test layers` has a layer that CI does not run; leave it out otherwise.
 
 6. **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes. If invoked by another qa-pilot skill, hand the candidates back to it instead of asking.
 

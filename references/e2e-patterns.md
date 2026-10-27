@@ -304,6 +304,23 @@ tier tag is about *your* backend, not every downstream dependency.
   lane — don't let ad hoc production-like data leak into `@ui-contract` tests, it defeats
   the point of them being fast and deterministic.
 
+## Accessibility check
+
+An automated scan catches the mechanical part of accessibility (missing names, contrast, invalid ARIA); it does
+not replace a manual check.
+
+- Scan each critical-flow page that is in the smoke set with axe (`@axe-core/playwright`), after the page has
+  reached its final state (a web-first assertion on a visible element first, never a fixed pause).
+- Violations with impact `serious` or `critical` fail the test. `minor` and `moderate` are reported (printed or
+  attached), not failed.
+- A known violation that cannot be fixed now is excluded by rule id with a `// a11y: <reason>, <ticket>`
+  comment, not by dropping the page from the scan.
+- Only when the project already has axe, or the owner accepts it. If it is missing, show the exact install list
+  (package `@axe-core/playwright` with a version, the package-manager command, the files it changes:
+  `package.json` and the lockfile) and install only after an explicit yes to that list. A yes covers that list
+  only; anything added later is asked again. Never install globally, never touch CI.
+- Storybook projects: `addon-a11y` plays the same role for components.
+
 ## Tagging convention
 
 Two tag families, both required on every `test.describe`:

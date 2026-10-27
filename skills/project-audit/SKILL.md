@@ -32,6 +32,7 @@ Read first:
 ## Phase 1 — Profile and framework maturity
 
 1. If `docs/qa/project-profile.md` is missing, or has no `## Framework maturity` / `## Test layers` / `## Error plumbing` sections, run `qa-pilot:onboard`, or just its missing parts. Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.md`.
+1b. Read `## Strategy check` from `docs/qa/strategy-check.md` instead of recomputing it; its findings become roadmap items (framework fixes, with their rule ids). If the file or the section is missing, run the onboard strategy check (Phase 3b) first.
 2. Score each maturity area as present / partial / missing, with evidence. The areas are listed in onboard Phase 1. Back each gap with a rule from `../../knowledge/qa-pilot/rules/test-code.json` or `test-strategy.json` where one fits (cite the id).
 3. **Framework blockers come first.** These are gaps that make tests untrustworthy or unrunnable:
    - no CI gate on the main layer;
@@ -83,6 +84,8 @@ Run `qa-pilot:test-code-audit` limited to the test files that exercise the criti
 ## Test-code findings (P1/P2)
 ## Per-flow reports    — links to spec-audit reports
 ```
+
+End the report with one line when the profile's `Test layers` has a layer not run in CI: `Not in CI: <layers>. These tests count as local only.` Leave it out when every layer runs in CI. The blocker rule above stays: a layer counted as coverage that CI never runs is still a Must item.
 
 Also write `docs/qa/project-audit/<date>-actions.md` and `<date>-actions.json` (`../../references/actions-schema.md`), one English list in the spec-audit 6a format: framework fixes first, then the Must items of every flow, then Should.
 

@@ -114,6 +114,8 @@ Reading a test does not prove it can fail. Break the code it guards and run it.
   file:line evidence, and a short "what's healthy" section (honest, not filler —
   it tells the team what to keep doing).
 
+End the report with one line when the profile's `Test layers` has a layer not run in CI: `Not in CI: <layers>. These tests count as local only.` Leave it out when every layer runs in CI.
+
 Example: `examples/audit-report.md`.
 
 ## Phase 5 — Refactoring plan

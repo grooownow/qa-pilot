@@ -77,5 +77,6 @@ fresh approval of the batch follows the auto-test guard in test-delta §6.
 - Summarize for the user: behaviors in scope → covered before / covered now /
   consciously skipped (with reasons from the plan's depth budget), file map,
   evidence. The plan document is the durable record.
+- When the profile's `Test layers` has a layer that CI does not run, end the summary with `Not in CI: <layers>. These tests count as local only.` Leave it out when every layer runs in CI.
 - Rows of `docs/qa/coverage-matrix.md` for the new tests are written by `qa-pilot:write-tests`; cover adds none of its own.
 - **Lessons.** If a trigger from `../../references/learnings.md` occurred in this run, propose the lessons to the owner as that file says; write them only after a yes. If invoked by another qa-pilot skill, hand the candidates back to it instead of asking.
