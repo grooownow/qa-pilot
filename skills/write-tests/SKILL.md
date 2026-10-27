@@ -1,6 +1,6 @@
 ---
 name: write-tests
-description: Implements automated tests (Playwright e2e and below) from a qa-pilot test plan or a direct request, following the project's own conventions, with a mandatory review loop and proof that every new test can fail. Mode bootstrap sets up an e2e skeleton (config, fixtures, page object, one smoke test) in a project with no e2e layer, installing tools only after a yes to the exact list. Use when the user asks to write/add/implement tests, automate scenarios from a test plan, cover a feature/bugfix with tests, or bootstrap/set up e2e. Requires docs/qa/project-profile.md (run qa-pilot:onboard first). Not for deciding what to test (use qa-pilot:plan-tests) or auditing existing tests (use qa-pilot:test-code-audit).
+description: Implements automated tests (Playwright e2e and below) from a qa-pilot test plan or a direct request, following the project's own conventions, with a mandatory review loop and proof that every new test can fail. Mode bootstrap sets up an e2e skeleton (config, fixtures, page object, one smoke test) in a project with no e2e layer, installing tools only after a yes to the exact list. Target story writes component stories and play tests for UI-audit gaps. Use when the user asks to write/add/implement tests, automate scenarios from a test plan, cover a feature/bugfix with tests, or bootstrap/set up e2e. Requires docs/qa/project-profile.md (run qa-pilot:onboard first). Not for deciding what to test (use qa-pilot:plan-tests) or auditing existing tests (use qa-pilot:test-code-audit).
 user-invocable: false
 ---
 
@@ -11,7 +11,7 @@ Turn scenarios into merged-quality test code. Input: a plan from
 covering more than ~3 scenarios, run `qa-pilot:plan-tests` first instead of
 designing scope on the fly.
 
-**Mode.** Invoked with mode `bootstrap` (by onboard's Strategy check, or `/qa-pilot:test` on "set up e2e") → go to "Mode bootstrap" at the end and skip Phases 1-5. Anything else is the normal flow below.
+**Mode.** Invoked with mode `bootstrap` (by onboard's Strategy check, or `/qa-pilot:test` on "set up e2e") → go to "Mode bootstrap" at the end and skip Phases 1-5. Invoked with target `story` (by the UI audit) → the normal flow, with the rules of "Target story" at the end. Anything else is the normal flow below.
 
 Create a todo per phase. Read `../../references/quality-rules.md`,
 `../../references/model-routing.md`, and `../../references/e2e-patterns.md`.
@@ -111,3 +111,15 @@ The smoke test follows the hard test-id rule: every element it touches is found 
 **3. Run and prove.** Start the dev server per the profile's Commands (the test needs it running). Run the smoke test: green. Then the failure proof, as in Phase 3 step 2: temporarily break the behaviour the smoke test checks, watch it fail for the right reason, restore, watch it green (use the `failure_probe.py` command from Phase 3). A smoke test that cannot fail is not delivered; fix it first. Run it twice more for flakiness.
 
 **4. Finish.** Run the project's typecheck and lint over the new files. Run the review loop (Phase 4) on the diff. Add the coverage-matrix row for the smoke test (Phase 5). Commit per the repo's policy, or show the diff and ask. The closing message lists the files created, the installs that were approved, the component edits for test ids, and the CI job the owner should add (the run command, the browser install step, the report and trace upload). CI itself is not touched.
+
+## Target story — stories and `play` tests
+
+Invoked by `qa-pilot:ui-test-audit` with the gaps the owner picked. Read `../../references/ui-testing.md` first. Phases 1-5 apply, with these differences:
+
+- **Input:** gap rows (component, kind, missing states, missing behaviours, rule id), not a test plan. Do not widen them.
+- **What to write:** a story per missing state, in the component's existing `*.stories.*` file (create it next to the component if there is none, in the project's story format: CSF version, `meta` shape, args). A `play` function per missing behaviour, on the story that shows that state, using the project's runner (`storybook/test` or `@storybook/test` `expect`, `userEvent`, `within`, whichever the existing stories import). For an atom, every listed behaviour. For a composition, only what it adds: wiring, state passed between atoms, its own logic; never a check of a nested atom's own behaviour (QAP-UI-003).
+- **Locators:** the hard test-id rule of `../../references/e2e-patterns.md`. A missing `data-testid` is added to the component and listed; it is not a code fix.
+- **Setup (the project has no UI-test tooling yet):** before any story, the install list exactly as in Mode bootstrap, step 1: the Storybook packages and the Vitest addon with its browser-mode Playwright provider, `addon-a11y`, exact versions looked up now, every command, every file as a resolved path. Stop at the list until the owner's yes. A yes covers that list only; one more package, command or file later is asked again. Never install globally, never edit CI. After the yes, install, then write the first `play` test on the top atom of the audit's order.
+- **Failure proof:** break the behaviour the `play` test checks in the component (drop the handler call, invert the disabled condition), run the story test: it must fail for that reason. Restore, run: green. Use `failure_probe.py` as in Phase 3. A `play` test that only renders, or passes with the behaviour broken, is not delivered.
+- **Guard:** the auto-test guard (`../../references/test-delta.md`, §6) caps a batch at 5 new tests; above that, return the rest to the owner as a list.
+- **Matrix:** one row per `play` test, Layer `component`, Feature `UI library`, Requirement `<Component>: <behaviour>`.

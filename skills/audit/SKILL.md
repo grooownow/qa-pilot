@@ -1,6 +1,6 @@
 ---
 name: audit
-description: "The big-picture qa-pilot command: `/qa-pilot:audit [nothing | feature/spec/ticket | \"tests\"]`. With nothing, it audits the whole project. It rates how mature the test framework is, confirms the critical flows, audits each flow for must-check web failure patterns, and writes one roadmap. With a feature, spec or ticket, it audits the requirements against the code and tests and lists missing test cases (Must / Should / Highlight), bugs and product questions. With \"tests\", \"flaky\" or \"test code\", it audits the test suite itself for false greens, flakiness and duplication. Use for \"аудит\", \"общая картина\", \"проверь требования\", \"каких тестов не хватает во флоу\", \"что с тестами в целом\", \"почему тесты флакают\". Requires docs/qa/project-profile.md (else it runs qa-pilot:onboard first). Not for one task's plan or verification (use qa-pilot:test)."
+description: "The big-picture qa-pilot command: `/qa-pilot:audit [nothing | feature/spec/ticket | \"tests\" | \"ui\"]`. With nothing, it audits the whole project. It rates how mature the test framework is, confirms the critical flows, audits each flow for must-check web failure patterns, and writes one roadmap. With a feature, spec or ticket, it audits the requirements against the code and tests and lists missing test cases (Must / Should / Highlight), bugs and product questions. With \"tests\", \"flaky\" or \"test code\", it audits the test suite itself for false greens, flakiness and duplication. With \"ui\" or \"storybook\", it audits the UI component library bottom-up: atoms, then compositions. Use for \"аудит\", \"общая картина\", \"проверь требования\", \"каких тестов не хватает во флоу\", \"что с тестами в целом\", \"почему тесты флакают\". Requires docs/qa/project-profile.md (else it runs qa-pilot:onboard first). Not for one task's plan or verification (use qa-pilot:test)."
 ---
 
 # Audit
@@ -12,6 +12,7 @@ The one command for stepping back and looking at the whole thing. **You** pick t
 | **Project** | `qa-pilot:project-audit` | Nothing after the command, or "проект", "общая картина", "после большой фичи", "новый проект" |
 | **Feature / requirements** | `qa-pilot:spec-audit` | A feature or flow name, a spec path, a ticket, "требования", "AC", "каких тестов не хватает во флоу X" |
 | **Test code** | `qa-pilot:test-code-audit` | "тесты", "флаки", "test code", "suite", "почему тесты падают", "рефакторинг тестов" |
+| **UI / components** | `qa-pilot:ui-test-audit` | "ui", "storybook", "компоненты", "UI-тесты", "библиотека компонентов" |
 
 `docs/qa/project-profile.md` must exist. If it doesn't, say so in one line and run `qa-pilot:onboard` first.
 

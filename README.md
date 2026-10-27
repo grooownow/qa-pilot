@@ -76,6 +76,7 @@ but the agent invokes them:
 | `project-audit` | `audit` (no context) | `docs/qa/project-audit/<date>.md` |
 | `spec-audit` | `audit` (feature/spec) | `docs/qa/spec-audit/<date>-<slug>[-actions].md/.json` |
 | `test-code-audit` | `audit` ("tests") | `docs/qa/audit-report.md`, `docs/qa/refactoring-plan.md` |
+| `ui-test-audit` | `audit` ("ui") | `docs/qa/ui-test-audit-<date>[-actions].md/.json` (+ stories and `play` tests after a yes) |
 
 Every skill except `onboard` reads the project profile. If a session hits your
 plan's usage limit mid-task, nothing is lost: every skill writes its progress
@@ -92,10 +93,10 @@ Before every run, `test` and `audit` also check the profile against the repo. Be
 
 ## What's inside
 
-- **11 skills** (`skills/`). Three are commands: onboard, test, audit. Eight are internal skills the commands route to: task-qa, cover, plan-tests, write-tests, explore, project-audit, spec-audit, test-code-audit.
+- **12 skills** (`skills/`). Three are commands: onboard, test, audit. Nine are internal skills the commands route to: task-qa, cover, plan-tests, write-tests, explore, project-audit, spec-audit, test-code-audit, ui-test-audit.
   Each follows the same contract: numbered phases, batched questions when
   context is missing, mandatory self-review of any code it changes, evidence
-  before claims. The four that write documents have an example output in their
+  before claims. The five that write documents have an example output in their
   `examples/` folder. `test-code-audit` names ten test anti-patterns (Liar,
   Mirror, Mockery, Status-only and others) and finds them with a grep pass first.
 - **3 subagents** (`agents/`) — `test-author` (Sonnet, writes test code from
