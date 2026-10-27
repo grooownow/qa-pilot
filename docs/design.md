@@ -158,7 +158,7 @@ rule. They live in `knowledge/qa-pilot/rules/`, and drafts wait in
 
 **0.6.0: three commands.** Users found nine commands too many to remember. Only `onboard`, `test` and `audit` are user-invocable now.
 - `test` routes by context. A ticket with no diff gets a `task-qa` plan; a diff gets `task-qa` verify. "Cover what I shipped" goes to `cover`, the browser to `explore`, and a plan to `write-tests`. When the signals conflict it asks once; when there is no information it picks the most useful action itself.
-- `audit` routes to `project-audit` (no context), `spec-audit` (a feature or spec) or `test-code-audit` ("tests" or "flaky").
+- `audit` routes to `project-audit` (no context), `spec-audit` (a feature or spec) or `test-code-audit` ("tests" or "flaky"). Since 0.9.0 also `ui-test-audit` ("ui" or "storybook").
 - The other skills carry `user-invocable: false`. The old `audit` became `test-code-audit` and the old `test` became `explore`.
 - `scripts/plugin/check_skills.py` validates every skill's frontmatter (name = directory; description ≤1024 characters, since a longer one is dropped silently, as happened to `task-qa` in 0.5.0), its skill references and its referenced files.
 

@@ -35,6 +35,11 @@ have instead: flaky patterns, tests that can pass while the feature is
 broken, copy-paste, dead weight. You get `docs/qa/audit-report.md` and an
 ordered `docs/qa/refactoring-plan.md`.
 
+Add `ui` or `storybook` to audit the component library bottom-up: atoms first,
+then compositions, with which have stories, `play` tests and unit tests. You get
+`docs/qa/ui-test-audit-<date>.md`; the missing stories are written only after
+your yes.
+
 Why audit before writing new tests? New tests inherit the patterns around
 them, so cleaning the foundation first makes everything after it cheaper.
 

@@ -1,20 +1,22 @@
 # HANDOFF — qa-pilot
 
 > **Единая точка продолжения.** Новая сессия на вопрос «на чем мы остановились?» читает этот файл и пересказывает его: где мы, что читать, что открыто, что дальше.
-> Обновлено: 2026-10-26 (qa-pilot 0.8.1).
+> Обновлено: 2026-10-27 (qa-pilot 0.9.0, ветка `feat/0.9.0`).
 
 ## Где мы сейчас
 
-- **Репозиторий:** `qa-pilot`, версия плагина **0.8.1**, в `main`, теги до `v0.8.1`. Push через SSH-хост `github.com-grooownow`; `main` перематывается fast-forward с ветки релиза.
-- **Проверки (все зелёные на 0.8.1):**
+- **Репозиторий:** `qa-pilot`, версия плагина **0.9.0** на ветке `feat/0.9.0`, **ещё не влита в `main` и не затегирована** (последний тег `v0.8.1`). Push через SSH-хост `github.com-grooownow`; `main` перематывается fast-forward с ветки релиза.
+- **Проверки (зелёные на ветке 0.9.0):**
   - `python3 -m unittest discover -s scripts/kb`;
   - `python3 -m unittest discover -s scripts/plugin` (в т. ч. запрет имени автора книги в файлах) и `python3 scripts/plugin/check_skills.py`;
   - `python3 -m unittest discover -s skills/spec-audit/scripts`;
   - `python3 -m unittest discover -s skills/onboard/scripts` (`profile_drift.py`);
   - `python3 -m unittest discover -s skills/test-code-audit/scripts` (`failure_probe.py`);
+  - `python3 -m unittest discover -s skills/ui-test-audit/scripts` (`ui_inventory.py`);
   - `render_rules.py --check` для `knowledge/catalog` и `knowledge/qa-pilot`; `claude plugin validate .`.
 - **0.8.0:** память уроков `docs/qa/learnings.md`, матрица покрытия, drift-виды `new-test-dep` / `rules-changed` / `lost-test`, «Not for» в описаниях, примеры, 10 антипаттернов.
 - **0.8.1:** свод книги переехал в `knowledge/catalog/`, id правил `QAC-` (номера те же; старые id в `rule-overrides.json` читаются); доработки после ревью 0.8.0. Подробно — `CHANGELOG.md`.
+- **0.9.0 (на ветке):** `data-testid` как жёсткое правило, режимы бюджета, скан обвязки и оценка соответствия, `docs/qa/strategy-check.md`, `write-tests bootstrap`, UI-стратегия (`QAP-UI-001..007`), скилл `ui-test-audit` (`/qa-pilot:audit ui`). Подробно — `CHANGELOG.md`. Осталось: merge в `main`, тег `v0.9.0`, push по SSH с OK владельца.
 - **Правило:** имя автора книги нигде не показываем; книгу называем только по названию. Тест `scripts/plugin/test_no_author_name.py` это проверяет.
 
 ## Что дальше: Agensi (продолжаем отсюда)
@@ -27,7 +29,7 @@
 
 Пользователю видны только `/qa-pilot:onboard`, `/qa-pilot:test` и `/qa-pilot:audit`, остальные скиллы скрыты (`user-invocable: false`).
 - **`test` выбирает режим по контексту:** тикет без диффа → план `task-qa`; есть дифф → `task-qa` verify; «покрой» → `cover`; браузер или URL → `explore`; план → `write-tests`. Если сигналы противоречат, задаёт один вопрос. Если информации нет совсем, решает сам.
-- **`audit` выбирает так:** без контекста → `project-audit`; фича или спека → `spec-audit`; «тесты» или «флаки» → `test-code-audit`.
+- **`audit` выбирает так:** без контекста → `project-audit`; фича или спека → `spec-audit`; «тесты» или «флаки» → `test-code-audit`; «ui» или «storybook» → `ui-test-audit`.
 - **Переименования:** старый `audit` стал `test-code-audit`, старый `test` — `explore`.
 - **Новая проверка `scripts/plugin/check_skills.py`:** имя скилла совпадает с папкой, описание не длиннее 1024 символов, ссылки на скиллы и файлы существуют. В 0.5.0 описание `task-qa` было длиннее и молча отбрасывалось.
 

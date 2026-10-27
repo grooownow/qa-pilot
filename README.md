@@ -52,7 +52,7 @@ agent works it out from your branch, and asks once when it is unsure.
 |---|---|---|
 | `/qa-pilot:onboard` | Once per project | Profiles the stack, test layers, CI, error handling, test-framework maturity and critical flows → `docs/qa/project-profile.md` |
 | `/qa-pilot:test [context]` | Every task | Picks the mode from context. **Before coding:** a QA plan (AC check, impact map, which tests to change or add). **After coding:** verifies the change (diff vs plan, "intended?" questions, proof of coverage, missing tests under guards). **"In the browser" or a URL:** exploratory testing in a real browser. **A test plan:** writes the tests. |
-| `/qa-pilot:audit [context]` | Big picture | **Nothing:** a whole-project audit (framework maturity, critical flows, per-flow audit, one roadmap). **A feature, spec or ticket:** a requirements audit (missing test cases, bugs, product questions). **"tests" or "flaky":** a test-code audit. |
+| `/qa-pilot:audit [context]` | Big picture | **Nothing:** a whole-project audit (framework maturity, critical flows, per-flow audit, one roadmap). **A feature, spec or ticket:** a requirements audit (missing test cases, bugs, product questions). **"tests" or "flaky":** a test-code audit. **"ui" or "storybook":** a bottom-up audit of the component library (atoms, then compositions). |
 
 The natural rhythm:
 1. `onboard` once;
@@ -81,6 +81,15 @@ but the agent invokes them:
 Every skill except `onboard` reads the project profile. If a session hits your
 plan's usage limit mid-task, nothing is lost: every skill writes its progress
 to a file in your repo as it works, and the next session resumes from there.
+
+## Strategy, budget and UI testing (0.9)
+
+- **Harness and fit.** `onboard` finds your own workflow files by name and heading, records where qa-pilot fits (or that nothing does), grades the fit, and gives the exact step to add. The profile keeps the facts (`## Harness`); advice goes to `docs/qa/strategy-check.md`, rewritten on each run. qa-pilot never edits your CI.
+- **Strategy check.** Compares the test layers with the code (logic without unit tests, components without component tests, layers that run only locally) and ends the CI part with a `Not in CI:` line. `project-audit` reads it.
+- **Budget.** `economy`, `standard` or `thorough`, chosen once in `onboard` (`## Budget` in the profile). It sets audit depth, number of flows and sample sizes. `standard` is the 0.8 behaviour; a profile without the section runs as `standard`.
+- **Locator rule.** `data-testid` is required: if a component has none, the agent adds one. Other locators only where a test id is impossible, with a `// no testid:` comment.
+- **E2E skeleton.** `write-tests` in `bootstrap` mode writes config, fixtures, a page object and a smoke test for a project with no e2e layer. It installs nothing until you say yes to the exact list of packages, commands and files; one more item later is asked again.
+- **UI testing.** `/qa-pilot:audit ui` counts components with `ui_inventory.py`, splits atoms from compositions, and orders the work bottom-up. After a yes, `write-tests` writes the missing stories and `play` tests. Rules: `QAP-UI-001..007`, `references/ui-testing.md`.
 
 ## What it remembers
 
