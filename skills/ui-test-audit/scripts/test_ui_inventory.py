@@ -102,6 +102,41 @@ class InventoryTest(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertEqual(json.loads(out.getvalue())["summary"]["atoms"], 1)
 
+    def test_barrel_diamond(self):
+        self.write("src/ui/Button.tsx", "export const Button = () => <button/>;\n")
+        self.write("src/ui/Input.tsx", "export const Input = () => <input/>;\n")
+        self.write("src/ui/base/index.ts", "export { Button } from '../Button';\nexport { Input } from '../Input';\n")
+        self.write("src/ui/index.ts", "export { Button } from './base';\nexport { Input } from './base';\n")
+        self.write("src/ui/Form.tsx", "import { Button, Input } from './';\nexport const Form = () => <form/>;\n")
+        self.assertEqual(self.by_name(self.run_inv())["Form"]["uses"], ["Button", "Input"])
+
+    def test_export_star_uses_identifier(self):
+        self.write("src/ui/input-field.tsx", "export function InputField() { return <input/>; }\n")
+        self.write("src/ui/index.ts", "export * from './input-field';\n")
+        self.write("src/ui/Form.tsx", "import { InputField } from './';\nexport const Form = () => <form/>;\n")
+        self.assertEqual(self.by_name(self.run_inv())["Form"]["uses"], ["input-field"])
+
+    def test_play_word_boundary(self):
+        self.write("src/ui/Button.tsx", "export const Button = () => <button/>;\n")
+        self.write("src/ui/Button.stories.tsx",
+                   "export const Shown = { style: { display: 'x' }, args: { replay(a) {} } };\n"
+                   "export const Real = { play() {} };\n")
+        self.assertEqual(self.by_name(self.run_inv())["Button"]["play_stories"], ["Real"])
+
+    def test_two_imports_on_one_line_and_posix_paths(self):
+        self.write("src/ui/A.tsx", "export const A = 1;\n")
+        self.write("src/ui/B.tsx", "export const B = 1;\n")
+        self.write("src/ui/C.tsx", "import {A} from './A'; import {B} from './B';\nexport const C = 1;\n")
+        c = self.by_name(self.run_inv())
+        self.assertEqual(c["C"]["uses"], ["A", "B"])
+        self.assertEqual(c["C"]["path"], "src/ui/C.tsx")
+
+    def test_cli_lib_is_file_exits_2_and_help_exits_0(self):
+        f = self.write("src/ui/A.tsx", "export const A = 1;\n")
+        with redirect_stdout(StringIO()):
+            self.assertEqual(main(["ui_inventory.py", "--root", str(self.root), "--lib", str(f)]), 2)
+            self.assertEqual(main(["ui_inventory.py", "--help"]), 0)
+
 
 if __name__ == "__main__":
     unittest.main()

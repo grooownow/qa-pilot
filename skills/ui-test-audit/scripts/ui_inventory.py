@@ -14,6 +14,9 @@ Stories are `X.stories.*` next to component X; play stories are exports that def
 Tests are `X.test.*` / `X.spec.*`.
 
 Prints a markdown summary and table (or JSON with --json). Exit 0 ok, 2 bad input.
+Documented limits: a default or namespace import from a barrel counts every component the barrel
+exports; a component is never its own user, decided by name; alias misses inside barrels are not
+reported; a component whose file stem differs from its exported identifier keeps the stem as its name.
 The import scan is regex-based and shallow on purpose: dynamic imports and computed paths are not seen.
 """
 import argparse
@@ -25,10 +28,12 @@ from pathlib import Path
 COMPONENT_EXTS = (".tsx", ".jsx", ".vue", ".svelte")
 RESOLVE_EXTS = (".tsx", ".jsx", ".vue", ".svelte", ".ts", ".js")
 SKIP_DIRS = {"node_modules", ".git", "dist", "build"}
-IMPORT_RE = re.compile(r"""(?:^|\n)\s*import\s+(?:type\s+)?(?:([^'";]*?)\s+from\s+)?['"]([^'"]+)['"]""")
+IMPORT_RE = re.compile(r"""(?<![\w.$])import\s+(?:type\s+)?(?:([^'";]*?)\s+from\s+)?['"]([^'"]+)['"]""")
 EXPORT_FROM_RE = re.compile(r"""export\s+(?:type\s+)?(\*(?:\s+as\s+\w+)?|\{[^}]*\})\s*from\s*['"]([^'"]+)['"]""")
 STORY_EXPORT_RE = re.compile(r"export\s+(?:const|function)\s+(\w+)")
-PLAY_RE = re.compile(r"play\s*[:(]")
+PLAY_RE = re.compile(r"\bplay\s*[:(]")
+EXPORT_ID_RE = re.compile(r"export\s+(?:declare\s+)?(?:const|let|var|function\*?|class)\s+(\w+)")
+EXPORT_LIST_RE = re.compile(r"export\s*\{([^}]*)\}(?!\s*from)")
 
 
 def is_aux(name):
@@ -83,6 +88,9 @@ def inventory(root, libs, aliases):
                     if f.is_file() and not (SKIP_DIRS & set(f.relative_to(lib).parts))})
     texts = {}
 
+    def rel(f):
+        return (f.relative_to(root) if root in f.parents else f).as_posix()
+
     def text(f):
         if f not in texts:
             texts[f] = f.read_text(encoding="utf-8", errors="replace")
@@ -101,31 +109,41 @@ def inventory(root, libs, aliases):
             barrels.add(f)
             del comps[f]
 
-    def exports_of(barrel, seen):
-        """Map exported name -> component file, following nested barrels; cycle-safe."""
+    def identifiers(comp):
+        """Names a component file exports: declared identifiers, list exports, and its own name."""
+        body = text(comp)
+        names = set(EXPORT_ID_RE.findall(body))
+        for lst in EXPORT_LIST_RE.findall(body):
+            names.update(p.split(" as ")[-1].strip() for p in lst.split(",") if p.strip())
+        names.discard("default")
+        names.add(comps[comp]["name"])
+        return names
+
+    def exports_of(barrel, chain=frozenset()):
+        """Map exported name -> component file, following nested barrels; cycle-safe per call chain."""
         out = {}
-        if barrel in seen:
+        if barrel in chain:
             return out
-        seen.add(barrel)
+        chain = chain | {barrel}
         for what, spec in EXPORT_FROM_RE.findall(text(barrel)):
             kind, base = spec_base(spec, barrel, aliases)
             target = resolve(base) if base is not None else None
             if target is None:
                 continue
+            listed = [p.strip() for p in what.strip("{}").split(",") if p.strip()] if what.startswith("{") else None
             if target in barrels:
-                sub = exports_of(target, seen)
-                if what.startswith("{"):
-                    wanted = {p.split(" as ")[-1].strip() for p in what.strip("{}").split(",") if p.strip()}
+                sub = exports_of(target, chain)
+                if listed is not None:
+                    wanted = {p.split(" as ")[-1].strip() for p in listed}
                     sub = {k: v for k, v in sub.items() if k in wanted}
                 out.update(sub)
             elif target in comps:
-                if what.startswith("{"):
-                    for part in what.strip("{}").split(","):
-                        part = part.strip()
-                        if part:
-                            out[part.split(" as ")[-1].strip()] = target
+                if listed is not None:
+                    for part in listed:
+                        out[part.split(" as ")[-1].strip()] = target
                 else:
-                    out[comps[target]["name"]] = target
+                    for n in identifiers(target):
+                        out[n] = target
         return out
 
     unresolved = []
@@ -138,12 +156,12 @@ def inventory(root, libs, aliases):
             target = resolve(base) if base is not None else None
             if target is None:
                 if kind != "rel":
-                    unresolved.append({"file": str(f.relative_to(root)) if root in f.parents else str(f),
+                    unresolved.append({"file": rel(f),
                                        "import": spec})
                 continue
             found = []
             if target in barrels:
-                table = exports_of(target, set())
+                table = exports_of(target)
                 named = re.search(r"\{([^}]*)\}", clause or "")
                 if named:
                     for part in named.group(1).split(","):
@@ -183,13 +201,13 @@ def inventory(root, libs, aliases):
                 if PLAY_RE.search(body[e.end():end]):
                     c["play_stories"].append(e.group(1))
         else:
-            c["tests"].append(str(f.relative_to(root)) if root in f.parents else str(f))
+            c["tests"].append(rel(f))
 
     components = []
     for c in sorted(comps.values(), key=lambda c: str(c["path"])):
         components.append({
             "name": c["name"],
-            "path": str(c["path"].relative_to(root)) if root in c["path"].parents else str(c["path"]),
+            "path": rel(c["path"]),
             "kind": "composition" if c["uses"] else "atom",
             "uses": c["uses"], "stories": c["stories"], "play_stories": c["play_stories"],
             "tests": sorted(c["tests"]),
@@ -229,8 +247,8 @@ def main(argv):
     ap.add_argument("--json", action="store_true")
     try:
         args = ap.parse_args(argv[1:])
-    except SystemExit:
-        return 2
+    except SystemExit as e:
+        return e.code if isinstance(e.code, int) else 2
     root = Path(args.root)
     if not args.lib:
         print("error: at least one --lib is required")
@@ -238,8 +256,8 @@ def main(argv):
     libs = []
     for lib in args.lib:
         p = Path(lib) if Path(lib).is_absolute() else root / lib
-        if not p.exists():
-            print(f"error: --lib path does not exist: {lib}")
+        if not p.is_dir():
+            print(f"error: --lib path is not a directory: {lib}")
             return 2
         libs.append(p)
     aliases = {}
