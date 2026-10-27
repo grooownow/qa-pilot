@@ -96,6 +96,10 @@ Batch ALL questions in one message (see quality-rules rule 5). Typical gaps:
 - **Critical flows:** the 3–7 user flows whose failure hurts most (money,
   data loss, a blocked core job). Propose them from routes, entities and docs;
   the user confirms. Audits put any P2 on these flows into Must.
+- **Budget:** how to spend, one choice (`../../references/budget.md`):
+  `economy` (smallest depth, asks before any run over ~150k tokens),
+  `standard` (default), `thorough` (deeper audits, larger probe samples).
+  Also: should heavy skills report their spend estimate (`report_spend`)?
 - Team intent: what hurts most today (flaky tests? no coverage? slow suite?) —
   this seeds priorities for `/qa-pilot:audit`.
 - **Product traits** (used by `qa-pilot:spec-audit` to drop rules that cannot
@@ -130,6 +134,7 @@ Write `docs/qa/project-profile.md` (create `docs/qa/` if needed). Sections:
 ## Critical flows   — 3–7 flows, one line each: name · entry route/screen · why it is critical (confirmed by the user)
 ## Product traits   — fenced yaml: platform, api_style, has_payments, has_auth, has_user_uploads, i18n, rtl, regulated, has_ai_features (format: skills/spec-audit/SKILL.md)
 ## Priorities       — what the team wants improved first
+## Budget          — fenced yaml: mode (economy|standard|thorough, default standard), report_spend (yes|no)
 ## Open gaps        — unanswered questions, marked blocking or non-blocking
 ```
 

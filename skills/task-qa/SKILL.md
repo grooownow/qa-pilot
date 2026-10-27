@@ -18,7 +18,7 @@ One task, two checkpoints:
 
 **Non-goals.** No full spec audit: that is `qa-pilot:spec-audit`, or `qa-pilot:project-audit` for the whole picture. No drilling into corner cases: they become one-line highlights.
 
-**Budget.** Target about 80k tokens for `plan` and about 100k for `verify`. Read only what the task touches.
+**Budget.** Read the mode from the profile's `## Budget` per `../../references/budget.md`; the defaults below are `standard`. Target about 80k tokens for `plan` and about 100k for `verify`. Read only what the task touches.
 - Do not load the rule packs.
 - Do not read whole spec trees.
 - Read only these profile sections: `Test layers`, `Error plumbing`, `Critical flows`, plus the conventions section.

@@ -69,7 +69,7 @@ report as they return.
 
 Reading a test does not prove it can fail. Break the code it guards and run it.
 
-- **Sample:** the tests of the critical flows from the profile, plus the
+- **Sample:** Read the mode from the profile's `## Budget` per `../../references/budget.md`; the defaults below are `standard`. The tests of the critical flows from the profile, plus the
   suspects of lens 2. Default 10 tests; the size goes into the Phase 1 scope
   with its cost (each probe runs one test twice). The user can widen it.
 - **If the project already runs mutation testing** (a Stryker, mutmut or PIT

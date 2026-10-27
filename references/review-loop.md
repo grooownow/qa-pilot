@@ -65,6 +65,7 @@ that had Critical/Important findings, scoped to the changed areas.
 
 - Clean round (no Critical/Important) → done. Record round count and any
   accepted Worth-fixing debt in the output document.
+- Budget mode `economy` (`budget.md`) caps the loop at 1 round; `standard` and `thorough` keep 3.
 - Round 3 still not clean → stop, summarize what remains and why, and hand the
   decision to the user. Never loop past 3; a loop that doesn't converge means
   the approach is wrong, not that more rounds are needed.

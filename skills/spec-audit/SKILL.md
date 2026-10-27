@@ -47,7 +47,7 @@ mkdir -p "$SCRATCH"
      - which kinds of tests are not wanted.
 
    - **In the same message, ask for critical flows** if the profile has no `## Critical flows` section: the 3–7 user flows whose failure hurts most (money, data loss, a blocked core job). Offer to add them to the real profile; write after the user agrees. A P2 on a critical flow goes to Must.
-   - **Depth.** Default `standard`. `critical` = entity cards + contradictions (lens 4) on critical flows only, for a quick or project-level pass. `thorough` = everything, with Highlight items drilled into scenarios. Those scenarios stay in Highlight: the Should cap of 8 holds at every depth. Use `thorough` only when the user asks.
+   - **Depth.** Read the mode from the profile's `## Budget` per `../../references/budget.md`; the defaults below are `standard`. Default `standard`. `critical` = entity cards + contradictions (lens 4) on critical flows only, for a quick or project-level pass. `thorough` = everything, with Highlight items drilled into scenarios. Those scenarios stay in Highlight: the Should cap of 8 holds at every depth. Use `thorough` only when the user asks.
 
      On TDK the scope filters arrived after the report and cost two extra rounds. Offer to save them in `rule-overrides.json` → `scope` as `{"exclude": …, "reason": …, "source": …}`, and write them only after the user agrees.
 
