@@ -1,0 +1,31 @@
+# On every push to main: publish a GitHub Release (and tag vX.Y.Z) for a new version in
+# plugin.json, with its CHANGELOG section as notes. With no new version, fail when plugin
+# files changed since the last release: users get updates only when the version changes.
+name: release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Release the version in plugin.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(python3 scripts/plugin/release.py version)
+          if gh release view "v$version" >/dev/null 2>&1; then
+            python3 scripts/plugin/release.py stale "v$version"
+          else
+            python3 scripts/plugin/release.py notes > "$RUNNER_TEMP/notes.md"
+            gh release create "v$version" --target "$GITHUB_SHA" --title "qa-pilot $version" \
+              --notes-file "$RUNNER_TEMP/notes.md"
+          fi

@@ -1,6 +1,7 @@
 # Changelog
 
-All notable changes to qa-pilot. Versions follow `.claude-plugin/plugin.json`; each release is tagged `vX.Y.Z`.
+All notable changes to qa-pilot. Versions follow `.claude-plugin/plugin.json`. A push to main with a new version
+publishes the GitHub Release `vX.Y.Z` with that version's section below (`.github/workflows/release.yml`).
 
 To update an installed plugin: `/plugin` → marketplace qa-pilot → update, then `/reload-plugins`.
 
