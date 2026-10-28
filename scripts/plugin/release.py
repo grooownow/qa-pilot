@@ -15,10 +15,11 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-# What users receive and what changes how the plugin behaves or is licensed. Docs, dev
-# scripts and CI are not here: changing them needs no new version.
-PLUGIN_PATHS = ("skills/", "agents/", "references/", "knowledge/", ".claude-plugin/", ".mcp.json",
-                "LICENSE", "COMMERCIAL.md")
+# Files that do not change how the plugin behaves or is licensed: docs, dev scripts, CI and
+# the marketplace listing. Every other file is shipped plugin content, so a new component
+# (hooks/, commands/, settings.json) needs a new version without editing this list.
+EXEMPT = ("README.md", "CHANGELOG.md", ".gitignore", "docs/", "scripts/", ".github/",
+          ".claude-plugin/marketplace.json")
 
 
 def plugin_version(root=ROOT):
@@ -32,7 +33,7 @@ def changelog_section(text, version):
 
 
 def plugin_files(paths):
-    return [p for p in paths if p.startswith(PLUGIN_PATHS)]
+    return [p for p in paths if p and not p.startswith(EXEMPT)]
 
 
 def main(argv):
@@ -49,8 +50,14 @@ def main(argv):
         print(notes)
         return 0
     if command == "stale" and len(argv) == 3:
-        changed = subprocess.run(["git", "diff", "--name-only", argv[2], "HEAD"], cwd=ROOT,
-                                 check=True, capture_output=True, text=True).stdout.split()
+        tag = subprocess.run(["git", "rev-parse", "--verify", "-q", f"{argv[2]}^{{commit}}"], cwd=ROOT,
+                             capture_output=True)
+        if tag.returncode:
+            print(f"Tag {argv[2]} is not in this checkout: fetch tags (fetch-depth: 0).", file=sys.stderr)
+            return 1
+        # -z: paths with spaces or non-ASCII names come through unquoted.
+        changed = subprocess.run(["git", "diff", "-z", "--name-only", argv[2], "HEAD"], cwd=ROOT,
+                                 check=True, capture_output=True, text=True).stdout.split("\0")
         stale = plugin_files(changed)
         if stale:
             print(f"Plugin files changed since {argv[2]}, but plugin.json still says "

@@ -1,10 +1,12 @@
 """Release helper: CHANGELOG notes and the forgotten-version check."""
+import io
 import sys
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from release import ROOT, changelog_section, plugin_files, plugin_version  # noqa: E402
+from release import ROOT, changelog_section, main, plugin_files, plugin_version  # noqa: E402
 
 CHANGELOG = """# Changelog
 
@@ -30,10 +32,29 @@ class ReleaseTest(unittest.TestCase):
 
     def test_only_plugin_files_need_a_new_version(self):
         changed = ["skills/test/SKILL.md", "knowledge/qa-pilot/rules/auth.md", ".claude-plugin/plugin.json",
-                   "LICENSE", "README.md", "docs/qa/x.md", "scripts/kb/render_rules.py",
-                   ".github/workflows/release.yml", "CHANGELOG.md"]
+                   "LICENSE", "hooks/hooks.json", "skills/a b/ä.md", "README.md", "docs/qa/x.md",
+                   "scripts/kb/render_rules.py", ".github/workflows/release.yml", "CHANGELOG.md",
+                   ".claude-plugin/marketplace.json", ""]
         self.assertEqual(plugin_files(changed), ["skills/test/SKILL.md", "knowledge/qa-pilot/rules/auth.md",
-                                                 ".claude-plugin/plugin.json", "LICENSE"])
+                                                 ".claude-plugin/plugin.json", "LICENSE", "hooks/hooks.json",
+                                                 "skills/a b/ä.md"])
+
+    def run_main(self, *args):
+        out, err = io.StringIO(), io.StringIO()
+        with redirect_stdout(out), redirect_stderr(err):
+            code = main(["release.py", *args])
+        return code, out.getvalue(), err.getvalue()
+
+    def test_cli_notes_and_usage(self):
+        code, out, _ = self.run_main("notes")
+        self.assertEqual(code, 0)
+        self.assertTrue(out.strip())
+        self.assertEqual(self.run_main()[0], 2)
+
+    def test_cli_stale_with_an_unknown_tag_says_so(self):
+        code, _, err = self.run_main("stale", "v0.0.0-missing")
+        self.assertEqual(code, 1)
+        self.assertIn("not in this checkout", err)
 
     def test_current_version_has_release_notes(self):
         text = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
