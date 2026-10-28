@@ -95,6 +95,8 @@ mkdir -p "$SCRATCH"
 python3 "$SKILL_DIR/scripts/rules_pack.py" --kb "$SKILL_DIR/../../knowledge" \
   --profile "$SCRATCH/project-profile.md" --overrides docs/qa/rule-overrides.json \
   --targets requirements,test-plan --out "$SCRATCH"
+# With `use: commercial` in the profile's `## Licence`, rules_pack skips the book catalog (it prints "catalog": false).
+# Say so in the report header: "book catalog off (commercial use)".
 python3 "$SKILL_DIR/scripts/spec_lint.py" --overrides docs/qa/rule-overrides.json <spec files…> > "$SCRATCH/lint.json"
 ```
 
@@ -108,7 +110,7 @@ Both scripts accept a missing overrides file, so pass the flag every time.
   - The lint deliberately skips the "Изменения/Changes", rationale and open-questions sections, because the wording there is not a requirement. Those sections still matter for **drift**, and lens 4 in Phase 2 reads them by hand.
 
 **No `python3`?** Do it by hand, and say so in the report header.
-- **Packs:** read `knowledge/*/rules/*.json`. Keep the records whose `applies_to` includes requirements or test-plan and whose every `needs-*` tag is satisfied by the traits (see the tag table in `scripts/rules_pack.py`). Apply the overrides.
+- **Packs:** read `knowledge/*/rules/*.json` (only `knowledge/qa-pilot/` when the profile's `## Licence` says `use: commercial`). Keep the records whose `applies_to` includes requirements or test-plan and whose every `needs-*` tag is satisfied by the traits (see the tag table in `scripts/rules_pack.py`). Apply the overrides.
 - **Lint:** search the spec prose for the QAC-REQ-014 stems and the QAP-REQ-001 markers. Skip code, quoted strings, and rationale/history/changes/open-questions sections.
 
 ## Phase 2 — Cluster analysis (agents)

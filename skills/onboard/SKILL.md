@@ -129,6 +129,9 @@ Batch ALL questions in one message (see quality-rules rule 5). Typical gaps:
   `economy` (smallest depth, asks before any run over ~150k tokens),
   `standard` (default), `thorough` (deeper audits, larger probe samples).
   Also: should heavy skills report their spend estimate (`report_spend`)?
+- **Licence use:** is this project commercial (a for-profit employer, a client, use inside
+  a company) or noncommercial? With `commercial`, audits skip the book-derived rule catalog,
+  which commercial licences do not cover (`COMMERCIAL.md` in the plugin).
 - Team intent: what hurts most today (flaky tests? no coverage? slow suite?) —
   this seeds priorities for `/qa-pilot:audit`.
 - **Product traits** (used by `qa-pilot:spec-audit` to drop rules that cannot
@@ -166,6 +169,7 @@ Write `docs/qa/project-profile.md` (create `docs/qa/` if needed). Sections:
 ## Priorities       — what the team wants improved first
 ## Harness         — facts only. Table: workflow · path · phases · fit point (or "none fits"). Then one line: `How qa-pilot is called here: orchestrator <name>` or `manually`. Paths in code spans are checked by the drift script
 ## Budget          — fenced yaml: mode (economy|standard|thorough, default standard), report_spend (yes|no)
+## Licence         — fenced yaml: use (commercial|noncommercial). With commercial, rules_pack.py skips the book catalog
 ## Open gaps        — unanswered questions, marked blocking or non-blocking
 ```
 

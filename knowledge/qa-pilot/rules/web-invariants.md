@@ -65,5 +65,4 @@
 
 **Как проверить:** OK: развилка по статусу или типу ошибки (строка кода): retry только для временных. BUG: «Повторить» на 403/404/409; retry-политика мутаций без идемпотентности.
 
-
 <!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · PolyForm-Noncommercial-1.0.0 · ref qp-l4-7f3a9c -->

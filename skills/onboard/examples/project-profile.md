@@ -98,6 +98,11 @@ mode: standard
 report_spend: no
 ```
 
+## Licence
+```yaml
+use: commercial
+```
+
 ## Open gaps
 - Non-blocking: is the guest checkout still supported? The code has it, the docs do not.
 - Blocking for the audit: which payment errors the provider can return in test mode.

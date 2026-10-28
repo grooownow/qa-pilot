@@ -11,6 +11,8 @@ from find_copies import MARKER_REF, search_links  # noqa: E402
 ROOT = Path(__file__).resolve().parents[2]
 # SHA-256 of the official PolyForm-Noncommercial-1.0.0.md (polyformproject/polyform-licenses, tag 1.0.0).
 POLYFORM_NC_SHA256 = "c0ea4a896d2c8c394b29f9427589996db826cd501c512279ff0ed3ef48fabbe5"
+FULL_MARKER = ("<!-- qa-pilot · © 2026 Ekaterina Pustovaia (Ludvik4) · https://ludvik4.dev · "
+               "PolyForm-Noncommercial-1.0.0 · ref " + MARKER_REF + " -->")
 MARKED = ["skills/*/SKILL.md", "references/*.md", "agents/*.md", "knowledge/qa-pilot/README.md",
           "knowledge/qa-pilot/rules/*.md"]
 NO_MIT = ["README.md", ".claude-plugin/plugin.json", ".claude-plugin/marketplace.json", "COMMERCIAL.md"]
@@ -41,11 +43,12 @@ class LicenseTest(unittest.TestCase):
     def test_every_own_file_carries_the_marker(self):
         files = [p for pattern in MARKED for p in ROOT.glob(pattern)]
         self.assertGreater(len(files), 40)
-        missing = [str(p.relative_to(ROOT)) for p in files if MARKER_REF not in p.read_text(encoding="utf-8")]
+        missing = [str(p.relative_to(ROOT)) for p in files
+                   if p.read_text(encoding="utf-8").rstrip().splitlines()[-1] != FULL_MARKER]
         self.assertEqual(missing, [])
 
     def test_book_catalog_carries_no_ownership_marker(self):
-        hits = [p.name for p in (ROOT / "knowledge/catalog/rules").glob("*.md") if MARKER_REF in p.read_text(encoding="utf-8")]
+        hits = [p.name for p in (ROOT / "knowledge/catalog").rglob("*.md") if MARKER_REF in p.read_text(encoding="utf-8")]
         self.assertEqual(hits, [])
 
     def test_search_links_quote_the_needle_and_skip_the_own_repo(self):

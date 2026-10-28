@@ -4,7 +4,7 @@ All notable changes to qa-pilot. Versions follow `.claude-plugin/plugin.json`; e
 
 To update an installed plugin: `/plugin` → marketplace qa-pilot → update, then `/reload-plugins`.
 
-## [1.0.0] — 2026-10-27
+## [1.0.0] — 2026-10-28
 
 ### Changed
 - **Licence.** From this release qa-pilot is free for noncommercial use under the PolyForm Noncommercial License
@@ -14,6 +14,10 @@ To update an installed plugin: `/plugin` → marketplace qa-pilot → update, th
 - Licensor and author: Ekaterina Pustovaia (Ludvik4). Skill, reference, agent and own-rule files end with an
   ownership marker; both renderers write it. `scripts/plugin/find_copies.py` prints search links for copies;
   `test_license.py` pins the licence text and keeps the marker in place.
+
+### Added
+- Onboard asks whether the project is commercial and writes `## Licence` (`use: commercial|noncommercial`) to the
+  profile. With `commercial`, `rules_pack.py` skips the book catalog (also `--no-catalog`) and the report says so.
 
 ## [0.9.0] — 2026-10-27
 

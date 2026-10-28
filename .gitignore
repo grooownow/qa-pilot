@@ -1,3 +1,4 @@
 knowledge/catalog/raw/
 __pycache__/
 .work/
+dist/

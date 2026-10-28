@@ -113,9 +113,16 @@ def parse_traits(profile_text):
     return traits, True, warnings
 
 
-def load_rules(kb, overrides):
+def commercial_use(profile_text):
+    """True when the profile's '## Licence' section says `use: commercial`. The book-derived
+    catalog is not covered by commercial licences (COMMERCIAL.md), so it is skipped then."""
+    m = re.search(r"^##\s+Licence\s*$(.*?)(?=^##\s|\Z)", profile_text or "", re.M | re.S)
+    return bool(m and re.search(r"^\s*use\s*:\s*[\"']?commercial\b", m.group(1), re.M))
+
+
+def load_rules(kb, overrides, catalog=True):
     rules = []
-    for source in ("catalog", "qa-pilot"):
+    for source in (("catalog", "qa-pilot") if catalog else ("qa-pilot",)):
         for path in sorted((kb / source / "rules").glob("*.json")):
             for r in json.loads(path.read_text(encoding="utf-8")):
                 rules.append((path.stem if source == "catalog" else f"qa-pilot:{path.stem}", r))
@@ -187,14 +194,17 @@ def current_id(rule_id):
     return "QAC-" + rule_id[len(OLD_CATALOG_PREFIX):] if rule_id.startswith(OLD_CATALOG_PREFIX) else rule_id
 
 
-def build(kb, profile_text, overrides, targets):
+def build(kb, profile_text, overrides, targets, catalog=True):
     traits, has_section, warnings = parse_traits(profile_text)
+    if catalog and commercial_use(profile_text):
+        catalog = False
+        warnings.append("book catalog skipped: profile says use: commercial (not covered by commercial licences)")
     scope = scope_entries(overrides, warnings)
     disabled = {current_id(i) for i in overrides.get("disabled", [])}
     decisions = {current_id(k): v for k, v in overrides.get("decisions", {}).items()}
     packs = {name: [] for name in PACKS}
     excluded, unknown_tags, applied = {}, set(), []
-    for topic, r in load_rules(kb, overrides):
+    for topic, r in load_rules(kb, overrides, catalog):
         if topic.split(":", 1)[-1] in SKIP_TOPICS:
             continue
         missing = malformed(r)
@@ -218,6 +228,7 @@ def build(kb, profile_text, overrides, targets):
         packs[pack_of(topic)].append(r)
     manifest = {
         "targets": targets, "traits": traits, "traits_section_found": has_section,
+        "catalog": catalog,
         "counts": {name: len(rs) for name, rs in packs.items()},
         "excluded": dict(sorted(excluded.items())),
         "decisions_applied": sorted(applied),
@@ -235,19 +246,22 @@ def main(argv):
     ap.add_argument("--overrides", type=Path)
     ap.add_argument("--targets", default="requirements,test-plan")
     ap.add_argument("--out", required=True, type=Path)
+    ap.add_argument("--no-catalog", action="store_true",
+                    help="skip the book-derived catalog (also automatic with `use: commercial` in the profile)")
     args = ap.parse_args(argv[1:])
     profile_text = args.profile.read_text(encoding="utf-8") if args.profile and args.profile.exists() else ""
     overrides = (json.loads(args.overrides.read_text(encoding="utf-8"))
                  if args.overrides and args.overrides.exists() else {})
     targets = [t.strip() for t in args.targets.split(",") if t.strip()]
-    packs, manifest = build(args.kb, profile_text, overrides, targets)
+    packs, manifest = build(args.kb, profile_text, overrides, targets, catalog=not args.no_catalog)
     (args.out / "packs").mkdir(parents=True, exist_ok=True)
     for name, rules in packs.items():
         lines = [f"# Pack: {name} ({len(rules)} rules)", ""] + [rule_line(r) for r in rules]
         (args.out / "packs" / f"{name}.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     (args.out / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n",
                                             encoding="utf-8")
-    print(json.dumps({"counts": manifest["counts"], "excluded": len(manifest["excluded"]),
+    print(json.dumps({"counts": manifest["counts"], "catalog": manifest["catalog"],
+                      "excluded": len(manifest["excluded"]),
                       "traits_section_found": manifest["traits_section_found"],
                       "warnings": manifest["warnings"]}, ensure_ascii=False))
     return 0

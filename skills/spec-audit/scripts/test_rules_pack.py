@@ -91,6 +91,21 @@ class BuildTest(unittest.TestCase):
         self.assertEqual(packs["platform"][0]["id"], "QAC-HIG-002")
         self.assertEqual(packs["core"][-1]["id"], "QAP-AUTH-001")
 
+    def test_commercial_use_skips_the_book_catalog(self):
+        commercial = PROFILE + "\n## Licence\n\n```yaml\nuse: commercial\n```\n"
+        packs, manifest = build(self.kb, commercial, {}, ["requirements", "test-plan"])
+        self.assertEqual(self.ids(packs), {"QAP-AUTH-001"})
+        self.assertFalse(manifest["catalog"])
+        self.assertTrue(any("book catalog skipped" in w for w in manifest["warnings"]))
+        packs, manifest = build(self.kb, PROFILE + "\n## Licence\nuse: noncommercial\n", {}, ["requirements"])
+        self.assertTrue(manifest["catalog"])
+        self.assertIn("QAC-REQ-001", self.ids(packs))
+
+    def test_no_catalog_flag_skips_the_book_catalog(self):
+        packs, manifest = build(self.kb, PROFILE, {}, ["requirements", "test-plan"], catalog=False)
+        self.assertEqual(self.ids(packs), {"QAP-AUTH-001"})
+        self.assertFalse(manifest["catalog"])
+
     def test_untagged_rule_kept_even_without_profile(self):
         packs, manifest = build(self.kb, "", {}, ["requirements"])
         self.assertIn("QAC-REQ-001", self.ids(packs))

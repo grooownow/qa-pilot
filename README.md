@@ -15,6 +15,10 @@ something works without showing the evidence.
 
 ## Install
 
+**Licence:** free for noncommercial use; commercial use needs a licence — see
+[COMMERCIAL.md](COMMERCIAL.md). Version 0.9.0 and earlier stay MIT: to stay on MIT, install
+from the `v0.9.0` tag and do not update.
+
 Prerequisites: [Claude Code](https://code.claude.com/docs/en/overview) and
 Node.js (for the bundled Playwright MCP browser tools).
 
@@ -197,10 +201,10 @@ qa-pilot is **strongest on frontend/e2e testing, and usable well beyond it**:
 
 ## Made by
 
-qa-pilot is built by **[Ludvik4](https://ludvik4.dev)** — a studio building
+qa-pilot is built by **Ekaterina Pustovaia ([Ludvik4](https://ludvik4.dev))**, who builds
 digital products with a focus on AI-assisted development. The same philosophy
 you see here — project rules win, spec-first, evidence before claims — is how
-we build client work.
+the client work is built too.
 
 ## License
 

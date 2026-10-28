@@ -206,7 +206,7 @@ def render_topic(topic, records):
             if r.get("decision"):
                 out += [f"**Решение команды (приоритетнее книги):** {r['decision']}", ""]
     if records and all(r["id"].startswith("QAP-") for r in records):
-        out += ["", OWN_MARKER]
+        out.append(OWN_MARKER)
     return "\n".join(out).rstrip() + "\n"
 
 
