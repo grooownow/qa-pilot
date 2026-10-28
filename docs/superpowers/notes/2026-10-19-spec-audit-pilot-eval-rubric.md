@@ -1,6 +1,6 @@
-# spec-audit regression eval: TDK workflows + templates
+# spec-audit regression eval: pilot project, workflows + templates
 
-**Ground truth:** the TDK project agent's review of 2026-10-19. It lives outside this repo, at `AI-artifacts-tdk/reviews/2026-10-19-qa-review-workflow-templates-audit.md`.
+**Ground truth:** the pilot project agent's review of 2026-10-19. It lives outside this repo, in the owner's artifacts repo at `reviews/2026-10-19-qa-review-workflow-templates-audit.md`.
 
 **Setup:**
 - Scope: `workflows.md` and `workflow-templates.md`.

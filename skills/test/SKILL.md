@@ -53,7 +53,7 @@ Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.m
 | Diff + "в браузере"/URL | Task verify, then Browser on the affected flows. State both up front |
 | Only a plan or actions file named | Write tests from a plan |
 
-Before acting, say the decision in one line, for example: "Понимаю так: на ветке есть изменения по GOV-123 → проверяю задачу (verify)". Then go. Do not wait for a confirmation when the signals agree.
+Before acting, say the decision in one line, for example: "Понимаю так: на ветке есть изменения по PROJ-123 → проверяю задачу (verify)". Then go. Do not wait for a confirmation when the signals agree.
 
 **Ask once** when the signals conflict, or when they point to two modes with different costs and nothing breaks the tie. Examples:
 - a diff that looks unrelated to the named ticket;

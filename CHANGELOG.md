@@ -5,6 +5,13 @@ publishes the GitHub Release `vX.Y.Z` with that version's section below (`.githu
 
 To update an installed plugin: `/plugin` → marketplace qa-pilot → update, then `/reload-plugins`.
 
+## [1.0.1] — 2026-10-28
+
+### Changed
+- Real project names are removed from skills, references, rules and docs. Examples and rule origins now say
+  "a pilot project"; the orchestrator example uses a generic `feature-workflow` skill and `<TICKET-N>`.
+  `scripts/plugin/test_no_project_names.py` keeps the names out of tracked paths and text.
+
 ## [1.0.0] — 2026-10-28
 
 ### Changed
@@ -188,7 +195,7 @@ Planned split for a free and a paid edition (no prices here):
 - **False-positive book rules corrected:** content negotiation (RFC 9110 §12.5.1), boundary values (ISTQB allows 2-point BVA), and the full-name field. Numeric "myths" are marked as author opinion.
 
 ### Known limits
-- On the TDK eval, `spec-audit` 0.5 scored 14 of 21, the same as 0.4.0.
+- On a pilot-project eval, `spec-audit` 0.5 scored 14 of 21, the same as 0.4.0.
   - **Gained:** the two previous misses are now found, and new real bugs were found too.
   - **Lost:** four spec-specific checks.
 - Fixes for this (a mandatory spec walk, and "a mock of the deciding function is not coverage") are in place but not re-measured. Details: `docs/superpowers/notes/2026-10-19-spec-audit-0.5-eval.md`.

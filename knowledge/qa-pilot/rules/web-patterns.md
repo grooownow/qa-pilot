@@ -7,7 +7,7 @@
 
 ### QAP-WEB-001 · Сохранение или действие над сущностью, которую уже удалили
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.5 (404), §15.5.11 (410); qa-pilot TDK audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.5 (404), §15.5.11 (410); qa-pilot pilot-project audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Для каждой сущности с правкой и удалением определено и проверено, что происходит, когда пользователь сохраняет форму, запускает действие или открывает редактор, а сущность уже удалена (в другой вкладке, другим пользователем, фоновым процессом). Сервер отвечает 404 или 410, а не 500 и не воскрешает запись; UI показывает понятное сообщение, закрывает редактор или предлагает сохранить ввод и обновляет список.
 
@@ -17,7 +17,7 @@
 
 ### QAP-WEB-002 · Двойная отправка и параллельный запуск одного действия
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §9.2.2 (идемпотентные методы); IETF Internet-Draft draft-ietf-httpapi-idempotency-key-header, https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/; qa-pilot TDK audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §9.2.2 (идемпотентные методы); IETF Internet-Draft draft-ietf-httpapi-idempotency-key-header, https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/; qa-pilot pilot-project audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Каждое создающее или запускающее действие (create, run, pay, send, import) защищено от повтора на двух уровнях: UI блокирует повторный клик на время запроса, а сервер не создаёт дубль и не запускает вторую копию процесса (уникальный ключ, Idempotency-Key, проверка «уже запущено»).
 
@@ -27,7 +27,7 @@
 
 ### QAP-WEB-003 · Мутация без обработки ошибки
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, Guides: Mutations (onError; глобальные колбэки через MutationCache), https://tanstack.com/query/latest/docs/framework/react/guides/mutations; Nielsen Norman Group, 10 Usability Heuristics #1 и #9, https://www.nngroup.com/articles/ten-usability-heuristics/; qa-pilot TDK audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, Guides: Mutations (onError; глобальные колбэки через MutationCache), https://tanstack.com/query/latest/docs/framework/react/guides/mutations; Nielsen Norman Group, 10 Usability Heuristics #1 и #9, https://www.nngroup.com/articles/ten-usability-heuristics/; qa-pilot pilot-project audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Каждая операция записи имеет путь обработки сбоя: локальный onError/catch или глобальный обработчик, который реально покрывает статусы, возвращаемые этим эндпоинтом. Сбой записи не проглатывается молча и не оставляет пользователя в уверенности, что данные сохранены.
 
@@ -37,27 +37,27 @@
 
 ### QAP-WEB-004 · Модальное окно закрывается раньше, чем завершится запрос
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: qa-pilot TDK audit 2026-10 (G2); TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview (Mutations: mutate vs mutateAsync, onSuccess); Nielsen Norman Group, 10 Usability Heuristics #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/ · авторитет: industry-practice · сверка со стандартом: aligned
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: qa-pilot pilot-project audit 2026-10 (finding G2); TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview (Mutations: mutate vs mutateAsync, onSuccess); Nielsen Norman Group, 10 Usability Heuristics #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/ · авторитет: industry-practice · сверка со стандартом: aligned
 
 Диалог, который отправляет данные, закрывается только после успешного ответа. При ошибке он остаётся открытым, показывает причину и сохраняет введённое; на время запроса кнопки подтверждения заблокированы.
 
-**Почему:** Найдено в аудите TDK (G2): закрытие вызывалось в том же обработчике, что и mutate(), поэтому при ошибке ввод терялся, а пользователь видел закрытую модалку как успех. Книжного аналога нет.
+**Почему:** Найдено в аудите пилотного проекта (находка G2): закрытие вызывалось в том же обработчике, что и mutate(), поэтому при ошибке ввод терялся, а пользователь видел закрытую модалку как успех. Книжного аналога нет.
 
 **Как проверить:** Вопрос на каждый диалог с записью: «Где вызывается закрытие относительно ответа?». OK: onClose/setOpen(false) только в onSuccess или после await с проверкой результата (строка кода). BUG: mutate() и закрытие подряд в одном обработчике; закрытие в onSettled; закрытие до await. GAP: код верный, но нет component-теста «ошибка → модалка открыта, ввод на месте».
 
 ### QAP-WEB-005 · Сбой фонового рефетча стирает уже показанные данные
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; TanStack Query query-core types.ts (QueryObserverRefetchErrorResult: data сохраняется, isRefetchError), https://github.com/TanStack/query/blob/main/packages/query-core/src/types.ts; qa-pilot TDK audit 2026-10 (G4) · авторитет: industry-practice · сверка со стандартом: aligned
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; TanStack Query query-core types.ts (QueryObserverRefetchErrorResult: data сохраняется, isRefetchError), https://github.com/TanStack/query/blob/main/packages/query-core/src/types.ts; qa-pilot pilot-project audit 2026-10 (finding G4) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если данные уже загружены, а повторный запрос (поллинг, фокус окна, инвалидация) упал, экран продолжает показывать последние данные и рядом сообщает о сбое или пометке «устарело». Ошибка не заменяет весь контент.
 
-**Почему:** В TanStack Query v5 при сбое рефетча status становится 'error', а data от прошлого успешного ответа сохраняется (isRefetchError=true). Код вида `if (isError) return <Error/>` перед проверкой data стирает историю. Найдено в аудите TDK (G4); книжного аналога нет.
+**Почему:** В TanStack Query v5 при сбое рефетча status становится 'error', а data от прошлого успешного ответа сохраняется (isRefetchError=true). Код вида `if (isError) return <Error/>` перед проверкой data стирает историю. Найдено в аудите пилотного проекта (находка G4); книжного аналога нет.
 
 **Как проверить:** Вопрос на каждое чтение с поллингом или долгим жизненным циклом: «Что видно, если рефетч упал после показа данных?». OK: ветка ошибки проверяет наличие data (или isLoadingError) и рендерит данные с баннером (строка кода). BUG: ранний return по isError/error без учёта data; setState([]) в catch поллинга. GAP: нет component-теста «успех → сбой рефетча → данные на месте».
 
 ### QAP-WEB-006 · Конфликт уникальности (409) не доведён до пользователя
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.10 (409 Conflict); qa-pilot TDK audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.10 (409 Conflict); qa-pilot pilot-project audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Для каждого поля с ограничением уникальности (имя, slug, email) конфликт обрабатывается во всех путях записи — создание, переименование, импорт, копирование. Сервер отвечает 409 (или 422 с указанием поля), UI показывает ошибку у поля и не теряет ввод.
 
@@ -97,7 +97,7 @@
 
 ### QAP-WEB-010 · Маршруты и вкладки зависят от режима, флага или роли
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 API5 Broken Function Level Authorization, https://owasp.org/API-Security/editions/2023/en/0x11-t10/; Pete Hodgson, Feature Toggles (aka Feature Flags), martinfowler.com, https://martinfowler.com/articles/feature-toggles.html; qa-pilot TDK audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: OWASP API Security Top 10 2023 API5 Broken Function Level Authorization, https://owasp.org/API-Security/editions/2023/en/0x11-t10/; Pete Hodgson, Feature Toggles (aka Feature Flags), martinfowler.com, https://martinfowler.com/articles/feature-toggles.html; qa-pilot pilot-project audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если видимость маршрута, вкладки или действия зависит от режима, feature flag, тарифа или роли, решение принимает одна функция, и она же используется для навигации, прямого URL и сервера. Прямой переход на скрытый маршрут ведёт себя предсказуемо (404, редирект или сообщение), а не показывает полу-рабочий экран.
 
@@ -129,7 +129,7 @@
 
 ### QAP-WEB-013 · Успех показан до ответа или при сбое второго шага
 
-`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: qa-pilot TDK audit 2026-10; Nielsen Norman Group, 10 Usability Heuristics #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/ · авторитет: industry-practice · сверка со стандартом: aligned
+`nice` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: qa-pilot pilot-project audit 2026-10; Nielsen Norman Group, 10 Usability Heuristics #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/ · авторитет: industry-practice · сверка со стандартом: aligned
 
 Сообщение об успехе и переход дальше происходят только после успешного завершения всех шагов операции. Сбой второго шага многошагового действия (создать, затем привязать или загрузить) виден пользователю.
 
@@ -179,11 +179,11 @@
 
 ### QAP-WEB-018 · Действие над сущностью во время долгой операции
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: qa-pilot TDK audit 2026-10; IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.10 (409 Conflict: конфликт с текущим состоянием ресурса) · авторитет: industry-practice · сверка со стандартом: aligned
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: qa-pilot pilot-project audit 2026-10; IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.10 (409 Conflict: конфликт с текущим состоянием ресурса) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Для сущностей со статусами выполнения (run, import, job) определено, что происходит с правкой, удалением и повторным запуском, пока операция идёт; поллинг останавливается на финальном статусе.
 
-**Почему:** В аудите TDK фильтр «удаление во время запуска не тестируем» вырезал ровно этот класс. Полная модель состояний — QAC-TD-039/040.
+**Почему:** В аудите пилотного проекта фильтр «удаление во время запуска не тестируем» вырезал ровно этот класс. Полная модель состояний — QAC-TD-039/040.
 
 **Как проверить:** Вопрос: «Можно ли удалить, править или перезапустить X, пока он выполняется?». OK: сервер проверяет статус (строка кода), UI блокирует действия. BUG: удаление во время run оставляет висячую задачу; поллинг не останавливается.
 

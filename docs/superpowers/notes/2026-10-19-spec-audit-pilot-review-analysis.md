@@ -1,7 +1,7 @@
-# spec-audit on TDK: why the agents missed what the project reviewer found
+# spec-audit on a pilot project: why the agents missed what the project reviewer found
 
-**Run:** 2026-10-15, TDK Governor frontend, scope `workflows.md` + `workflow-templates.md`, baseline `0f7f4d3f99`. Skill 0.3.0.
-**Ground truth:** the TDK project agent's review on 2026-10-19 of the final 16-case list.
+**Run:** 2026-10-15, the pilot project's frontend, scope `workflows.md` + `workflow-templates.md`, baseline `0f7f4d3f99`. Skill 0.3.0.
+**Ground truth:** the pilot project agent's review on 2026-10-19 of the final 16-case list.
 - 8 cases were exact.
 - 5 needed a fix: a wrong test level or a wrong detail.
 - 3 had to be dropped or handed to product.
@@ -10,7 +10,7 @@
 - I read both agents' transcripts (`subagents/agent-*.jsonl`, 97 + 50 tool calls) and replayed the searches behind each wrong claim.
 - I re-checked every reviewer claim against the code at the baseline.
 
-All reviewer claims I checked were correct. I could not check one: GOV-617 is a Linear ticket and is not in the repo.
+All reviewer claims I checked were correct. I could not check one: the cited ticket is in the issue tracker and is not in the repo.
 
 ## Error → root cause
 
@@ -84,7 +84,7 @@ Add to `onboard` → `project-profile.md`:
 ### S5. Main-session inputs (fixes R6)
 - **Decisions digest:** only from decision sources (CLAUDE.md, ADRs, recorded owner decisions, test-strategy non-goals). **Never from the spec under audit.**
 - Each bullet keeps its source path. If a bullet only paraphrases a spec, drop it.
-- **Phase 0 asks for owner scope filters together with the traits**, for example: modes or platforms not developed, areas on hold (a role-model redesign), test types not wanted. TDK needed two extra rounds because of this.
+- **Phase 0 asks for owner scope filters together with the traits**, for example: modes or platforms not developed, areas on hold (a role-model redesign), test types not wanted. The pilot project needed two extra rounds because of this.
 - Persist the filters in `docs/qa/rule-overrides.json` under a new `scope` block, so the next run starts with them.
 - **Do not describe test locations in the brief by hand.** Point the agent at the profile's test-layers table.
 
@@ -100,7 +100,7 @@ Phase 6 writes **two artifacts**:
 2. The technical report (P1/P2/P3, rule ids, re-grade log), kept as the evidence trail.
 
 ### S7. Regression eval from this run
-We now have labelled ground truth: the reviewer's 16 verdicts on TDK at `0f7f4d3f99`.
+We now have labelled ground truth: the reviewer's 16 verdicts on the pilot project at `0f7f4d3f99`.
 - Re-run the same scope after S1–S6.
 - Score:
   - no false absence claims (cases 1, 2, 3, 4 must not reappear);
@@ -112,5 +112,5 @@ We now have labelled ground truth: the reviewer's 16 verdicts on TDK at `0f7f4d3
 ## Suggested order
 1. S1 + S2 + S3: edits to `spec-audit-lenses.md` and `SKILL.md`. They are the highest leverage and only text changes.
 2. S5 + S6: SKILL.md Phase 0 and Phase 6, plus a `scope` block in `rule_overrides` (small script change, with tests).
-3. S4: an onboard profile section. It touches another skill, and TDK's profile would need the new section.
-4. S7: re-run on TDK and compare against the reviewer's verdicts.
+3. S4: an onboard profile section. It touches another skill, and the pilot project's profile would need the new section.
+4. S7: re-run on the pilot project and compare against the reviewer's verdicts.

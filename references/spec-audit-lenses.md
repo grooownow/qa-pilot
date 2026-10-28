@@ -76,7 +76,7 @@ A spec-only audit produced about one third false "missing" items in the pilot, a
 
 ### 2a. Absence claims need a proving search
 
-"X does not exist" is the weakest claim you make. "Not covered", "no handler", "no guard", "no global toast" and "nobody calls it" are all absence claims. On TDK every wrong claim was an absence claim, and two of them came from a search piped through `head` that cut off the file that would have refuted it.
+"X does not exist" is the weakest claim you make. "Not covered", "no handler", "no guard", "no global toast" and "nobody calls it" are all absence claims. On a pilot project every wrong claim was an absence claim, and two of them came from a search piped through `head` that cut off the file that would have refuted it.
 
 - **Cite the search.** Each absence claim carries the exact command and its match count, e.g. `searched: git grep -n -i 'activity.\?log' $SHA -- frontend/e2e frontend/src → 0 matches in tests`.
 - **Never truncate a proving search.** No `head`, `tail` or `cut` on it. Run `| wc -l` first. If there are too many matches, narrow the pattern or the path, then read all of them.
@@ -124,7 +124,7 @@ Every P1/P2 needs a `code` reference: the `file:line` of the implementing code, 
 
 ## 2d. Prescribing a test: level, location, expected result
 
-A finding is half the work. The scenario you propose will be implemented by another agent exactly as written. On TDK, 5 of 16 scenarios had the wrong level or location, and 2 had an invented expected result.
+A finding is half the work. The scenario you propose will be implemented by another agent exactly as written. On a pilot project, 5 of 16 scenarios had the wrong level or location, and 2 had an invented expected result.
 
 - **Test where the logic lives.** Pick the level from where the behaviour is decided, not from how the spec describes it:
 

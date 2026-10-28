@@ -84,9 +84,9 @@ SKILL.md orchestrates phases 0–6 from the spec. Cluster agents apply the lense
 - [ ] Include `knowledge/` in the README description.
 
 ### Task 7: Evals
-- [ ] Deterministic eval: `spec_lint` over all pawfile specs. Compare with the pilot's 16 regex matches; the target is ≤2 false positives. Record the result.
-- [ ] `rules_pack` for pawfile traits: excluded counts are sensible, no HIG/game rules remain.
-- [ ] Single-feature eval: a fresh agent follows SKILL.md on pawfile F06+P07. Record tokens, time and findings, and compare with the pilot's g4 findings for F06/P07.
+- [ ] Deterministic eval: `spec_lint` over all the pilot project's specs. Compare with the pilot's 16 regex matches; the target is ≤2 false positives. Record the result.
+- [ ] `rules_pack` for the pilot project's traits: excluded counts are sensible, no HIG/game rules remain.
+- [ ] Single-feature eval: a fresh agent follows SKILL.md on the pilot project's F06+P07. Record tokens, time and findings, and compare with the pilot's g4 findings for F06/P07.
 - [ ] P1-recall eval: a fresh agent follows SKILL.md on the F05+P06 and F11 clusters plus the project-level NFR phase. It must surface the 3 pilot P1 root causes.
 - [ ] Write the results to `docs/superpowers/notes/2026-10-12-spec-audit-evals.md`. Fix the skill where an eval shows a gap, then re-run the affected eval.
 

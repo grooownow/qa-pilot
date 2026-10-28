@@ -17,7 +17,7 @@
       "how": "На спеке/тест-плане: у каждого сценария сбоя записи ожидаемый результат не допускает признаков успеха. На коде и продукте: при замоканном 4xx/5xx нет тоста успеха, форма/модалка не закрыта (см. QAP-WEB-004, -012, -013). Нарушение — BUG."
     },
     "source": {
-      "origin": "Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #1 Visibility of system status; qa-pilot TDK audit 2026-10"
+      "origin": "Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #1 Visibility of system status; qa-pilot pilot-project audit 2026-10"
     },
     "tags": [
       "web-invariant",
@@ -103,7 +103,7 @@
       "how": "OK: после успешной загрузки и упавшего рефетча данные на месте, рядом баннер или пометка. BUG: экран заменяется ошибкой или пустым состоянием."
     },
     "source": {
-      "origin": "Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #1 Visibility of system status; TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; qa-pilot TDK audit 2026-10 (G4)"
+      "origin": "Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #1 Visibility of system status; TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; qa-pilot pilot-project audit 2026-10 (finding G4)"
     },
     "tags": [
       "web-invariant",

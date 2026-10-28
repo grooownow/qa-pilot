@@ -1,12 +1,12 @@
-# spec-audit 0.4.0 regression eval on TDK: results
+# spec-audit 0.4.0 regression eval on a pilot project: results
 
 **Setup:**
-- Rubric: `2026-10-19-spec-audit-tdk-eval-rubric.md` (21 checks from the TDK reviewer's verdicts).
+- Rubric: `2026-10-19-spec-audit-pilot-eval-rubric.md` (21 checks from the pilot project reviewer's verdicts).
 - Same scope, baseline (`0f7f4d3f99`), traits and scope filters as v1.
 - Two cluster agents on the session model, briefed per SKILL.md 0.4.0.
 - The audit profile carried the Test layers and Error plumbing sections, filled in Phase 0.
 - The decisions digest was built from decision sources only.
-- Raw findings are local in TDK: `frontend/docs/qa/spec-audit/.work/workflows-templates-v2/`.
+- Raw findings are local in the pilot project: `frontend/docs/qa/spec-audit/.work/workflows-templates-v2/`.
 
 ## Score
 

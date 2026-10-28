@@ -7,7 +7,7 @@
 
 ### QAP-WINV-001 · Нет сообщения об успехе после сбоя
 
-`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #1 Visibility of system status; qa-pilot TDK audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
+`must` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #1 Visibility of system status; qa-pilot pilot-project audit 2026-10 · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если операция не завершилась успешно, интерфейс не показывает признаков успеха: тоста «Сохранено», закрытия формы как при успехе, перехода на следующий шаг, обновлённого значения без отката.
 
@@ -37,7 +37,7 @@
 
 ### QAP-WINV-004 · Загруженные данные переживают сбой фонового обновления
 
-`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #1 Visibility of system status; TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; qa-pilot TDK audit 2026-10 (G4) · авторитет: industry-practice · сверка со стандартом: aligned
+`should` · проверка: эвристика агента · для: requirements, test-plan, test-code, live-product · источник: Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #1 Visibility of system status; TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; qa-pilot pilot-project audit 2026-10 (finding G4) · авторитет: industry-practice · сверка со стандартом: aligned
 
 Если данные уже показаны, сбой повторной загрузки не стирает их: экран продолжает показывать последнее известное состояние и сообщает, что обновление не удалось или данные могут быть устаревшими.
 

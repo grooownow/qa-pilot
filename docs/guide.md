@@ -48,7 +48,7 @@ them, so cleaning the foundation first makes everything after it cheaper.
 One command for every task. Add context if you have it, or nothing at all:
 
 ```
-/qa-pilot:test GOV-123          # a ticket: before coding → QA plan; after coding → verify the change
+/qa-pilot:test PROJ-123          # a ticket: before coding → QA plan; after coding → verify the change
 /qa-pilot:test                  # nothing: it reads your branch and decides
 /qa-pilot:test in the browser   # exploratory testing of the changed flow in a real browser
 /qa-pilot:test cover            # just cover what you shipped with tests

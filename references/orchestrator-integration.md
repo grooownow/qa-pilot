@@ -33,20 +33,20 @@ Onboard proposes this for any project workflow (skill, command, `AGENTS.md` flow
 
 **Periodic (release, or after a round of small changes):** run `/qa-pilot:audit` for the whole picture, or `/qa-pilot:audit <feature>` for one feature.
 
-## Example: TDK `gov-front-feature`
+## Example: a `feature-workflow` skill
 
-The owner adds the following to `.claude/skills/gov-front-feature/SKILL.md`. qa-pilot does not edit the project itself.
+Take a project whose feature workflow skill is `feature-workflow`, with a testing step `feature-testing`. The owner adds the following to `.claude/skills/feature-workflow/SKILL.md`. qa-pilot does not edit the project itself.
 
 **Phase 3 — Plan.** Add before "Get user approval on the plan":
 
 ```markdown
-- **QA plan (qa-pilot).** Invoke the `qa-pilot:task-qa` skill in mode `plan` for <GOV-N> (it is internal: call it with the Skill tool, not as a slash command). Put its Must tests into the plan's slices, its proposed AC edits and questions into the plan's open questions, and its regression set into the Phase 8 checks. Skip on the short path.
+- **QA plan (qa-pilot).** Invoke the `qa-pilot:task-qa` skill in mode `plan` for <TICKET-N> (it is internal: call it with the Skill tool, not as a slash command). Put its Must tests into the plan's slices, its proposed AC edits and questions into the plan's open questions, and its regression set into the Phase 8 checks. Skip on the short path.
 ```
 
-**Phase 6 — Tests.** Add after the `gov-front-testing` line:
+**Phase 6 — Tests.** Add after the `feature-testing` line:
 
 ```markdown
-- **QA verify (qa-pilot).** After the tests from this phase are written and green, invoke the `qa-pilot:task-qa` skill in mode `verify` for <GOV-N>. It reconciles the diff with the QA plan, asks "intended?" about unplanned behaviour changes, proves coverage (test + distinguishing assertion + layer in CI), and adds up to 5 missing tests under its guard. A BUG is reported to the user; with their OK, go back to Phase 4 to fix it. Paste its `## QA verification` block into the PR body in Phase 10, next to `## AC verification`.
+- **QA verify (qa-pilot).** After the tests from this phase are written and green, invoke the `qa-pilot:task-qa` skill in mode `verify` for <TICKET-N>. It reconciles the diff with the QA plan, asks "intended?" about unplanned behaviour changes, proves coverage (test + distinguishing assertion + layer in CI), and adds up to 5 missing tests under its guard. A BUG is reported to the user; with their OK, go back to Phase 4 to fix it. Paste its `## QA verification` block into the PR body in Phase 10, next to `## AC verification`.
 ```
 
 **Phase table (Model routing).** Both calls are judgment work. Run them inline on the session model, or delegate them to a subagent that returns only the task file path and the summary block.

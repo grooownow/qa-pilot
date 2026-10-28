@@ -62,12 +62,12 @@ class ValidateTest(unittest.TestCase):
 
 
 class NonBookRulesTest(unittest.TestCase):
-    QAP = {**copy.deepcopy(VALID), "id": "QAP-INFRA-001", "source": {"origin": "pilot pawfile 2026-10-12"}}
+    QAP = {**copy.deepcopy(VALID), "id": "QAP-INFRA-001", "source": {"origin": "pilot project 2026-10-12"}}
 
     def test_qap_with_origin_passes_and_renders_origin(self):
         self.assertEqual(validate_all({"pilot": [self.QAP]}, CHUNKS), [])
         md = render_topic("pilot", [self.QAP])
-        self.assertIn("источник: pilot pawfile 2026-10-12", md)
+        self.assertIn("источник: pilot project 2026-10-12", md)
         self.assertIn("Собственные правила qa-pilot", md)
 
     def test_ownership_marker_only_on_own_rules(self):

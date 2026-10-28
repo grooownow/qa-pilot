@@ -9,7 +9,7 @@ The independent book review (§4, §7) named the main gaps of the book catalog: 
    - has `source.origin` (source, version, section or ID, URL) and `authority`;
    - avoids existing book rules, and refers to an QAC id when it refines or corrects one.
 2. **Independent verifier agent.** It opened each cited source and confirmed the section exists and supports the rule. It also checked severity and authority discipline, paraphrase and auditability, and fixed or dropped rules in place.
-3. **Main session.** It resolved the overlaps the verifiers reported between domains, validated the files with `render_rules.py`, and promoted them from `drafts/` to `rules/` after the 0.5 TDK eval, so the eval measured phase 1 alone.
+3. **Main session.** It resolved the overlaps the verifiers reported between domains, validated the files with `render_rules.py`, and promoted them from `drafts/` to `rules/` after the 0.5 pilot-project eval, so the eval measured phase 1 alone.
 
 | Domain (file) | Drafted | After verification | Fixed | Dropped | Main sources |
 |---|---|---|---|---|---|
@@ -31,7 +31,7 @@ The verification reports are in the session scratchpad (`domains/*-verify.md`). 
 
 ## Effect on packs
 
-On the TDK profile (requirements + test-plan targets), the packs grow from about 296 KB to about 350 KB:
+On the pilot project's profile (requirements + test-plan targets), the packs grow from about 296 KB to about 350 KB:
 - `core` +15 KB;
 - `api-data` +36 KB.
 

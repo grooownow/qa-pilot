@@ -102,8 +102,8 @@ claiming done.
    `docs/qa/spec-audit/<date>-<slug>.md`. Design:
    `docs/superpowers/specs/2026-10-12-spec-audit-skill-design.md`.
 
-   **0.4.0 changes**, after a project reviewer graded the TDK run; see
-   `docs/superpowers/notes/2026-10-19-spec-audit-tdk-review-analysis.md`:
+   **0.4.0 changes**, after a project reviewer graded the run on a pilot project; see
+   `docs/superpowers/notes/2026-10-19-spec-audit-pilot-review-analysis.md`:
    - **Absence claims** ("not covered", "silent", "no guard") must cite an
      untruncated proving search.
    - **"Covered"** requires the matching assertion, and a layer that runs in CI.

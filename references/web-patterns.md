@@ -37,7 +37,7 @@ Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibr
 
 **Book rules:** QAC-API-118, QAC-API-025
 
-_Source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.5 (404), §15.5.11 (410); qa-pilot TDK audit 2026-10_
+_Source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.5 (404), §15.5.11 (410); qa-pilot pilot-project audit 2026-10_
 
 ### QAP-WEB-002 · Двойная отправка и параллельный запуск одного действия
 
@@ -53,7 +53,7 @@ Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibr
 
 **Book rules:** QAC-FORM-026, QAC-API-003, QAC-PERF-014, QAC-UX-031, QAC-DB-024
 
-_Source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §9.2.2 (идемпотентные методы); IETF Internet-Draft draft-ietf-httpapi-idempotency-key-header, https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/; qa-pilot TDK audit 2026-10_
+_Source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §9.2.2 (идемпотентные методы); IETF Internet-Draft draft-ietf-httpapi-idempotency-key-header, https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/; qa-pilot pilot-project audit 2026-10_
 
 ### QAP-WEB-003 · Мутация без обработки ошибки
 
@@ -69,7 +69,7 @@ Catalog severity `must` (not a bucket: the cell's P1/P2 follows `severity-calibr
 
 **Book rules:** QAC-API-118, QAC-A11Y-060, QAC-MOB-016
 
-_Source: TanStack Query v5 docs, Guides: Mutations (onError; глобальные колбэки через MutationCache), https://tanstack.com/query/latest/docs/framework/react/guides/mutations; Nielsen Norman Group, 10 Usability Heuristics #1 и #9, https://www.nngroup.com/articles/ten-usability-heuristics/; qa-pilot TDK audit 2026-10_
+_Source: TanStack Query v5 docs, Guides: Mutations (onError; глобальные колбэки через MutationCache), https://tanstack.com/query/latest/docs/framework/react/guides/mutations; Nielsen Norman Group, 10 Usability Heuristics #1 и #9, https://www.nngroup.com/articles/ten-usability-heuristics/; qa-pilot pilot-project audit 2026-10_
 
 ### QAP-WEB-004 · Модальное окно закрывается раньше, чем завершится запрос
 
@@ -81,11 +81,11 @@ Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-cali
 
 **Triggers (where to look):** `rg -n "mutate\(.*\)[;,]?\s*$" src -A3 | rg "(onClose|setOpen\(false\)|close\(\)|onOpenChange\(false\))"`, `rg -n "onSettled:.*(close|setOpen)" src`, `rg -n "<(Dialog|Modal|Sheet|Drawer)" src -l  # список диалогов для перебора`
 
-**Why:** Найдено в аудите TDK (G2): закрытие вызывалось в том же обработчике, что и mutate(), поэтому при ошибке ввод терялся, а пользователь видел закрытую модалку как успех. Книжного аналога нет.
+**Why:** Найдено в аудите пилотного проекта (находка G2): закрытие вызывалось в том же обработчике, что и mutate(), поэтому при ошибке ввод терялся, а пользователь видел закрытую модалку как успех. Книжного аналога нет.
 
 **Book rules:** QAC-FORM-056, QAC-API-118
 
-_Source: qa-pilot TDK audit 2026-10 (G2); TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview (Mutations: mutate vs mutateAsync, onSuccess); Nielsen Norman Group, 10 Usability Heuristics #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/_
+_Source: qa-pilot pilot-project audit 2026-10 (finding G2); TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview (Mutations: mutate vs mutateAsync, onSuccess); Nielsen Norman Group, 10 Usability Heuristics #1 Visibility of system status, https://www.nngroup.com/articles/ten-usability-heuristics/_
 
 ### QAP-WEB-005 · Сбой фонового рефетча стирает уже показанные данные
 
@@ -97,11 +97,11 @@ Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-cali
 
 **Triggers (where to look):** `rg -n "refetchInterval|refetchOnWindowFocus|setInterval\(.*fetch" src`, `rg -n "if \((isError|error|query\.isError)\)\s*(return|\{)" src  # затем проверить, учтена ли data`, `rg -n "isLoadingError|isRefetchError" src  # признаки правильной развилки`
 
-**Why:** В TanStack Query v5 при сбое рефетча status становится 'error', а data от прошлого успешного ответа сохраняется (isRefetchError=true). Код вида `if (isError) return <Error/>` перед проверкой data стирает историю. Найдено в аудите TDK (G4); книжного аналога нет.
+**Why:** В TanStack Query v5 при сбое рефетча status становится 'error', а data от прошлого успешного ответа сохраняется (isRefetchError=true). Код вида `if (isError) return <Error/>` перед проверкой data стирает историю. Найдено в аудите пилотного проекта (находка G4); книжного аналога нет.
 
 **Book rules:** QAC-API-118, QAC-API-123
 
-_Source: TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; TanStack Query query-core types.ts (QueryObserverRefetchErrorResult: data сохраняется, isRefetchError), https://github.com/TanStack/query/blob/main/packages/query-core/src/types.ts; qa-pilot TDK audit 2026-10 (G4)_
+_Source: TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; TanStack Query query-core types.ts (QueryObserverRefetchErrorResult: data сохраняется, isRefetchError), https://github.com/TanStack/query/blob/main/packages/query-core/src/types.ts; qa-pilot pilot-project audit 2026-10 (finding G4)_
 
 ### QAP-WEB-006 · Конфликт уникальности (409) не доведён до пользователя
 
@@ -117,7 +117,7 @@ Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-cali
 
 **Book rules:** QAC-API-025, QAC-DB-024
 
-_Source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.10 (409 Conflict); qa-pilot TDK audit 2026-10_
+_Source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §15.5.10 (409 Conflict); qa-pilot pilot-project audit 2026-10_
 
 ### QAP-WEB-007 · Права проверены только в UI
 
@@ -181,7 +181,7 @@ Catalog severity `should` (not a bucket: the cell's P1/P2 follows `severity-cali
 
 **Book rules:** QAC-INST-024, QAC-API-089
 
-_Source: OWASP API Security Top 10 2023 API5 Broken Function Level Authorization, https://owasp.org/API-Security/editions/2023/en/0x11-t10/; Pete Hodgson, Feature Toggles (aka Feature Flags), martinfowler.com, https://martinfowler.com/articles/feature-toggles.html; qa-pilot TDK audit 2026-10_
+_Source: OWASP API Security Top 10 2023 API5 Broken Function Level Authorization, https://owasp.org/API-Security/editions/2023/en/0x11-t10/; Pete Hodgson, Feature Toggles (aka Feature Flags), martinfowler.com, https://martinfowler.com/articles/feature-toggles.html; qa-pilot pilot-project audit 2026-10_
 
 ## Highlight-only patterns
 
@@ -200,10 +200,10 @@ Mention as one line in *Highlighted, not drilled* when you see one.
 
 When a spec is silent, these are valid sources for a scenario's expected result (cite the id). A violation on a user-visible path is a BUG, not a product question.
 
-- **QAP-WINV-001 · Нет сообщения об успехе после сбоя.** Если операция не завершилась успешно, интерфейс не показывает признаков успеха: тоста «Сохранено», закрытия формы как при успехе, перехода на следующий шаг, обновлённого значения без отката. _(source: Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #1 Visibility of system status; qa-pilot TDK audit 2026-10)_
+- **QAP-WINV-001 · Нет сообщения об успехе после сбоя.** Если операция не завершилась успешно, интерфейс не показывает признаков успеха: тоста «Сохранено», закрытия формы как при успехе, перехода на следующий шаг, обновлённого значения без отката. _(source: Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #1 Visibility of system status; qa-pilot pilot-project audit 2026-10)_
 - **QAP-WINV-002 · У каждой записи есть видимая реакция на сбой.** Любая операция записи при ошибке или обрыве сети даёт пользователю видимое и понятное сообщение: что не получилось и что делать. Сообщение связано с полем, если ошибка относится к полю, и доступно вспомогательным технологиям. _(source: Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #9 Help users recognize, diagnose, and recover from errors; W3C WCAG 2.2 SC 3.3.1 Error Identification (A), https://www.w3.org/WAI/WCAG22/Understanding/error-identification; GOV.UK Design System, Error message (OGL v3), https://design-system.service.gov.uk/components/error-message/)_
 - **QAP-WINV-003 · Пользователю не показываются сырые id, стектрейсы и внутренние ошибки.** Тексты ошибок и экраны не содержат стектрейсов, SQL, имён классов и исключений, внутренних кодов и сырых тел ответов сервера; вместо имени объекта не показывается его UUID. Детали уходят в логи, пользователь видит понятное сообщение. _(source: OWASP Error Handling Cheat Sheet (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html; MITRE CWE-209 Generation of Error Message Containing Sensitive Information, https://cwe.mitre.org/data/definitions/209.html; GOV.UK Design System, Pages for problems with the service (OGL v3), https://design-system.service.gov.uk/patterns/problem-with-the-service-pages/)_
-- **QAP-WINV-004 · Загруженные данные переживают сбой фонового обновления.** Если данные уже показаны, сбой повторной загрузки не стирает их: экран продолжает показывать последнее известное состояние и сообщает, что обновление не удалось или данные могут быть устаревшими. _(source: Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #1 Visibility of system status; TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; qa-pilot TDK audit 2026-10 (G4))_
+- **QAP-WINV-004 · Загруженные данные переживают сбой фонового обновления.** Если данные уже показаны, сбой повторной загрузки не стирает их: экран продолжает показывать последнее известное состояние и сообщает, что обновление не удалось или данные могут быть устаревшими. _(source: Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #1 Visibility of system status; TanStack Query v5 docs, https://tanstack.com/query/latest/docs/framework/react/overview; qa-pilot pilot-project audit 2026-10 (finding G4))_
 - **QAP-WINV-005 · Разрушающее действие называет, что уничтожает, и требует подтверждения.** Удаление, сброс, отмена запуска и другие необратимые действия называют конкретный объект и последствия (что ещё удалится) и требуют явного подтверждения либо дают отмену после выполнения. Кнопка подтверждения названа по действию. _(source: W3C WCAG 2.2 SC 3.3.4 Error Prevention (Legal, Financial, Data) (AA), https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data; Nielsen Norman Group, 10 Usability Heuristics for User Interface Design, https://www.nngroup.com/articles/ten-usability-heuristics/ #5 Error prevention)_
 - **QAP-WINV-006 · Повтор предлагается, только когда он может помочь.** Кнопка «Повторить» или совет «попробуйте ещё раз» показываются для временных сбоев (сеть, 5xx, 429, 503). Для постоянных ошибок (400, 403, 404, 409, 422) пользователю объясняют, что изменить, а не предлагают бесполезный повтор. Автоповтор неидемпотентной записи не создаёт дублей. _(source: IETF RFC 9110 HTTP Semantics (2022), https://www.rfc-editor.org/rfc/rfc9110 §9.2.2 (идемпотентные методы), §10.2.3 (Retry-After), §15.6.4 (503); GOV.UK Design System, Pages for problems with the service (OGL v3), https://design-system.service.gov.uk/patterns/problem-with-the-service-pages/)_
 
