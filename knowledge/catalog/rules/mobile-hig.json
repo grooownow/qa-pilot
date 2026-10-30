@@ -26,7 +26,8 @@
       "hig",
       "app-store-review",
       "see-QAC-MOB-030",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -57,7 +58,8 @@
       "web",
       "color",
       "accent-color",
-      "cta"
+      "cta",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -86,7 +88,8 @@
       "web",
       "color",
       "settings",
-      "visual-hierarchy"
+      "visual-hierarchy",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -115,7 +118,8 @@
       "web",
       "color",
       "color-blindness",
-      "see-QAC-MOB-051"
+      "see-QAC-MOB-051",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -144,7 +148,9 @@
       "color",
       "toolbar",
       "tab-bar",
-      "contrast"
+      "contrast",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -170,7 +176,9 @@
     "tags": [
       "ios",
       "color",
-      "branding"
+      "branding",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -200,7 +208,8 @@
       "web",
       "inclusion",
       "ux-writing",
-      "localization"
+      "localization",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -233,7 +242,8 @@
       "inclusion",
       "forms",
       "gender",
-      "onboarding"
+      "onboarding",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -263,7 +273,9 @@
       "ios",
       "inclusion",
       "onboarding",
-      "app-store-review"
+      "app-store-review",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -290,7 +302,9 @@
       "ios",
       "inclusion",
       "icons",
-      "sf-symbols"
+      "sf-symbols",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -320,7 +334,8 @@
       "ios",
       "web",
       "inclusion",
-      "ux-writing"
+      "ux-writing",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -352,7 +367,8 @@
       "web",
       "inclusion",
       "security-questions",
-      "auth"
+      "auth",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -388,7 +404,8 @@
       "mobile",
       "animations",
       "also-mobile",
-      "see-QAC-A11Y-063"
+      "see-QAC-A11Y-063",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -416,7 +433,8 @@
       "ios",
       "web",
       "accessibility",
-      "situational-disability"
+      "situational-disability",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -446,7 +464,9 @@
       "ios",
       "android",
       "privacy",
-      "permissions"
+      "permissions",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -476,7 +496,9 @@
       "ios",
       "privacy",
       "permissions",
-      "ux-writing"
+      "ux-writing",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -506,7 +528,9 @@
       "ios",
       "privacy",
       "hide-my-email",
-      "app-tracking-transparency"
+      "app-tracking-transparency",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "fixed",
     "authority": "vendor-guideline",
@@ -535,7 +559,9 @@
     "tags": [
       "ios",
       "privacy",
-      "on-device"
+      "on-device",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -568,7 +594,8 @@
       "slider",
       "progress-indicator",
       "see-QAC-MD-029",
-      "needs-rtl"
+      "needs-rtl",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -599,7 +626,8 @@
       "sf-symbols",
       "icons",
       "needs-ios",
-      "needs-rtl"
+      "needs-rtl",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -633,7 +661,8 @@
       "accessibility",
       "keyboard",
       "wcag-2.5.7",
-      "see-QAC-A11Y-094"
+      "see-QAC-A11Y-094",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -662,7 +691,8 @@
     "tags": [
       "ios",
       "web",
-      "drag-and-drop"
+      "drag-and-drop",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -689,7 +719,8 @@
       "ios",
       "web",
       "drag-and-drop",
-      "multi-select"
+      "multi-select",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -718,7 +749,8 @@
       "ios",
       "web",
       "drag-and-drop",
-      "drop-zone"
+      "drop-zone",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -747,7 +779,8 @@
       "ios",
       "web",
       "feedback",
-      "confirmation"
+      "confirmation",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -776,7 +809,8 @@
       "ios",
       "web",
       "feedback",
-      "error-message"
+      "error-message",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -807,7 +841,9 @@
       "ios",
       "android",
       "app-launch",
-      "performance"
+      "performance",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -835,7 +871,8 @@
       "ios",
       "app-launch",
       "launch-screen",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -865,7 +902,9 @@
       "ios",
       "app-launch",
       "splash-screen",
-      "onboarding"
+      "onboarding",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -899,7 +938,8 @@
       "lifecycle",
       "see-QAC-MOB-071",
       "see-QAC-MOB-080",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -930,7 +970,8 @@
       "orientation",
       "app-launch",
       "games",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -960,7 +1001,9 @@
       "android",
       "loading",
       "background-download",
-      "games"
+      "games",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -988,7 +1031,9 @@
       "ios",
       "android",
       "loading",
-      "games"
+      "games",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -1019,7 +1064,8 @@
       "web",
       "loading",
       "progress-indicator",
-      "see-QAC-MD-059"
+      "see-QAC-MD-059",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -1048,7 +1094,8 @@
       "android",
       "games",
       "loading",
-      "needs-game"
+      "needs-game",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1080,7 +1127,8 @@
       "auth",
       "registration",
       "onboarding",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1114,7 +1162,8 @@
       "sign-in-with-apple",
       "app-store-review",
       "needs-ios",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -1145,7 +1194,8 @@
       "web",
       "auth",
       "ux-writing",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1178,7 +1228,8 @@
       "auth",
       "guest-mode",
       "e-commerce",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -1210,7 +1261,8 @@
       "account-deletion",
       "privacy",
       "app-store-review",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1241,7 +1293,8 @@
       "android",
       "account-deletion",
       "settings",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1274,7 +1327,8 @@
       "account-deletion",
       "privacy",
       "legal",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1307,7 +1361,9 @@
       "notifications",
       "push",
       "marketing",
-      "consent"
+      "consent",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1341,7 +1397,9 @@
       "android",
       "notifications",
       "push",
-      "settings"
+      "settings",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -1370,7 +1428,8 @@
     "tags": [
       "ios",
       "web",
-      "modal"
+      "modal",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1397,7 +1456,8 @@
     "tags": [
       "ios",
       "web",
-      "modal"
+      "modal",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1425,7 +1485,8 @@
       "ios",
       "web",
       "modal",
-      "navigation"
+      "navigation",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -1455,7 +1516,8 @@
       "android",
       "web",
       "modal",
-      "popup"
+      "popup",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -1489,7 +1551,8 @@
       "games",
       "media-player",
       "see-QAC-MOB-006",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1520,7 +1583,8 @@
       "android",
       "multitasking",
       "state-restoration",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1549,7 +1613,8 @@
       "web",
       "tooltip",
       "coach-marks",
-      "help"
+      "help",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1576,7 +1641,9 @@
     "tags": [
       "ios",
       "android",
-      "onboarding"
+      "onboarding",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -1603,7 +1670,9 @@
     "tags": [
       "ios",
       "android",
-      "onboarding"
+      "onboarding",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -1632,7 +1701,9 @@
       "ios",
       "android",
       "onboarding",
-      "tutorial"
+      "tutorial",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -1662,7 +1733,8 @@
       "onboarding",
       "loading",
       "games",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1691,7 +1763,8 @@
       "onboarding",
       "eula",
       "legal",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1720,7 +1793,9 @@
       "android",
       "onboarding",
       "registration",
-      "gamification"
+      "gamification",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -1748,7 +1823,8 @@
       "android",
       "haptics",
       "feedback",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1775,7 +1851,8 @@
       "ios",
       "android",
       "haptics",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1806,7 +1883,8 @@
       "haptics",
       "accessibility",
       "settings",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1838,7 +1916,8 @@
       "android",
       "web",
       "search",
-      "scope-bar"
+      "scope-bar",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1870,7 +1949,8 @@
       "android",
       "web",
       "search",
-      "scope"
+      "scope",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1900,7 +1980,8 @@
       "web",
       "search",
       "autocomplete",
-      "recent-searches"
+      "recent-searches",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1933,7 +2014,8 @@
       "web",
       "search",
       "privacy",
-      "search-history"
+      "search-history",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1962,7 +2044,9 @@
       "android",
       "settings",
       "defaults",
-      "games"
+      "games",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -1992,7 +2076,9 @@
       "ios",
       "android",
       "settings",
-      "games"
+      "games",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "fixed"
   },
@@ -2019,7 +2105,9 @@
       "ios",
       "undo",
       "shake-to-undo",
-      "alert"
+      "alert",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -2049,7 +2137,8 @@
       "ios",
       "web",
       "undo",
-      "editor"
+      "editor",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2079,7 +2168,8 @@
       "web",
       "undo",
       "redo",
-      "editor"
+      "editor",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2115,7 +2205,8 @@
       "see-QAC-A11Y-095",
       "see-QAC-UX-035",
       "see-QAC-A11Y-092",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "vendor-guideline",
@@ -2147,7 +2238,8 @@
       "web",
       "button",
       "press-state",
-      "feedback"
+      "feedback",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -2178,7 +2270,8 @@
       "web",
       "button",
       "destructive-action",
-      "primary-button"
+      "primary-button",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2207,7 +2300,8 @@
       "web",
       "edit-menu",
       "context-menu",
-      "clipboard"
+      "clipboard",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2235,7 +2329,8 @@
       "ios",
       "web",
       "edit-menu",
-      "undo"
+      "undo",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -2264,7 +2359,8 @@
       "android",
       "web",
       "text-selection",
-      "copy"
+      "copy",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2295,7 +2391,8 @@
       "web",
       "ux-writing",
       "button",
-      "see-QAC-MD-058"
+      "see-QAC-MD-058",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2322,7 +2419,8 @@
       "ios",
       "android",
       "web",
-      "ux-writing"
+      "ux-writing",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2352,7 +2450,8 @@
       "web",
       "ux-writing",
       "error-message",
-      "also-mobile-material"
+      "also-mobile-material",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "vendor-guideline",
@@ -2390,7 +2489,8 @@
       "error-message",
       "forms",
       "validation",
-      "see-QAC-A11Y-115"
+      "see-QAC-A11Y-115",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2420,7 +2520,8 @@
       "android",
       "web",
       "ux-writing",
-      "error-message"
+      "error-message",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -2450,7 +2551,8 @@
       "ios",
       "android",
       "web",
-      "error-prevention"
+      "error-prevention",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2479,7 +2581,8 @@
       "ios",
       "quick-actions",
       "home-screen",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -2507,7 +2610,8 @@
       "macos",
       "web",
       "menu",
-      "ux-writing"
+      "ux-writing",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2536,7 +2640,9 @@
       "menu",
       "ux-writing",
       "capitalization",
-      "see-QAC-MD-011"
+      "see-QAC-MD-011",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -2566,7 +2672,9 @@
       "ios",
       "macos",
       "menu",
-      "ux-writing"
+      "ux-writing",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -2596,7 +2704,8 @@
       "ios",
       "macos",
       "web",
-      "menu"
+      "menu",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2624,7 +2733,8 @@
       "macos",
       "web",
       "menu",
-      "submenu"
+      "submenu",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -2652,7 +2762,8 @@
       "macos",
       "web",
       "menu",
-      "checkmark"
+      "checkmark",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2682,7 +2793,8 @@
       "ios",
       "web",
       "dropdown",
-      "defaults"
+      "defaults",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2709,7 +2821,9 @@
       "ios",
       "toolbar",
       "navigation",
-      "consistency"
+      "consistency",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -2737,7 +2851,8 @@
       "android",
       "web",
       "search",
-      "placeholder"
+      "placeholder",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2766,7 +2881,8 @@
       "android",
       "web",
       "search",
-      "instant-search"
+      "instant-search",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2796,7 +2912,8 @@
       "web",
       "search",
       "filters",
-      "scope-bar"
+      "scope-bar",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2829,7 +2946,8 @@
       "liquid-glass",
       "performance",
       "battery",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -2858,7 +2976,9 @@
       "ios",
       "tab-bar",
       "navigation",
-      "empty-state"
+      "empty-state",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -2885,7 +3005,9 @@
       "ios",
       "tab-bar",
       "labels",
-      "see-QAC-GUI-014"
+      "see-QAC-GUI-014",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -2915,7 +3037,8 @@
       "ios",
       "web",
       "alert",
-      "feedback"
+      "feedback",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -2947,7 +3070,8 @@
       "web",
       "alert",
       "error-message",
-      "ux-writing"
+      "ux-writing",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -2975,7 +3099,9 @@
       "alert",
       "ux-writing",
       "punctuation",
-      "see-QAC-MD-013"
+      "see-QAC-MD-013",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "fixed"
   },
@@ -3004,7 +3130,8 @@
       "android",
       "web",
       "page-control",
-      "carousel"
+      "carousel",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "vendor-guideline",
@@ -3034,7 +3161,8 @@
       "macos",
       "web",
       "combo-box",
-      "defaults"
+      "defaults",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3066,7 +3194,8 @@
       "forms",
       "placeholder",
       "label",
-      "see-QAC-A11Y-111"
+      "see-QAC-A11Y-111",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -3097,7 +3226,8 @@
       "web",
       "text-field",
       "password",
-      "security"
+      "security",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -3127,7 +3257,8 @@
       "web",
       "text-field",
       "forms",
-      "layout"
+      "layout",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3159,7 +3290,8 @@
       "keyboard",
       "focus-order",
       "wcag-2.4.3",
-      "see-QAC-A11Y-074"
+      "see-QAC-A11Y-074",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -3193,7 +3325,8 @@
       "web",
       "forms",
       "validation",
-      "text-field"
+      "text-field",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3220,7 +3353,8 @@
       "ios",
       "web",
       "text-field",
-      "clear-button"
+      "clear-button",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3248,7 +3382,9 @@
       "ios",
       "toggle",
       "switch",
-      "filters"
+      "filters",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -3285,7 +3421,8 @@
       "keyboard",
       "scroll",
       "also-usability",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "vendor-guideline",
@@ -3317,7 +3454,8 @@
       "android",
       "web",
       "progress-indicator",
-      "loading"
+      "loading",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3345,7 +3483,9 @@
       "android",
       "notifications",
       "push",
-      "ux-writing"
+      "ux-writing",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -3377,7 +3517,9 @@
       "ios",
       "notifications",
       "push",
-      "privacy"
+      "privacy",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   }

@@ -34,6 +34,7 @@ Read first:
 1. If `docs/qa/project-profile.md` is missing, or has no `## Framework maturity` / `## Test layers` / `## Error plumbing` sections, run `qa-pilot:onboard`, or just its missing parts. Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.md`.
 1b. Read `## Strategy check` from `docs/qa/strategy-check.md` instead of recomputing it; its findings become roadmap items (framework fixes, with their rule ids). If the file or the section is missing, run the onboard strategy check (Phase 3b) first.
 2. Score each maturity area as present / partial / missing, with evidence. The areas are listed in onboard Phase 1. Back each gap with a rule from `../../knowledge/qa-pilot/rules/test-code.json` or `test-strategy.json` where one fits (cite the id).
+   With `has_ui: false` in `## Product traits`, the UI areas (selectors, browser and e2e layers, component tests) are N/A, not gaps. With `has_backend: false`, so is the network-mock seam unless the code calls an external API. Say so in the table.
 3. **Framework blockers come first.** These are gaps that make tests untrustworthy or unrunnable:
    - no CI gate on the main layer;
    - a layer counted as coverage that CI never runs;

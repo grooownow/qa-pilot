@@ -34,6 +34,8 @@ Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.m
 
 ## Deciding
 
+With `has_ui: false` in the profile's `## Product traits`, the UI audit does not apply: say so in one line and offer the project audit.
+
 1. **Explicit words win.** Before starting, say the choice and its cost in one line. Example: "Аудит требований флоу «Workflows» — около 250–450k токенов, начинаю".
 2. **No words: start with the project audit.** It states its own cost estimate, and you pick the flows before anything expensive runs.
 3. **Ask once,** when the words fit two audits. Example: "проверь тесты флоу оплаты" can mean the requirements coverage of the flow or the quality of its test code. Use one question with the options and your recommendation first.

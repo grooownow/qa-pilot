@@ -49,6 +49,10 @@ a few representative tests) over crawling. For a large/unfamiliar repo, dispatch
 ONE Explore-type subagent with this checklist instead of scanning inline:
 
 - **Stack:** language(s), package manager, monorepo layout, frameworks.
+- **Project kind:** does this repo have a user interface (routes, pages, components, screens, a TUI does not
+  count)? Does it own a server, API or database? Is it a CLI or a library? This fills `platform`, `has_ui` and
+  `has_backend` in `## Product traits`. A plugin marketplace, a skills repo or a docs site with no app has
+  `has_ui: false` and `has_backend: false`.
 - **Test landscape:** frameworks present (Playwright? unit runner? component
   tests?), where tests live, how many, how they are run (exact commands from
   package.json / CI), which suites exist (smoke/regression/lanes).
@@ -135,8 +139,9 @@ Batch ALL questions in one message (see quality-rules rule 5). Typical gaps:
 - Team intent: what hurts most today (flaky tests? no coverage? slow suite?) —
   this seeds priorities for `/qa-pilot:audit`.
 - **Product traits** (used by `qa-pilot:spec-audit` to drop rules that cannot
-  apply): platforms (web / mobile-web / pwa / ios / android / desktop / game),
-  API style (rest / graphql / soap / server-actions / rpc), payments, accounts
+  apply): platforms (web / mobile-web / pwa / ios / android / desktop / game / cli / library),
+  whether it has a user interface (`has_ui`), whether the team owns a server, API or database
+  (`has_backend`), API style (rest / graphql / soap / server-actions / rpc), payments, accounts
   & login, user file uploads, more than one locale, RTL, regulation (gdpr /
   hipaa / pci / eaa). Pre-fill what Phase 1 detected; ask only to confirm.
 - Anything Phase 1 found contradictory (e.g. docs claim a convention the code
@@ -165,7 +170,7 @@ Write `docs/qa/project-profile.md` (create `docs/qa/` if needed). Sections:
 ## Tracker & access — tracker of record, connected MCPs/CLIs, missing access
 ## Framework maturity — table: area · present / partial / missing · evidence (path or "searched: … → 0")
 ## Critical flows   — 3–7 flows, one line each: name · entry route/screen · why it is critical (confirmed by the user)
-## Product traits   — fenced yaml: platform, api_style, has_payments, has_auth, has_user_uploads, i18n, rtl, regulated, has_ai_features (format: skills/spec-audit/SKILL.md)
+## Product traits   — fenced yaml: platform, api_style, has_ui, has_backend, has_payments, has_auth, has_user_uploads, i18n, rtl, regulated, has_ai_features (format: skills/spec-audit/SKILL.md)
 ## Priorities       — what the team wants improved first
 ## Harness         — facts only. Table: workflow · path · phases · fit point (or "none fits"). Then one line: `How qa-pilot is called here: orchestrator <name>` or `manually`. Paths in code spans are checked by the drift script
 ## Budget          — fenced yaml: mode (economy|standard|thorough, default standard), report_spend (yes|no)
@@ -239,7 +244,8 @@ in the section ("sample files not read: economy mode") and under "Not done (budg
 **Empty project** (no test files, or only framework boilerplate; nothing to check). Say so, mark `Framework
 maturity` as mostly missing (already in the profile) and point to `/qa-pilot:audit` for the roadmap.
 
-**E2e skeleton offer.** Whenever the project has no e2e layer (empty, or unit tests only), offer a skeleton once:
+**E2e skeleton offer.** Whenever the project has no e2e layer (empty, or unit tests only) and `has_ui` is not
+`false`, offer a skeleton once:
 - Framework: the e2e runner already in the dependencies, else Playwright.
 - If an e2e runner with its own config already exists, offer nothing: report the gaps as findings instead.
 - The offer states the cost before anything starts: bootstrap installs tools, starts the dev server and runs the review loop, about 100-200k tokens on top of onboard. It runs after onboard finishes, never mid-run: on a yes, finish Phase 4 first, then start it as the closing step.
@@ -249,7 +255,7 @@ maturity` as mostly missing (already in the profile) and point to `/qa-pilot:aud
 
 **Project with tests.** Inputs: the maturity table and `Test layers` from the profile, `## UI state` from
 `docs/qa/strategy-check.md` (library path, components, interaction tests, runner, CI), the project's own test
-rules (the docs and `CLAUDE.md` sections linked under Conventions), and 3-5 test files per layer. Five checks:
+rules (the docs and `CLAUDE.md` sections linked under Conventions), and 3-5 test files per layer. Five checks. With `has_ui: false`, skip the UI parts of check 1 and all of check 5, and say so:
 
 1. **Layer fit.** Logic-heavy modules (services, utils, reducers) with no unit tests; a UI component library with no component tests (read from `## UI state`: M is 0, or runner `none`); everything only in e2e. Rules: QAP-TC-030, QAP-TS-014.
 2. **Own rules vs qa-pilot rules.** A project rule that contradicts a must rule (for example "use CSS selectors" against QAP-TC-028, "waitForTimeout is fine" against QAP-TC-026) is a finding with both texts. A missing rule area (no e2e rules, no locator policy, no test-data rule) is a finding. If the project has its own complete rules, record "project rules adopted" and list only the contradictions; qa-pilot then works by the project's rules (`../../references/quality-rules.md`, rule 6).

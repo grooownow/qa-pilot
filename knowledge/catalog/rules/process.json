@@ -260,7 +260,8 @@
       "shift-left",
       "design-review",
       "responsive",
-      "compatibility"
+      "compatibility",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -286,7 +287,8 @@
     "tags": [
       "shift-left",
       "design-review",
-      "traceability"
+      "traceability",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -345,7 +347,8 @@
       "chrome-profiles",
       "cookies",
       "session",
-      "productivity"
+      "productivity",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -404,7 +407,8 @@
       "adblock",
       "browser-extensions",
       "analytics",
-      "environment"
+      "environment",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -434,7 +438,8 @@
       "display",
       "figma",
       "web",
-      "see-QAC-GUI-001"
+      "see-QAC-GUI-001",
+      "needs-ui"
     ],
     "verification": "ok"
   }

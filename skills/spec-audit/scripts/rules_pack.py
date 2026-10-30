@@ -18,14 +18,20 @@ import re
 import sys
 from pathlib import Path
 
-DEFAULT_TRAITS = {"platform": ["web"], "api_style": [], "has_payments": False, "has_auth": False,
-                  "has_user_uploads": False, "i18n": False, "rtl": False, "regulated": [],
-                  "has_ai_features": False}
+DEFAULT_TRAITS = {"platform": ["web"], "api_style": [], "has_ui": True, "has_backend": True,
+                  "has_payments": False, "has_auth": False, "has_user_uploads": False, "i18n": False,
+                  "rtl": False, "regulated": [], "has_ai_features": False}
 
 MOBILE_PLATFORMS = {"ios", "android", "pwa", "mobile-web"}
+WEB_PLATFORMS = {"web", "mobile-web", "pwa"}
+INSTALLED_PLATFORMS = {"ios", "android", "desktop", "game", "cli"}
 
 # needs-* tag -> predicate over traits
 NEEDS = {
+    "needs-ui": lambda t: t["has_ui"],
+    "needs-backend": lambda t: t["has_backend"],
+    "needs-web": lambda t: bool(WEB_PLATFORMS & set(t["platform"])),
+    "needs-installed": lambda t: bool(INSTALLED_PLATFORMS & set(t["platform"])),
     "needs-ios": lambda t: "ios" in t["platform"],
     "needs-android": lambda t: "android" in t["platform"],
     "needs-native-mobile": lambda t: bool({"ios", "android"} & set(t["platform"])),

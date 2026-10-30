@@ -53,7 +53,8 @@
       "thick-client",
       "webgl",
       "client-side",
-      "see-QAC-INST-059"
+      "see-QAC-INST-059",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -81,7 +82,8 @@
       "fps",
       "devtools",
       "chrome",
-      "client-side"
+      "client-side",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -109,7 +111,8 @@
       "frame-time",
       "devtools",
       "profiling",
-      "jank"
+      "jank",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -137,7 +140,8 @@
     "tags": [
       "fps",
       "devtools",
-      "bug-report"
+      "bug-report",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -168,7 +172,8 @@
       "memory-leak",
       "js-heap",
       "devtools",
-      "garbage-collector"
+      "garbage-collector",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -198,7 +203,8 @@
       "mobile",
       "crash",
       "anr",
-      "see-QAC-MOB-018"
+      "see-QAC-MOB-018",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -225,7 +231,8 @@
     "tags": [
       "memory-leak",
       "gamedev",
-      "mobile"
+      "mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -253,7 +260,8 @@
     "tags": [
       "memory-leak",
       "lists",
-      "catalog"
+      "catalog",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -282,7 +290,8 @@
     "tags": [
       "memory-leak",
       "infinite-scroll",
-      "virtualization"
+      "virtualization",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -310,7 +319,8 @@
       "memory-leak",
       "websocket",
       "polling",
-      "soak"
+      "soak",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -339,7 +349,8 @@
       "load-testing",
       "error-rate",
       "response-time",
-      "throughput"
+      "throughput",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -369,7 +380,8 @@
     "tags": [
       "response-time",
       "sla",
-      "load-testing"
+      "load-testing",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "author-opinion",
@@ -437,7 +449,8 @@
     "tags": [
       "load-testing",
       "smoke",
-      "k6"
+      "k6",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -464,7 +477,8 @@
     "tags": [
       "load-testing",
       "average-load",
-      "k6"
+      "k6",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -492,7 +506,8 @@
     "tags": [
       "load-testing",
       "stress",
-      "k6"
+      "k6",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -520,7 +535,8 @@
     "tags": [
       "load-testing",
       "spike",
-      "k6"
+      "k6",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -549,7 +565,8 @@
       "load-testing",
       "breakpoint",
       "capacity",
-      "k6"
+      "k6",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -577,7 +594,8 @@
       "load-testing",
       "soak",
       "memory-leak",
-      "k6"
+      "k6",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -603,7 +621,8 @@
     "tags": [
       "k6",
       "load-testing",
-      "assertions"
+      "assertions",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -632,7 +651,8 @@
     "tags": [
       "k6",
       "percentiles",
-      "response-time"
+      "response-time",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -658,7 +678,8 @@
     },
     "tags": [
       "k6",
-      "redirects"
+      "redirects",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -685,7 +706,8 @@
     "tags": [
       "k6",
       "thresholds",
-      "ci"
+      "ci",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "vendor-guideline",
@@ -714,7 +736,8 @@
     "tags": [
       "k6",
       "breakpoint",
-      "thresholds"
+      "thresholds",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "vendor-guideline",
@@ -774,7 +797,8 @@
       "load-testing",
       "monitoring",
       "grafana",
-      "bottleneck"
+      "bottleneck",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -807,7 +831,8 @@
       "core-web-vitals",
       "lcp",
       "lighthouse",
-      "web"
+      "web",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -840,7 +865,8 @@
       "core-web-vitals",
       "inp",
       "fid",
-      "web"
+      "web",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "vendor-guideline",
@@ -872,7 +898,8 @@
       "core-web-vitals",
       "cls",
       "layout-shift",
-      "web"
+      "web",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",

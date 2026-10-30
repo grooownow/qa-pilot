@@ -26,7 +26,8 @@
       "https",
       "tls",
       "security",
-      "web"
+      "web",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -58,7 +59,8 @@
       "headers",
       "content-type",
       "api-testing",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -93,7 +95,8 @@
       "duplicates",
       "double-submit",
       "payments",
-      "see-QAC-FORM-026"
+      "see-QAC-FORM-026",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -120,7 +123,8 @@
     "tags": [
       "http-methods",
       "get",
-      "safe-method"
+      "safe-method",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -152,7 +156,8 @@
       "idempotency",
       "put",
       "http-methods",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -182,7 +187,8 @@
       "put",
       "negative-testing",
       "validation",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -210,7 +216,8 @@
       "put",
       "negative-testing",
       "status-codes",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -241,7 +248,8 @@
       "patch",
       "http-methods",
       "crud",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -271,7 +279,8 @@
       "delete",
       "idempotency",
       "crud",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -305,7 +314,8 @@
       "query-params",
       "security",
       "414",
-      "query-method"
+      "query-method",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -333,7 +343,8 @@
       "options",
       "cors",
       "http-methods",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -361,7 +372,8 @@
     "tags": [
       "head",
       "http-methods",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -395,7 +407,8 @@
       "validation",
       "negative-testing",
       "pseudo-rest",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -427,7 +440,8 @@
       "status-codes",
       "pseudo-rest",
       "error-handling",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -457,7 +471,8 @@
       "status-codes",
       "api-testing",
       "assertions",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -487,7 +502,8 @@
     "tags": [
       "bug-localization",
       "bug-report",
-      "status-codes"
+      "status-codes",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -516,7 +532,8 @@
       "201",
       "crud",
       "post",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -545,7 +562,8 @@
       "status-codes",
       "204",
       "delete",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -577,7 +595,8 @@
       "202",
       "polling",
       "async",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -607,7 +626,8 @@
       "authorization",
       "roles",
       "needs-rest",
-      "needs-auth"
+      "needs-auth",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -637,7 +657,8 @@
       "status-codes",
       "404",
       "negative-testing",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -668,7 +689,8 @@
       "405",
       "http-methods",
       "negative-testing",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -700,7 +722,8 @@
       "409",
       "concurrency",
       "duplicates",
-      "see-QAC-TD-050"
+      "see-QAC-TD-050",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -732,7 +755,8 @@
       "400",
       "negative-testing",
       "json",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -763,7 +787,8 @@
       "422",
       "validation",
       "negative-testing",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "rationale": "Автор на практике с формой бронирования отмечает: 400 для ошибки валидации допустим, но строже и точнее — 422.",
@@ -797,7 +822,8 @@
       "file-upload",
       "bva",
       "see-QAC-FORM-039",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -828,7 +854,8 @@
       "415",
       "content-type",
       "negative-testing",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -859,7 +886,8 @@
       "status-codes",
       "429",
       "rate-limit",
-      "security"
+      "security",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -890,7 +918,8 @@
       "status-codes",
       "seo",
       "redirects",
-      "web"
+      "web",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -920,7 +949,8 @@
       "redirects",
       "307",
       "308",
-      "post"
+      "post",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -951,7 +981,8 @@
       "cache",
       "304",
       "devtools",
-      "web"
+      "web",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -978,7 +1009,8 @@
     "tags": [
       "cookies",
       "session",
-      "remember-me"
+      "remember-me",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -1008,7 +1040,8 @@
       "auth",
       "tokens",
       "security",
-      "needs-auth"
+      "needs-auth",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -1040,7 +1073,8 @@
       "refresh-token",
       "session",
       "auth",
-      "needs-auth"
+      "needs-auth",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -1071,7 +1105,8 @@
       "session",
       "mobile",
       "network-switch",
-      "needs-auth"
+      "needs-auth",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -1098,7 +1133,8 @@
     "tags": [
       "rest",
       "cache",
-      "headers"
+      "headers",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -1131,7 +1167,8 @@
       "rest",
       "richardson-maturity",
       "api-design",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1158,7 +1195,8 @@
     "tags": [
       "json",
       "api-design",
-      "contract"
+      "contract",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1185,7 +1223,8 @@
     "tags": [
       "json",
       "api-design",
-      "arrays"
+      "arrays",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -1214,7 +1253,8 @@
       "json",
       "schema-validation",
       "contract",
-      "data-types"
+      "data-types",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -1243,7 +1283,8 @@
     "tags": [
       "json",
       "fixtures",
-      "syntax"
+      "syntax",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1273,7 +1314,8 @@
     "tags": [
       "webhooks",
       "security",
-      "signature"
+      "signature",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1302,7 +1344,8 @@
     "tags": [
       "webhooks",
       "retries",
-      "reliability"
+      "reliability",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1329,7 +1372,8 @@
     "tags": [
       "webhooks",
       "idempotency",
-      "duplicates"
+      "duplicates",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1359,7 +1403,8 @@
     "tags": [
       "websocket",
       "realtime",
-      "devtools"
+      "devtools",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1387,7 +1432,8 @@
       "graphql",
       "error-handling",
       "assertions",
-      "needs-graphql"
+      "needs-graphql",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -1418,7 +1464,8 @@
       "graphql",
       "contract",
       "schema-validation",
-      "needs-graphql"
+      "needs-graphql",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -1450,7 +1497,8 @@
       "security",
       "depth-limit",
       "dos",
-      "needs-graphql"
+      "needs-graphql",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1480,7 +1528,8 @@
       "graphql",
       "performance",
       "n-plus-one",
-      "needs-graphql"
+      "needs-graphql",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1508,7 +1557,8 @@
       "graphql",
       "deprecation",
       "versioning",
-      "needs-graphql"
+      "needs-graphql",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -1539,7 +1589,8 @@
       "wsdl",
       "xml",
       "contract",
-      "needs-soap"
+      "needs-soap",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1569,7 +1620,8 @@
       "soap",
       "error-handling",
       "xml",
-      "needs-soap"
+      "needs-soap",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -1598,7 +1650,8 @@
     "tags": [
       "xml",
       "well-formed",
-      "syntax"
+      "syntax",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1627,7 +1680,8 @@
     "tags": [
       "xml",
       "escaping",
-      "special-characters"
+      "special-characters",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1657,7 +1711,8 @@
     "tags": [
       "async",
       "long-running",
-      "ux"
+      "ux",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1685,7 +1740,8 @@
     "tags": [
       "versioning",
       "breaking-changes",
-      "contract"
+      "contract",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1714,7 +1770,8 @@
     "tags": [
       "versioning",
       "regression",
-      "mobile"
+      "mobile",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -1740,7 +1797,8 @@
     "tags": [
       "mtls",
       "proxy",
-      "security"
+      "security",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1769,7 +1827,8 @@
       "devtools",
       "network",
       "preserve-log",
-      "web"
+      "web",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1802,7 +1861,8 @@
       "mobile",
       "network",
       "latency",
-      "also-mobile"
+      "also-mobile",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -1829,7 +1889,8 @@
     "tags": [
       "har",
       "bug-report",
-      "devtools"
+      "devtools",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -1858,7 +1919,8 @@
       "devtools",
       "network",
       "fetch-xhr",
-      "api-testing"
+      "api-testing",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1885,7 +1947,8 @@
     "tags": [
       "devtools",
       "network",
-      "filters"
+      "filters",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1912,7 +1975,8 @@
     "tags": [
       "devtools",
       "performance",
-      "ttfb"
+      "ttfb",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1939,7 +2003,8 @@
     "tags": [
       "devtools",
       "postman",
-      "debugging"
+      "debugging",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1969,7 +2034,8 @@
       "e2e",
       "user-story",
       "postman",
-      "api-testing"
+      "api-testing",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -1999,7 +2065,8 @@
       "post",
       "status-codes",
       "500",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -2029,7 +2096,8 @@
     "tags": [
       "api-testing",
       "e2e",
-      "frontend"
+      "frontend",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -2059,7 +2127,8 @@
       "api-testing",
       "backend-validation",
       "negative-testing",
-      "security"
+      "security",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2090,7 +2159,8 @@
       "binmen",
       "api-testing",
       "negative-testing",
-      "checklist"
+      "checklist",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -2118,7 +2188,8 @@
       "binmen",
       "bva",
       "boundary",
-      "validation"
+      "validation",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -2149,7 +2220,8 @@
       "binmen",
       "data-types",
       "validation",
-      "negative-testing"
+      "negative-testing",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2178,7 +2250,8 @@
     "tags": [
       "binmen",
       "negative-testing",
-      "ids"
+      "ids",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -2209,7 +2282,8 @@
       "405",
       "http-methods",
       "error-messages",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2240,7 +2314,8 @@
       "binmen",
       "empty",
       "required-fields",
-      "validation"
+      "validation",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2272,7 +2347,8 @@
       "binmen",
       "null",
       "500",
-      "negative-testing"
+      "negative-testing",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2303,7 +2379,8 @@
     "tags": [
       "poised",
       "api-testing",
-      "checklist"
+      "checklist",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -2331,7 +2408,8 @@
       "poised",
       "json",
       "assertions",
-      "flakiness"
+      "flakiness",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -2361,7 +2439,8 @@
       "poised",
       "dates",
       "business-logic",
-      "validation"
+      "validation",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2391,7 +2470,8 @@
       "poised",
       "type-coercion",
       "postels-law",
-      "contract"
+      "contract",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -2419,7 +2499,8 @@
       "accept",
       "406",
       "content-negotiation",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -2450,7 +2531,8 @@
       "poised",
       "output",
       "response-time",
-      "ttfb"
+      "ttfb",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2481,7 +2563,8 @@
       "poised",
       "crud",
       "interoperability",
-      "resource-release"
+      "resource-release",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -2516,7 +2599,8 @@
       "401",
       "status-codes",
       "negative-testing",
-      "needs-auth"
+      "needs-auth",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -2549,7 +2633,8 @@
       "poised",
       "security",
       "mass-assignment",
-      "payments"
+      "payments",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2580,7 +2665,8 @@
       "poised",
       "security",
       "sql-injection",
-      "see-QAC-FORM-014"
+      "see-QAC-FORM-014",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2611,7 +2697,8 @@
       "poised",
       "security",
       "data-exposure",
-      "headers"
+      "headers",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2647,7 +2734,8 @@
       "validation",
       "forms",
       "ux",
-      "see-QAC-A11Y-108"
+      "see-QAC-A11Y-108",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -2678,7 +2766,8 @@
       "data-integrity",
       "rounding",
       "encoding",
-      "database"
+      "database",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2709,7 +2798,8 @@
       "curl",
       "postman",
       "devtools",
-      "reproduction"
+      "reproduction",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -2737,7 +2827,8 @@
       "postman",
       "variables",
       "base-url",
-      "test-config"
+      "test-config",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2767,7 +2858,8 @@
       "postman",
       "environments",
       "test-config",
-      "feature-flags"
+      "feature-flags",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -2796,7 +2888,8 @@
       "auth",
       "tokens",
       "test-setup",
-      "needs-auth"
+      "needs-auth",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2827,7 +2920,8 @@
       "openapi",
       "documentation",
       "status-codes",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -2858,7 +2952,8 @@
       "openapi",
       "test-design",
       "coverage",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -2887,7 +2982,8 @@
       "graphql",
       "non-null",
       "negative-testing",
-      "needs-graphql"
+      "needs-graphql",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -2915,7 +3011,8 @@
     "tags": [
       "pagination",
       "graphql",
-      "api-testing"
+      "api-testing",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -2948,7 +3045,8 @@
       "graphql",
       "mutation",
       "crud",
-      "data-integrity"
+      "data-integrity",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -2978,7 +3076,8 @@
       "graphql",
       "error-handling",
       "schema-validation",
-      "needs-graphql"
+      "needs-graphql",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -3010,7 +3109,8 @@
       "cart",
       "persistence",
       "devtools",
-      "needs-payments"
+      "needs-payments",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -3040,7 +3140,8 @@
       "local-storage",
       "session-storage",
       "cookies",
-      "persistence"
+      "persistence",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -3066,7 +3167,8 @@
     "tags": [
       "cookies",
       "performance",
-      "storage"
+      "storage",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -3093,7 +3195,8 @@
     "tags": [
       "cookies",
       "consent",
-      "gdpr"
+      "gdpr",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -3121,7 +3224,8 @@
     "tags": [
       "devtools",
       "clear-site-data",
-      "first-visit"
+      "first-visit",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -3151,7 +3255,8 @@
       "logout",
       "session",
       "security",
-      "needs-auth"
+      "needs-auth",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -3181,7 +3286,8 @@
       "cookies",
       "session-timeout",
       "auth",
-      "needs-auth"
+      "needs-auth",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -3209,7 +3315,8 @@
       "local-storage",
       "cart",
       "empty-state",
-      "needs-payments"
+      "needs-payments",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -3240,7 +3347,8 @@
       "local-storage",
       "auth",
       "needs-payments",
-      "needs-auth"
+      "needs-auth",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -3270,7 +3378,8 @@
     "tags": [
       "local-storage",
       "theme",
-      "dark-mode"
+      "dark-mode",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -3297,7 +3406,8 @@
     "tags": [
       "onboarding",
       "local-storage",
-      "first-visit"
+      "first-visit",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -3323,7 +3433,8 @@
     },
     "tags": [
       "drafts",
-      "local-storage"
+      "local-storage",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -3350,7 +3461,8 @@
     "tags": [
       "ab-testing",
       "cookies",
-      "local-storage"
+      "local-storage",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -3380,7 +3492,8 @@
       "microphone",
       "geolocation",
       "error-handling",
-      "see-QAC-MOB-029"
+      "see-QAC-MOB-029",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -3412,7 +3525,8 @@
       "mocking",
       "error-state",
       "status-codes",
-      "overrides"
+      "overrides",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -3440,7 +3554,8 @@
     "tags": [
       "mocking",
       "early-testing",
-      "shift-left"
+      "shift-left",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -3466,7 +3581,8 @@
     "tags": [
       "proxy",
       "map-remote",
-      "environments"
+      "environments",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -3496,7 +3612,8 @@
       "empty-state",
       "mocking",
       "overrides",
-      "lists"
+      "lists",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -3528,7 +3645,8 @@
       "long-text",
       "layout",
       "ellipsis",
-      "mocking"
+      "mocking",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -3558,7 +3676,8 @@
       "error-state",
       "request-blocking",
       "spinner",
-      "resilience"
+      "resilience",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -3589,7 +3708,8 @@
       "retries",
       "exponential-backoff",
       "polling",
-      "resilience"
+      "resilience",
+      "needs-backend"
     ],
     "verification": "fixed"
   },
@@ -3619,7 +3739,8 @@
       "mobile",
       "ios",
       "android",
-      "see-QAC-MOB-069"
+      "see-QAC-MOB-069",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -3649,7 +3770,8 @@
       "error-state",
       "forms",
       "500",
-      "mocking"
+      "mocking",
+      "needs-backend"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -3681,7 +3803,8 @@
       "openapi",
       "test-design",
       "coverage",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "verification": "ok"
   },
@@ -3712,7 +3835,8 @@
       "authorization",
       "api-testing",
       "see-QAC-DB-029",
-      "needs-auth"
+      "needs-auth",
+      "needs-backend"
     ],
     "verification": "ok",
     "authority": "industry-practice",

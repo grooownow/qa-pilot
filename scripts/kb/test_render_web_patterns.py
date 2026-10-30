@@ -18,6 +18,16 @@ def invariant(rid):
             "source": {"origin": "GOV.UK"}, "authority": "industry-practice"}
 
 
+class NotApplicableTest(unittest.TestCase):
+    def test_lists_patterns_by_project_kind(self):
+        ui = {**pattern("QAP-WEB-002", "must-check"), "tags": ["needs-ui"]}
+        back = {**pattern("QAP-WEB-001", "must-check"), "tags": ["needs-backend"]}
+        text = render([ui, back], [invariant("QAP-WINV-001")])
+        self.assertIn("- `has_ui: false`: QAP-WEB-002.", text)
+        self.assertIn("- `has_backend: false`: QAP-WEB-001.", text)
+        self.assertLess(text.index("## Not applicable by project kind"), text.index("## Must-check patterns"))
+
+
 class RenderWebPatternsTest(unittest.TestCase):
     def test_render_web_patterns_sections_and_order(self):
         patterns = [pattern("QAP-WEB-003", "highlight"), pattern("QAP-WEB-002", "must-check"),

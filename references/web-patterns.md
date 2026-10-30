@@ -21,6 +21,14 @@ One card per entity. Verdicts: OK · BUG · GAP · N/A (with evidence) · DECISI
 | QAP-WEB-009 | Сессия истекает посреди действия | | |
 | QAP-WEB-010 | Маршруты и вкладки зависят от режима, флага или роли | | |
 
+## Not applicable by project kind
+
+Read `has_ui` and `has_backend` in the profile's `## Product traits`; a missing key counts as `true`. These patterns get N/A with the trait as evidence (`profile: has_ui false`), with no search:
+
+- `has_ui: false`: QAP-WEB-003, QAP-WEB-004, QAP-WEB-005, QAP-WEB-007, QAP-WEB-009, QAP-WEB-010, QAP-WEB-012, QAP-WEB-013, QAP-WEB-014, QAP-WEB-015, QAP-WEB-016, QAP-WEB-017. Web invariants about what the user sees do not apply either.
+- `has_backend: false`: QAP-WEB-008.
+- Both `false` (a CLI, a library, a plugin marketplace): skip entity cards unless the repo has its own entities with a create, change and delete lifecycle.
+
 ## Must-check patterns
 
 ### QAP-WEB-001 · Сохранение или действие над сущностью, которую уже удалили

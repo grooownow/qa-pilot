@@ -23,7 +23,8 @@
     "tags": [
       "usability",
       "5e",
-      "heuristic-evaluation"
+      "heuristic-evaluation",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -52,7 +53,8 @@
       "usability",
       "nielsen",
       "feedback",
-      "system-status"
+      "system-status",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -79,7 +81,8 @@
     "tags": [
       "usability",
       "nielsen",
-      "microcopy"
+      "microcopy",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -109,7 +112,8 @@
       "nielsen",
       "undo",
       "user-control",
-      "see-QAC-STRAT-013"
+      "see-QAC-STRAT-013",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -138,7 +142,8 @@
       "nielsen",
       "consistency",
       "hig",
-      "material-design"
+      "material-design",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -166,7 +171,8 @@
     "tags": [
       "usability",
       "nielsen",
-      "error-prevention"
+      "error-prevention",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -195,7 +201,8 @@
       "usability",
       "nielsen",
       "recognition",
-      "memory-load"
+      "memory-load",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -223,7 +230,8 @@
       "usability",
       "nielsen",
       "efficiency",
-      "shortcuts"
+      "shortcuts",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -249,7 +257,8 @@
     "tags": [
       "usability",
       "nielsen",
-      "minimalism"
+      "minimalism",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -278,7 +287,8 @@
     "tags": [
       "usability",
       "nielsen",
-      "error-messages"
+      "error-messages",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -306,7 +316,8 @@
       "usability",
       "nielsen",
       "help",
-      "documentation"
+      "documentation",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -334,7 +345,8 @@
       "usability",
       "weinschenk",
       "readability",
-      "content"
+      "content",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -363,7 +375,8 @@
       "usability",
       "weinschenk",
       "distraction",
-      "autoplay"
+      "autoplay",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -391,7 +404,8 @@
       "usability",
       "weinschenk",
       "social-proof",
-      "rating"
+      "rating",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -421,7 +435,8 @@
       "usability",
       "mental-model",
       "weinschenk",
-      "see-QAC-UXL-004"
+      "see-QAC-UXL-004",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -449,7 +464,8 @@
       "usability",
       "older-users",
       "typography",
-      "font-size"
+      "font-size",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -482,7 +498,8 @@
       "target-size",
       "motor",
       "wcag-2.5.8",
-      "see-QAC-A11Y-095"
+      "see-QAC-A11Y-095",
+      "needs-ui"
     ],
     "modern_note": "Порог 24×24 CSS px соответствует WCAG 2.2 SC 2.5.8 Target Size (Minimum), уровень AA; есть исключения (достаточный отступ вокруг меньшей цели, ссылки внутри текста, наличие эквивалентного крупного элемента, размер, заданный браузером).",
     "verification": "fixed",
@@ -513,7 +530,8 @@
       "usability",
       "older-users",
       "navigation",
-      "progress"
+      "progress",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -541,7 +559,8 @@
     "tags": [
       "usability",
       "older-users",
-      "tooltip"
+      "tooltip",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -571,7 +590,8 @@
       "primary-action",
       "mental-model",
       "visual-hierarchy",
-      "see-QAC-GUI-017"
+      "see-QAC-GUI-017",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -598,7 +618,8 @@
     "tags": [
       "usability",
       "visual-hierarchy",
-      "minimalism"
+      "minimalism",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -628,7 +649,8 @@
       "prices",
       "currency",
       "localization",
-      "needs-payments"
+      "needs-payments",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "author-opinion",
@@ -659,7 +681,8 @@
       "usability",
       "grouping",
       "proximity",
-      "see-QAC-UXL-013"
+      "see-QAC-UXL-013",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -687,7 +710,8 @@
     "tags": [
       "usability",
       "empty-state",
-      "see-QAC-AI-026"
+      "see-QAC-AI-026",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -717,7 +741,8 @@
       "forms",
       "password",
       "validation",
-      "see-QAC-A11Y-112"
+      "see-QAC-A11Y-112",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -751,7 +776,8 @@
       "data-loss",
       "see-QAC-FORM-010",
       "see-QAC-FORM-029",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "fixed",
     "decision": "Решение команды от 2026-10-12. Это правило проекта: при ошибке пароль не очищается. Противоположный пункт QAC-FORM-029 в этой части не применяется.",
@@ -786,7 +812,8 @@
       "keyboard",
       "inputmode",
       "forms",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -819,7 +846,8 @@
       "loading",
       "spinner",
       "double-submit",
-      "see-QAC-REQ-032"
+      "see-QAC-REQ-032",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -851,7 +879,8 @@
       "usability",
       "network",
       "error-messages",
-      "offline"
+      "offline",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -884,7 +913,8 @@
       "dialog",
       "button-labels",
       "destructive-action",
-      "see-QAC-MD-058"
+      "see-QAC-MD-058",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -917,7 +947,8 @@
       "usability",
       "data-loss",
       "unsaved-changes",
-      "navigation"
+      "navigation",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -955,7 +986,8 @@
       "ios",
       "android",
       "see-QAC-HIG-072",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -986,7 +1018,8 @@
     "tags": [
       "usability",
       "data-loss",
-      "autosave"
+      "autosave",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1015,7 +1048,8 @@
       "typography",
       "line-breaks",
       "nbsp",
-      "see-QAC-L10N-032"
+      "see-QAC-L10N-032",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1045,7 +1079,8 @@
       "mobile",
       "touch-target",
       "hitbox",
-      "dead-zone"
+      "dead-zone",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "author-opinion",

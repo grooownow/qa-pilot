@@ -27,7 +27,8 @@
       "uninstall",
       "desktop",
       "mobile",
-      "also-test-strategy"
+      "also-test-strategy",
+      "needs-installed"
     ],
     "verification": "fixed"
   },
@@ -570,7 +571,8 @@
       "mobile",
       "installation",
       "migration",
-      "also-mobile"
+      "also-mobile",
+      "needs-installed"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -601,7 +603,8 @@
     "tags": [
       "update",
       "data-integrity",
-      "offline-content"
+      "offline-content",
+      "needs-installed"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -631,7 +634,8 @@
     "tags": [
       "update",
       "settings",
-      "data-integrity"
+      "data-integrity",
+      "needs-installed"
     ],
     "verification": "ok"
   },
@@ -660,7 +664,8 @@
     "tags": [
       "update",
       "cache",
-      "stale-assets"
+      "stale-assets",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -720,7 +725,8 @@
     },
     "tags": [
       "update",
-      "feature-toggles"
+      "feature-toggles",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -750,7 +756,8 @@
       "update",
       "resume-download",
       "network-loss",
-      "negative"
+      "negative",
+      "needs-installed"
     ],
     "verification": "ok"
   },
@@ -779,7 +786,8 @@
     "tags": [
       "update",
       "forward-compatibility",
-      "versioning"
+      "versioning",
+      "needs-installed"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -810,7 +818,8 @@
       "update",
       "auto-update",
       "payments",
-      "negative"
+      "negative",
+      "needs-installed"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -841,7 +850,8 @@
     "tags": [
       "uninstall",
       "cleanup",
-      "disk-space"
+      "disk-space",
+      "needs-installed"
     ],
     "verification": "fixed"
   },
@@ -868,7 +878,8 @@
     },
     "tags": [
       "uninstall",
-      "reinstall"
+      "reinstall",
+      "needs-installed"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1012,7 +1023,8 @@
       "installation",
       "update",
       "regression",
-      "smoke"
+      "smoke",
+      "needs-installed"
     ],
     "verification": "ok"
   },
@@ -1040,7 +1052,8 @@
     "tags": [
       "cross-browser",
       "compatibility-matrix",
-      "analytics"
+      "analytics",
+      "needs-web"
     ],
     "verification": "ok"
   },
@@ -1067,7 +1080,8 @@
     "tags": [
       "cross-browser",
       "compatibility-matrix",
-      "prioritization"
+      "prioritization",
+      "needs-web"
     ],
     "verification": "ok"
   },
@@ -1092,7 +1106,8 @@
     },
     "tags": [
       "cross-browser",
-      "compatibility-matrix"
+      "compatibility-matrix",
+      "needs-web"
     ],
     "verification": "ok"
   },
@@ -1118,7 +1133,8 @@
     "tags": [
       "cross-browser",
       "chromium",
-      "compatibility-matrix"
+      "compatibility-matrix",
+      "needs-web"
     ],
     "verification": "ok"
   },
@@ -1213,7 +1229,8 @@
       "cross-browser",
       "macos",
       "windows",
-      "hotkeys"
+      "hotkeys",
+      "needs-web"
     ],
     "verification": "ok"
   },
@@ -1241,7 +1258,8 @@
     "tags": [
       "cross-browser",
       "compatibility-matrix",
-      "regression"
+      "regression",
+      "needs-web"
     ],
     "verification": "ok"
   },
@@ -1268,7 +1286,8 @@
       "pairwise",
       "pict",
       "cross-browser",
-      "see-QAC-TD-029"
+      "see-QAC-TD-029",
+      "needs-web"
     ],
     "verification": "ok"
   },
@@ -1295,7 +1314,8 @@
     "tags": [
       "cross-browser",
       "automation",
-      "playwright"
+      "playwright",
+      "needs-web"
     ],
     "verification": "fixed"
   },
@@ -1384,7 +1404,8 @@
       "frame-time",
       "stuttering",
       "fps",
-      "gamedev"
+      "gamedev",
+      "needs-game"
     ],
     "verification": "fixed"
   },
@@ -1411,7 +1432,8 @@
     "tags": [
       "fps",
       "percentiles",
-      "gamedev"
+      "gamedev",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -1466,7 +1488,8 @@
     "tags": [
       "ram",
       "memory",
-      "hardware"
+      "hardware",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -1493,7 +1516,8 @@
     "tags": [
       "vram",
       "gpu",
-      "hardware"
+      "hardware",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -1520,7 +1544,8 @@
     "tags": [
       "cpu",
       "bottleneck",
-      "hardware"
+      "hardware",
+      "needs-game"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -1557,7 +1582,8 @@
       "configuration",
       "performance",
       "games",
-      "also-test-strategy"
+      "also-test-strategy",
+      "needs-installed"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -1617,7 +1643,8 @@
       "displays",
       "hdr",
       "oled",
-      "refresh-rate"
+      "refresh-rate",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -1645,7 +1672,8 @@
       "storage",
       "hdd",
       "ssd",
-      "streaming"
+      "streaming",
+      "needs-game"
     ],
     "verification": "ok"
   },
@@ -1677,7 +1705,8 @@
       "devtools",
       "webgl",
       "web",
-      "see-QAC-PERF-002"
+      "see-QAC-PERF-002",
+      "needs-web"
     ],
     "verification": "ok"
   }

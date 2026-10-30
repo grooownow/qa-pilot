@@ -21,7 +21,7 @@ One task, two checkpoints:
 **Budget.** Read the mode from the profile's `## Budget` per `../../references/budget.md`; the defaults below are `standard`. Target about 80k tokens for `plan` and about 100k for `verify`. Read only what the task touches.
 - Do not load the rule packs.
 - Do not read whole spec trees.
-- Read only these profile sections: `Test layers`, `Error plumbing`, `Critical flows`, `Budget`, plus the conventions section.
+- Read only these profile sections: `Test layers`, `Error plumbing`, `Critical flows`, `Budget`, `Product traits`, plus the conventions section.
 - If the task is too big for the budget (more than about 15 changed files or more than 3 entities), say so and suggest `spec-audit` for the feature instead.
 
 Read before starting:

@@ -73,6 +73,8 @@
 ```yaml
 platform: [web]
 api_style: [rest]
+has_ui: true
+has_backend: true
 has_payments: true
 has_auth: true
 has_user_uploads: false

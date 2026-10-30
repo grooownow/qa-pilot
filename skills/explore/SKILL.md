@@ -18,6 +18,8 @@ Also read `docs/qa/learnings.md` if it exists, per `../../references/learnings.m
 
 ## Phase 0 — Safety gate
 
+- With `has_ui: false` in the profile's `## Product traits`, there is no flow to walk in a browser: say so in one
+  line and stop.
 - Target environment must be one the profile marks safe to test. NEVER run
   against a forbidden/production environment; if the only URL available is
   production, stop and ask.

@@ -23,7 +23,8 @@
       "errors",
       "problem-details",
       "contract",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -52,7 +53,8 @@
       "api",
       "errors",
       "security",
-      "information-disclosure"
+      "information-disclosure",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -82,7 +84,8 @@
       "errors",
       "validation",
       "forms",
-      "problem-details"
+      "problem-details",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -111,7 +114,8 @@
       "api",
       "status-codes",
       "contract",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -141,7 +145,8 @@
       "concurrency",
       "uniqueness",
       "409",
-      "data-integrity"
+      "data-integrity",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -174,7 +179,8 @@
       "etag",
       "412",
       "data-loss",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -205,7 +211,8 @@
       "soft-delete",
       "404",
       "410",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -232,7 +239,8 @@
       "api",
       "test-code",
       "false-green",
-      "404"
+      "404",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -263,7 +271,8 @@
       "403",
       "404",
       "idor",
-      "needs-auth"
+      "needs-auth",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -293,7 +302,8 @@
       "401",
       "403",
       "frontend",
-      "needs-auth"
+      "needs-auth",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -323,7 +333,8 @@
       "idempotency",
       "retries",
       "duplicates",
-      "needs-payments"
+      "needs-payments",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -351,7 +362,8 @@
       "api",
       "retries",
       "idempotency",
-      "frontend"
+      "frontend",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -380,7 +392,8 @@
       "api",
       "pagination",
       "contract",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -409,7 +422,8 @@
       "api",
       "pagination",
       "boundaries",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -439,7 +453,8 @@
       "patch",
       "partial-update",
       "null",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -468,7 +483,8 @@
       "compatibility",
       "versioning",
       "openapi",
-      "contract"
+      "contract",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -497,7 +513,8 @@
       "compatibility",
       "tolerant-reader",
       "frontend",
-      "test-code"
+      "test-code",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -525,7 +542,8 @@
       "api",
       "openapi",
       "contract-testing",
-      "test-code"
+      "test-code",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -553,7 +571,8 @@
       "api",
       "openapi",
       "lint",
-      "ci"
+      "ci",
+      "needs-backend"
     ],
     "authority": "vendor-guideline",
     "verification": "ok",
@@ -583,7 +602,8 @@
       "json",
       "precision",
       "ids",
-      "money"
+      "money",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -612,7 +632,8 @@
       "api",
       "content-negotiation",
       "correction",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -640,7 +661,8 @@
       "api",
       "405",
       "headers",
-      "correction"
+      "correction",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -668,7 +690,8 @@
       "api",
       "json",
       "compatibility",
-      "correction"
+      "correction",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",

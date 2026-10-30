@@ -21,7 +21,8 @@
       "ui",
       "storybook",
       "atoms",
-      "states"
+      "states",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -49,7 +50,8 @@
       "ui",
       "storybook",
       "atoms",
-      "interaction"
+      "interaction",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -76,7 +78,8 @@
     "tags": [
       "ui",
       "compositions",
-      "duplication"
+      "duplication",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -104,7 +107,8 @@
       "ui",
       "storybook",
       "play",
-      "false-green"
+      "false-green",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -131,7 +135,8 @@
     "tags": [
       "ui",
       "e2e",
-      "layers"
+      "layers",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -159,7 +164,8 @@
       "ui",
       "visual",
       "snapshots",
-      "flakiness"
+      "flakiness",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -186,7 +192,8 @@
     "tags": [
       "ui",
       "ci",
-      "coverage"
+      "coverage",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",

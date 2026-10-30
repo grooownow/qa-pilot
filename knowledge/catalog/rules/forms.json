@@ -25,7 +25,8 @@
       "spacing",
       "web",
       "ios",
-      "also-mobile-hig"
+      "also-mobile-hig",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -55,7 +56,8 @@
       "forms",
       "validation",
       "error-messages",
-      "see-QAC-A11Y-115"
+      "see-QAC-A11Y-115",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -84,7 +86,8 @@
     "tags": [
       "forms",
       "field-design",
-      "one-field-one-value"
+      "one-field-one-value",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "author-opinion",
@@ -117,7 +120,8 @@
       "forms",
       "validation",
       "inline-validation",
-      "blur"
+      "blur",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -145,7 +149,8 @@
     "tags": [
       "forms",
       "validation",
-      "error-messages"
+      "error-messages",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -174,7 +179,8 @@
     "tags": [
       "forms",
       "validation",
-      "error-state"
+      "error-state",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -202,7 +208,8 @@
     "tags": [
       "forms",
       "error-messages",
-      "cta"
+      "cta",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -229,7 +236,8 @@
     "tags": [
       "forms",
       "button-labels",
-      "error-state"
+      "error-state",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -258,7 +266,8 @@
       "forms",
       "validation",
       "data-loss",
-      "see-QAC-UX-028"
+      "see-QAC-UX-028",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -288,7 +297,8 @@
     "tags": [
       "forms",
       "feedback",
-      "success-page"
+      "success-page",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -318,7 +328,8 @@
       "forms",
       "multi-step",
       "browser-back",
-      "data-loss"
+      "data-loss",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -349,7 +360,8 @@
       "forms",
       "multi-step",
       "payments",
-      "browser-back"
+      "browser-back",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -412,7 +424,8 @@
     "tags": [
       "forms",
       "checklist",
-      "positive"
+      "positive",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -444,7 +457,8 @@
       "forms",
       "checklist",
       "required",
-      "negative"
+      "negative",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -478,7 +492,8 @@
       "checklist",
       "bva",
       "max-length",
-      "see-QAC-TD-009"
+      "see-QAC-TD-009",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -511,7 +526,8 @@
       "checklist",
       "bva",
       "max-length",
-      "negative"
+      "negative",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -547,7 +563,8 @@
       "error-guessing",
       "emoji",
       "unicode",
-      "also-test-design"
+      "also-test-design",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -581,7 +598,8 @@
       "checklist",
       "emoji",
       "encoding",
-      "utf8mb4"
+      "utf8mb4",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -618,7 +636,8 @@
       "error-guessing",
       "unicode",
       "validation",
-      "also-test-design"
+      "also-test-design",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "author-opinion",
@@ -653,7 +672,8 @@
       "trim",
       "error-guessing",
       "email",
-      "also-test-design"
+      "also-test-design",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "author-opinion",
@@ -685,7 +705,8 @@
     "tags": [
       "forms",
       "checklist",
-      "whitespace"
+      "whitespace",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -718,7 +739,8 @@
       "checklist",
       "i18n",
       "rtl",
-      "unicode"
+      "unicode",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -750,7 +772,8 @@
       "forms",
       "checklist",
       "reload",
-      "persistence"
+      "persistence",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -782,7 +805,8 @@
       "double-submit",
       "idempotency",
       "see-QAC-PERF-014",
-      "see-QAC-API-003"
+      "see-QAC-API-003",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -815,7 +839,8 @@
       "checklist",
       "unicode",
       "zero-width-space",
-      "negative"
+      "negative",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "author-opinion",
@@ -848,7 +873,8 @@
       "checklist",
       "password",
       "masking",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -883,7 +909,8 @@
       "password",
       "security",
       "see-QAC-UX-028",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "fixed",
     "decision": "Решение команды от 2026-10-12. При ошибке формы пароль НЕ очищается: введённое значение сохраняется (действует QAC-UX-028). Пункт книги про очистку после ошибки не применяется. Остаются в силе очистка при перезагрузке страницы и запрет хранить пароль открыто в разметке.",
@@ -918,7 +945,8 @@
       "checklist",
       "password",
       "security",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -953,7 +981,8 @@
       "checklist",
       "password",
       "security",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -990,7 +1019,8 @@
       "autocomplete",
       "wcag-3.3.8",
       "see-QAC-A11Y-120",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -1023,7 +1053,8 @@
       "checklist",
       "password",
       "show-password",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1059,7 +1090,8 @@
       "defaults",
       "gdpr",
       "consent",
-      "see-QAC-UXL-028"
+      "see-QAC-UXL-028",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1092,7 +1124,8 @@
       "checklist",
       "checkbox",
       "radio",
-      "label"
+      "label",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1124,7 +1157,8 @@
       "forms",
       "checklist",
       "checkbox",
-      "bulk-actions"
+      "bulk-actions",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -1159,7 +1193,8 @@
       "required",
       "equivalence-partitioning",
       "radio-button",
-      "also-test-design"
+      "also-test-design",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -1195,7 +1230,8 @@
       "security",
       "see-QAC-TD-062",
       "see-QAC-TD-019",
-      "needs-uploads"
+      "needs-uploads",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1231,7 +1267,8 @@
       "bva",
       "see-QAC-TD-012",
       "see-QAC-API-028",
-      "needs-uploads"
+      "needs-uploads",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1262,7 +1299,8 @@
       "checklist",
       "file-upload",
       "progress-bar",
-      "needs-uploads"
+      "needs-uploads",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1290,7 +1328,8 @@
       "forms",
       "checklist",
       "gui",
-      "contrast"
+      "contrast",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1324,7 +1363,8 @@
       "wcag-2.1.1",
       "also-accessibility",
       "also-test-strategy",
-      "see-QAC-A11Y-051"
+      "see-QAC-A11Y-051",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -1357,7 +1397,8 @@
       "checklist",
       "compatibility",
       "safari",
-      "mobile"
+      "mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1386,7 +1427,8 @@
       "forms",
       "checklist",
       "localization",
-      "needs-i18n"
+      "needs-i18n",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1415,7 +1457,8 @@
       "forms",
       "checklist",
       "security",
-      "csrf"
+      "csrf",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1448,7 +1491,8 @@
       "checklist",
       "security",
       "rate-limiting",
-      "brute-force"
+      "brute-force",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1476,7 +1520,8 @@
     },
     "tags": [
       "bug-report",
-      "ui-terminology"
+      "ui-terminology",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -1508,7 +1553,8 @@
       "states",
       "hover",
       "focus",
-      "disabled"
+      "disabled",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1536,7 +1582,8 @@
     },
     "tags": [
       "split-button",
-      "buttons"
+      "buttons",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1565,7 +1612,8 @@
     "tags": [
       "input",
       "states",
-      "forms"
+      "forms",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1593,7 +1641,8 @@
     "tags": [
       "radio",
       "checkbox",
-      "forms"
+      "forms",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1620,7 +1669,8 @@
     "tags": [
       "combobox",
       "dropdown",
-      "forms"
+      "forms",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1651,7 +1701,8 @@
       "timing",
       "wcag-2.2.1",
       "wcag-4.1.3",
-      "see-QAC-A11Y-060"
+      "see-QAC-A11Y-060",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -1677,7 +1728,8 @@
     "tags": [
       "toast",
       "notifications",
-      "color"
+      "color",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1707,7 +1759,8 @@
       "snackbar",
       "undo",
       "notifications",
-      "see-QAC-MD-082"
+      "see-QAC-MD-082",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1738,7 +1791,8 @@
     },
     "tags": [
       "modal",
-      "popup"
+      "popup",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "vendor-guideline",

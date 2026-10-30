@@ -52,8 +52,10 @@ mkdir -p "$SCRATCH"
      On a pilot project the scope filters arrived after the report and cost two extra rounds. Offer to save them in `rule-overrides.json` → `scope` as `{"exclude": …, "reason": …, "source": …}`, and write them only after the user agrees.
 
    ```yaml
-   platform: [web]          # web | mobile-web | pwa | ios | android | desktop | game
+   platform: [web]          # web | mobile-web | pwa | ios | android | desktop | game | cli | library
    api_style: []            # rest | graphql | soap | server-actions | rpc
+   has_ui: true             # the repo has a user interface
+   has_backend: true        # the team owns a server, API or database here
    has_payments: false
    has_auth: false
    has_user_uploads: false
@@ -136,6 +138,8 @@ Both scripts accept a missing overrides file, so pass the flag every time.
 Check these once, not per spec, and record each as a finding or "ok". Look up the full rules by id in the catalog JSON:
 
 - **Measurable NFRs at all** (QAC-REQ-007).
+With `has_ui: false`, skip the accessibility, browsers-and-devices and offline items, and the Core Web Vitals half of the performance item. With `has_backend: false`, skip the response-time half. Say so in the report header.
+
 - **Accessibility target:** is a WCAG level stated (QAC-A11Y-002)? Do tests use axe or similar? Reflow at 320px (QAC-A11Y-044).
 - **Supported browsers and devices** (QAC-INST-037/041, QAC-MOB-003): stated? Check `playwright.config` projects, real mobile emulation (`isMobile` / `hasTouch`) and the minimum width.
 - **Performance budget** (QAC-PERF-001/029): Core Web Vitals or response-time targets.
@@ -171,7 +175,7 @@ Collect the agents' `## Lens notes`. A real finding that no catalog rule covers 
    - You may add findings the agents missed. Mark them `(triage)`, and apply the same evidence standard: a spec line and a code line.
 6. **Respect decisions.** Overridden rules go to "Skipped as project decision". When the user says during triage "that's deliberate", offer to record it in `docs/qa/rule-overrides.json` under `decisions`. Write it only after the user agrees.
 7. **Lint candidates:** decide each one (finding or false positive). A true one is usually P2 if it sits in an AC, otherwise P3.
-8. **Entity-card gate.** Merge the agents' entity cards. Every (entity, must-check pattern) cell needs a verdict: OK / BUG / GAP / N/A / DECISION / SUPPRESSED. N/A needs evidence (why the pattern cannot occur here, with a file:line or a search). An empty cell or an unevidenced N/A sends the card back to its agent (or you fill it with a search). **Do not write the action list while a card has an empty cell.**
+8. **Entity-card gate.** Merge the agents' entity cards. Every (entity, must-check pattern) cell needs a verdict: OK / BUG / GAP / N/A / DECISION / SUPPRESSED. N/A needs evidence (why the pattern cannot occur here, with a file:line or a search); for the patterns under *Not applicable by project kind* in `web-patterns.md`, the profile trait is the evidence. An empty cell or an unevidenced N/A sends the card back to its agent (or you fill it with a search). **Do not write the action list while a card has an empty cell.**
 9. **Buckets** (`../../references/test-delta.md`):
    - Must = P1, any BUG, or P2 on a critical flow (uncapped; above 10, tell the user to narrow the scope);
    - Should = other P2, at most 8 — keep the 8 with the highest risk on the most-used flows, demote the rest to Highlight;

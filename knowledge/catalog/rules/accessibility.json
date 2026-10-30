@@ -29,7 +29,8 @@
       "dark-mode",
       "system-settings",
       "see-QAC-MOB-052",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -56,7 +57,8 @@
     "tags": [
       "wcag",
       "conformance-level",
-      "legal"
+      "legal",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -87,7 +89,8 @@
       "wcag-1.4.4",
       "resize-text",
       "zoom",
-      "low-vision"
+      "low-vision",
+      "needs-ui"
     ],
     "rationale": "Масштабирование без развала вёрстки нужно людям с близорукостью и дальнозоркостью.",
     "verification": "ok",
@@ -120,7 +123,8 @@
       "captions",
       "hearing",
       "notifications",
-      "video"
+      "video",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -151,7 +155,8 @@
       "tremor",
       "motor",
       "accidental-tap",
-      "destructive-actions"
+      "destructive-actions",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -178,7 +183,8 @@
       "dyslexia",
       "typography",
       "cognitive",
-      "see-QAC-GUI-008"
+      "see-QAC-GUI-008",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -205,7 +211,8 @@
     "tags": [
       "plain-language",
       "cognitive",
-      "copy"
+      "copy",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -239,7 +246,8 @@
       "multi-step",
       "checkout",
       "cognitive",
-      "wcag-2.2"
+      "wcag-2.2",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -268,7 +276,8 @@
     "tags": [
       "adhd",
       "animation",
-      "cognitive"
+      "cognitive",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -303,7 +312,8 @@
       "inclusive",
       "also-test-strategy",
       "see-QAC-UXL-009",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -335,7 +345,8 @@
       "shake",
       "accelerometer",
       "mobile",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "rationale": "При треморе или в транспорте устройство постоянно движется, и функция срабатывает случайно (например, пауза в игре в поезде).",
     "verification": "ok",
@@ -367,7 +378,8 @@
       "situational",
       "high-contrast",
       "sunlight",
-      "driver-mode"
+      "driver-mode",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -398,7 +410,8 @@
       "wcag-1.1.1",
       "alt-text",
       "images",
-      "axe-image-alt"
+      "axe-image-alt",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -429,7 +442,8 @@
       "icon-button",
       "accessible-name",
       "aria-label",
-      "axe-button-name"
+      "axe-button-name",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -459,7 +473,8 @@
     },
     "tags": [
       "wcag-1.1.1",
-      "captcha"
+      "captcha",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -491,7 +506,8 @@
       "wcag-1.2.1",
       "transcript",
       "audio",
-      "video"
+      "video",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -521,7 +537,8 @@
     "tags": [
       "wcag-1.2.2",
       "captions",
-      "video"
+      "video",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -550,7 +567,8 @@
     "tags": [
       "wcag-1.2.3",
       "audio-description",
-      "video"
+      "video",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -579,7 +597,8 @@
     "tags": [
       "wcag-1.2.4",
       "captions",
-      "live-stream"
+      "live-stream",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -609,7 +628,8 @@
     "tags": [
       "wcag-1.2.5",
       "audio-description",
-      "video"
+      "video",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -638,7 +658,8 @@
     "tags": [
       "wcag-1.2.6",
       "sign-language",
-      "video"
+      "video",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -665,7 +686,8 @@
     "tags": [
       "wcag-1.2.7",
       "audio-description",
-      "video"
+      "video",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -691,7 +713,8 @@
     "tags": [
       "wcag-1.2.8",
       "media-alternative",
-      "transcript"
+      "transcript",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -717,7 +740,8 @@
     "tags": [
       "wcag-1.2.9",
       "live-audio",
-      "transcript"
+      "transcript",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -745,7 +769,8 @@
     "tags": [
       "wcag-1.3.1",
       "headings",
-      "semantic-html"
+      "semantic-html",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -775,7 +800,8 @@
       "wcag-1.3.1",
       "lists",
       "semantic-html",
-      "axe-list"
+      "axe-list",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -805,7 +831,8 @@
       "wcag-1.3.2",
       "reading-order",
       "dom-order",
-      "screen-reader"
+      "screen-reader",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -838,7 +865,8 @@
       "wcag-1.3.3",
       "sensory-characteristics",
       "instructions",
-      "copy"
+      "copy",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -871,7 +899,8 @@
       "mobile",
       "tablet",
       "axe-css-orientation-lock",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -903,7 +932,8 @@
       "wcag-1.3.5",
       "autocomplete",
       "forms",
-      "axe-autocomplete-valid"
+      "axe-autocomplete-valid",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -935,7 +965,8 @@
       "wcag-1.3.6",
       "landmarks",
       "aria-roles",
-      "axe-region"
+      "axe-region",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -970,7 +1001,8 @@
       "use-of-color",
       "forms",
       "validation",
-      "color-blindness"
+      "color-blindness",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1001,7 +1033,8 @@
       "wcag-1.4.1",
       "links",
       "use-of-color",
-      "axe-link-in-text-block"
+      "axe-link-in-text-block",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1031,7 +1064,8 @@
       "wcag-1.4.1",
       "color-swatch",
       "e-commerce",
-      "use-of-color"
+      "use-of-color",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1061,7 +1095,8 @@
       "charts",
       "data-viz",
       "use-of-color",
-      "see-QAC-MOB-050"
+      "see-QAC-MOB-050",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1094,7 +1129,8 @@
       "wcag-1.4.2",
       "autoplay",
       "audio",
-      "axe-no-autoplay-audio"
+      "axe-no-autoplay-audio",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1127,7 +1163,8 @@
       "lighthouse",
       "usability",
       "older-users",
-      "also-usability"
+      "also-usability",
+      "needs-ui"
     ],
     "verification": "fixed",
     "rationale": "Низкий контраст особенно мешает слабовидящим и пожилым пользователям со сниженной контрастной чувствительностью.",
@@ -1157,7 +1194,8 @@
     },
     "tags": [
       "wcag-1.4.5",
-      "images-of-text"
+      "images-of-text",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1185,7 +1223,8 @@
     "tags": [
       "wcag-1.4.6",
       "contrast",
-      "axe-color-contrast-enhanced"
+      "axe-color-contrast-enhanced",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1213,7 +1252,8 @@
     "tags": [
       "wcag-1.4.7",
       "audio",
-      "background-noise"
+      "background-noise",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1241,7 +1281,8 @@
       "wcag-1.4.8",
       "typography",
       "line-length",
-      "justify"
+      "justify",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1266,7 +1307,8 @@
     },
     "tags": [
       "wcag-1.4.9",
-      "images-of-text"
+      "images-of-text",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1295,7 +1337,8 @@
       "wcag-1.4.10",
       "reflow",
       "responsive",
-      "zoom"
+      "zoom",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1328,7 +1371,8 @@
       "contrast",
       "inputs",
       "icons",
-      "see-QAC-MD-035"
+      "see-QAC-MD-035",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1358,7 +1402,8 @@
     "tags": [
       "wcag-1.4.12",
       "text-spacing",
-      "layout"
+      "layout",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1390,7 +1435,8 @@
       "tooltip",
       "hover",
       "dismissible",
-      "escape"
+      "escape",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1419,7 +1465,8 @@
     "tags": [
       "wcag-1.4.13",
       "tooltip",
-      "hoverable"
+      "hoverable",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1449,7 +1496,8 @@
     "tags": [
       "wcag-1.4.13",
       "tooltip",
-      "persistent"
+      "persistent",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1480,7 +1528,8 @@
     "tags": [
       "keyboard",
       "wcag-2.1.1",
-      "keyboard-walk"
+      "keyboard-walk",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1513,7 +1562,8 @@
       "keyboard",
       "div-button",
       "semantic-html",
-      "see-QAC-FORM-042"
+      "see-QAC-FORM-042",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1543,7 +1593,8 @@
       "wcag-2.1.1",
       "keyboard",
       "dropdown-menu",
-      "hover"
+      "hover",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1576,7 +1627,8 @@
       "slider",
       "drag-and-drop",
       "date-picker",
-      "file-upload"
+      "file-upload",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1608,7 +1660,8 @@
       "wcag-2.1.2",
       "keyboard-trap",
       "iframe",
-      "widgets"
+      "widgets",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1639,7 +1692,8 @@
       "wcag-2.1.2",
       "modal",
       "focus-management",
-      "escape"
+      "escape",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1670,7 +1724,8 @@
       "wcag-2.1.2",
       "autocomplete",
       "combobox",
-      "keyboard"
+      "keyboard",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1701,7 +1756,8 @@
       "wcag-2.1.3",
       "keyboard",
       "drag-and-drop",
-      "canvas"
+      "canvas",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1732,7 +1788,8 @@
       "hotkeys",
       "shortcuts",
       "screen-reader",
-      "voice-control"
+      "voice-control",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1765,7 +1822,8 @@
     "tags": [
       "wcag-2.2.1",
       "session-timeout",
-      "timing"
+      "timing",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1799,7 +1857,8 @@
       "notifications",
       "error-messages",
       "see-QAC-FORM-053",
-      "see-QAC-MD-079"
+      "see-QAC-MD-079",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1831,7 +1890,8 @@
       "carousel",
       "animation",
       "autoplay",
-      "gif"
+      "gif",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1863,7 +1923,8 @@
       "wcag-2.2.2",
       "auto-update",
       "live-feed",
-      "focus"
+      "focus",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1899,7 +1960,8 @@
       "accessibility",
       "wcag-2.3.3",
       "also-gui",
-      "see-QAC-HIG-013"
+      "see-QAC-HIG-013",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -1926,7 +1988,8 @@
     },
     "tags": [
       "wcag-2.2.3",
-      "timing"
+      "timing",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1955,7 +2018,8 @@
       "wcag-2.2.4",
       "interruptions",
       "popups",
-      "notifications"
+      "notifications",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1987,7 +2051,8 @@
       "re-authentication",
       "session",
       "data-loss",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2015,7 +2080,8 @@
     "tags": [
       "wcag-2.2.6",
       "timeouts",
-      "data-loss"
+      "data-loss",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2053,7 +2119,8 @@
       "also-gui",
       "ios",
       "web",
-      "also-mobile-hig"
+      "also-mobile-hig",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -2084,7 +2151,8 @@
     "tags": [
       "wcag-2.3.2",
       "flashing",
-      "seizures"
+      "seizures",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2115,7 +2183,8 @@
       "animation",
       "parallax",
       "prefers-reduced-motion",
-      "vestibular"
+      "vestibular",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -2144,7 +2213,8 @@
       "wcag-2.4.1",
       "skip-link",
       "bypass-blocks",
-      "axe-bypass"
+      "axe-bypass",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -2177,7 +2247,8 @@
       "wcag-2.4.2",
       "page-title",
       "axe-document-title",
-      "seo"
+      "seo",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2207,7 +2278,8 @@
       "wcag-2.4.2",
       "page-title",
       "spa",
-      "404"
+      "404",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -2237,7 +2309,8 @@
       "focus-order",
       "keyboard",
       "css-order",
-      "see-QAC-HIG-109"
+      "see-QAC-HIG-109",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2266,7 +2339,8 @@
     "tags": [
       "wcag-2.4.3",
       "tabindex",
-      "axe-tabindex"
+      "axe-tabindex",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2297,7 +2371,8 @@
     "tags": [
       "wcag-2.4.3",
       "modal",
-      "focus-management"
+      "focus-management",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2336,7 +2411,8 @@
       "ux-writing",
       "link",
       "screen-reader",
-      "also-mobile-hig"
+      "also-mobile-hig",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -2368,7 +2444,8 @@
       "wcag-2.4.5",
       "navigation",
       "search",
-      "sitemap"
+      "sitemap",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2399,7 +2476,8 @@
     "tags": [
       "wcag-2.4.6",
       "headings",
-      "content"
+      "content",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2429,7 +2507,8 @@
     "tags": [
       "wcag-2.4.6",
       "labels",
-      "forms"
+      "forms",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2460,7 +2539,8 @@
       "wcag-2.4.7",
       "focus-visible",
       "outline",
-      "keyboard"
+      "keyboard",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2491,7 +2571,8 @@
       "wcag-2.4.8",
       "breadcrumbs",
       "aria-current",
-      "navigation"
+      "navigation",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -2518,7 +2599,8 @@
     "tags": [
       "wcag-2.4.9",
       "link-purpose",
-      "links"
+      "links",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2545,7 +2627,8 @@
     "tags": [
       "wcag-2.4.10",
       "headings",
-      "content-structure"
+      "content-structure",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2575,7 +2658,8 @@
       "focus-not-obscured",
       "sticky-header",
       "cookie-banner",
-      "wcag-2.2"
+      "wcag-2.2",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2605,7 +2689,8 @@
       "wcag-2.4.11",
       "scroll-margin",
       "sticky-header",
-      "focus-trap"
+      "focus-trap",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2632,7 +2717,8 @@
     },
     "tags": [
       "wcag-2.4.12",
-      "focus-not-obscured"
+      "focus-not-obscured",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2662,7 +2748,8 @@
       "wcag-2.4.13",
       "focus-appearance",
       "focus-visible",
-      "contrast"
+      "contrast",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -2694,7 +2781,8 @@
       "swipe",
       "multitouch",
       "mobile",
-      "see-QAC-MOB-021"
+      "see-QAC-MOB-021",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2725,7 +2813,8 @@
       "wcag-2.5.2",
       "pointer-cancellation",
       "mousedown",
-      "touch"
+      "touch",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2758,7 +2847,8 @@
       "label-in-name",
       "aria-label",
       "voice-control",
-      "accessible-name"
+      "accessible-name",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2790,7 +2880,8 @@
       "target-size",
       "touch",
       "mobile",
-      "see-QAC-HIG-072"
+      "see-QAC-HIG-072",
+      "needs-ui"
     ],
     "modern_note": "Расхождение с книгой: SC 2.5.5 (AAA) был уже в WCAG 2.1, а в WCAG 2.2 добавлен SC 2.5.8 Target Size (Minimum, AA, 24×24). Исключение «достаточное расстояние между центрами» относится к 2.5.8, а не к 2.5.5 — в 2.5.5 его нет.",
     "verification": "fixed"
@@ -2818,7 +2909,8 @@
     "tags": [
       "wcag-2.5.6",
       "input-modalities",
-      "hybrid-devices"
+      "hybrid-devices",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2853,7 +2945,8 @@
       "kanban",
       "slider",
       "wcag-2.2",
-      "see-QAC-HIG-023"
+      "see-QAC-HIG-023",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2891,7 +2984,8 @@
       "wcag-2.2",
       "see-QAC-HIG-072",
       "see-QAC-UXL-009",
-      "see-QAC-UX-018"
+      "see-QAC-UX-018",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -2923,7 +3017,8 @@
       "wcag-3.1.1",
       "lang",
       "i18n",
-      "axe-html-has-lang"
+      "axe-html-has-lang",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2954,7 +3049,8 @@
       "wcag-3.1.2",
       "lang",
       "i18n",
-      "axe-valid-lang"
+      "axe-valid-lang",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2985,7 +3081,8 @@
       "wcag-3.1.3",
       "glossary",
       "jargon",
-      "plain-language"
+      "plain-language",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3013,7 +3110,8 @@
     "tags": [
       "wcag-3.1.4",
       "abbreviations",
-      "abbr"
+      "abbr",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -3040,7 +3138,8 @@
     "tags": [
       "wcag-3.1.5",
       "reading-level",
-      "plain-language"
+      "plain-language",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3067,7 +3166,8 @@
     "tags": [
       "wcag-3.1.6",
       "pronunciation",
-      "screen-reader"
+      "screen-reader",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3096,7 +3196,8 @@
       "wcag-3.2.1",
       "on-focus",
       "change-of-context",
-      "keyboard"
+      "keyboard",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -3129,7 +3230,8 @@
       "on-input",
       "select",
       "forms",
-      "change-of-context"
+      "change-of-context",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -3159,7 +3261,8 @@
     "tags": [
       "wcag-3.2.3",
       "consistent-navigation",
-      "menu"
+      "menu",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -3191,7 +3294,8 @@
       "wcag-3.2.4",
       "consistent-identification",
       "labels",
-      "icons"
+      "icons",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -3224,7 +3328,8 @@
       "redirect",
       "auto-refresh",
       "target-blank",
-      "axe-meta-refresh"
+      "axe-meta-refresh",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -3255,7 +3360,8 @@
       "consistent-help",
       "support",
       "chat",
-      "wcag-2.2"
+      "wcag-2.2",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -3289,7 +3395,8 @@
       "error-messages",
       "forms",
       "validation",
-      "see-QAC-API-092"
+      "see-QAC-API-092",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -3320,7 +3427,8 @@
       "wcag-3.3.1",
       "aria-describedby",
       "aria-invalid",
-      "forms"
+      "forms",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -3352,7 +3460,8 @@
       "wcag-3.3.1",
       "focus-management",
       "forms",
-      "validation"
+      "validation",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -3389,7 +3498,8 @@
       "floating-label",
       "also-usability",
       "see-QAC-MD-088",
-      "see-QAC-HIG-105"
+      "see-QAC-HIG-105",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -3428,7 +3538,8 @@
       "placeholder",
       "date-input",
       "also-forms",
-      "see-QAC-UX-027"
+      "see-QAC-UX-027",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -3459,7 +3570,8 @@
       "wcag-3.3.2",
       "required-fields",
       "forms",
-      "aria-required"
+      "aria-required",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -3490,7 +3602,8 @@
       "wcag-1.3.1",
       "fieldset",
       "legend",
-      "forms"
+      "forms",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3523,7 +3636,8 @@
       "validation",
       "copy",
       "see-QAC-FORM-003",
-      "see-QAC-HIG-082"
+      "see-QAC-HIG-082",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -3557,7 +3671,8 @@
       "login",
       "security",
       "user-enumeration",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -3591,7 +3706,8 @@
       "error-prevention",
       "payments",
       "delete",
-      "confirmation"
+      "confirmation",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -3623,7 +3739,8 @@
       "help",
       "forms",
       "tooltip",
-      "see-QAC-UXL-015"
+      "see-QAC-UXL-015",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3651,7 +3768,8 @@
     "tags": [
       "wcag-3.3.6",
       "error-prevention",
-      "forms"
+      "forms",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3688,7 +3806,8 @@
       "otp",
       "wcag-2.2",
       "see-QAC-FORM-032",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -3722,7 +3841,8 @@
       "captcha",
       "passkeys",
       "wcag-2.2",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3752,7 +3872,8 @@
       "name-role-value",
       "aria",
       "custom-widgets",
-      "screen-reader"
+      "screen-reader",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "normative",
@@ -3784,7 +3905,8 @@
       "aria-checked",
       "state",
       "menu",
-      "accordion"
+      "accordion",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -3818,7 +3940,8 @@
       "aria-live",
       "toast",
       "cart",
-      "screen-reader"
+      "screen-reader",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -3848,7 +3971,8 @@
     "tags": [
       "wcag-4.1.3",
       "aria-live",
-      "role-alert"
+      "role-alert",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3878,7 +4002,8 @@
       "lighthouse",
       "automation",
       "tools",
-      "ci"
+      "ci",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -3908,7 +4033,8 @@
       "web-disability-simulator",
       "simulation",
       "color-blindness",
-      "tools"
+      "tools",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3938,7 +4064,8 @@
       "axe-core",
       "automation",
       "tools",
-      "playwright"
+      "playwright",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "vendor-guideline",
@@ -3967,7 +4094,8 @@
     "tags": [
       "ibm-equal-access",
       "automation",
-      "tools"
+      "tools",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -3997,7 +4125,8 @@
       "andi",
       "focus-order",
       "accessible-name",
-      "tools"
+      "tools",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -4024,7 +4153,8 @@
       "contrast-checker",
       "wcag-1.4.3",
       "tools",
-      "false-negative"
+      "false-negative",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -4053,7 +4183,8 @@
       "eyedropper",
       "contrast",
       "wcag-1.4.3",
-      "tools"
+      "tools",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -4081,7 +4212,8 @@
       "css-overview",
       "contrast",
       "wcag-1.4.3",
-      "tools"
+      "tools",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -4114,7 +4246,8 @@
       "voiceover",
       "manual-testing",
       "tools",
-      "see-QAC-MOB-054"
+      "see-QAC-MOB-054",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",

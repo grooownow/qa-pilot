@@ -21,7 +21,8 @@
     },
     "tags": [
       "web-invariant",
-      "error-handling"
+      "error-handling",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -50,7 +51,8 @@
     "tags": [
       "web-invariant",
       "error-handling",
-      "accessibility"
+      "accessibility",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -108,7 +110,8 @@
     "tags": [
       "web-invariant",
       "error-handling",
-      "polling"
+      "polling",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -137,7 +140,8 @@
     "tags": [
       "web-invariant",
       "destructive-action",
-      "accessibility"
+      "accessibility",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -166,7 +170,8 @@
     "tags": [
       "web-invariant",
       "error-handling",
-      "retry"
+      "retry",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",

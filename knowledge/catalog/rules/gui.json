@@ -25,7 +25,8 @@
       "design-review",
       "figma",
       "pixel-perfect",
-      "see-QAC-PROC-018"
+      "see-QAC-PROC-018",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -57,7 +58,8 @@
       "design-review",
       "ux",
       "accessibility",
-      "also-process"
+      "also-process",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -84,7 +86,8 @@
     "tags": [
       "gui",
       "alignment",
-      "icons"
+      "icons",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -112,7 +115,8 @@
       "gui",
       "spacing",
       "padding",
-      "margin"
+      "margin",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -140,7 +144,8 @@
     "tags": [
       "gui",
       "typography",
-      "font-size"
+      "font-size",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -169,7 +174,8 @@
     "tags": [
       "gui",
       "casing",
-      "consistency"
+      "consistency",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -199,7 +205,8 @@
     "tags": [
       "gui",
       "icons",
-      "broken-images"
+      "broken-images",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -230,7 +237,8 @@
       "typography",
       "fonts",
       "dyslexia",
-      "see-QAC-A11Y-006"
+      "see-QAC-A11Y-006",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -259,7 +267,8 @@
       "gui",
       "casing",
       "sentence-case",
-      "typography"
+      "typography",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -289,7 +298,8 @@
       "gui",
       "casing",
       "all-caps",
-      "typography"
+      "typography",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -318,7 +328,8 @@
       "casing",
       "title-case",
       "consistency",
-      "ios"
+      "ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -347,7 +358,8 @@
       "navigation",
       "tab-bar",
       "mobile",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -376,7 +388,8 @@
     "tags": [
       "gui",
       "navigation",
-      "layout-stability"
+      "layout-stability",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -408,7 +421,8 @@
       "navigation",
       "icons",
       "labels",
-      "see-QAC-HIG-099"
+      "see-QAC-HIG-099",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -437,7 +451,8 @@
     "tags": [
       "gui",
       "navigation",
-      "headings"
+      "headings",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -466,7 +481,8 @@
       "truncation",
       "headings",
       "text-overflow",
-      "see-QAC-AI-028"
+      "see-QAC-AI-028",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -499,7 +515,8 @@
       "buttons",
       "primary-action",
       "visual-hierarchy",
-      "see-QAC-UX-021"
+      "see-QAC-UX-021",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -525,7 +542,8 @@
     "tags": [
       "gui",
       "typography",
-      "visual-hierarchy"
+      "visual-hierarchy",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -552,7 +570,8 @@
     "tags": [
       "gui",
       "icons",
-      "consistency"
+      "consistency",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -580,7 +599,8 @@
       "gui",
       "tabs",
       "navigation",
-      "active-state"
+      "active-state",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -611,7 +631,8 @@
       "gui",
       "design-system",
       "common-components",
-      "bug-priority"
+      "bug-priority",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -640,7 +661,8 @@
       "gui",
       "figma",
       "responsive",
-      "measurement"
+      "measurement",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -668,7 +690,8 @@
       "gui",
       "pixel-perfect",
       "subpixel",
-      "bug-report"
+      "bug-report",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -698,7 +721,8 @@
       "typography",
       "devtools",
       "figma",
-      "also-test-strategy"
+      "also-test-strategy",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "author-opinion",
@@ -731,7 +755,8 @@
       "box-model",
       "devtools",
       "figma",
-      "also-test-strategy"
+      "also-test-strategy",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "author-opinion",
@@ -764,7 +789,8 @@
       "devtools",
       "figma",
       "pixel-perfect",
-      "also-test-strategy"
+      "also-test-strategy",
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "author-opinion",
@@ -792,7 +818,8 @@
     "tags": [
       "gui",
       "animations",
-      "devtools"
+      "devtools",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -820,7 +847,8 @@
       "gui",
       "pixel-perfect",
       "perfectpixel",
-      "figma"
+      "figma",
+      "needs-ui"
     ],
     "verification": "ok"
   }

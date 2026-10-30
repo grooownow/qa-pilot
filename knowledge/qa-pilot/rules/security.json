@@ -164,7 +164,8 @@
     "tags": [
       "authorization",
       "bopla",
-      "excessive-data-exposure"
+      "excessive-data-exposure",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -192,7 +193,8 @@
     "tags": [
       "authorization",
       "mass-assignment",
-      "bopla"
+      "bopla",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -218,7 +220,8 @@
     "tags": [
       "authorization",
       "false-green",
-      "test-oracle"
+      "test-oracle",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -246,7 +249,8 @@
     "tags": [
       "input-validation",
       "client-side-only",
-      "false-green"
+      "false-green",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -302,7 +306,8 @@
     "tags": [
       "xss",
       "output-encoding",
-      "injection"
+      "injection",
+      "needs-ui"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -329,7 +334,8 @@
     "tags": [
       "xss",
       "dom-xss",
-      "code-review"
+      "code-review",
+      "needs-ui"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -466,7 +472,8 @@
     "tags": [
       "secrets",
       "client-bundle",
-      "ai-built-apps"
+      "ai-built-apps",
+      "needs-ui"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -516,7 +523,8 @@
     },
     "tags": [
       "misconfiguration",
-      "information-disclosure"
+      "information-disclosure",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -568,7 +576,8 @@
     "tags": [
       "headers",
       "hsts",
-      "transport"
+      "transport",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -597,7 +606,8 @@
       "headers",
       "csp",
       "xss",
-      "clickjacking"
+      "clickjacking",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -621,7 +631,8 @@
     },
     "tags": [
       "headers",
-      "misconfiguration"
+      "misconfiguration",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -649,7 +660,8 @@
     "tags": [
       "rate-limiting",
       "anti-automation",
-      "cost"
+      "cost",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -676,7 +688,8 @@
     },
     "tags": [
       "rate-limiting",
-      "bypass"
+      "bypass",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -705,7 +718,8 @@
       "rate-limiting",
       "resource-consumption",
       "pagination",
-      "graphql"
+      "graphql",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -731,7 +745,8 @@
     },
     "tags": [
       "race-condition",
-      "business-logic"
+      "business-logic",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -758,7 +773,8 @@
     },
     "tags": [
       "business-logic",
-      "workflow"
+      "workflow",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -923,7 +939,8 @@
     },
     "tags": [
       "ssrf",
-      "integrations"
+      "integrations",
+      "needs-backend"
     ],
     "authority": "normative",
     "verification": "ok",

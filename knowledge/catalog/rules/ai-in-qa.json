@@ -307,7 +307,8 @@
       "mocking",
       "proxyman",
       "charles",
-      "network-interception"
+      "network-interception",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -664,7 +665,8 @@
       "ux-audit",
       "figma",
       "multimodal",
-      "usability-testing"
+      "usability-testing",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -693,7 +695,8 @@
       "visual-hierarchy",
       "cta",
       "readability",
-      "contrast"
+      "contrast",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -721,7 +724,8 @@
       "touch-target",
       "icons",
       "status",
-      "accessibility"
+      "accessibility",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -749,7 +753,8 @@
       "ux-audit",
       "report-format",
       "priority",
-      "recommendations"
+      "recommendations",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -781,7 +786,8 @@
       "empty-state",
       "microcopy",
       "status-badge",
-      "see-QAC-UX-025"
+      "see-QAC-UX-025",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -809,7 +815,8 @@
       "ux-audit",
       "microcopy",
       "time-estimate",
-      "onboarding"
+      "onboarding",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -838,7 +845,8 @@
       "truncation",
       "ellipsis",
       "ids",
-      "see-QAC-GUI-016"
+      "see-QAC-GUI-016",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -867,7 +875,8 @@
       "fitts-law",
       "touch-target",
       "card",
-      "selection"
+      "selection",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -895,7 +904,8 @@
       "scroll-affordance",
       "fold",
       "modal",
-      "list"
+      "list",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -925,7 +935,8 @@
       "feedback",
       "undo",
       "selection",
-      "state-change"
+      "state-change",
+      "needs-ui"
     ],
     "verification": "ok"
   },

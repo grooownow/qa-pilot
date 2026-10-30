@@ -28,7 +28,7 @@ Read `references/web-patterns.md` (absolute path in your brief). For every entit
 - **OK**: the code handles it (cite the line) and a test that runs in CI proves it (2b), or the handling is trivially correct.
 - **BUG**: the code mishandles it (cite the line). A scenario with a BUG mark follows.
 - **GAP**: the code may be fine but nothing in CI proves it. A scenario follows.
-- **N/A**: the pattern cannot occur for this entity. Evidence is mandatory (e.g. "no delete endpoint: searched `git grep -n 'delete' -- src/api/workflow*` → 0").
+- **N/A**: the pattern cannot occur for this entity. Evidence is mandatory (e.g. "no delete endpoint: searched `git grep -n 'delete' -- src/api/workflow*` → 0"). For the patterns under *Not applicable by project kind* in `references/web-patterns.md`, the profile trait is the evidence.
 - **DECISION**: the right behaviour is a product choice. It goes to *Needs product decision*.
 - **SUPPRESSED**: an owner scope filter removes the whole behaviour of this cell. Cite the filter. The cell goes to *Suppressed by your filters* as one line, never to *Needs product decision*.
 

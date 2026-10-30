@@ -116,7 +116,8 @@
       "web-pattern",
       "must-check",
       "error-handling",
-      "silent-failure"
+      "silent-failure",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -161,7 +162,8 @@
       "web-pattern",
       "must-check",
       "error-handling",
-      "modal"
+      "modal",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -204,7 +206,8 @@
       "web-pattern",
       "must-check",
       "error-handling",
-      "polling"
+      "polling",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -292,7 +295,8 @@
       "must-check",
       "security",
       "authorization",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -340,7 +344,8 @@
       "authorization",
       "idor",
       "needs-auth",
-      "needs-rest"
+      "needs-rest",
+      "needs-backend"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -383,7 +388,8 @@
       "web-pattern",
       "must-check",
       "session",
-      "needs-auth"
+      "needs-auth",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -428,7 +434,8 @@
       "web-pattern",
       "must-check",
       "routing",
-      "feature-flags"
+      "feature-flags",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -511,7 +518,8 @@
       "web-pattern",
       "highlight",
       "error-handling",
-      "cache"
+      "cache",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -548,7 +556,8 @@
     "tags": [
       "web-pattern",
       "highlight",
-      "error-handling"
+      "error-handling",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -587,7 +596,8 @@
       "web-pattern",
       "highlight",
       "error-handling",
-      "empty-state"
+      "empty-state",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -626,7 +636,8 @@
     "tags": [
       "web-pattern",
       "highlight",
-      "cache"
+      "cache",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -666,7 +677,8 @@
       "web-pattern",
       "highlight",
       "routing",
-      "error-handling"
+      "error-handling",
+      "needs-ui"
     ],
     "authority": "industry-practice",
     "verification": "ok",
@@ -706,7 +718,8 @@
     "tags": [
       "web-pattern",
       "highlight",
-      "forms"
+      "forms",
+      "needs-ui"
     ],
     "authority": "vendor-guideline",
     "verification": "ok",

@@ -26,7 +26,8 @@
       "ios",
       "android",
       "cross-platform",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -61,7 +62,8 @@
       "native",
       "hybrid",
       "mobile-web",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -93,7 +95,8 @@
       "user-agent",
       "playwright",
       "web",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -131,7 +134,8 @@
       "nfc",
       "ios",
       "web",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -159,7 +163,8 @@
       "release",
       "app-review",
       "hotfix",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -190,7 +195,8 @@
       "incoming-call",
       "audio-focus",
       "see-QAC-HIG-051",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -222,7 +228,8 @@
       "interruptions",
       "push",
       "notifications",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -254,7 +261,8 @@
       "headphones",
       "bluetooth",
       "screenshot",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -286,7 +294,8 @@
       "gps",
       "geofencing",
       "android",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -315,7 +324,8 @@
       "mobile",
       "installation",
       "clean-install",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -346,7 +356,8 @@
       "mobile",
       "installation",
       "uninstall",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -375,7 +386,8 @@
       "mobile",
       "installation",
       "reinstall",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -404,7 +416,8 @@
       "network",
       "wifi",
       "cellular",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -436,7 +449,8 @@
       "network",
       "packet-loss",
       "idempotency",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -466,7 +480,8 @@
       "mobile",
       "performance",
       "responsiveness",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -497,7 +512,8 @@
       "memory-leak",
       "profiler",
       "see-QAC-PERF-007",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -525,7 +541,8 @@
       "mobile",
       "performance",
       "battery-drain",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -554,7 +571,8 @@
       "mobile",
       "orientation",
       "configuration-change",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -587,7 +605,8 @@
       "swipe",
       "pinch-zoom",
       "see-QAC-A11Y-089",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -618,7 +637,8 @@
       "biometrics",
       "faceid",
       "sensors",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -649,7 +669,8 @@
       "background",
       "samsung",
       "xiaomi",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -682,7 +703,8 @@
       "gms",
       "push",
       "fragmentation",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -712,7 +734,8 @@
       "compatibility",
       "ios",
       "android",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -741,7 +764,8 @@
       "os-versions",
       "beta",
       "compatibility",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -770,7 +794,8 @@
     "tags": [
       "mobile",
       "permissions",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -803,7 +828,8 @@
       "permissions",
       "negative",
       "see-QAC-UXL-036",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -838,7 +864,8 @@
       "camera",
       "settings",
       "see-QAC-API-117",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -871,7 +898,8 @@
       "hig",
       "material-design",
       "see-QAC-HIG-001",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -908,7 +936,8 @@
       "performance",
       "battery",
       "see-QAC-STRAT-006",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "fixed",
     "modern_note": "Эмулятор Android тоже плохо подходит для замеров производительности: на современных компьютерах он обычно запускает образ той же архитектуры, что и хост, через аппаратную виртуализацию, и цифры памяти, FPS и нагрева не совпадают с реальным телефоном. Для профилирования обычно рекомендуют реальные устройства, а эмулятор использовать для задания состояний (заряд, сенсоры, сеть)."
@@ -939,7 +968,8 @@
       "battery",
       "android",
       "adb",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -970,7 +1000,8 @@
       "simulator",
       "interruptions",
       "background",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1002,7 +1033,8 @@
       "onboarding",
       "permissions",
       "adb",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1031,7 +1063,8 @@
       "ios",
       "shake",
       "gestures",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1062,7 +1095,8 @@
       "faceid",
       "biometrics",
       "negative",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1094,7 +1128,8 @@
       "ios",
       "faceid",
       "biometrics",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1127,7 +1162,8 @@
       "faceid",
       "biometrics",
       "negative",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1159,7 +1195,8 @@
       "payments",
       "simulator",
       "needs-ios",
-      "needs-payments"
+      "needs-payments",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1188,7 +1225,9 @@
       "mobile",
       "ios",
       "dark-mode",
-      "theming"
+      "theming",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1218,7 +1257,8 @@
       "status-bar",
       "interruptions",
       "layout",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1246,7 +1286,8 @@
       "ios",
       "animations",
       "transitions",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1279,7 +1320,8 @@
       "geofencing",
       "simulator",
       "emulator",
-      "needs-native-mobile"
+      "needs-native-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1307,7 +1349,8 @@
       "ios",
       "accessibility",
       "invert-colors",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1335,7 +1378,8 @@
       "ios",
       "accessibility",
       "contrast",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1363,7 +1407,8 @@
       "ios",
       "accessibility",
       "transparency",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1392,7 +1437,8 @@
       "accessibility",
       "bold-text",
       "layout",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1422,7 +1468,8 @@
       "accessibility",
       "toggles",
       "buttons",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1452,7 +1499,9 @@
       "accessibility",
       "grayscale",
       "wcag-1.4.1",
-      "see-QAC-A11Y-036"
+      "see-QAC-A11Y-036",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1482,7 +1531,9 @@
       "ios",
       "accessibility",
       "color-blindness",
-      "see-QAC-HIG-004"
+      "see-QAC-HIG-004",
+      "needs-ui",
+      "needs-ios"
     ],
     "verification": "ok"
   },
@@ -1514,7 +1565,8 @@
       "dynamic-type",
       "text-resize",
       "see-QAC-A11Y-001",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1545,7 +1597,8 @@
       "accessibility",
       "accessibility-inspector",
       "audit",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1578,7 +1631,8 @@
       "voiceover",
       "screen-reader",
       "see-QAC-A11Y-134",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1611,7 +1665,8 @@
       "avd",
       "compatibility",
       "os-versions",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -1641,7 +1696,8 @@
       "navigation-bar",
       "insets",
       "layout",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1672,7 +1728,8 @@
       "accessibility",
       "talkback",
       "screen-reader",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -1704,7 +1761,8 @@
       "accessibility",
       "font-scale",
       "layout",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1735,7 +1793,8 @@
       "android",
       "layout-bounds",
       "pixel-perfect",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1764,7 +1823,8 @@
       "android",
       "foldable",
       "configuration-change",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1796,7 +1856,8 @@
       "battery-saver",
       "gps",
       "emulator",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "fixed",
     "modern_note": "Пороги в книге отражают опыт автора на конкретных прошивках. В стоковом Android порог автоматического включения Battery Saver задаёт пользователь (или расписание), а набор ограничений (фоновая геолокация, тёмная тема, частота обновления экрана) зависит от версии ОС и производителя. Пороги стоит сверять с устройствами из матрицы проекта."
@@ -1826,7 +1887,8 @@
       "emulator",
       "camera",
       "qr",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1855,7 +1917,8 @@
       "android-tv",
       "d-pad",
       "focus",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1884,7 +1947,8 @@
       "emulator",
       "microphone",
       "voice-input",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1914,7 +1978,8 @@
       "android",
       "fingerprint",
       "biometrics",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -1946,7 +2011,8 @@
       "emulator",
       "apk",
       "abi",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "fixed",
     "modern_note": "Системные образы Android 11+ для x86_64 умеют транслировать ARM-код, поэтому на Intel/AMD-машинах многие ARM-only APK всё же устанавливаются; на Mac с Apple Silicon x86-образы не запускаются, нужен arm64-v8a.",
@@ -1981,7 +2047,8 @@
       "web-inspector",
       "real-device",
       "see-QAC-INST-042",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2015,7 +2082,8 @@
       "error-handling",
       "http-status",
       "see-QAC-API-125",
-      "needs-mobile"
+      "needs-mobile",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2046,7 +2114,8 @@
       "logcat",
       "adb",
       "crash",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -2081,7 +2150,8 @@
       "state-restoration",
       "adb",
       "see-QAC-HIG-032",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "fixed",
     "modern_note": "Подкоманды `am recover-prep` нет среди документированных команд `adb shell am`, вероятно это неточность книги (проверьте `adb shell am help` на своей версии Android). Обычно process death моделируют так: свернуть приложение кнопкой Home и выполнить `adb shell am kill <package>` — команда убивает процесс, только если приложение в фоне. Developer options → Don't keep activities уничтожает активити, но не процесс, поэтому заменяет сценарий лишь частично. `am force-stop`, как правило, не подходит: он сбрасывает задачу вместе с сохранённым состоянием.",
@@ -2115,7 +2185,8 @@
       "test-data",
       "volume",
       "local-db",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2145,7 +2216,8 @@
       "pluto",
       "shared-preferences",
       "test-data",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2176,7 +2248,9 @@
       "analytics",
       "firebase",
       "appsflyer",
-      "pluto"
+      "pluto",
+      "needs-ui",
+      "needs-native-mobile"
     ],
     "verification": "ok"
   },
@@ -2208,7 +2282,8 @@
       "lifecycle",
       "orientation",
       "loading",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2241,7 +2316,8 @@
       "otp",
       "payments",
       "needs-native-mobile",
-      "needs-payments"
+      "needs-payments",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -2275,7 +2351,8 @@
       "background",
       "memory-leak",
       "battery",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2304,7 +2381,8 @@
       "lifecycle",
       "bug-report",
       "logcat",
-      "needs-android"
+      "needs-android",
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -2337,7 +2415,8 @@
       "background",
       "upload",
       "see-QAC-STRAT-028",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",
@@ -2371,7 +2450,8 @@
       "suspended",
       "state-restoration",
       "see-QAC-HIG-032",
-      "needs-ios"
+      "needs-ios",
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "vendor-guideline",

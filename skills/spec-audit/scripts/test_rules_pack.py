@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from rules_pack import build, effective_severity, parse_traits, rule_line
+from rules_pack import NEEDS, build, effective_severity, parse_traits, rule_line
 
 
 def record(rid, tags=(), applies=("requirements",), how="Проверить."):
@@ -55,6 +55,56 @@ class TraitFormsTest(unittest.TestCase):
         self.assertEqual(traits["api_style"], ["rest", "graphql"])
         self.assertIs(traits["i18n"], False)
         self.assertEqual(len(warnings), 2)
+
+
+class ProjectKindTest(unittest.TestCase):
+    def needs(self, profile, tag):
+        traits, _, warnings = parse_traits(profile)
+        self.assertEqual(warnings, [])
+        return NEEDS[tag](traits)
+
+    def test_old_profile_keeps_ui_and_backend(self):
+        self.assertTrue(self.needs("## Product traits\nplatform: [web]\n", "needs-ui"))
+        self.assertTrue(self.needs("## Product traits\nplatform: [web]\n", "needs-backend"))
+
+    def test_no_ui_and_no_backend(self):
+        profile = "## Product traits\nplatform: [cli, library]\nhas_ui: false\nhas_backend: false\n"
+        self.assertFalse(self.needs(profile, "needs-ui"))
+        self.assertFalse(self.needs(profile, "needs-backend"))
+
+    def test_web_and_installed_platforms(self):
+        self.assertTrue(self.needs("## Product traits\nplatform: [pwa]\n", "needs-web"))
+        self.assertFalse(self.needs("## Product traits\nplatform: [cli]\n", "needs-web"))
+        self.assertTrue(self.needs("## Product traits\nplatform: [cli]\n", "needs-installed"))
+        self.assertFalse(self.needs("## Product traits\nplatform: [web]\n", "needs-installed"))
+
+
+class RealCatalogTagsTest(unittest.TestCase):
+    """The shipped knowledge base: the kind filter must really drop what it promises."""
+    KB = Path(__file__).resolve().parents[3] / "knowledge"
+    NO_UI = "## Product traits\nplatform: [cli]\napi_style: [rest]\nhas_ui: false\n"
+    NO_BACKEND = "## Product traits\nplatform: [web]\nhas_backend: false\n"
+    WEB = "## Product traits\nplatform: [web]\n"
+
+    def titles(self, profile):
+        packs, manifest = build(self.KB, profile, {}, ["requirements", "test-plan"])
+        self.assertEqual(manifest["unknown_needs_tags"], [])
+        return {r["id"] for rs in packs.values() for r in rs}
+
+    def test_no_ui_drops_ui_topics(self):
+        kept = self.titles(self.NO_UI)
+        for prefix in ("QAC-GUI-", "QAC-HIG-", "QAP-UI-"):
+            self.assertEqual([i for i in kept if i.startswith(prefix)], [])
+        self.assertIn("QAC-FORM-014", kept)  # injection safety is a server concern too
+
+    def test_no_backend_drops_server_topics(self):
+        kept = self.titles(self.NO_BACKEND)
+        self.assertEqual([i for i in kept if i.startswith(("QAC-DB-", "QAP-API-"))], [])
+
+    def test_web_project_gets_no_native_only_rules(self):
+        kept = self.titles(self.WEB)
+        self.assertNotIn("QAC-INST-028", kept)  # uninstall
+        self.assertIn("QAC-INST-037", kept)     # browser matrix
 
 
 class BuildTest(unittest.TestCase):
