@@ -5,6 +5,11 @@ publishes the GitHub Release `vX.Y.Z` with that version's section below (`.githu
 
 To update an installed plugin: `/plugin` → marketplace qa-pilot → update, then `/reload-plugins`.
 
+## [1.0.2] — 2026-10-30
+
+### Changed
+- `COMMERCIAL.md` links the qa-pilot Free and Pro listings on Agensi.
+
 ## [1.0.1] — 2026-10-28
 
 ### Changed

@@ -14,8 +14,8 @@ Licensor: Ekaterina Pustovaia (Ludvik4, https://ludvik4.dev).
 
 | Where | What it is | Commercial use |
 |---|---|---|
-| qa-pilot Free on Agensi | Everyday skills: onboard, test, task-qa, plan-tests, write-tests, cover, explore | Free for any use, business included |
-| qa-pilot Pro on Agensi | Free plus the audits (lite versions) | The purchase is a personal commercial licence |
+| [qa-pilot Free on Agensi](https://www.agensi.io/skills/qa-pilot-qa-for-every-web-development-task) | Everyday skills: onboard, test, task-qa, plan-tests, write-tests, cover, explore | Free for any use, business included |
+| [qa-pilot Pro on Agensi](https://www.agensi.io/skills/qa-pilot-pro-qa-audits-for-web-projects) | Free plus the audits (lite versions) | The purchase is a personal commercial licence |
 | This repository | The full plugin | Needs a personal or company licence |
 
 Neither Agensi pack may be redistributed or republished.
