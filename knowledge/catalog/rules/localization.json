@@ -382,7 +382,8 @@
     "tags": [
       "localization",
       "name-validation",
-      "forms"
+      "forms",
+      "needs-app"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -415,7 +416,8 @@
       "localization",
       "name-validation",
       "forms",
-      "required-field"
+      "required-field",
+      "needs-app"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -447,7 +449,8 @@
       "localization",
       "name-validation",
       "forms",
-      "special-characters"
+      "special-characters",
+      "needs-app"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -477,7 +480,8 @@
     "tags": [
       "localization",
       "address",
-      "forms"
+      "forms",
+      "needs-app"
     ],
     "verification": "ok"
   },
@@ -507,7 +511,8 @@
       "localization",
       "address",
       "postal-code",
-      "required-field"
+      "required-field",
+      "needs-app"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -538,7 +543,8 @@
     "tags": [
       "localization",
       "phone",
-      "validation"
+      "validation",
+      "needs-app"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -568,7 +574,8 @@
     "tags": [
       "localization",
       "phone",
-      "input-mask"
+      "input-mask",
+      "needs-app"
     ],
     "verification": "ok"
   },
@@ -965,7 +972,8 @@
       "french",
       "typography",
       "nbsp",
-      "see-QAC-UX-037"
+      "see-QAC-UX-037",
+      "needs-app"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -1023,7 +1031,8 @@
       "localization",
       "grammar",
       "declension",
-      "russian"
+      "russian",
+      "needs-app"
     ],
     "verification": "ok"
   },

@@ -10,9 +10,9 @@ To update an installed plugin: `/plugin` → marketplace qa-pilot → update, th
 ### Added
 - **Project kind.** `onboard` detects it and writes it to `## Product traits`: `has_ui`, `has_backend` and the new
   platforms `cli` and `library`. A profile without these keys works as before.
-- `rules_pack.py` knows `needs-ui`, `needs-backend`, `needs-web` and `needs-installed`, and 913 tags were added to the
+- `rules_pack.py` knows `needs-ui`, `needs-backend`, `needs-app`, `needs-web` and `needs-installed`, and 923 tags were added to the
   rules. Measured on sample profiles, with the catalog on: a REST API with no frontend gets 367 rules instead of 705, a
-  repo with no UI and no backend gets 217 instead of 635, a plain web project gets 657 instead of 705.
+  repo with no UI and no backend gets 207 instead of 635, a plain web project gets 657 instead of 705.
 - `references/web-patterns.md` lists the patterns a project kind rules out. Those cells take N/A with the trait as
   evidence, so a project with no UI does not search for each one.
 

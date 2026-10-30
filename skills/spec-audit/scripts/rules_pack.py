@@ -30,6 +30,7 @@ INSTALLED_PLATFORMS = {"ios", "android", "desktop", "game", "cli"}
 NEEDS = {
     "needs-ui": lambda t: t["has_ui"],
     "needs-backend": lambda t: t["has_backend"],
+    "needs-app": lambda t: t["has_ui"] or t["has_backend"],
     "needs-web": lambda t: bool(WEB_PLATFORMS & set(t["platform"])),
     "needs-installed": lambda t: bool(INSTALLED_PLATFORMS & set(t["platform"])),
     "needs-ios": lambda t: "ios" in t["platform"],

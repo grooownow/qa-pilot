@@ -72,6 +72,10 @@ class ProjectKindTest(unittest.TestCase):
         self.assertFalse(self.needs(profile, "needs-ui"))
         self.assertFalse(self.needs(profile, "needs-backend"))
 
+    def test_app_rules_need_a_ui_or_a_backend(self):
+        self.assertTrue(self.needs("## Product traits\nhas_ui: false\n", "needs-app"))
+        self.assertFalse(self.needs("## Product traits\nhas_ui: false\nhas_backend: false\n", "needs-app"))
+
     def test_web_and_installed_platforms(self):
         self.assertTrue(self.needs("## Product traits\nplatform: [pwa]\n", "needs-web"))
         self.assertFalse(self.needs("## Product traits\nplatform: [cli]\n", "needs-web"))

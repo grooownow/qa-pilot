@@ -392,7 +392,8 @@
       "sql-injection",
       "xss",
       "see-QAC-API-090",
-      "see-QAC-STRAT-022"
+      "see-QAC-STRAT-022",
+      "needs-app"
     ],
     "verification": "ok",
     "authority": "industry-practice",
