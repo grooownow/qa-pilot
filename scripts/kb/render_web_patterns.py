@@ -33,7 +33,7 @@ def render(patterns, invariants):
            "match count (untruncated).", "",
            "| Pattern | Question | Verdict | Evidence |", "|---|---|---|---|"]
     out += [f"| {r['id']} | {r['title']} | | |" for r in must]
-    out += ["", *not_applicable(patterns), "## Must-check patterns", ""]
+    out += ["", *not_applicable(patterns, invariants), "## Must-check patterns", ""]
     for r in must:
         out += pattern_block(r)
     out += ["## Highlight-only patterns", "", "Mention as one line in *Highlighted, not drilled* when you see one.", ""]
@@ -48,14 +48,15 @@ def render(patterns, invariants):
     return "\n".join(out).rstrip() + "\n"
 
 
-def not_applicable(patterns):
-    """Patterns the project kind rules out, from their needs-ui / needs-backend tags."""
-    ids = {tag: ", ".join(r["id"] for r in patterns if tag in r.get("tags", []))
+def not_applicable(patterns, invariants):
+    """Patterns and invariants the project kind rules out, from their needs-ui / needs-backend tags."""
+    ids = {tag: ", ".join(r["id"] for r in [*patterns, *sorted(invariants, key=lambda r: r["id"])]
+                          if tag in r.get("tags", []))
            for tag in ("needs-ui", "needs-backend")}
     return ["## Not applicable by project kind", "",
             "Read `has_ui` and `has_backend` in the profile's `## Product traits`; a missing key counts as `true`. "
             "These patterns get N/A with the trait as evidence (`profile: has_ui false`), with no search:", "",
-            f"- `has_ui: false`: {ids['needs-ui']}. Web invariants about what the user sees do not apply either.",
+            f"- `has_ui: false`: {ids['needs-ui']}.",
             f"- `has_backend: false`: {ids['needs-backend']}.",
             "- Both `false` (a CLI, a library, a plugin marketplace): skip entity cards unless the repo has its own "
             "entities with a create, change and delete lifecycle.", ""]

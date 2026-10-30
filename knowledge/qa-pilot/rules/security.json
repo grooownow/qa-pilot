@@ -577,7 +577,7 @@
       "headers",
       "hsts",
       "transport",
-      "needs-backend"
+      "needs-web"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -607,7 +607,7 @@
       "csp",
       "xss",
       "clickjacking",
-      "needs-backend"
+      "needs-web"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -632,7 +632,7 @@
     "tags": [
       "headers",
       "misconfiguration",
-      "needs-backend"
+      "needs-web"
     ],
     "authority": "normative",
     "verification": "ok",

@@ -1862,7 +1862,7 @@
       "network",
       "latency",
       "also-mobile",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -3110,7 +3110,7 @@
       "persistence",
       "devtools",
       "needs-payments",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -3141,7 +3141,7 @@
       "session-storage",
       "cookies",
       "persistence",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3168,7 +3168,7 @@
       "cookies",
       "performance",
       "storage",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -3196,7 +3196,7 @@
       "cookies",
       "consent",
       "gdpr",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -3225,7 +3225,7 @@
       "devtools",
       "clear-site-data",
       "first-visit",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3256,7 +3256,7 @@
       "session",
       "security",
       "needs-auth",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -3287,7 +3287,7 @@
       "session-timeout",
       "auth",
       "needs-auth",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3316,7 +3316,7 @@
       "cart",
       "empty-state",
       "needs-payments",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3348,7 +3348,7 @@
       "auth",
       "needs-payments",
       "needs-auth",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "author-opinion",
@@ -3379,7 +3379,7 @@
       "local-storage",
       "theme",
       "dark-mode",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3407,7 +3407,7 @@
       "onboarding",
       "local-storage",
       "first-visit",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3434,7 +3434,7 @@
     "tags": [
       "drafts",
       "local-storage",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -3462,7 +3462,7 @@
       "ab-testing",
       "cookies",
       "local-storage",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3493,7 +3493,7 @@
       "geolocation",
       "error-handling",
       "see-QAC-MOB-029",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -3526,7 +3526,7 @@
       "error-state",
       "status-codes",
       "overrides",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -3555,7 +3555,7 @@
       "mocking",
       "early-testing",
       "shift-left",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3582,7 +3582,7 @@
       "proxy",
       "map-remote",
       "environments",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3613,7 +3613,7 @@
       "mocking",
       "overrides",
       "lists",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -3646,7 +3646,7 @@
       "layout",
       "ellipsis",
       "mocking",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -3677,7 +3677,7 @@
       "request-blocking",
       "spinner",
       "resilience",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -3709,7 +3709,7 @@
       "exponential-backoff",
       "polling",
       "resilience",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "fixed"
   },
@@ -3740,7 +3740,7 @@
       "ios",
       "android",
       "see-QAC-MOB-069",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -3771,7 +3771,7 @@
       "forms",
       "500",
       "mocking",
-      "needs-backend"
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "industry-practice",

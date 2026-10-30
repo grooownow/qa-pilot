@@ -55,7 +55,7 @@ mkdir -p "$SCRATCH"
    platform: [web]          # web | mobile-web | pwa | ios | android | desktop | game | cli | library
    api_style: []            # rest | graphql | soap | server-actions | rpc
    has_ui: true             # the repo has a user interface
-   has_backend: true        # the team owns a server, API or database here
+   has_backend: true        # the repo contains server code, an API or a DB schema; calling an external API does not count
    has_payments: false
    has_auth: false
    has_user_uploads: false
@@ -138,13 +138,13 @@ Both scripts accept a missing overrides file, so pass the flag every time.
 Check these once, not per spec, and record each as a finding or "ok". Look up the full rules by id in the catalog JSON:
 
 - **Measurable NFRs at all** (QAC-REQ-007).
-With `has_ui: false`, skip the accessibility, browsers-and-devices and offline items, and the Core Web Vitals half of the performance item. With `has_backend: false`, skip the response-time half. Say so in the report header.
-
 - **Accessibility target:** is a WCAG level stated (QAC-A11Y-002)? Do tests use axe or similar? Reflow at 320px (QAC-A11Y-044).
 - **Supported browsers and devices** (QAC-INST-037/041, QAC-MOB-003): stated? Check `playwright.config` projects, real mobile emulation (`isMobile` / `hasTouch`) and the minimum width.
 - **Performance budget** (QAC-PERF-001/029): Core Web Vitals or response-time targets.
 - **Offline behaviour and slow networks** (QAC-API-063, for pwa/mobile traits); request timeouts and time limits (QAC-A11Y-059).
 - **Release gating** (QAC-STRAT-059/062): CI triggers (does anything run on PR/merge?), the Definition of Done in CLAUDE.md, and whether a smoke or regression set blocks a deploy. If the project has a recorded decision about this, apply the decision rule in `severity-calibration.md`.
+
+With `has_ui: false`, skip the accessibility and browsers-and-devices items, the offline half of the offline item and the Core Web Vitals half of the performance item. With `has_backend: false`, skip the response-time half. Say so in the report header.
 
 **When to run it:**
 - Run it for whole-project and multi-cluster audits.

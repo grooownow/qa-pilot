@@ -49,8 +49,9 @@ a few representative tests) over crawling. For a large/unfamiliar repo, dispatch
 ONE Explore-type subagent with this checklist instead of scanning inline:
 
 - **Stack:** language(s), package manager, monorepo layout, frameworks.
-- **Project kind:** does this repo have a user interface (routes, pages, components, screens, a TUI does not
-  count)? Does it own a server, API or database? Is it a CLI or a library? This fills `platform`, `has_ui` and
+- **Project kind:** does this repo have a user interface (routes, pages, components, screens; a TUI does not
+  count)? Does it contain server code, an API or a database schema (calling an external API does not count)? Is
+  it a CLI or a library? This fills `platform`, `has_ui` and
   `has_backend` in `## Product traits`. A plugin marketplace, a skills repo or a docs site with no app has
   `has_ui: false` and `has_backend: false`.
 - **Test landscape:** frameworks present (Playwright? unit runner? component
@@ -140,8 +141,8 @@ Batch ALL questions in one message (see quality-rules rule 5). Typical gaps:
   this seeds priorities for `/qa-pilot:audit`.
 - **Product traits** (used by `qa-pilot:spec-audit` to drop rules that cannot
   apply): platforms (web / mobile-web / pwa / ios / android / desktop / game / cli / library),
-  whether it has a user interface (`has_ui`), whether the team owns a server, API or database
-  (`has_backend`), API style (rest / graphql / soap / server-actions / rpc), payments, accounts
+  whether it has a user interface (`has_ui`), whether this repo contains server code, an API or
+  a database schema (`has_backend`; calling an external API does not count), API style (rest / graphql / soap / server-actions / rpc), payments, accounts
   & login, user file uploads, more than one locale, RTL, regulation (gdpr /
   hipaa / pci / eaa). Pre-fill what Phase 1 detected; ask only to confirm.
 - Anything Phase 1 found contradictory (e.g. docs claim a convention the code

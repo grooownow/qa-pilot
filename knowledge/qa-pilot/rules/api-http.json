@@ -302,8 +302,7 @@
       "401",
       "403",
       "frontend",
-      "needs-auth",
-      "needs-backend"
+      "needs-auth"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -362,8 +361,7 @@
       "api",
       "retries",
       "idempotency",
-      "frontend",
-      "needs-backend"
+      "frontend"
     ],
     "authority": "normative",
     "verification": "ok",
@@ -513,8 +511,7 @@
       "compatibility",
       "tolerant-reader",
       "frontend",
-      "test-code",
-      "needs-backend"
+      "test-code"
     ],
     "authority": "industry-practice",
     "verification": "ok",

@@ -24,14 +24,14 @@ DEFAULT_TRAITS = {"platform": ["web"], "api_style": [], "has_ui": True, "has_bac
 
 MOBILE_PLATFORMS = {"ios", "android", "pwa", "mobile-web"}
 WEB_PLATFORMS = {"web", "mobile-web", "pwa"}
-INSTALLED_PLATFORMS = {"ios", "android", "desktop", "game", "cli"}
+INSTALLED_PLATFORMS = {"ios", "android", "desktop", "game", "cli", "pwa"}
 
 # needs-* tag -> predicate over traits
 NEEDS = {
     "needs-ui": lambda t: t["has_ui"],
     "needs-backend": lambda t: t["has_backend"],
     "needs-app": lambda t: t["has_ui"] or t["has_backend"],
-    "needs-web": lambda t: bool(WEB_PLATFORMS & set(t["platform"])),
+    "needs-web": lambda t: t["has_ui"] and bool(WEB_PLATFORMS & set(t["platform"])),
     "needs-installed": lambda t: bool(INSTALLED_PLATFORMS & set(t["platform"])),
     "needs-ios": lambda t: "ios" in t["platform"],
     "needs-android": lambda t: "android" in t["platform"],

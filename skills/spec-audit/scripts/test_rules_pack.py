@@ -81,13 +81,17 @@ class ProjectKindTest(unittest.TestCase):
         self.assertFalse(self.needs("## Product traits\nplatform: [cli]\n", "needs-web"))
         self.assertTrue(self.needs("## Product traits\nplatform: [cli]\n", "needs-installed"))
         self.assertFalse(self.needs("## Product traits\nplatform: [web]\n", "needs-installed"))
+        self.assertTrue(self.needs("## Product traits\nplatform: [pwa]\n", "needs-installed"))
+
+    def test_web_platform_with_no_ui_is_not_a_browser_target(self):
+        self.assertFalse(self.needs("## Product traits\nplatform: [web]\nhas_ui: false\n", "needs-web"))
 
 
 class RealCatalogTagsTest(unittest.TestCase):
     """The shipped knowledge base: the kind filter must really drop what it promises."""
     KB = Path(__file__).resolve().parents[3] / "knowledge"
     NO_UI = "## Product traits\nplatform: [cli]\napi_style: [rest]\nhas_ui: false\n"
-    NO_BACKEND = "## Product traits\nplatform: [web]\nhas_backend: false\n"
+    NO_BACKEND = "## Product traits\nplatform: [web]\napi_style: [rest]\nhas_backend: false\n"
     WEB = "## Product traits\nplatform: [web]\n"
 
     def titles(self, profile):
@@ -103,12 +107,16 @@ class RealCatalogTagsTest(unittest.TestCase):
 
     def test_no_backend_drops_server_topics(self):
         kept = self.titles(self.NO_BACKEND)
-        self.assertEqual([i for i in kept if i.startswith(("QAC-DB-", "QAP-API-"))], [])
+        self.assertEqual([i for i in kept if i.startswith("QAC-DB-")], [])
+        self.assertNotIn("QAP-API-001", kept)
+        self.assertIn("QAC-API-118", kept)  # a frontend still handles API errors
 
     def test_web_project_gets_no_native_only_rules(self):
         kept = self.titles(self.WEB)
         self.assertNotIn("QAC-INST-028", kept)  # uninstall
         self.assertIn("QAC-INST-037", kept)     # browser matrix
+        self.assertIn("QAC-INST-019", kept)     # an update keeps the session: web deploys too
+        self.assertIn("QAC-MOB-050", kept)      # meaning is not carried by colour alone
 
 
 class BuildTest(unittest.TestCase):

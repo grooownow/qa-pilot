@@ -572,7 +572,7 @@
       "installation",
       "migration",
       "also-mobile",
-      "needs-installed"
+      "needs-ui"
     ],
     "verification": "fixed",
     "authority": "industry-practice",
@@ -604,7 +604,7 @@
       "update",
       "data-integrity",
       "offline-content",
-      "needs-installed"
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",
@@ -635,7 +635,7 @@
       "update",
       "settings",
       "data-integrity",
-      "needs-installed"
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -787,7 +787,7 @@
       "update",
       "forward-compatibility",
       "versioning",
-      "needs-installed"
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "industry-practice",

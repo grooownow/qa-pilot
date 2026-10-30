@@ -1226,8 +1226,7 @@
       "ios",
       "dark-mode",
       "theming",
-      "needs-ui",
-      "needs-ios"
+      "needs-ui"
     ],
     "verification": "ok"
   },
@@ -1500,8 +1499,7 @@
       "grayscale",
       "wcag-1.4.1",
       "see-QAC-A11Y-036",
-      "needs-ui",
-      "needs-ios"
+      "needs-ui"
     ],
     "verification": "ok",
     "authority": "normative",
@@ -2249,8 +2247,7 @@
       "firebase",
       "appsflyer",
       "pluto",
-      "needs-ui",
-      "needs-native-mobile"
+      "needs-ui"
     ],
     "verification": "ok"
   },
